@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Download } from "lucide-react";
 
+// Updated: 2025-11-05 - New tagline
 export default function HomePage() {
   return (
     <section className="mx-auto max-w-5xl px-6 py-16">
