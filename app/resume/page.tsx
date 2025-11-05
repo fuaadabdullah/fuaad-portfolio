@@ -28,12 +28,22 @@ export default function ResumePage() {
           One page. Clean. Numbers-first. You can download a PDF or read the highlights below.
         </p>
         
-        <div className="mt-6 flex flex-col sm:flex-row gap-4 items-start">
-          <a href="/Fuaad_Abdullah_Resume.pdf" className="rounded-2xl bg-[#16a34a] px-5 py-3 text-black inline-block">Download PDF</a>
-        </div>
-        
-        {/* LinkedIn Badge - isolated to prevent style conflicts */}
-        <div className="mt-8">
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+          {/* Download PDF Section */}
+          <div className="flex flex-col gap-4">
+            <a 
+              href="/Fuaad_Abdullah_Resume.pdf" 
+              className="rounded-2xl bg-[#16a34a] px-6 py-4 text-black font-semibold inline-flex items-center justify-center gap-2 hover:bg-[#15803d] transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+              Download PDF
+            </a>
+            <p className="text-sm text-white/60">One-page resume with numbers-first highlights</p>
+          </div>
+          
+          {/* LinkedIn Badge Section */}
           <LinkedInBadge />
         </div>
         
