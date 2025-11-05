@@ -22,9 +22,9 @@ export interface Project {
 const projects: Project[] = [
   {
     slug: "rizzk-calculator",
-    title: "RIZZK Calculator",
+    title: "(⌐■_■) RIZZK Calculator 🚀",
     tagline: "Position sizing and risk/reward math with a responsive UI.",
-    description: `RIZZK Calculator is a production-grade risk management tool designed for day traders who need to make quick, accurate position sizing decisions. Built with Python and Streamlit, it provides real-time calculations for stop-loss, take-profit, and position size based on account risk parameters.
+    description: `(⌐■_■) RIZZK Calculator 🚀 is a production-grade risk management tool designed for day traders who need to make quick, accurate position sizing decisions. Built with Python and Streamlit, it provides real-time calculations for stop-loss, take-profit, and position size based on account risk parameters.
 
 The tool eliminates manual calculations and reduces human error in critical trading decisions. It features an intuitive interface with interactive charts powered by Plotly, making complex risk/reward scenarios easy to visualize and understand.`,
     tech: ["Python", "Streamlit", "Plotly", "Docker", "Azure"],

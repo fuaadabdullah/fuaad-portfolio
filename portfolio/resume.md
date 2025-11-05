@@ -53,7 +53,9 @@ North Springs Charter School — High School Diploma (GPA: 3.7)
 
 ## Projects
 
-**(⌐■_■) RIZZK Risk Calculator** — *Python, Streamlit, Docker, Azure*
+### Featured Project
+
+**(⌐■_■) RIZZK Calculator 🚀** — *Python, Streamlit, Docker, Azure*
 
 - Production-grade web app for day traders that calculates position size, risk $, risk %, and R multiples from account size, entry, and stop-loss levels. Supports both % of account and fixed $ risk modes.
 - Features live risk preview, responsive Plotly charts, shareable permalink URLs, unit-tested calculation engine, and mobile-friendly responsive design.

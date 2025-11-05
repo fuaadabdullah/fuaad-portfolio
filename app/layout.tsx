@@ -13,7 +13,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {
   title: "Fuaad Abdullah — Builder, Trader, Student",
-  description: "Finance student at GSU building RIZZK, a risk calculator for day traders. I ship focused, numbers-first web apps and offer consulting for student projects.",
+  description: "Finance student at GSU building (⌐■_■) RIZZK 🚀, a risk calculator for day traders. I ship focused, numbers-first web apps and offer consulting for student projects.",
   metadataBase: new URL(siteUrl),
   openGraph: {
     title: "Fuaad Abdullah — Portfolio",
