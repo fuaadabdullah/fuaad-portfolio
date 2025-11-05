@@ -2,7 +2,8 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://YOURDOMAIN.com"; // TODO: replace when domain is set
+  // Prefer env-configured site URL; fall back to localhost in dev
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   return [
     { url: `${base}/`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${base}/portfolio`, changeFrequency: "weekly" },
