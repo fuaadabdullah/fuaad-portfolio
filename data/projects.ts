@@ -61,6 +61,43 @@ The tool eliminates manual calculations and reduces human error in critical trad
       "Azure App Service provides excellent Python support with minimal configuration",
       "User feedback from real traders led to 3 major UX improvements post-launch"
     ]
+  },
+  {
+    slug: "personal-portfolio-site",
+    title: "Personal Portfolio & Services Site",
+    tagline: "Production-ready portfolio built with accessibility, performance, and SEO in mind.",
+    description: `A modern, performant portfolio website showcasing projects, services, and professional experience. Built with Next.js 14+ using the App Router for optimal performance and SEO. The site features a fully integrated blog system, dynamic service listings, and a downloadable PDF resume.
+
+Designed with a mobile-first approach, the site achieves excellent Lighthouse scores across all metrics including accessibility, performance, and SEO. Deployed on Vercel with automatic CI/CD integration for seamless updates.`,
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "MDX", "Vercel"],
+    links: {
+      live: "https://heyimfuaad.me",
+      source: "https://github.com/fuaadabdullah/fuaad-portfolio"
+    },
+    timeline: "2 weeks",
+    role: "Solo Developer & Designer",
+    features: [
+      "Server-side rendering with Next.js App Router for optimal performance",
+      "MDX-powered blog with syntax highlighting and rich content support",
+      "Dynamic service listings with structured data for SEO",
+      "Responsive design with Tailwind CSS utility-first approach",
+      "Accessibility-first implementation with ARIA labels and semantic HTML",
+      "Custom OG images and metadata for social sharing",
+      "Contact form integration with Formspree",
+      "Google Search Console verified with sitemap and robots.txt"
+    ],
+    challenges: [
+      "Implementing proper SEO with Next.js metadata API and JSON-LD structured data",
+      "Optimizing image loading and responsive layouts for various screen sizes",
+      "Balancing design aesthetics with accessibility requirements",
+      "Setting up automated deployment pipeline with git-based workflow"
+    ],
+    learnings: [
+      "Next.js 14 App Router provides excellent DX with built-in SEO features",
+      "Tailwind CSS scales well for rapid prototyping and production polish",
+      "Accessibility testing early in development prevents costly refactors",
+      "Vercel's preview deployments streamline the review and QA process"
+    ]
   }
 ];
 
