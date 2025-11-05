@@ -1,6 +1,26 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-:root { color-scheme: dark; }
-body { @apply bg-ink text-white antialiased; }
-a { @apply underline-offset-4 hover:underline; }
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0b0f13;
+  --color-coal: #0f172a;
+  --color-accent: #16a34a;
+}
+
+:root { 
+  color-scheme: dark; 
+}
+
+body { 
+  background-color: var(--color-ink);
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { 
+  text-underline-offset: 4px;
+}
+
+a:hover { 
+  text-decoration: underline;
+}

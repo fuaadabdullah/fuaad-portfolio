@@ -12,7 +12,7 @@ export default function ResumePage() {
         One page. Clean. Numbers-first. You can download a PDF or read the highlights below.
       </p>
       <div className="mt-6">
-        <a href="/Fuaad_Abdullah_Resume.pdf" className="rounded-2xl bg-accent px-5 py-3 text-black inline-block">Download PDF</a>
+        <a href="/Fuaad_Abdullah_Resume.pdf" className="rounded-2xl bg-[#16a34a] px-5 py-3 text-black inline-block">Download PDF</a>
       </div>
       <div className="mt-10 space-y-4 text-white/90">
         <h2 className="text-xl font-semibold">Focus</h2>

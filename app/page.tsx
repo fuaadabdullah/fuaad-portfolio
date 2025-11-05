@@ -10,7 +10,7 @@ export default function HomePage() {
         I’m Fuaad Abdullah — finance major, day-trader in training, and builder of clean, numbers-first tools.
       </p>
       <div className="mt-8 flex gap-3 flex-wrap">
-        <Link href="/portfolio" className="inline-flex items-center gap-2 rounded-2xl bg-accent px-5 py-3 font-medium text-black">
+        <Link href="/portfolio" className="inline-flex items-center gap-2 rounded-2xl bg-[#16a34a] px-5 py-3 font-medium text-black">
           See portfolio <ArrowRight size={18} />
         </Link>
         <Link href="/resume" className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3">
@@ -32,7 +32,7 @@ export default function HomePage() {
         <div className="rounded-2xl border border-white/10 p-6">
           <h3 className="text-xl font-semibold">Consulting</h3>
           <p className="text-white/80 mt-2">Frontend polish, Streamlit/Next.js builds, and DevOps basics for student projects and early MVPs.</p>
-          <a className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-black" href="/services">View services</a>
+          <a className="mt-4 inline-block rounded-lg bg-[#16a34a] px-4 py-2 text-black" href="/services">View services</a>
         </div>
       </div>
     </section>
