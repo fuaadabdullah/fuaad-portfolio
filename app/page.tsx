@@ -25,7 +25,7 @@ export default function HomePage() {
           <h2 className="text-xl font-semibold">RIZZK Calculator</h2>
           <p className="text-white/80 mt-2">Production-grade risk management web app for day traders.</p>
           <div className="mt-4 flex gap-3">
-            <a className="rounded-lg bg-white/10 px-4 py-2 hover:bg-white/15 transition-colors" href="https://rizzkcalcdemo.azurewebsites.net" target="_blank" rel="noopener noreferrer">
+            <a className="rounded-lg bg-white/10 px-4 py-2 hover:bg-white/15 transition-colors" href="https://rizzk-calculator-demo-eus2-f1.azurewebsites.net" target="_blank" rel="noopener noreferrer">
               Live demo
             </a>
             <a className="rounded-lg bg-white/10 px-4 py-2 hover:bg-white/15 transition-colors" href="https://github.com/fuaadabdullah/rr-calculator" target="_blank" rel="noopener noreferrer">

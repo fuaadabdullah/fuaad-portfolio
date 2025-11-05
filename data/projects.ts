@@ -5,7 +5,7 @@ const projects = [
     tagline: "Position sizing and risk/reward math with a responsive UI.",
     tech: ["Python", "Streamlit", "Plotly", "Docker", "Azure"],
     links: {
-      live: "https://rizzkcalcdemo.azurewebsites.net",
+      live: "https://rizzk-calculator-demo-eus2-f1.azurewebsites.net",
       source: "https://github.com/fuaadabdullah/rr-calculator"
     }
   }
