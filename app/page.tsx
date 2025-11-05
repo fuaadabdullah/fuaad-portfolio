@@ -22,7 +22,7 @@ export default function HomePage() {
         {/* Hero content */}
         <div className="flex-1">
           <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">
-            Building fintech tools and automations, ts i be on.
+            dev shipping risk-first tools for traders, founders, and lean teams.
           </h1>
           <p className="mt-4 text-lg text-white/80 max-w-2xl">
             Finance Major, Freelance Developer and Ameteur Daytrader.
@@ -81,7 +81,7 @@ export default function HomePage() {
       <div className="mt-16 grid md:grid-cols-2 gap-6">
         <article className="rounded-2xl border border-white/10 p-6">
           <h2 className="text-xl font-semibold">RIZZK Calculator</h2>
-          <p className="text-white/80 mt-2">Production-grade risk management web app for day traders.</p>
+          <p className="text-white/80 mt-2">Production-grade risk calculator that forces day traders to respect their risk, not their ego.</p>
           <div className="mt-4 flex gap-3">
             <a className="rounded-lg bg-white/10 px-4 py-2 hover:bg-white/15 transition-colors" href="https://rizzk-calculator-demo-eus2-f1.azurewebsites.net" target="_blank" rel="noopener noreferrer">
               Live demo
@@ -93,7 +93,7 @@ export default function HomePage() {
         </article>
         <article className="rounded-2xl border border-white/10 p-6">
           <h2 className="text-xl font-semibold">Consulting</h2>
-          <p className="text-white/80 mt-2">Frontend polish, Streamlit/Next.js builds, and DevOps basics for student projects and early MVPs.</p>
+          <p className="text-white/80 mt-2">Frontend polish, Streamlit/Next.js builds, and deployment-ready MVPs.</p>
           <a className="mt-4 inline-block rounded-lg bg-[#16a34a] px-4 py-2 text-black hover:bg-[#16a34a]/90 transition-colors" href="/services">
             View services
           </a>
