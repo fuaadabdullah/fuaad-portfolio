@@ -32,6 +32,13 @@ The tool eliminates manual calculations and reduces human error in critical trad
       live: "https://rizzk-calculator-demo-eus2-f1.azurewebsites.net",
       source: "https://github.com/fuaadabdullah/rr-calculator"
     },
+    image: {
+      src: "/rizzk-desktop-screenshot.png",
+      width: 1920,
+      height: 1080,
+      alt: "RIZZK Calculator desktop interface showing position sizing calculator with interactive charts",
+      priority: true
+    },
     timeline: "4 weeks",
     role: "Solo Developer",
     features: [

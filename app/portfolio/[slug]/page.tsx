@@ -189,6 +189,27 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </section>
       )}
 
+      {/* Mobile view (RIZZK only) */}
+      {project.slug === 'rizzk-calculator' && (
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-green-500">Mobile Responsive</h2>
+          <p className="text-white/80 mb-6">
+            Fully optimized for mobile trading. Make position sizing decisions on the go with the same powerful calculations.
+          </p>
+          <div className="flex justify-center">
+            <div className="max-w-sm rounded-xl overflow-hidden border border-white/10 shadow-2xl">
+              <Image
+                src="/rizzk-mobile-screenshot.png"
+                alt="RIZZK Calculator mobile interface"
+                width={375}
+                height={812}
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Challenges */}
       {project.challenges && project.challenges.length > 0 && (
         <section className="mb-12">
