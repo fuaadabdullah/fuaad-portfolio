@@ -24,8 +24,8 @@ export default function ServicesPage() {
       </div>
 
       {/* Contact Section */}
-      <div className="mt-16 border-t border-white/10 pt-16">
-        <h2 className="text-2xl md:text-4xl font-semibold tracking-tight">Get in Touch</h2>
+      <section className="mt-16 border-t border-white/10 pt-16" aria-labelledby="contact-heading">
+        <h2 id="contact-heading" className="text-2xl md:text-4xl font-semibold tracking-tight">Get in Touch</h2>
         <p className="text-white/80 mt-2 mb-6">
           Interested in working together? Drop me a message and I'll get back to you soon.
         </p>
@@ -33,28 +33,31 @@ export default function ServicesPage() {
           action="https://formspree.io/f/xzzjjqoj"
           method="POST"
           className="max-w-xl space-y-4"
+          aria-label="Contact form"
         >
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-white/90 mb-2">
-              Email
+              Email <span className="text-red-400" aria-label="required">*</span>
             </label>
             <input
               id="email"
               name="email"
               type="email"
               required
+              aria-required="true"
               className="w-full rounded-lg bg-white/10 border border-white/20 p-3 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[#16a34a] focus:border-transparent"
               placeholder="you@example.com"
             />
           </div>
           <div>
             <label htmlFor="message" className="block text-sm font-medium text-white/90 mb-2">
-              Message
+              Message <span className="text-red-400" aria-label="required">*</span>
             </label>
             <textarea
               id="message"
               name="message"
               required
+              aria-required="true"
               rows={5}
               className="w-full rounded-lg bg-white/10 border border-white/20 p-3 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[#16a34a] focus:border-transparent resize-none"
               placeholder="What do you need help with?"
@@ -62,12 +65,12 @@ export default function ServicesPage() {
           </div>
           <button
             type="submit"
-            className="rounded-lg bg-[#16a34a] text-black px-6 py-3 font-medium hover:bg-[#16a34a]/90 transition-colors"
+            className="rounded-lg bg-[#16a34a] text-black px-6 py-3 font-medium hover:bg-[#16a34a]/90 transition-colors focus:outline-none focus:ring-2 focus:ring-[#16a34a] focus:ring-offset-2 focus:ring-offset-[#0b0f13]"
           >
             Send Message
           </button>
         </form>
-      </div>
+      </section>
     </section>
   );
 }

@@ -33,11 +33,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.className} min-h-screen flex flex-col`}>
+    <html lang="en">
+      <body className="antialiased">
+        <a href="#main-content" className="skip-to-main">
+          Skip to main content
+        </a>
         <Navbar />
-        <JsonLd data={personJsonLd} />
-        <main className="flex-1">{children}</main>
+        <main id="main-content">
+          {children}
+        </main>
         <Footer />
         <Analytics />
       </body>

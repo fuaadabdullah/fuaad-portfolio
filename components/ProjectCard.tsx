@@ -25,26 +25,26 @@ export default function ProjectCard({ project }: { project: Project }){
           />
         </div>
       )}
-      <h3 className="text-xl font-semibold">{project.title}</h3>
+      <h2 className="text-xl font-semibold">{project.title}</h2>
       <p className="text-white/80 mt-2">{project.tagline}</p>
-      <div className="mt-3 flex flex-wrap gap-2 text-xs">
+      <div className="mt-3 flex flex-wrap gap-2 text-xs" aria-label="Technologies used">
         {project.tech.map((t) => (
           <Badge key={t}>{t}</Badge>
         ))}
       </div>
       <div className="mt-4 flex gap-3">
         {project.links?.live && (
-          <a className="rounded-lg bg-white/10 px-3 py-1.5" href={project.links.live} target="_blank" rel="noreferrer">
-            Live
+          <a className="rounded-lg bg-white/10 px-3 py-1.5 hover:bg-white/15 transition-colors" href={project.links.live} target="_blank" rel="noopener noreferrer">
+            Live demo
           </a>
         )}
         {project.links?.source && (
-          <a className="rounded-lg bg-white/10 px-3 py-1.5" href={project.links.source} target="_blank" rel="noreferrer">
-            Source
+          <a className="rounded-lg bg-white/10 px-3 py-1.5 hover:bg-white/15 transition-colors" href={project.links.source} target="_blank" rel="noopener noreferrer">
+            Source code
           </a>
         )}
-        <Link className="rounded-lg bg-white/10 px-3 py-1.5" href={`/portfolio/${project.slug}`}>
-          Details
+        <Link className="rounded-lg bg-white/10 px-3 py-1.5 hover:bg-white/15 transition-colors" href={`/portfolio/${project.slug}`}>
+          View details
         </Link>
       </div>
     </Card>
