@@ -4,17 +4,17 @@ import JsonLd from "@/components/JsonLd";
 
 export const metadata = {
   title: "Services — Fuaad Abdullah",
-  description: "Student-friendly consulting packages: UX/UI polish, RIZZK Calculator deployment, and MVP bootstrap with Next.js + FastAPI. Clear deliverables, two-week turnarounds.",
+  description: "Student-friendly consulting packages: UX/UI polish, Next.js website setup, and MVP bootstrap with Next.js + FastAPI. Clear deliverables, two-week turnarounds.",
   openGraph: {
     title: "Services — Fuaad Abdullah",
-    description: "Lightweight consulting for student projects and early MVPs. UX polish, risk calculator setup, and full-stack development with clear deliverables.",
+    description: "Lightweight consulting for student projects and early MVPs. UX polish, website deployment, and full-stack development with clear deliverables.",
     images: ["/og-default.png"]
   }
 };
 
 const services = [
   { slug: "ux-polish", title: "UX/UI Polish Sprint", price: "$300", description: "One-week design pass: spacing, color, and accessibility tweaks. Measurable before/after diff + checklist." },
-  { slug: "rizzk-setup", title: "Risk-Calculator Setup", price: "$500", description: "Deploy a white-labeled RIZZK instance on Azure with your logo and colors. One-week turnaround." },
+  { slug: "website-setup", title: "Website Launch Package", price: "$500", description: "Production-ready Next.js site with SEO, analytics, and Vercel deployment. Custom design, responsive, and fast. One-week delivery." },
   { slug: "mvp-bootstrap", title: "MVP Bootstrap (Next.js + FastAPI)", price: "$1,500", description: "Two-week sprint: Auth, CRUD, basic charts, and CI. Includes docs and a handover call." }
 ];
 
