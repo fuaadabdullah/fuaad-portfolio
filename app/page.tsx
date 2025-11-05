@@ -22,7 +22,7 @@ export default function HomePage() {
         {/* Hero content */}
         <div className="flex-1">
           <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">
-            dev shipping risk-first tools for traders, founders, and lean teams.
+            Shipping tools for traders, founders, and lean teams.
           </h1>
           <p className="mt-4 text-lg text-white/80 max-w-2xl">
             Finance Major, Freelance Developer and Ameteur Daytrader.
