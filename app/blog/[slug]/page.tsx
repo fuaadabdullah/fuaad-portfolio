@@ -5,6 +5,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { useMDXComponents } from "@/mdx-components";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
+import { BlogCTA } from "@/components/BlogCTA";
 
 const categoryColors = {
   essay: "bg-purple-500/20 text-purple-300 border-purple-500/30",
@@ -101,6 +102,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           }}
         />
       </div>
+
+      {/* Strategic CTA based on post content */}
+      <BlogCTA variant="services" />
 
       <footer className="mt-12 pt-8 border-t border-white/10">
         <Link
