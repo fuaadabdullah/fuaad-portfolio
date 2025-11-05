@@ -25,7 +25,7 @@ export default function HomePage() {
             Building fintech tools and automations, ts i be on.
           </h1>
           <p className="mt-4 text-lg text-white/80 max-w-2xl">
-            Finance at GSU; building RIZZK, a risk calculator for day traders; shipping focused, numbers-first web apps.
+            Finance Major, Freelance Developer and Ameteur Daytrader.
           </p>
           
           {/* Social links */}
