@@ -1,6 +1,6 @@
 # Fuaad Abdullah — Resume
 
-Stonecrest, GA • Email: [fuaadabdullah@gmail.com](mailto:fuaadabdullah@gmail.com) • Phone: 4044946262 • Portfolio: [your portfolio URL]
+Stonecrest, GA • Email: [fuaadabdullah@gmail.com](mailto:fuaadabdullah@gmail.com) • Phone: (404) 494-6262 • Portfolio: [heyimfuaad.me](https://heyimfuaad.me)
 
 ## Professional Summary
 

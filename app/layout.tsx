@@ -20,12 +20,6 @@ export const metadata: Metadata = {
     description: "Finance student building disciplined tools for traders and students. Check out my projects, resume, and consulting services.",
     siteName: "Fuaad Abdullah",
     url: siteUrl,
-    images: [{ 
-      url: "/og-default.png",
-      width: 1200,
-      height: 630,
-      alt: "Fuaad Abdullah - Building disciplined tools for traders and students"
-    }],
     type: "website",
     locale: "en_US"
   },
@@ -33,10 +27,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Fuaad Abdullah — Portfolio",
     description: "Finance student building disciplined tools for traders and students. Check out my projects, resume, and consulting services.",
-    images: [{
-      url: "/og-default.png",
-      alt: "Fuaad Abdullah - Building disciplined tools for traders and students"
-    }],
     creator: "@fuaadabdullah"
   }
 };
