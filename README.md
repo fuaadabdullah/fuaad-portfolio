@@ -44,6 +44,28 @@ bash ../tools/portfolio_env.sh dev
 See `ForgeMonorepo/GoblinOS/goblins.yaml` for full registry.
 
 ## Deploy
-- Vercel: zero-config for Next.js.
-- Or build a Docker image and deploy to Azure Web Apps.
+
+**Quick Deployment to Vercel:**
+
+```bash
+# 1. Test build locally
+./deploy.sh
+
+# 2. Push to GitHub
+git push origin main
+
+# 3. Deploy on Vercel
+# → Go to https://vercel.com/new
+# → Import: fuaadabdullah/fuaad-portfolio
+# → Click 'Deploy'
+```
+
+**📖 Full deployment guide:** See [DEPLOYMENT.md](./DEPLOYMENT.md) for:
+- Custom domain setup
+- Environment variables configuration
+- Analytics setup
+- Google Search Console integration
+- Formspree contact form setup
+
+**Alternative:** Build a Docker image and deploy to Azure Web Apps.
 
