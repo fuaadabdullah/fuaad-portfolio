@@ -21,7 +21,7 @@ export default function HomePage() {
         {/* Hero content */}
         <div className="flex-1">
           <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">
-            Building disciplined tools for traders and students.
+            Building fintech tools and automations, ts i be pm
           </h1>
           <p className="mt-4 text-lg text-white/80 max-w-2xl">
             Finance at GSU; building RIZZK, a risk calculator for day traders; shipping focused, numbers-first web apps.
