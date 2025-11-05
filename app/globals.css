@@ -49,6 +49,9 @@ a:hover {
   top: 1rem;
 }
 
+/* Code highlighting (GitHub Dark theme) */
+@import "highlight.js/styles/github-dark.css";
+
 /* Accessibility: Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,

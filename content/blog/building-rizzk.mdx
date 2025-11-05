@@ -1,0 +1,88 @@
+---
+title: "Building RIZZK: A Disciplined Approach to Risk Management"
+date: "2025-11-01"
+excerpt: "Why I built a risk calculator for day traders, the lessons learned from managing 500+ users, and what's next for the platform."
+category: "essay"
+tags: ["RIZZK", "trading", "risk-management", "product-thinking"]
+---
+
+## The Problem
+
+Most day traders lose money. Not because they can't read charts or spot patterns, but because they don't manage risk properly.
+
+I saw this firsthand when I started trading in college. Smart people making emotional decisions. Overtrading. Overleveraging. Blowing up accounts.
+
+The tools out there were either:
+- **Too complex**: Enterprise-grade platforms with 100 features traders don't need
+- **Too simple**: Basic calculators that don't account for real trading scenarios
+- **Too expensive**: $50+/month subscriptions for students and beginners
+
+## The Solution: RIZZK Calculator
+
+I built [RIZZK](https://rizzk-calculator-demo-eus2-f1.azurewebsites.net) as a focused, free tool that answers one question:
+
+> **"How much can I risk on this trade?"**
+
+Key features:
+- Account size and risk percentage inputs
+- Position sizing based on stop-loss distance
+- Break-even and profit target calculations
+- Mobile-first design (traders check on their phones)
+- **Zero cost, zero friction**
+
+## What I Learned
+
+### 1. Distribution > Features
+
+The first version had fancy charts and historical tracking. Usage was low.
+
+I stripped it down to the core calculator and added a **one-click share** feature. Usage exploded.
+
+**Lesson**: People don't want more features. They want solutions to their immediate problem.
+
+### 2. Free ≠ Low Quality
+
+Charging $5/month would've made me $2,500/month (500 users). But it would've kept 90% of users away.
+
+Going free meant:
+- **More feedback** from real users
+- **Portfolio piece** that demonstrates my skills
+- **Proof of execution** for future projects
+
+**Lesson**: Sometimes the value isn't the revenue—it's the distribution and credibility.
+
+### 3. Tech Stack Matters (For Learning)
+
+I built RIZZK with:
+- **Next.js** (React framework)
+- **FastAPI** (Python backend)
+- **Azure** (hosting and CI/CD)
+
+This forced me to learn full-stack development, DevOps, and cloud infrastructure—skills I use daily now.
+
+**Lesson**: Side projects are the best classroom.
+
+## What's Next
+
+RIZZK is stable and serving 500+ users. Here's what's coming:
+
+1. **Multi-asset support** (options, futures, crypto)
+2. **Trade journal integration** (track actual vs. planned risk)
+3. **Mobile app** (PWA first, native later)
+
+But the bigger goal is proving a model:
+
+> **Build focused, free tools for niche audiences. Own the problem, not the price.**
+
+## Key Takeaways
+
+- Solve one problem exceptionally well
+- Free tools can be high-quality portfolio pieces
+- Distribution beats features every time
+- Side projects are learning accelerators
+
+If you're building something similar or want to discuss product strategy, [hit me up](/services).
+
+---
+
+**Tags**: #RIZZK #trading #risk-management #product-thinking
