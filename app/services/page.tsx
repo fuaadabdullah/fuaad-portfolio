@@ -13,9 +13,9 @@ export const metadata = {
 };
 
 const services = [
-  { slug: "ux-polish", title: "UX/UI Polish Sprint", price: "$300", description: "Design pass, spacing, color, and accessibility tweaks. Before/after diff + checklist." },
-  { slug: "rizzk-setup", title: "Risk-Calculator Setup", price: "$500", description: "Deploy a white-labeled RIZZK instance on Azure with your logo and colors." },
-  { slug: "mvp-bootstrap", title: "MVP Bootstrap (Next.js + FastAPI)", price: "$1,500", description: "Auth, CRUD, basic charts, and CI in two weeks. Includes docs and a handover call." }
+  { slug: "ux-polish", title: "UX/UI Polish Sprint", price: "$300", description: "One-week design pass: spacing, color, and accessibility tweaks. Measurable before/after diff + checklist." },
+  { slug: "rizzk-setup", title: "Risk-Calculator Setup", price: "$500", description: "Deploy a white-labeled RIZZK instance on Azure with your logo and colors. One-week turnaround." },
+  { slug: "mvp-bootstrap", title: "MVP Bootstrap (Next.js + FastAPI)", price: "$1,500", description: "Two-week sprint: Auth, CRUD, basic charts, and CI. Includes docs and a handover call." }
 ];
 
 export default function ServicesPage() {
