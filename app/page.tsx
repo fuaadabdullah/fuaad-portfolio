@@ -9,14 +9,15 @@ export default function HomePage() {
       <div className="flex flex-col md:flex-row gap-8 items-start">
         {/* Headshot */}
         <div className="shrink-0">
-          <Image
-            src="/fuaad-headshot.png"
-            alt="Fuaad Abdullah"
-            width={180}
-            height={180}
-            priority
-            className="rounded-2xl border-2 border-white/20 shadow-xl"
-          />
+          <div className="relative w-[180px] h-[180px] rounded-2xl border-2 border-white/20 shadow-xl overflow-hidden">
+            <Image
+              src="/fuaad-headshot.png"
+              alt="Fuaad Abdullah"
+              fill
+              priority
+              className="object-cover"
+            />
+          </div>
         </div>
         
         {/* Hero content */}
