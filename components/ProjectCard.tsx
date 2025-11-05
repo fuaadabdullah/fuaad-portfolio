@@ -2,14 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import Card from "./Card";
 import Badge from "./Badge";
-type Project = {
-  slug: string;
-  title: string;
-  tagline: string;
-  tech: string[];
-  links?: { live?: string; source?: string };
-  image?: { src: string; width: number; height: number; alt: string; priority?: boolean };
-};
+import { Project } from "@/data/projects";
+
 export default function ProjectCard({ project }: { project: Project }){
   return (
     <Card>
