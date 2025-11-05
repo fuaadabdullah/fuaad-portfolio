@@ -15,7 +15,7 @@ export const metadata = {
 const services = [
   { slug: "ux-polish", title: "UX/UI Polish Sprint", price: "$300", description: "One-week design pass on your existing app: spacing, colors, typography, and basic accessibility. Before/after screenshots + a simple checklist." },
   { slug: "portfolio-sites", title: "Portfolio & Personal Brand Sites", price: "$400+", description: "Clean, fast portfolio sites for students, traders, and early-career devs. Custom layout, mobile-first, contact form wired, and basic SEO setup." },
-  { slug: "trading-tools", title: "Risk & Trading Tools", price: "$199+", description: "Calculators, trade journals, or mini dashboards similar to RIZZK: numbers-first tools that enforce discipline instead of vibes." },
+  { slug: "trading-tools", title: "Mini Tools", price: "$199+", description: "Calculators, trade journals, or mini dashboards similar to RIZZK: numbers-first tools that enforce discipline instead of vibes." },
   { slug: "mvp-bootstrap", title: "MVP Bootstrap (Next.js + FastAPI)", price: "$1,500+", description: "Two-week sprint: auth, CRUD, basic charts, deployment, and a handover call so you're not lost once I'm gone." }
 ];
 
