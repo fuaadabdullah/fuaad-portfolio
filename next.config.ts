@@ -16,6 +16,28 @@ const nextConfig: NextConfig = {
     //   { protocol: "https", hostname: "*.azurewebsites.net" },
     // ],
   },
+  // CSP headers for LinkedIn badge integration
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://platform.linkedin.com https://www.linkedin.com https://va.vercel-scripts.com",
+              "frame-src https://www.linkedin.com",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data: https: blob:",
+              "font-src 'self' data:",
+              "connect-src 'self' https://vitals.vercel-insights.com",
+            ].join("; "),
+          },
+        ],
+      },
+    ];
+  },
   // Silence the multiple lockfiles warning
   // @ts-ignore - turbopack.root is valid but not in types yet
   turbopack: {
