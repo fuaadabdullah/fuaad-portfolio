@@ -1,4 +1,5 @@
 // app/sitemap.ts
+// Dynamically generates sitemap with all pages and blog posts
 import type { MetadataRoute } from "next";
 import { getAllSlugs } from "@/lib/blog";
 
