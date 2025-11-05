@@ -4,18 +4,19 @@ import JsonLd from "@/components/JsonLd";
 
 export const metadata = {
   title: "Let's Work — Fuaad Abdullah",
-  description: "Student-friendly consulting packages: UX/UI polish, Next.js website setup, and MVP bootstrap with Next.js + FastAPI. Clear deliverables, two-week turnarounds.",
+  description: "Founder-friendly packages for traders, students, and small teams: UX/UI polish, portfolio sites, trading tools, and MVP bootstrap. Clear scope. Clear price. Clear handoff.",
   openGraph: {
     title: "Let's Work — Fuaad Abdullah",
-    description: "Lightweight consulting for student projects and early MVPs. UX polish, website deployment, and full-stack development with clear deliverables.",
+    description: "Focused packages for traders, students, and small teams. UX polish, portfolio sites, trading calculators, and full-stack MVP development.",
     images: ["/og-default.png"]
   }
 };
 
 const services = [
-  { slug: "ux-polish", title: "UX/UI Polish Sprint", price: "$300", description: "One-week design pass: spacing, color, and accessibility tweaks. Measurable before/after diff + checklist." },
-  { slug: "website-setup", title: "Website Launch Package", price: "$500", description: "Production-ready Next.js site with SEO, analytics, and Vercel deployment. Custom design, responsive, and fast. One-week delivery." },
-  { slug: "mvp-bootstrap", title: "MVP Bootstrap (Next.js + FastAPI)", price: "$1,500", description: "Two-week sprint: Auth, CRUD, basic charts, and CI. Includes docs and a handover call." }
+  { slug: "ux-polish", title: "UX/UI Polish Sprint", price: "$300", description: "One-week design pass on your existing app: spacing, colors, typography, and basic accessibility. Before/after screenshots + a simple checklist." },
+  { slug: "portfolio-sites", title: "Portfolio & Personal Brand Sites", price: "$400+", description: "Clean, fast portfolio sites for students, traders, and early-career devs. Custom layout, mobile-first, contact form wired, and basic SEO setup." },
+  { slug: "trading-tools", title: "Risk & Trading Tools", price: "$199+", description: "Calculators, trade journals, or mini dashboards similar to RIZZK: numbers-first tools that enforce discipline instead of vibes." },
+  { slug: "mvp-bootstrap", title: "MVP Bootstrap (Next.js + FastAPI)", price: "$1,500+", description: "Two-week sprint: auth, CRUD, basic charts, deployment, and a handover call so you're not lost once I'm gone." }
 ];
 
 export default function ServicesPage() {
@@ -23,8 +24,8 @@ export default function ServicesPage() {
     <section className="mx-auto max-w-5xl px-6 py-16">
       <JsonLd data={servicesJsonLd(services)} />
       <h1 className="text-3xl md:text-5xl font-semibold tracking-tight">Let's Work</h1>
-      <p className="text-white/80 mt-3">Focused, student-friendly packages. Clear deliverables.</p>
-      <div className="mt-8 grid gap-6 md:grid-cols-3">
+      <p className="text-white/80 mt-3">Focused, founder-friendly packages for traders, students, and small teams. Clear scope. Clear price. Clear handoff.</p>
+      <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {services.map(s => <ServiceCard key={s.slug} service={s} />)}
       </div>
 
