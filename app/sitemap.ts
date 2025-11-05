@@ -3,6 +3,9 @@
 import type { MetadataRoute } from "next";
 import { getAllSlugs } from "@/lib/blog";
 
+export const dynamic = "force-static";
+export const revalidate = 3600; // Revalidate every hour
+
 export default function sitemap(): MetadataRoute.Sitemap {
   // Prefer env-configured site URL; fall back to localhost in dev
   const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
