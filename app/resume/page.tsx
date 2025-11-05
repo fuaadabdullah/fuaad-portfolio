@@ -50,8 +50,9 @@ export default function ResumePage() {
         <div className="mt-10 space-y-4 text-white/90">
           <h2 className="text-xl font-semibold">Focus</h2>
           <ul className="list-disc pl-6">
-            <li>Finance major (GSU) with an obsession for trading discipline and automation</li>
-            <li>Building RIZZK: a risk management app for day traders</li>
+          <li>Building GoblinOS, an AI-powered development automation platform for managing workflows and deployments</li>
+          <li>Building Forge™, a monorepo infrastructure with integrated DevOps tooling and secret management</li>
+          <li>Day trading with a focus on discipline, risk management, and systematic execution</li>
           </ul>
           <h2 className="text-xl font-semibold mt-6">Skills</h2>
           <ul className="list-disc pl-6">
