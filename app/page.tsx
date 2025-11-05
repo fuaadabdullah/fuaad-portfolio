@@ -27,7 +27,7 @@ export default function HomePage() {
             Shipping tools for traders, founders, and lean teams.
           </h1>
           <p className="mt-4 text-lg text-white/80 max-w-2xl">
-            Finance Major, Freelance Developer and Ameteur Daytrader.
+            Finance major at GSU · freelance dev · amateur day trader shipping fintech tools.
           </p>
           
           <div className="mt-8 flex gap-3 flex-wrap">
