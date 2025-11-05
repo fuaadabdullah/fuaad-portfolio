@@ -4,7 +4,12 @@ import JsonLd from "@/components/JsonLd";
 
 export const metadata = {
   title: "Services — Fuaad Abdullah",
-  description: "Lightweight consulting and build packages."
+  description: "Student-friendly consulting packages: UX/UI polish, RIZZK Calculator deployment, and MVP bootstrap with Next.js + FastAPI. Clear deliverables, two-week turnarounds.",
+  openGraph: {
+    title: "Services — Fuaad Abdullah",
+    description: "Lightweight consulting for student projects and early MVPs. UX polish, risk calculator setup, and full-stack development with clear deliverables.",
+    images: ["/og-default.png"]
+  }
 };
 
 const services = [

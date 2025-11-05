@@ -13,21 +13,31 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {
   title: "Fuaad Abdullah — Builder, Trader, Student",
-  description: "Portfolio, resume, and services by Fuaad Abdullah.",
-  // Domain will be set later; use env with sensible local fallback for now
+  description: "Finance student at GSU building RIZZK, a risk calculator for day traders. I ship focused, numbers-first web apps and offer consulting for student projects.",
   metadataBase: new URL(siteUrl),
   openGraph: {
     title: "Fuaad Abdullah — Portfolio",
-    description: "Projects, resume, and services.",
+    description: "Finance student building disciplined tools for traders and students. Check out my projects, resume, and consulting services.",
     siteName: "Fuaad Abdullah",
-    images: [{ url: "/og-default.png" }],
-    type: "website"
+    url: siteUrl,
+    images: [{ 
+      url: "/og-default.png",
+      width: 1200,
+      height: 630,
+      alt: "Fuaad Abdullah - Building disciplined tools for traders and students"
+    }],
+    type: "website",
+    locale: "en_US"
   },
   twitter: {
     card: "summary_large_image",
     title: "Fuaad Abdullah — Portfolio",
-    description: "Projects, resume, and services.",
-    images: ["/og-default.png"]
+    description: "Finance student building disciplined tools for traders and students. Check out my projects, resume, and consulting services.",
+    images: [{
+      url: "/og-default.png",
+      alt: "Fuaad Abdullah - Building disciplined tools for traders and students"
+    }],
+    creator: "@fuaadabdullah"
   }
 };
 

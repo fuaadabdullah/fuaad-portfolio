@@ -3,7 +3,12 @@ import projects from "@/data/projects";
 
 export const metadata = {
   title: "Portfolio — Fuaad Abdullah",
-  description: "Selected projects and demos."
+  description: "A few things I've shipped: RIZZK Calculator for day traders, web apps with Next.js and FastAPI, and more projects focused on clean UX and real-world utility.",
+  openGraph: {
+    title: "Portfolio — Fuaad Abdullah",
+    description: "Selected projects including RIZZK Calculator, a production-grade risk management tool for day traders, and other web applications.",
+    images: ["/og-default.png"]
+  }
 };
 
 export default function PortfolioPage() {

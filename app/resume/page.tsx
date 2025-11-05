@@ -1,7 +1,12 @@
 import Link from "next/link";
 export const metadata = {
   title: "Resume — Fuaad Abdullah",
-  description: "Download my resume and see experience highlights."
+  description: "Finance student at Georgia State University. Built RIZZK Calculator with 500+ users. Experience with Next.js, FastAPI, Azure, and production DevOps. Download my resume PDF.",
+  openGraph: {
+    title: "Resume — Fuaad Abdullah",
+    description: "Finance student at GSU with hands-on experience building production web apps. Download my one-page resume with numbers-first highlights.",
+    images: ["/og-default.png"]
+  }
 };
 
 export default function ResumePage() {
