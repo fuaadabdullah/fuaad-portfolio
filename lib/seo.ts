@@ -2,12 +2,14 @@ export const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Fuaad Abdullah",
-  "url": "https://example.com",
+  "url": "https://heyimfuaad.me",
   "email": "mailto:fuaadabdullah@gmail.com",
   "jobTitle": "Finance Student • Builder",
   "affiliation": {"@type":"Organization","name":"Georgia State University"},
   "sameAs": [
-    "https://www.linkedin.com/in/fuaadabdullah"
+    "https://www.linkedin.com/in/fuaadabdullah",
+    "https://instagram.com/fuaadabdullah",
+    "https://github.com/fuaadabdullah"
   ]
 };
 
