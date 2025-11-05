@@ -15,7 +15,8 @@ export default function HomePage() {
               alt="Fuaad Abdullah"
               fill
               priority
-              className="object-cover"
+              className="object-cover scale-110"
+              style={{ objectPosition: 'center' }}
             />
           </div>
         </div>
