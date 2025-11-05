@@ -45,7 +45,7 @@ export default function HomePage() {
       </div>
       <div className="mt-16 grid md:grid-cols-2 gap-6">
         <article className="rounded-2xl border border-white/10 p-6">
-          <h2 className="text-xl font-semibold">RIZZK Calculator</h2>
+          <h2 className="text-xl font-semibold">(⌐■_■) RIZZK Calculator</h2>
           <p className="text-white/80 mt-2">Production-grade risk calculator that forces day traders to respect their risk, not their ego.</p>
           <div className="mt-4 flex gap-3">
             <a className="rounded-lg bg-white/10 px-4 py-2 hover:bg-white/15 transition-colors" href="https://rizzk-calculator-demo-eus2-f1.azurewebsites.net" target="_blank" rel="noopener noreferrer">

@@ -6,7 +6,7 @@ const links = [
   { href: "/portfolio", label: "Portfolio" },
   { href: "/blog", label: "Blog" },
   { href: "/resume", label: "Resume" },
-  { href: "/services", label: "Services" },
+  { href: "/services", label: "Let's Work" },
 ];
 export default function Navbar(){
   const pathname = usePathname();
