@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
@@ -8,14 +9,16 @@ import { personJsonLd } from "@/lib/seo";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
 export const metadata: Metadata = {
   title: "Fuaad Abdullah — Builder, Trader, Student",
   description: "Portfolio, resume, and services by Fuaad Abdullah.",
-  metadataBase: new URL("https://heyimfuaad.com"),
+  // Domain will be set later; use env with sensible local fallback for now
+  metadataBase: new URL(siteUrl),
   openGraph: {
     title: "Fuaad Abdullah — Portfolio",
     description: "Projects, resume, and services.",
-    url: "https://heyimfuaad.com",
     siteName: "Fuaad Abdullah",
     images: [{ url: "/og-default.png" }],
     type: "website"
@@ -36,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={personJsonLd} />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
