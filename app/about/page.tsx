@@ -1,5 +1,6 @@
 // app/about/page.tsx
 import Image from "next/image";
+import Script from "next/script";
 
 export const metadata = {
   title: "About - Fuaad Abdullah",
@@ -9,9 +10,24 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="mx-auto max-w-5xl px-4 py-12 space-y-12">
-      {/* Intro (photos deferred) */}
-      <section className="space-y-4">
+    <>
+      {/* Twitter embed script */}
+      <Script
+        src="https://platform.twitter.com/widgets.js"
+        strategy="lazyOnload"
+        async
+      />
+      
+      {/* Instagram embed script */}
+      <Script
+        src="https://www.instagram.com/embed.js"
+        strategy="lazyOnload"
+        async
+      />
+
+      <main className="mx-auto max-w-5xl px-4 py-12 space-y-12">
+        {/* Intro (photos deferred) */}
+        <section className="space-y-4">
         <p className="text-sm uppercase tracking-[0.2em] text-white/50">LORE</p>
         <h1 className="text-3xl md:text-4xl font-semibold">
           Quiet operator. Finance brain. Builder energy.
@@ -58,39 +74,41 @@ export default function AboutPage() {
         ))}
         
         {/* Live social meme feeds - placeholders for Twitter/Instagram embeds */}
-        <a
-          href="https://twitter.com/fuaadabdullah"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-gradient-to-br from-blue-500/10 to-blue-600/10 ring-1 ring-blue-500/20 flex items-center justify-center hover:ring-blue-500/40 transition-all group"
-        >
-          <div className="text-center space-y-2 px-4">
-            <p className="text-4xl group-hover:scale-110 transition-transform">𝕏</p>
-            <p className="text-xs text-white/60 font-medium">
-              Latest posts from X
-            </p>
-            <p className="text-[10px] text-white/30">
-              Click to view timeline
-            </p>
-          </div>
-        </a>
+        <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10">
+          <a
+            className="twitter-timeline"
+            data-height="100%"
+            data-theme="dark"
+            data-chrome="noheader nofooter noborders transparent"
+            data-tweet-limit="1"
+            href="https://twitter.com/fuaadabdullah"
+          >
+            Loading tweets...
+          </a>
+        </div>
         
-        <a
-          href="https://instagram.com/fuaadabdullah"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-gradient-to-br from-pink-500/10 to-purple-600/10 ring-1 ring-pink-500/20 flex items-center justify-center hover:ring-pink-500/40 transition-all group"
-        >
-          <div className="text-center space-y-2 px-4">
-            <p className="text-4xl group-hover:scale-110 transition-transform">�</p>
-            <p className="text-xs text-white/60 font-medium">
-              Instagram memes
-            </p>
-            <p className="text-[10px] text-white/30">
-              Click to view profile
-            </p>
-          </div>
-        </a>
+        <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10">
+          <blockquote
+            className="instagram-media"
+            data-instgrm-permalink="https://www.instagram.com/fuaad.abdullah/"
+            data-instgrm-version="14"
+            style={{
+              background: '#000',
+              border: 0,
+              borderRadius: '8px',
+              boxShadow: 'none',
+              margin: 0,
+              minWidth: '100%',
+              padding: 0,
+              width: 'calc(100% - 2px)',
+              height: '100%',
+            }}
+          >
+            <a href="https://www.instagram.com/fuaad.abdullah/" style={{ color: '#fff' }}>
+              Loading Instagram...
+            </a>
+          </blockquote>
+        </div>
         
         <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-gradient-to-br from-green-500/10 to-emerald-600/10 ring-1 ring-green-500/20 flex items-center justify-center">
           <div className="text-center space-y-2 px-4">
@@ -121,5 +139,6 @@ export default function AboutPage() {
         </div>
       </section>
     </main>
+    </>
   );
 }
