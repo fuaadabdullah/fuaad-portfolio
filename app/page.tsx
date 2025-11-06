@@ -13,7 +13,7 @@ export default function HomePage() {
             Finance • Tools • Automations
           </p>
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
-            Shipping tools for traders, founders, and lean teams.
+            Just a guy shipping tools for traders, founders, and lean teams.
           </h1>
           <p className="text-white/80 max-w-2xl">
             Finance student · freelance dev · day trader building disciplined, numbers based tooling and automations.
