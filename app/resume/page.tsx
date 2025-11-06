@@ -61,6 +61,12 @@ export default function ResumePage() {
             >
               View LinkedIn
             </Link>
+            <a
+              href="mailto:fuaadabdullah@gmail.com"
+              className="inline-flex items-center justify-center rounded-full border border-white/10 px-5 py-2 font-medium text-sm text-zinc-100 hover:bg-white/5"
+            >
+              Email
+            </a>
           </div>
         </section>
 
