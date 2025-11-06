@@ -29,16 +29,16 @@ export default function AboutPage() {
       <section className="grid grid-cols-2 md:grid-cols-3 gap-3">
         {[
           {
-            src: "/lore-2.jpg",
-            alt: "Fuaad - lore photo 2",
+            src: "/lore-10.jpg",
+            alt: "Fuaad - lore photo 10",
           },
           {
             src: "/lore-3.jpg",
             alt: "Fuaad - lore photo 3",
           },
           {
-            src: "/lore-4.jpg",
-            alt: "Fuaad - lore photo 4",
+            src: "/lore-11.jpg",
+            alt: "Fuaad - lore photo 11",
           },
           {
             src:
