@@ -1,8 +1,5 @@
 import React from "react";
-
-function clsx(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(" ");
-}
+import { clsx } from "@/lib/utils";
 
 export default function Card({
   className,

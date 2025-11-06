@@ -1,11 +1,8 @@
 import React from "react";
+import { clsx } from "@/lib/utils";
 
 type Variant = "primary" | "secondary" | "ghost";
 type Size = "sm" | "md" | "lg";
-
-function clsx(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(" ");
-}
 
 const base = "inline-flex items-center gap-2 rounded-2xl transition-colors disabled:opacity-60 disabled:cursor-not-allowed";
 const variants: Record<Variant, string> = {

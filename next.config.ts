@@ -37,11 +37,10 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // Silence the multiple lockfiles warning
-  // @ts-ignore - turbopack.root is valid but not in types yet
+  // Silence the multiple lockfiles warning in Turbopack
   turbopack: {
     root: __dirname,
-  }
+  } as any,
 };
 
 export default nextConfig;

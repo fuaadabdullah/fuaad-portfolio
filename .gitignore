@@ -68,3 +68,8 @@ Thumbs.db
 # portfolio build artifacts
 portfolio/*.pdf
 !public/*.pdf
+
+# lighthouse reports and test artifacts
+lighthouse-*.json
+lighthouse-*.html
+create-og-image.html
