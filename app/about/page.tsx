@@ -73,6 +73,15 @@ export default function AboutPage() {
         ))}
       </section>
 
+      {/* Ongoing Project: GoblinOS */}
+      <section className="space-y-3 p-6 rounded-lg bg-[color:var(--color-coal)] ring-1 ring-white/10">
+        <p className="text-sm uppercase tracking-[0.2em] text-white/50">Ongoing Project</p>
+        <h2 className="text-2xl font-semibold">GoblinOS</h2>
+        <p className="text-white/80 leading-relaxed">
+          Automation engine powering risk management tools, workflows, and dev tasks. Built to handle the boring stuff so I can focus on what matters.
+        </p>
+      </section>
+
       {/* Short "stats" row */}
       <section className="grid gap-6 md:grid-cols-3 text-sm text-white/70">
         <div>
