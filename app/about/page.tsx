@@ -17,13 +17,6 @@ export default function AboutPage() {
         strategy="lazyOnload"
         async
       />
-      
-      {/* Instagram embed script */}
-      <Script
-        src="https://www.instagram.com/embed.js"
-        strategy="lazyOnload"
-        async
-      />
 
       <main className="mx-auto max-w-5xl px-4 py-12 space-y-12">
         {/* Intro (photos deferred) */}
@@ -73,7 +66,7 @@ export default function AboutPage() {
           </div>
         ))}
         
-        {/* Live social meme feeds - placeholders for Twitter/Instagram embeds */}
+        {/* Live social meme feeds */}
         <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10">
           <a
             className="twitter-timeline"
@@ -81,33 +74,20 @@ export default function AboutPage() {
             data-theme="dark"
             data-chrome="noheader nofooter noborders transparent"
             data-tweet-limit="1"
-            href="https://twitter.com/search?q=%23memes%20OR%20%23meme%20min_faves%3A1000&src=typed_query&f=live"
+            href="https://twitter.com/Memes"
           >
-            Loading memes from X...
+            Loading X memes...
           </a>
         </div>
         
         <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10">
-          <blockquote
-            className="instagram-media"
-            data-instgrm-permalink="https://www.instagram.com/memes/"
-            data-instgrm-version="14"
-            style={{
-              background: '#000',
-              border: 0,
-              borderRadius: '8px',
-              boxShadow: 'none',
-              margin: 0,
-              minWidth: '100%',
-              padding: 0,
-              width: 'calc(100% - 2px)',
-              height: '100%',
-            }}
-          >
-            <a href="https://www.instagram.com/memes/" style={{ color: '#fff' }}>
-              Loading Instagram memes...
-            </a>
-          </blockquote>
+          <iframe
+            src="https://www.reddit.com/r/dankmemes/top/.embed?theme=dark&showmedia=true&limit=1"
+            title="Dank Memes"
+            className="w-full h-full border-0"
+            sandbox="allow-scripts allow-same-origin allow-popups"
+            loading="lazy"
+          />
         </div>
         
         <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10">
