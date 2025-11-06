@@ -16,13 +16,14 @@ export default function AboutPage() {
         <h1 className="text-3xl md:text-4xl font-semibold">
           Quiet operator. Finance brain. Builder energy.
         </h1>
-        <p className="text-white/80 leading-relaxed">
-          I grew up between Saudi discipline and Atlanta chaos. Now I’m a
-          finance major at GSU who writes code, trades intraday, and builds
-          tools that bully people into respecting their risk instead of their
-          ego. I’m not here to be the loudest person in the room. I’m here to
-          ship things that work.
-        </p>
+        <div className="space-y-4 text-white/80 leading-relaxed">
+          <p>
+            I'm Fuaad – Saudi raised, Atlanta based. I grew up playing a lot of soccer, recently got interested in tennis, and I'll happily sit and watch basketball for hours. When I'm not on some finance or code thing, I'm probably gaming, checking scores, or zoning out while I build little ecosystems in tanks.
+          </p>
+          <p>
+            I'm Muslim and that's a big part of how I move, what I care about, and how I try to treat people. I came to the US to keep studying and stretch my world a bit, but at my core I'm a pretty chill, observant person who likes simple things: good people, good food, good vibes, and a life that feels honest to who I am.
+          </p>
+        </div>
       </section>
 
       {/* Real photos from iCloud */}
