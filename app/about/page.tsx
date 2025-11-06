@@ -12,7 +12,7 @@ export default function AboutPage() {
     <main className="mx-auto max-w-5xl px-4 py-12 space-y-12">
       {/* Intro (photos deferred) */}
       <section className="space-y-4">
-        <p className="text-sm uppercase tracking-[0.2em] text-white/50">About</p>
+        <p className="text-sm uppercase tracking-[0.2em] text-white/50">LORE</p>
         <h1 className="text-3xl md:text-4xl font-semibold">
           Quiet operator. Finance brain. Builder energy.
         </h1>
