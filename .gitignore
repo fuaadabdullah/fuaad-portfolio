@@ -48,6 +48,9 @@ next-env.d.ts
 !.vscode/launch.json
 !.vscode/extensions.json
 .idea/
+
+# GitHub Copilot Instructions (keep private)
+.github/copilot-instructions.md
 *.swp
 *.swo
 *~
