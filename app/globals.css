@@ -1,27 +1,31 @@
 @import "tailwindcss";
 
-@theme {
-  --color-ink: #0b0f13;
-  --color-coal: #0f172a;
-  --color-accent: #16a34a;
+/* Global theme tokens (Tailwind v4 compatible) */
+:root {
+  /* Base */
+  --color-ink: #050608;       /* Near-black, tiny warm undertone */
+  --color-coal: #13151a;      /* Card background */
+  --color-sand: #f4ede1;      /* Soft beige for highlights/sections */
+
+  /* Accents */
+  --color-accent: #4d7c0f;    /* Muted olive green (growth, discipline) */
+  --color-accent-soft: #1e2933; /* Deep slate/blue for subtle frames */
+
+  /* Global */
+  color-scheme: dark;
 }
 
-:root { 
-  color-scheme: dark; 
-}
-
-body { 
+body {
   background-color: var(--color-ink);
-  color: white;
+  color: #f9fafb;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a { 
+a {
   text-underline-offset: 4px;
 }
-
-a:hover { 
+a:hover {
   text-decoration: underline;
 }
 

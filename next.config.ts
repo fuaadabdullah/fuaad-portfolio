@@ -9,12 +9,11 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [360, 640, 768, 1024, 1280, 1536, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
-    // Add remotePatterns if you host screenshots on a CDN or external host later
-    // remotePatterns: [
-    //   { protocol: "https", hostname: "raw.githubusercontent.com" },
-    //   { protocol: "https", hostname: "user-images.githubusercontent.com" },
-    //   { protocol: "https", hostname: "*.azurewebsites.net" },
-    // ],
+    // Allow optimized images from common CDNs used in this project
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "plus.unsplash.com" },
+    ],
   },
   // CSP headers for LinkedIn badge integration
   async headers() {

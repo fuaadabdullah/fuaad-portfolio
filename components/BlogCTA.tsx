@@ -36,7 +36,7 @@ export function BlogCTA({ variant = "services" }: BlogCTAProps) {
   const config = configs[variant];
 
   return (
-    <div className="my-12 p-8 bg-gradient-to-br from-[#16a34a]/10 to-transparent border border-[#16a34a]/20 rounded-lg">
+    <div className="my-12 p-8 bg-gradient-to-br from-[color:var(--color-accent)]/10 to-transparent border border-[color:var(--color-accent)]/20 rounded-lg">
       <h3 className="text-2xl font-bold mb-2">{config.title}</h3>
       <p className="text-white/70 mb-6">{config.description}</p>
       <div className="flex flex-wrap gap-4">

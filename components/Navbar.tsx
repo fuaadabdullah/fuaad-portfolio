@@ -5,13 +5,14 @@ const links = [
   { href: "/", label: "Home" },
   { href: "/portfolio", label: "Portfolio" },
   { href: "/blog", label: "Blog" },
+  { href: "/about", label: "About" },
   { href: "/resume", label: "Resume" },
   { href: "/services", label: "Let's Work" },
 ];
 export default function Navbar(){
   const pathname = usePathname();
   return (
-    <header className="sticky top-0 z-40 backdrop-blur bg-[#0b0f13]/70 border-b border-white/10">
+  <header className="sticky top-0 z-40 backdrop-blur bg-[color:var(--color-ink)]/70 border-b border-white/10">
       <nav className="mx-auto max-w-5xl px-6 h-14 flex items-center justify-between" aria-label="Main navigation">
         <Link href="/" className="font-semibold" aria-label="Fuaad Abdullah - Home">
           Fuaad Abdullah
@@ -23,7 +24,8 @@ export default function Navbar(){
                 href={l.href}
                 aria-current={pathname === l.href ? "page" : undefined}
                 className={
-                  "hover:text-white transition-colors " + (pathname === l.href ? "text-white" : "text-white/60")
+                  "hover:text-[color:var(--color-accent)] transition-colors " +
+                  (pathname === l.href ? "text-white" : "text-white/60")
                 }
               >
                 {l.label}

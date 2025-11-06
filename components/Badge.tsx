@@ -9,7 +9,7 @@ type Variant = "default" | "success" | "outline";
 const base = "inline-flex items-center rounded-full text-xs px-2 py-1";
 const variants: Record<Variant, string> = {
   default: "bg-white/10 text-white",
-  success: "bg-[#16a34a]/20 text-[#86efac]",
+  success: "bg-[color:var(--color-accent)]/20 text-[color:var(--color-accent)]",
   outline: "border border-white/20 text-white",
 };
 

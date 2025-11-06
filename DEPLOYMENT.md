@@ -77,7 +77,8 @@ vercel
    - **Option B**: Add A/CNAME records manually
 
 **DNS Configuration Example** (if using A/CNAME):
-```
+
+```text
 Type: A
 Name: @
 Value: 76.76.21.21
@@ -87,7 +88,7 @@ Name: www
 Value: cname.vercel-dns.com
 ```
 
-5. Wait for DNS propagation (usually 5-60 minutes)
+1. Wait for DNS propagation (usually 5-60 minutes)
 
 ### 3.3 Set Environment Variables (Post-Domain Setup)
 
@@ -99,8 +100,8 @@ Value: cname.vercel-dns.com
 | `NEXT_PUBLIC_SITE_URL` | `https://heyimfuaad.com` | Production |
 | `NEXT_PUBLIC_FORMSPREE_ID` | Your Formspree form ID | Production, Preview |
 
-3. Click **"Save"**
-4. Redeploy to apply changes (go to **Deployments** → click **"•••"** → **"Redeploy"**)
+1. Click **"Save"**
+1. Redeploy to apply changes (go to **Deployments** → click **"•••"** → **"Redeploy"**)
 
 ## Step 4: Update Formspree Form ID
 
@@ -108,10 +109,12 @@ Value: cname.vercel-dns.com
 2. Create a new form
 3. Copy your form ID (looks like `xyzabc123`)
 4. Update `app/services/page.tsx`:
-   ```tsx
-   action="https://formspree.io/f/YOUR_FORM_ID"
-   ```
-   Replace `YOUR_FORM_ID` with your actual ID
+
+```tsx
+action="https://formspree.io/f/YOUR_FORM_ID"
+```
+
+Replace `YOUR_FORM_ID` with your actual ID
 5. Commit and push the change
 
 ## Step 5: Google Search Console
@@ -146,21 +149,25 @@ After deployment, verify:
 ## Troubleshooting
 
 ### Build Fails
+
 - Check build logs in Vercel dashboard
 - Ensure all dependencies are in `package.json`
 - Verify TypeScript has no errors locally: `pnpm build`
 
 ### Environment Variables Not Working
+
 - Ensure `NEXT_PUBLIC_` prefix for client-side variables
 - Redeploy after adding/changing environment variables
 - Check that variables are set for the correct environment (Production/Preview)
 
 ### Domain Not Working
+
 - Wait for DNS propagation (can take up to 48 hours)
 - Verify DNS records at [dnschecker.org](https://dnschecker.org)
 - Check SSL certificate status in Vercel dashboard
 
 ### Analytics Not Tracking
+
 - Analytics only work in production (not in dev mode)
 - Check that `<Analytics />` component is in `app/layout.tsx`
 - Wait 24-48 hours for initial data to appear
@@ -168,6 +175,7 @@ After deployment, verify:
 ## Continuous Deployment
 
 Once set up, every push to your `main` branch will automatically:
+
 1. Trigger a new build on Vercel
 2. Deploy to production (after successful build)
 3. Update your live site

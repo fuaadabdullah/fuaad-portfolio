@@ -2,13 +2,13 @@ import Link from "next/link";
 import { getAllPosts, formatDate, type BlogPostMetadata } from "@/lib/blog";
 
 export const metadata = {
-  title: "Blog — Fuaad Abdullah",
-  description: "Essays, release notes, and tutorials on building disciplined tools for traders and students.",
+  title: "Blog - Fuaad Abdullah",
+  description: "Insights on trading, development, and building useful tools.",
   openGraph: {
-    title: "Blog — Fuaad Abdullah",
-    description: "Essays, release notes, and tutorials on building disciplined tools for traders and students.",
-    images: ["/og-default.png"],
-  },
+    title: "Blog - Fuaad Abdullah",
+    description: "Insights on trading, development, and building useful tools.",
+    images: ["/og-default.png"]
+  }
 };
 
 const categoryColors = {
@@ -19,7 +19,7 @@ const categoryColors = {
 
 function BlogPostCard({ post }: { post: BlogPostMetadata }) {
   return (
-    <article className="border border-white/10 rounded-lg p-6 hover:border-[#16a34a]/50 transition-colors">
+  <article className="border border-white/10 rounded-lg p-6 hover:border-[color:var(--color-accent)]/50 transition-colors">
       <div className="flex items-center gap-3 mb-3">
         <span className={`text-xs font-medium px-2 py-1 rounded border ${categoryColors[post.category]}`}>
           {post.category === "release-note" ? "Release Note" : post.category.charAt(0).toUpperCase() + post.category.slice(1)}
@@ -28,7 +28,7 @@ function BlogPostCard({ post }: { post: BlogPostMetadata }) {
       </div>
       
       <Link href={`/blog/${post.slug}`} className="group">
-        <h2 className="text-2xl font-semibold mb-2 group-hover:text-[#16a34a] transition-colors">
+        <h2 className="text-2xl font-semibold mb-2 group-hover:text-[color:var(--color-accent)] transition-colors">
           {post.title}
         </h2>
       </Link>
@@ -47,7 +47,7 @@ function BlogPostCard({ post }: { post: BlogPostMetadata }) {
       
       <Link
         href={`/blog/${post.slug}`}
-        className="inline-flex items-center gap-1 mt-4 text-[#16a34a] hover:underline text-sm font-medium"
+        className="inline-flex items-center gap-1 mt-4 text-[color:var(--color-accent)] hover:underline text-sm font-medium"
       >
         Read more →
       </Link>
@@ -68,7 +68,7 @@ export default function BlogPage() {
       {posts.length === 0 ? (
         <div className="border border-white/10 rounded-lg p-12 text-center">
           <p className="text-white/60 mb-4">No posts yet. Check back soon!</p>
-          <Link href="/" className="text-[#16a34a] hover:underline">
+          <Link href="/" className="text-[color:var(--color-accent)] hover:underline">
             ← Back to home
           </Link>
         </div>

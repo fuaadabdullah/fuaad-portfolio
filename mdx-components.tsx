@@ -37,14 +37,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#16a34a] hover:underline transition-colors"
+            className="text-[color:var(--color-accent)] hover:underline transition-colors"
           >
             {children}
           </a>
         );
       }
       return (
-        <Link href={href || "#"} className="text-[#16a34a] hover:underline transition-colors">
+        <Link href={href || "#"} className="text-[color:var(--color-accent)] hover:underline transition-colors">
           {children}
         </Link>
       );
@@ -65,7 +65,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </li>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-[#16a34a] pl-4 italic my-6 text-white/80">
+      <blockquote className="border-l-4 border-[color:var(--color-accent)] pl-4 italic my-6 text-white/80">
         {children}
       </blockquote>
     ),
@@ -73,7 +73,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       const isInline = !className;
       if (isInline) {
         return (
-          <code className="bg-white/10 text-[#16a34a] px-1.5 py-0.5 rounded text-sm font-mono">
+          <code className="bg-white/10 text-[color:var(--color-accent)] px-1.5 py-0.5 rounded text-sm font-mono">
             {children}
           </code>
         );

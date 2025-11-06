@@ -8,194 +8,55 @@ export const size = {
 };
 export const contentType = "image/png";
 
-export default async function Image() {
-  // Fetch custom font (Inter Bold)
-  const interBold = fetch(
-    new URL("https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fAZ9hiA.woff", import.meta.url)
-  ).then((res) => res.arrayBuffer());
-
+export default function Image() {
   return new ImageResponse(
     (
       <div
-        style={{
-          fontSize: 64,
-          background: "linear-gradient(135deg, #0b0f13 0%, #0f1419 100%)",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "relative",
-          fontFamily: '"Inter"',
-        }}
+        tw="w-full h-full flex flex-col items-center justify-center relative bg-gradient-to-br from-[#050608] to-[#13151a] text-white"
       >
-        {/* Animated gradient orb effects */}
-        <div
-          style={{
-            position: "absolute",
-            top: "-20%",
-            right: "-10%",
-            width: "600px",
-            height: "600px",
-            background: "radial-gradient(circle, rgba(22, 163, 74, 0.2), transparent 70%)",
-            borderRadius: "50%",
-            display: "flex",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: "-15%",
-            left: "-5%",
-            width: "500px",
-            height: "500px",
-            background: "radial-gradient(circle, rgba(34, 211, 238, 0.15), transparent 70%)",
-            borderRadius: "50%",
-            display: "flex",
-          }}
-        />
-        
+        {/* Accent orbs */}
+        <div tw="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-emerald-700/20 blur-2xl" />
+        <div tw="absolute bottom-[-15%] left-[-5%] w-[500px] h-[500px] rounded-full bg-cyan-400/15 blur-2xl" />
+
         {/* Content */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 24,
-            zIndex: 1,
-          }}
-        >
+        <div tw="flex flex-col items-center justify-center gap-6 z-10">
           {/* Emoji + Name */}
-          <div
-            style={{
-              fontSize: 80,
-              fontWeight: 800,
-              color: "white",
-              letterSpacing: "-0.03em",
-              display: "flex",
-              alignItems: "center",
-              gap: 20,
-              textShadow: "0 4px 12px rgba(0, 0, 0, 0.5)",
-            }}
-          >
-            <span style={{ fontSize: 72 }}>👨🏾‍💻</span>
+          <div tw="text-7xl font-extrabold tracking-tight flex items-center gap-5 drop-shadow">
+            <span tw="text-6xl">👨🏾‍💻</span>
             Fuaad Abdullah
           </div>
-          
-          {/* Tagline with emoji */}
-          <div
-            style={{
-              fontSize: 36,
-              color: "rgba(255, 255, 255, 0.85)",
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-              textAlign: "center",
-              maxWidth: 900,
-            }}
-          >
+
+          {/* Tagline */}
+          <div tw="text-3xl text-white/85 flex items-center gap-3 text-center max-w-[900px]">
             <span>📊</span>
             Building disciplined tools for traders and students
             <span>🎓</span>
           </div>
-          
-          {/* Tech Stack with Tailwind-like styling */}
-          <div
-            style={{
-              display: "flex",
-              gap: 16,
-              marginTop: 40,
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <div
-              style={{
-                background: "rgba(22, 163, 74, 0.15)",
-                color: "#22c55e",
-                padding: "12px 24px",
-                borderRadius: 9999,
-                fontSize: 22,
-                fontWeight: 600,
-                border: "2px solid rgba(22, 163, 74, 0.4)",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                boxShadow: "0 4px 12px rgba(22, 163, 74, 0.2)",
-              }}
-            >
+
+          {/* Tech Stack */}
+          <div tw="flex gap-4 mt-10 flex-wrap justify-center">
+            <div tw="bg-emerald-700/15 text-lime-400 px-6 py-3 rounded-full text-2xl font-semibold border-2 border-emerald-700/40 flex items-center gap-2 shadow">
               <span>⚡</span>
               Next.js
             </div>
-            <div
-              style={{
-                background: "rgba(22, 163, 74, 0.15)",
-                color: "#22c55e",
-                padding: "12px 24px",
-                borderRadius: 9999,
-                fontSize: 22,
-                fontWeight: 600,
-                border: "2px solid rgba(22, 163, 74, 0.4)",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                boxShadow: "0 4px 12px rgba(22, 163, 74, 0.2)",
-              }}
-            >
+            <div tw="bg-emerald-700/15 text-lime-400 px-6 py-3 rounded-full text-2xl font-semibold border-2 border-emerald-700/40 flex items-center gap-2 shadow">
               <span>🐍</span>
               Python
             </div>
-            <div
-              style={{
-                background: "rgba(34, 211, 238, 0.15)",
-                color: "#22d3ee",
-                padding: "12px 24px",
-                borderRadius: 9999,
-                fontSize: 22,
-                fontWeight: 600,
-                border: "2px solid rgba(34, 211, 238, 0.4)",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                boxShadow: "0 4px 12px rgba(34, 211, 238, 0.2)",
-              }}
-            >
+            <div tw="bg-cyan-400/15 text-cyan-400 px-6 py-3 rounded-full text-2xl font-semibold border-2 border-cyan-400/40 flex items-center gap-2 shadow">
               <span>☁️</span>
               Azure
             </div>
           </div>
         </div>
-        
-        {/* Footer badge with emoji */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 48,
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            fontSize: 26,
-            color: "rgba(255, 255, 255, 0.6)",
-            fontWeight: 500,
-          }}
-        >
+
+        {/* Footer badge */}
+        <div tw="absolute bottom-12 flex items-center gap-3 text-2xl text-white/60 font-medium">
           <span>🌐</span>
           heyimfuaad.me
         </div>
       </div>
     ),
-    {
-      ...size,
-      fonts: [
-        {
-          name: "Inter",
-          data: await interBold,
-          style: "normal",
-          weight: 800,
-        },
-      ],
-    }
+    { ...size }
   );
 }

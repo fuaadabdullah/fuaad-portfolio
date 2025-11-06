@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   return {
-    title: `${post.title} — Fuaad Abdullah`,
+    title: `${post.title} - Fuaad Abdullah`,
     description: post.excerpt,
     openGraph: {
       title: post.title,
@@ -56,7 +56,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     <article className="mx-auto max-w-3xl px-6 py-16">
       <Link
         href="/blog"
-        className="inline-flex items-center gap-1 text-white/60 hover:text-[#16a34a] transition-colors mb-8"
+        className="inline-flex items-center gap-1 text-white/60 hover:text-[color:var(--color-accent)] transition-colors mb-8"
       >
         ← Back to blog
       </Link>
@@ -109,7 +109,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <footer className="mt-12 pt-8 border-t border-white/10">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-1 text-[#16a34a] hover:underline font-medium"
+          className="inline-flex items-center gap-1 text-[color:var(--color-accent)] hover:underline font-medium"
         >
           ← Back to all posts
         </Link>
