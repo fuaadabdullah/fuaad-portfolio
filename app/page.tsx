@@ -6,9 +6,9 @@ import { ArrowRight, Download } from "lucide-react";
 export default function HomePage() {
   return (
     <section className="mx-auto max-w-5xl px-6 py-16">
-      <section className="grid items-center gap-10 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+      <section className="space-y-4">
         {/* Text / hero copy */}
-        <div className="space-y-4">
+        <div className="space-y-4 max-w-3xl">
           <p className="text-sm uppercase tracking-[0.2em] text-white/50">
             Portfolio · Fintech · Trading tools
           </p>
@@ -28,7 +28,7 @@ export default function HomePage() {
               </p>
             </div>
             <span className="rounded-full bg-[color:var(--color-accent)]/15 px-3 py-1 text-[11px] text-[color:var(--color-accent)]">
-              Risk engine
+              GoblinOS engine
             </span>
           </div>
 
@@ -44,18 +44,6 @@ export default function HomePage() {
               Services <ArrowRight size={18} aria-hidden="true" />
             </Link>
           </div>
-        </div>
-
-        {/* Headshot card */}
-        <div className="relative h-[320px] w-full max-w-[320px] justify-self-center">
-          <div className="absolute inset-0 rounded-3xl bg-[color:var(--color-coal)] border border-white/5 shadow-[0_25px_60px_rgba(0,0,0,0.8)]" />
-          <Image
-            src="/fuaad-headshot-2025-roomy.jpg"
-            alt="Fuaad Abdullah, calmly staring down bad risk management."
-            fill
-            className="rounded-3xl object-cover object-top saturate-[0.9] contrast-[1.05]"
-            priority
-          />
         </div>
       </section>
       <div className="mt-16 grid md:grid-cols-2 gap-6">
