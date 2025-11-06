@@ -319,9 +319,9 @@ export default function ResumePage() {
               Contact & Next Steps
             </h2>
             <p className="text-sm text-zinc-300">
-              Whether you're hiring interns, need a freelance developer for a
-              fintech project, or reviewing transfer candidates — I'm open to
-              conversations that involve finance, software, or both.
+              Open to internships, part-time roles, project work, and transfer
+              or advanced study opportunities that sit at the intersection of
+              finance, data, and software.
             </p>
             <p className="text-sm text-zinc-300">
               <span className="text-zinc-100">Email:</span>{" "}
