@@ -139,8 +139,10 @@ export default function ResumePage() {
                 B.B.A. Finance · Georgia State University
               </p>
               <p className="text-zinc-300">
-                Focus on markets, risk, and financial decision-making with an
-                interest in fintech and quantitative tools.
+                Building a foundation in markets, risk, and financial
+                decision-making, with a growing focus on fintech and
+                quantitative tools applied through personal trading and software
+                projects.
               </p>
             </div>
 
@@ -151,7 +153,7 @@ export default function ResumePage() {
               <p className="text-zinc-300">
                 Risk management, market microstructure, behavioral finance,
                 trading systems, and how software can enforce discipline instead
-                of emotion.
+                of emotion in financial decisions.
               </p>
             </div>
 
@@ -161,8 +163,8 @@ export default function ResumePage() {
               </p>
               <p className="text-zinc-300">
                 Exploring transfer and advanced programs that take finance,
-                data, and technology seriously and support hands-on, project-based
-                work.
+                data, and technology seriously and value hands-on, project-based
+                work alongside traditional coursework.
               </p>
             </div>
           </div>
@@ -213,7 +215,7 @@ export default function ResumePage() {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <h3 className="text-base font-semibold text-zinc-100">
-                    RIZZK · Risk & Trade Calculator
+                    Position Sizing & Risk Calculator (codename "RIZZK")
                   </h3>
                   <p className="text-sm text-zinc-300">
                     Personal project / Side work
@@ -224,22 +226,24 @@ export default function ResumePage() {
               <p className="text-sm text-zinc-300">
                 Web-based position sizing and risk-reward calculator for day
                 traders. Calculates risk per trade, position size, and R:R
-                ratios in real time. Built with Next.js and deployed on Vercel
-                with continuous integration.
+                ratios in real time. Built as a{" "}
+                <span className="text-zinc-100">Python + Streamlit</span> app
+                with a tested calculation core and deployed using Docker and
+                Azure Web Apps.
               </p>
 
               <ul className="text-sm text-zinc-300 list-disc list-inside space-y-1">
                 <li>
                   Applied trading and finance knowledge to build a tool traders
-                  actually use in live sessions
+                  can use during live sessions
                 </li>
                 <li>
-                  Integrated Google Analytics to track user engagement and
-                  iterate on UX based on real behavior
+                  Implemented unit-tested calculation logic to keep outputs
+                  reliable under different market scenarios
                 </li>
                 <li>
-                  Designed end-to-end: from concept and mockups to deployment
-                  and user feedback loops
+                  Designed end-to-end: from concept and UX to deployment and
+                  ongoing iteration based on real usage
                 </li>
               </ul>
             </div>
@@ -257,23 +261,24 @@ export default function ResumePage() {
 
               <p className="text-sm text-zinc-300">
                 Designed and built this site to present services, showcase
-                projects, and create a professional resume page for recruiters
-                and clients. Focus on SEO, mobile performance, and clear
-                information architecture.
+                projects, and provide a professional resume hub for recruiters,
+                clients, and schools. Focus on SEO, accessibility, and mobile
+                performance.
               </p>
 
               <ul className="text-sm text-zinc-300 list-disc list-inside space-y-1">
                 <li>
-                  Implemented JSON-LD structured data, OG images, and sitemaps
-                  for search engine visibility
+                  Implemented structured metadata (JSON-LD), OG images, and
+                  sitemaps to support search engine visibility
                 </li>
                 <li>
-                  Achieved 100 Lighthouse accessibility score through semantic
-                  HTML, ARIA labels, and keyboard navigation
+                  Tuned layout, typography, and color system for a calm,
+                  earth-toned, dark-mode experience that still meets
+                  accessibility standards
                 </li>
                 <li>
                   Deployed on Vercel with automated CI/CD and integrated
-                  analytics to measure traffic and engagement
+                  analytics to measure traffic and engagement over time
                 </li>
               </ul>
             </div>
