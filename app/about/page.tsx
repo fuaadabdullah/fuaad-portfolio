@@ -41,21 +41,6 @@ export default function AboutPage() {
             src: "/lore-11.jpg",
             alt: "Fuaad - lore photo 11",
           },
-          {
-            src:
-              "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1600&auto=format&fit=crop",
-            alt: "Pair programming session",
-          },
-          {
-            src:
-              "https://images.unsplash.com/photo-1515165562835-c3b8c8e3d9da?q=80&w=1600&auto=format&fit=crop",
-            alt: "City at dusk with calm tones",
-          },
-          {
-            src:
-              "https://images.unsplash.com/photo-1529336953121-4d4327e7e858?q=80&w=1600&auto=format&fit=crop",
-            alt: "Notebook planning and coffee",
-          },
         ].map((p, i) => (
           <div
             key={i}
@@ -69,6 +54,21 @@ export default function AboutPage() {
               sizes="(min-width: 1024px) 20vw, (min-width: 768px) 30vw, 45vw"
               priority={i < 2}
             />
+          </div>
+        ))}
+        
+        {/* Goblin loading placeholders */}
+        {[1, 2, 3].map((i) => (
+          <div
+            key={`goblin-${i}`}
+            className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10 flex items-center justify-center"
+          >
+            <div className="text-center space-y-2 px-4">
+              <p className="text-4xl">👺</p>
+              <p className="text-xs text-white/40 font-mono">
+                goblin.loading({i})
+              </p>
+            </div>
           </div>
         ))}
       </section>
