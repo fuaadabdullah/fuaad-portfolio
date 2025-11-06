@@ -172,75 +172,6 @@ export default function ResumePage() {
           </h2>
 
           <div className="space-y-4">
-            {/* RIZZK */}
-            <div className="rounded-3xl bg-[color:var(--color-coal)] border border-white/5 p-6 space-y-3">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <h3 className="text-base font-semibold text-zinc-100">
-                    RIZZK · Risk & Trade Calculator
-                  </h3>
-                  <p className="text-sm text-zinc-300">
-                    Freelance / Side project
-                  </p>
-                </div>
-              </div>
-
-              <p className="text-sm text-zinc-300">
-                Real-time position sizing and risk-reward calculator for
-                day traders. Built with Next.js and deployed on Vercel with
-                analytics and continuous integration.
-              </p>
-
-              <ul className="text-sm text-zinc-300 list-disc list-inside space-y-1">
-                <li>
-                  Designed end-to-end: from concept and mockups to deployment
-                  and user feedback loops
-                </li>
-                <li>
-                  Integrated Google Analytics to measure user engagement and
-                  refine UX based on real behavior
-                </li>
-                <li>
-                  Maintained clean interface under stress — users rely on this
-                  tool in live trading sessions
-                </li>
-              </ul>
-            </div>
-
-            {/* Portfolio */}
-            <div className="rounded-3xl bg-[color:var(--color-coal)] border border-white/5 p-6 space-y-3">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <h3 className="text-base font-semibold text-zinc-100">
-                    Portfolio Site (this site)
-                  </h3>
-                  <p className="text-sm text-zinc-300">Personal project</p>
-                </div>
-              </div>
-
-              <p className="text-sm text-zinc-300">
-                Fully custom Next.js portfolio with SEO optimization,
-                accessibility compliance, and responsive design. Built to learn
-                modern web development patterns and create a digital presence
-                that feels authentic.
-              </p>
-
-              <ul className="text-sm text-zinc-300 list-disc list-inside space-y-1">
-                <li>
-                  Implemented JSON-LD structured data, OG images, and sitemaps
-                  for search engine visibility
-                </li>
-                <li>
-                  Achieved 100 Lighthouse accessibility score by auditing
-                  semantic HTML, ARIA labels, and keyboard navigation
-                </li>
-                <li>
-                  Deployed on Vercel with automated CI/CD — every git push
-                  triggers build, preview, and production promotion
-                </li>
-              </ul>
-            </div>
-
             {/* Freelance */}
             <div className="rounded-3xl bg-[color:var(--color-coal)] border border-white/5 p-6 space-y-3">
               <div className="flex items-start justify-between gap-3">
@@ -253,23 +184,93 @@ export default function ResumePage() {
               </div>
 
               <p className="text-sm text-zinc-300">
-                Small-scale projects for clients and self-directed experiments.
-                Focus on practical tools, clean user experiences, and actually
-                shipping instead of endless planning.
+                Building small, production-ready web apps for clients and
+                students using Next.js, TypeScript, and modern UI patterns.
+                Work includes portfolio sites optimized for recruiters, trading
+                dashboards, and fintech tools.
               </p>
 
               <ul className="text-sm text-zinc-300 list-disc list-inside space-y-1">
                 <li>
-                  Turned fuzzy requirements into scoped MVPs with clear
-                  deliverables and realistic timelines
+                  End-to-end delivery: scope → build → deploy → documentation
                 </li>
                 <li>
-                  Managed client communication, set expectations, and delivered
-                  on schedule
+                  Designed recruiter-friendly portfolio sites with strong SEO,
+                  clean layout, and fast performance scores
                 </li>
                 <li>
-                  Learned to scope honestly, prioritize ruthlessly, and say
-                  "no" to feature creep
+                  Translated vague client goals into concrete scopes, timelines,
+                  and deliverables
+                </li>
+              </ul>
+            </div>
+
+            {/* RIZZK */}
+            <div className="rounded-3xl bg-[color:var(--color-coal)] border border-white/5 p-6 space-y-3">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <h3 className="text-base font-semibold text-zinc-100">
+                    RIZZK · Risk & Trade Calculator
+                  </h3>
+                  <p className="text-sm text-zinc-300">
+                    Personal project / Side work
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-sm text-zinc-300">
+                Web-based position sizing and risk-reward calculator for day
+                traders. Calculates risk per trade, position size, and R:R
+                ratios in real time. Built with Next.js and deployed on Vercel
+                with continuous integration.
+              </p>
+
+              <ul className="text-sm text-zinc-300 list-disc list-inside space-y-1">
+                <li>
+                  Applied trading and finance knowledge to build a tool traders
+                  actually use in live sessions
+                </li>
+                <li>
+                  Integrated Google Analytics to track user engagement and
+                  iterate on UX based on real behavior
+                </li>
+                <li>
+                  Designed end-to-end: from concept and mockups to deployment
+                  and user feedback loops
+                </li>
+              </ul>
+            </div>
+
+            {/* Portfolio */}
+            <div className="rounded-3xl bg-[color:var(--color-coal)] border border-white/5 p-6 space-y-3">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <h3 className="text-base font-semibold text-zinc-100">
+                    Portfolio Site · heyimfuaad.me
+                  </h3>
+                  <p className="text-sm text-zinc-300">Personal branding project</p>
+                </div>
+              </div>
+
+              <p className="text-sm text-zinc-300">
+                Designed and built this site to present services, showcase
+                projects, and create a professional resume page for recruiters
+                and clients. Focus on SEO, mobile performance, and clear
+                information architecture.
+              </p>
+
+              <ul className="text-sm text-zinc-300 list-disc list-inside space-y-1">
+                <li>
+                  Implemented JSON-LD structured data, OG images, and sitemaps
+                  for search engine visibility
+                </li>
+                <li>
+                  Achieved 100 Lighthouse accessibility score through semantic
+                  HTML, ARIA labels, and keyboard navigation
+                </li>
+                <li>
+                  Deployed on Vercel with automated CI/CD and integrated
+                  analytics to measure traffic and engagement
                 </li>
               </ul>
             </div>
