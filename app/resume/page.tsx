@@ -136,7 +136,7 @@ export default function ResumePage() {
                 Degree
               </p>
               <p className="text-zinc-100">
-                B.B.A. Finance · Georgia State University
+                B.B.A. Finance (in progress) · Georgia State University
               </p>
               <p className="text-zinc-300">
                 Building a foundation in markets, risk, and financial
