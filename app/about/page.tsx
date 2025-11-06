@@ -110,16 +110,14 @@ export default function AboutPage() {
           </blockquote>
         </div>
         
-        <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-gradient-to-br from-green-500/10 to-emerald-600/10 ring-1 ring-green-500/20 flex items-center justify-center">
-          <div className="text-center space-y-2 px-4">
-            <p className="text-4xl">👺</p>
-            <p className="text-xs text-white/60 font-medium">
-              GoblinOS memes
-            </p>
-            <p className="text-[10px] text-white/30">
-              Coming soon
-            </p>
-          </div>
+        <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10">
+          <iframe
+            src="https://www.reddit.com/r/memes/top/.embed?theme=dark&showmedia=true&limit=1"
+            title="Latest Memes"
+            className="w-full h-full border-0"
+            sandbox="allow-scripts allow-same-origin allow-popups"
+            loading="lazy"
+          />
         </div>
       </section>
 
