@@ -1,5 +1,1 @@
-{
-  "extends": [
-    "next/core-web-vitals"
-  ]
-}
+config/.eslintrc.json

@@ -1,5 +1,1 @@
-module.exports = {
-  plugins: {
-    '@tailwindcss/postcss': {},
-  },
-};
+config/postcss.config.js
