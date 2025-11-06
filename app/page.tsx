@@ -10,21 +10,21 @@ export default function HomePage() {
         {/* Text / hero copy */}
         <div className="space-y-4 max-w-3xl">
           <p className="text-sm uppercase tracking-[0.2em] text-white/50">
-            Portfolio · Fintech · Trading tools
+            Finance • Tools • Automations
           </p>
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
             Shipping tools for traders, founders, and lean teams.
           </h1>
           <p className="text-white/80 max-w-2xl">
-            Finance major at GSU · freelance dev · day trader building disciplined, numbers-first tools instead of vibe-based gambling.
+            Finance student · freelance dev · day trader building disciplined, numbers based tooling and automations.
           </p>
 
           {/* Feature row: Risk tools */}
           <div className="mt-4 flex items-center justify-between rounded-2xl bg-white/5 px-3 py-2">
             <div>
-              <p className="font-medium text-zinc-100">Risk tools</p>
+              <p className="font-medium text-zinc-100">GoblinOS</p>
               <p className="text-[11px] text-zinc-400">
-                Position sizing, R:R, and trade planning without guesswork.
+                Automation engine powering risk management tools, workflows, and dev tasks.
               </p>
             </div>
             <span className="rounded-full bg-[color:var(--color-accent)]/15 px-3 py-1 text-[11px] text-[color:var(--color-accent)]">
