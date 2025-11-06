@@ -81,16 +81,16 @@ export default function AboutPage() {
             data-theme="dark"
             data-chrome="noheader nofooter noborders transparent"
             data-tweet-limit="1"
-            href="https://twitter.com/fuaadabdullah"
+            href="https://twitter.com/search?q=%23memes%20OR%20%23meme%20min_faves%3A1000&src=typed_query&f=live"
           >
-            Loading tweets...
+            Loading memes from X...
           </a>
         </div>
         
         <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10">
           <blockquote
             className="instagram-media"
-            data-instgrm-permalink="https://www.instagram.com/fuaad.abdullah/"
+            data-instgrm-permalink="https://www.instagram.com/memes/"
             data-instgrm-version="14"
             style={{
               background: '#000',
@@ -104,8 +104,8 @@ export default function AboutPage() {
               height: '100%',
             }}
           >
-            <a href="https://www.instagram.com/fuaad.abdullah/" style={{ color: '#fff' }}>
-              Loading Instagram...
+            <a href="https://www.instagram.com/memes/" style={{ color: '#fff' }}>
+              Loading Instagram memes...
             </a>
           </blockquote>
         </div>
