@@ -24,7 +24,7 @@ export default function HomePage() {
             <div>
               <p className="font-medium text-zinc-100">GoblinOS</p>
               <p className="text-[11px] text-zinc-400">
-                My ongoing automation engine powering this site, risk tools, workflows, and dev tasks.
+                Ongoing automation engine powering this site, risk tools, and workflows.
               </p>
             </div>
             <span className="rounded-full bg-[color:var(--color-accent)]/15 px-3 py-1 text-[11px] text-[color:var(--color-accent)]">
