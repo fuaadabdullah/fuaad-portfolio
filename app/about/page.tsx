@@ -25,23 +25,20 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* Temporary stock collage (replace with real photos later) */}
+      {/* Real photos from iCloud */}
       <section className="grid grid-cols-2 md:grid-cols-3 gap-3">
         {[
           {
-            src:
-              "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1600&auto=format&fit=crop",
-            alt: "Focused workstation with laptop and notes",
+            src: "/lore-2.jpg",
+            alt: "Fuaad - lore photo 2",
           },
           {
-            src:
-              "https://images.unsplash.com/photo-1559526324-593bc073d938?q=80&w=1600&auto=format&fit=crop",
-            alt: "Minimal desk with charts and coffee",
+            src: "/lore-3.jpg",
+            alt: "Fuaad - lore photo 3",
           },
           {
-            src:
-              "https://images.unsplash.com/photo-1517433456452-f9633a875f6f?q=80&w=1600&auto=format&fit=crop",
-            alt: "Abstract financial chart lines",
+            src: "/lore-4.jpg",
+            alt: "Fuaad - lore photo 4",
           },
           {
             src:
