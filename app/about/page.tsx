@@ -1,6 +1,5 @@
 // app/about/page.tsx
 import Image from "next/image";
-import Script from "next/script";
 
 export const metadata = {
   title: "About - Fuaad Abdullah",
@@ -10,15 +9,7 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <>
-      {/* Twitter embed script */}
-      <Script
-        src="https://platform.twitter.com/widgets.js"
-        strategy="lazyOnload"
-        async
-      />
-
-      <main className="mx-auto max-w-5xl px-4 py-12 space-y-12">
+    <main className="mx-auto max-w-5xl px-4 py-12 space-y-12">
         {/* Intro (photos deferred) */}
         <section className="space-y-4">
         <p className="text-sm uppercase tracking-[0.2em] text-white/50">LORE</p>
@@ -66,38 +57,26 @@ export default function AboutPage() {
           </div>
         ))}
         
-        {/* Live social meme feeds */}
-        <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10">
-          <a
-            className="twitter-timeline"
-            data-height="100%"
-            data-theme="dark"
-            data-chrome="noheader nofooter noborders transparent"
-            data-tweet-limit="1"
-            href="https://twitter.com/Memes"
-          >
-            Loading X memes...
-          </a>
+        {/* Coming soon placeholders */}
+        <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10 flex items-center justify-center">
+          <div className="text-center space-y-2 px-4">
+            <p className="text-2xl">🎭</p>
+            <p className="text-xs text-white/60 font-medium">Coming soon</p>
+          </div>
         </div>
         
-        <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10">
-          <iframe
-            src="https://www.reddit.com/r/dankmemes/top/.embed?theme=dark&showmedia=true&limit=1"
-            title="Dank Memes"
-            className="w-full h-full border-0"
-            sandbox="allow-scripts allow-same-origin allow-popups"
-            loading="lazy"
-          />
+        <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10 flex items-center justify-center">
+          <div className="text-center space-y-2 px-4">
+            <p className="text-2xl">🎪</p>
+            <p className="text-xs text-white/60 font-medium">Coming soon</p>
+          </div>
         </div>
         
-        <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10">
-          <iframe
-            src="https://www.reddit.com/r/memes/top/.embed?theme=dark&showmedia=true&limit=1"
-            title="Latest Memes"
-            className="w-full h-full border-0"
-            sandbox="allow-scripts allow-same-origin allow-popups"
-            loading="lazy"
-          />
+        <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10 flex items-center justify-center">
+          <div className="text-center space-y-2 px-4">
+            <p className="text-2xl">🎨</p>
+            <p className="text-xs text-white/60 font-medium">Coming soon</p>
+          </div>
         </div>
       </section>
 
@@ -117,6 +96,5 @@ export default function AboutPage() {
         </div>
       </section>
     </main>
-    </>
   );
 }
