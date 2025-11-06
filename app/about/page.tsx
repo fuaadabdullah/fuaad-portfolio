@@ -57,20 +57,52 @@ export default function AboutPage() {
           </div>
         ))}
         
-        {/* Goblin loading placeholders */}
-        {[1, 2, 3].map((i) => (
-          <div
-            key={`goblin-${i}`}
-            className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10 flex items-center justify-center"
-          >
-            <div className="text-center space-y-2 px-4">
-              <p className="text-4xl">👺</p>
-              <p className="text-xs text-white/40 font-mono">
-                goblin.loading({i})
-              </p>
-            </div>
+        {/* Live social meme feeds - placeholders for Twitter/Instagram embeds */}
+        <a
+          href="https://twitter.com/fuaadabdullah"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-gradient-to-br from-blue-500/10 to-blue-600/10 ring-1 ring-blue-500/20 flex items-center justify-center hover:ring-blue-500/40 transition-all group"
+        >
+          <div className="text-center space-y-2 px-4">
+            <p className="text-4xl group-hover:scale-110 transition-transform">𝕏</p>
+            <p className="text-xs text-white/60 font-medium">
+              Latest posts from X
+            </p>
+            <p className="text-[10px] text-white/30">
+              Click to view timeline
+            </p>
           </div>
-        ))}
+        </a>
+        
+        <a
+          href="https://instagram.com/fuaadabdullah"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-gradient-to-br from-pink-500/10 to-purple-600/10 ring-1 ring-pink-500/20 flex items-center justify-center hover:ring-pink-500/40 transition-all group"
+        >
+          <div className="text-center space-y-2 px-4">
+            <p className="text-4xl group-hover:scale-110 transition-transform">�</p>
+            <p className="text-xs text-white/60 font-medium">
+              Instagram memes
+            </p>
+            <p className="text-[10px] text-white/30">
+              Click to view profile
+            </p>
+          </div>
+        </a>
+        
+        <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-gradient-to-br from-green-500/10 to-emerald-600/10 ring-1 ring-green-500/20 flex items-center justify-center">
+          <div className="text-center space-y-2 px-4">
+            <p className="text-4xl">👺</p>
+            <p className="text-xs text-white/60 font-medium">
+              GoblinOS memes
+            </p>
+            <p className="text-[10px] text-white/30">
+              Coming soon
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* Short "stats" row */}
