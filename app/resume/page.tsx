@@ -73,6 +73,9 @@ export default function ResumePage() {
         {/* Top-line summary + stats */}
         <section className="grid gap-6 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-start">
           <div className="rounded-3xl bg-[color:var(--color-coal)] border border-white/5 p-5 space-y-3">
+            <p className="text-[11px] uppercase tracking-[0.18em] text-zinc-500">
+              For recruiters · clients · schools
+            </p>
             <p className="text-sm font-medium text-zinc-100">Summary</p>
             <p className="text-sm text-zinc-300 leading-relaxed">
               I operate at the intersection of{" "}
