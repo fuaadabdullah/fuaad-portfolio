@@ -13,7 +13,7 @@ export type BlogCategory = keyof typeof categoryColors;
 /**
  * Format a category slug to a display name
  */
-export function formatCategoryName(category: string): string {
+export function formatCategoryName(category: BlogCategory): string {
   return category === "release-note" 
     ? "Release Note" 
     : category.charAt(0).toUpperCase() + category.slice(1);

@@ -102,7 +102,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               href={project.links.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-green-600 hover:bg-green-700 px-4 py-2 font-medium transition-colors"
+              className={buttonClasses("success", "sm")}
             >
               <ExternalLink className="w-4 h-4" />
               Live Demo

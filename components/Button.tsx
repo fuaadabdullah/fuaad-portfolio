@@ -1,7 +1,7 @@
 import React from "react";
 import { clsx } from "@/lib/utils";
 
-type Variant = "primary" | "secondary" | "ghost";
+type Variant = "primary" | "secondary" | "ghost" | "success";
 type Size = "sm" | "md" | "lg";
 
 const base = "inline-flex items-center gap-2 transition-colors disabled:opacity-60 disabled:cursor-not-allowed";
@@ -9,6 +9,7 @@ const variants: Record<Variant, string> = {
   primary: "bg-[color:var(--color-accent)] text-white hover:bg-[color:var(--color-accent)]/90 font-medium",
   secondary: "bg-white/10 text-white hover:bg-white/15",
   ghost: "bg-transparent text-white hover:bg-white/10 border border-white/10",
+  success: "bg-green-600 text-white hover:bg-green-700 font-medium",
 };
 const sizes: Record<Size, string> = {
   sm: "px-3 py-1.5 text-sm rounded-lg",
