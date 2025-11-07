@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Download } from "lucide-react";
+import { buttonClasses } from "@/components/Button";
 
 // Updated: 2025-11-05 - Latest changes deployed
 export default function HomePage() {
@@ -34,13 +35,13 @@ export default function HomePage() {
 
           {/* CTA row */}
           <div className="mt-6 flex gap-3 flex-wrap">
-            <Link href="/portfolio" className="inline-flex items-center gap-2 rounded-2xl bg-[color:var(--color-accent)] px-5 py-3 font-medium text-white hover:bg-[color:var(--color-accent)]/90 transition-colors">
+            <Link href="/portfolio" className={buttonClasses("primary", "md")}>
               See portfolio <ArrowRight size={18} aria-hidden="true" />
             </Link>
-            <Link href="/Fuaad_Abdullah_Resume.pdf" className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 hover:bg-white/15 transition-colors">
+            <Link href="/Fuaad_Abdullah_Resume.pdf" className={buttonClasses("secondary", "md")}>
               Résumé PDF <Download size={18} aria-hidden="true" />
             </Link>
-            <Link href="/services" className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 hover:bg-white/15 transition-colors">
+            <Link href="/services" className={buttonClasses("secondary", "md")}>
               Services <ArrowRight size={18} aria-hidden="true" />
             </Link>
           </div>
@@ -51,10 +52,10 @@ export default function HomePage() {
           <h2 className="text-xl font-semibold">Position Sizing Web App</h2>
           <p className="text-white/80 mt-2">Production-grade risk calculator that forces day traders to respect their risk, not their ego. Built with Python, Streamlit, and Azure (internal codename: RIZZK).</p>
           <div className="mt-4 flex gap-3">
-            <a className="rounded-lg bg-white/10 px-4 py-2 hover:bg-white/15 transition-colors" href="https://rizzk-calculator-demo-eus2-f1.azurewebsites.net" target="_blank" rel="noopener noreferrer">
+            <a className={buttonClasses("secondary", "sm")} href="https://rizzk-calculator-demo-eus2-f1.azurewebsites.net" target="_blank" rel="noopener noreferrer">
               Live demo
             </a>
-            <a className="rounded-lg bg-white/10 px-4 py-2 hover:bg-white/15 transition-colors" href="https://github.com/fuaadabdullah/rr-calculator" target="_blank" rel="noopener noreferrer">
+            <a className={buttonClasses("secondary", "sm")} href="https://github.com/fuaadabdullah/rr-calculator" target="_blank" rel="noopener noreferrer">
               Source
             </a>
           </div>
@@ -62,7 +63,7 @@ export default function HomePage() {
         <article className="rounded-2xl border border-white/10 p-6">
           <h2 className="text-xl font-semibold">Consulting</h2>
           <p className="text-white/80 mt-2">Frontend polish, Streamlit/Next.js builds, and deployment-ready MVPs.</p>
-          <a className="mt-4 inline-block rounded-lg bg-[color:var(--color-accent)] px-4 py-2 text-white hover:bg-[color:var(--color-accent)]/90 transition-colors" href="/services">
+          <a className={buttonClasses("primary", "sm")} href="/services">
             View services
           </a>
         </article>
