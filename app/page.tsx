@@ -10,7 +10,7 @@ export default function HomePage() {
         {/* Text / hero copy */}
         <div className="space-y-4 max-w-3xl">
           <p className="text-sm uppercase tracking-[0.2em] text-white/50">
-            Finance • Tools • Automations
+            Clarity • Speed • Automation
           </p>
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
             I build tools and automations for creators, founders or anyone tired of guesssing.
