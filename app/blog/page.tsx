@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getAllPosts, formatDate, type BlogPostMetadata } from "@/lib/blog";
+import { categoryColors, formatCategoryName } from "@/lib/blog-constants";
 
 export const metadata = {
   title: "Blog - Fuaad Abdullah",
@@ -11,18 +12,12 @@ export const metadata = {
   }
 };
 
-const categoryColors = {
-  essay: "bg-purple-500/20 text-purple-300 border-purple-500/30",
-  "release-note": "bg-blue-500/20 text-blue-300 border-blue-500/30",
-  tutorial: "bg-green-500/20 text-green-300 border-green-500/30",
-};
-
 function BlogPostCard({ post }: { post: BlogPostMetadata }) {
   return (
   <article className="border border-white/10 rounded-lg p-6 hover:border-[color:var(--color-accent)]/50 transition-colors">
       <div className="flex items-center gap-3 mb-3">
         <span className={`text-xs font-medium px-2 py-1 rounded border ${categoryColors[post.category]}`}>
-          {post.category === "release-note" ? "Release Note" : post.category.charAt(0).toUpperCase() + post.category.slice(1)}
+          {formatCategoryName(post.category)}
         </span>
         <time className="text-sm text-white/60">{formatDate(post.date)}</time>
       </div>

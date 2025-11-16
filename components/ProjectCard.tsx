@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Card from "./Card";
 import Badge from "./Badge";
+import { buttonClasses } from "./Button";
 import { Project } from "@/data/projects";
 
 export default function ProjectCard({ project }: { project: Project }){
@@ -28,16 +29,16 @@ export default function ProjectCard({ project }: { project: Project }){
       </div>
       <div className="mt-4 flex gap-3">
         {project.links?.live && (
-          <a className="rounded-lg bg-white/10 px-3 py-1.5 hover:bg-white/15 transition-colors" href={project.links.live} target="_blank" rel="noopener noreferrer">
+          <a className={buttonClasses("secondary", "sm")} href={project.links.live} target="_blank" rel="noopener noreferrer">
             Live demo
           </a>
         )}
         {project.links?.source && (
-          <a className="rounded-lg bg-white/10 px-3 py-1.5 hover:bg-white/15 transition-colors" href={project.links.source} target="_blank" rel="noopener noreferrer">
+          <a className={buttonClasses("secondary", "sm")} href={project.links.source} target="_blank" rel="noopener noreferrer">
             Source code
           </a>
         )}
-        <Link className="rounded-lg bg-white/10 px-3 py-1.5 hover:bg-white/15 transition-colors" href={`/portfolio/${project.slug}`}>
+        <Link className={buttonClasses("secondary", "sm")} href={`/portfolio/${project.slug}`}>
           View details
         </Link>
       </div>
