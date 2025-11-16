@@ -11,6 +11,7 @@
   "capture-screenshots": "TMPDIR=/tmp node scripts/capture-rizzk-screenshot.js",
   "capture-pages": "TMPDIR=/tmp node scripts/capture-pages-screenshots.js",
   "validate-no-duplicates": "node scripts/validate-about.js",
+  "validate-case-studies": "node scripts/validate-case-studies.js",
     "process-headshot": "node scripts/process-headshot.js",
     "process-headshot:roomy": "node scripts/process-headshot.js"
   },
