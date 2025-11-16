@@ -84,7 +84,7 @@ export default function AboutPage() {
       <section className="grid gap-6 md:grid-cols-3 text-sm text-white/70">
         <div>
           <p className="font-semibold text-white">Now</p>
-          <p>Georgia State University (GSU) — Finance: building risk tools, GoblinOS, and client projects.</p>
+          <p>Georgia State University (GSU) — Finance: building risk tools, workflow automation, and client projects.</p>
         </div>
         <div>
           <p className="font-semibold text-white">Next 1–2 years</p>
