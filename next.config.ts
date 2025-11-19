@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  experimental: { 
+  experimental: {
     optimizeCss: true
   },
   images: {
@@ -37,10 +37,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // Silence the multiple lockfiles warning in Turbopack
-  turbopack: {
-    root: __dirname,
-  } as any,
+  // Turbopack configuration removed to avoid workspace root issues
 };
 
 export default nextConfig;

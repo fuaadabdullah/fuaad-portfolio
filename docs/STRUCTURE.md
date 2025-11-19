@@ -83,13 +83,7 @@ fuaad-portfolio/
 │
 ├── docs/                        # Documentation
 │   ├── STRUCTURE.md            # This file
-│   ├── DEPLOYMENT.md           # Deployment guide
-│   ├── ACCESSIBILITY.md        # Accessibility documentation
-│   ├── SEO_VALIDATION.md       # SEO best practices
-│   ├── OPERATIONS.md           # Operations & maintenance
-│   ├── GOBLIN_ENHANCEMENT_PLAN.md  # GoblinOS integration
-│   ├── OG_IMAGES_ENHANCEMENT.md    # OG image optimization
-│   └── SEARCH_CONSOLE_SETUP.md     # Search Console setup
+│   └── See docs/ for all documentation files (duplicates removed for clarity)
 │
 ├── types/                       # TypeScript Type Definitions
 │   └── global.d.ts             # Global type declarations
@@ -383,5 +377,5 @@ When adding files:
 
 ---
 
-**Last Updated**: November 6, 2025  
+**Last Updated**: November 6, 2025
 **Maintained by**: Fuaad Abdullah

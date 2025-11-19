@@ -2,10 +2,10 @@ import { servicesJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 
 export const metadata = {
-  title: "Let's Work - Fuaad Abdullah",
+  title: "Work with me - Fuaad Abdullah",
   description: "Custom web development for students, creatives, and small teams: UX/UI polish ($450), launch-ready sites ($950), and full-stack MVPs ($2,400+). Clear scope. Clear price. Clear handoff.",
   openGraph: {
-    title: "Let's Work - Fuaad Abdullah",
+  title: "Work with me - Fuaad Abdullah",
     description: "Custom web development: UX polish, launch-ready sites, and full-stack MVPs. Built with Next.js, deployed properly, handed off clearly.",
     images: ["/og-default.png"]
   }
@@ -22,7 +22,7 @@ export default function ServicesPage() {
   return (
     <section className="mx-auto max-w-4xl px-6 py-16">
       <JsonLd data={servicesJsonLd(services)} />
-      <h1 className="text-3xl md:text-5xl font-semibold tracking-tight">Let's Work</h1>
+  <h1 className="text-3xl md:text-5xl font-semibold tracking-tight">Work with me</h1>
       <p className="text-white/80 mt-3 mb-12">Custom web development for students, creatives, and small teams. Clear scope. Clear price. Clear handoff.</p>
 
       {/* Service 1: UX/UI Polish Sprint */}
@@ -31,7 +31,7 @@ export default function ServicesPage() {
           <h2 className="text-2xl md:text-3xl font-semibold">UX/UI Polish Sprint</h2>
           <span className="text-[color:var(--color-accent)] text-xl font-semibold mt-2 md:mt-0">$450</span>
         </div>
-        
+
         <div className="space-y-6">
           <div>
             <h3 className="text-lg font-semibold text-white/90 mb-2">What you get</h3>
@@ -66,7 +66,7 @@ export default function ServicesPage() {
           <h2 className="text-2xl md:text-3xl font-semibold">Website Launch Package</h2>
           <span className="text-[color:var(--color-accent)] text-xl font-semibold mt-2 md:mt-0">$950</span>
         </div>
-        
+
         <div className="space-y-6">
           <div>
             <h3 className="text-lg font-semibold text-white/90 mb-2">What you get</h3>
@@ -105,7 +105,7 @@ export default function ServicesPage() {
           <h2 className="text-2xl md:text-3xl font-semibold">Mini Tools</h2>
           <span className="text-[color:var(--color-accent)] text-xl font-semibold mt-2 md:mt-0">$199+</span>
         </div>
-        
+
         <div className="space-y-6">
           <div>
             <h3 className="text-lg font-semibold text-white/90 mb-2">What you get</h3>
@@ -140,7 +140,7 @@ export default function ServicesPage() {
           <h2 className="text-2xl md:text-3xl font-semibold">MVP Bootstrap</h2>
           <span className="text-[color:var(--color-accent)] text-xl font-semibold mt-2 md:mt-0">$2,400+</span>
         </div>
-        
+
         <div className="space-y-6">
           <div>
             <h3 className="text-lg font-semibold text-white/90 mb-2">What you get</h3>
@@ -154,17 +154,17 @@ export default function ServicesPage() {
 
           <div>
             <h3 className="text-lg font-semibold text-white/90 mb-2">Why it matters</h3>
-            <p className="text-white/70">You need more than a landing page - you need auth, CRUD, a dashboard, and real data flow. This gets you a working foundation you can actually build on, not just pretty screens that don't do anything. You're not just paying for code. You're paying for less headache later.</p>
+            <p className="text-white/70">You need more than a landing page — you need auth, CRUD, a dashboard, and real data flow. This gets you a working foundation you can actually build on, not just pretty screens that do not function. You are not just paying for code; you are investing in less headache later.</p>
           </div>
 
           <div>
             <h3 className="text-lg font-semibold text-white/90 mb-2">How it works</h3>
             <ol className="text-white/70 space-y-1 list-decimal list-inside">
-              <li>Discovery call: what you're building, who it's for, what's the MVP scope</li>
+              <li>Discovery call: what you are building, who it is for, and the MVP scope</li>
               <li>Tech stack + architecture plan (you approve before I start)</li>
               <li>Two-week sprint: auth, CRUD, basic charts, deployment</li>
               <li>Code walkthrough + documentation</li>
-              <li>Handoff call so you're not lost once I'm gone</li>
+              <li>Handoff call so you are not left without guidance after the project ends</li>
             </ol>
           </div>
         </div>
@@ -174,7 +174,7 @@ export default function ServicesPage() {
       <section className="mt-16 border-t border-white/10 pt-16" aria-labelledby="contact-heading">
         <h2 id="contact-heading" className="text-2xl md:text-4xl font-semibold tracking-tight">Get in Touch</h2>
         <p className="text-white/80 mt-2 mb-6">
-          Interested in working together? Drop me a message and I'll get back to you soon.
+          Interested in working together? Drop me a message and I will get back to you soon.
         </p>
         <form
           action="https://formspree.io/f/xzzjjqoj"

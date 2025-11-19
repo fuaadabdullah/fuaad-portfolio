@@ -24,8 +24,8 @@ export function BlogCTA({ variant = "services" }: BlogCTAProps) {
       secondaryHref: "/services#contact",
     },
     contact: {
-      title: "Let's work together",
-      description: "Building something ambitious? I'd love to help you ship it.",
+      title: "Work with me",
+      description: "Building something ambitious? I would love to help you ship it.",
       primaryText: "Contact Me",
       primaryHref: "/services#contact",
       secondaryText: "View Services",

@@ -10,7 +10,7 @@ export const contentType = "image/png";
 export default function Icon() {
   return new ImageResponse(
     (
-      <div tw="w-full h-full flex items-center justify-center text-white font-bold text-[20px] bg-[#4d7c0f] rounded-[20%]">
+      <div className="w-full h-full flex items-center justify-center text-white font-bold text-[20px] bg-[#4d7c0f] rounded-[20%]">
         F
       </div>
     ),

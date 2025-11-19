@@ -4,18 +4,19 @@ import { usePathname } from "next/navigation";
 const links = [
   { href: "/", label: "Home" },
   { href: "/portfolio", label: "Portfolio" },
+  { href: "/case-studies", label: "Case Studies" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "Lore" },
   { href: "/resume", label: "Resume" },
-  { href: "/services", label: "Let's Work" },
+  { href: "/services", label: "Work with me" },
 ];
 export default function Navbar(){
   const pathname = usePathname();
   return (
   <header className="sticky top-0 z-40 backdrop-blur bg-[color:var(--color-ink)]/70 border-b border-white/10">
       <nav className="mx-auto max-w-5xl px-6 h-14 flex items-center justify-between" aria-label="Main navigation">
-        <Link href="/" className="font-semibold" aria-label="Fuaad Abdullah - Home">
-          Hey I'm Fuaad
+          <Link href="/" className="font-semibold" aria-label="Fuaad Abdullah - Home">
+          Hey I am Fuaad
         </Link>
         <ul className="flex gap-5 text-sm">
           {links.map(l => (

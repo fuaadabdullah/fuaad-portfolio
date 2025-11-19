@@ -37,4 +37,3 @@ async function validate() {
 }
 
 validate();
-
