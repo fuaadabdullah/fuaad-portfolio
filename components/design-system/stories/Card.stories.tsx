@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import Card, { CardVariant } from '../../Card';
+import Card from '../../Card';
 import { Text } from '../base/Text';
 
 const meta: Meta<typeof Card> = {

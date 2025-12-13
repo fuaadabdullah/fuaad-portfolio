@@ -33,7 +33,7 @@ export function useChat() {
       let data;
       try {
         data = await res.json();
-      } catch (parseErr) {
+      } catch {
         throw new Error("Invalid response format");
       }
 

@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+// import fetch from "node-fetch";
 
 try {
   const res = await fetch("http://localhost:3000/api/mock-ai", {

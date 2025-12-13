@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, Download } from "lucide-react";
 
 // Updated: 2025-11-05 - Latest changes deployed

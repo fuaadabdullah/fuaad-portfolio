@@ -1,7 +1,7 @@
-import fetch from "node-fetch";
+// import fetch from "node-fetch";
 
 async function testPrompt(p, useMock = true) {
-  const endpoint = useMock ? "http://localhost:3000/api/mock-ai" : "http://localhost:3000/api/ai";
+  const endpoint = useMock ? "http://10.0.12.159:3000/api/mock-ai" : "http://10.0.12.159:3000/api/ai";
 
   try {
     const res = await fetch(endpoint, {

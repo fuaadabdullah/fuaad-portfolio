@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import projects, { Project } from "@/data/projects";
+import projects from "@/data/projects";
 import Badge from "@/components/Badge";
 
 interface ProjectPageProps {

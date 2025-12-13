@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { fn } from 'storybook/test';
 import Badge from '../base/Badge';
 
 const meta: Meta<typeof Badge> = {

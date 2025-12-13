@@ -28,7 +28,7 @@ function getMockResponse(prompt: string): string {
 export async function POST(request: Request) {
   const { prompt } = await request.json();
 
-  console.log("MOCK API - PROMPT RECEIVED:", prompt);
+  console.debug("MOCK API - PROMPT RECEIVED:", prompt);
 
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 500));
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ reply: "Sorry, something went wrong." });
   }
 
-  console.log("MOCK API - REPLY:", reply);
+  console.debug("MOCK API - REPLY:", reply);
 
   return NextResponse.json({ reply });
 }
