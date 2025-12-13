@@ -2,6 +2,30 @@ import { NextResponse } from "next/server";
 import { siteFacts, faq } from "@/data/portfolio_knowledge";
 import { blogContent, projectContent } from "@/data/site_content";
 
+const mockResponses = {
+  "hello": "Hello! I'm the portfolio assistant. How can I help you learn about Fuaad's work?",
+  "tech": "This portfolio uses Next.js 16, TypeScript, Tailwind CSS, MDX for blogs, and custom tooling.",
+  "fuaad": "Fuaad is a finance major and full-stack developer who specializes in web apps, MVP tooling, and custom dashboards.",
+  "rizzk": "RIZZK Calculator is a risk management tool for day traders, built with Python and Streamlit. It helps with position sizing and risk/reward calculations.",
+  "80/20": "The 80/20 rule means focusing on the 20% of features that deliver 80% of the value. Fuaad uses this to ship production-ready projects in just 2 weeks.",
+  "services": "Fuaad offers web app builds, MVP tooling, custom dashboards, and developer utilities.",
+  "portfolio": "This is Fuaad's personal portfolio showcasing his projects like RIZZK Calculator, this website, and various development tools."
+};
+
+function getMockResponse(prompt: string): string {
+  const lower = prompt.toLowerCase();
+
+  // Check for keywords
+  for (const [key, response] of Object.entries(mockResponses)) {
+    if (lower.includes(key)) {
+      return response;
+    }
+  }
+
+  // Default response
+  return "I'm here to help you learn about Fuaad's portfolio! Try asking about the tech stack, projects, or services.";
+}
+
 async function fetchWithTimeout(url: string, opts: any = {}, timeout = 5000) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
@@ -25,7 +49,7 @@ export async function POST(request: Request) {
   const { prompt } = await request.json();
   const base = "http://localhost:11434";
 
-  console.log("PROMPT RECEIVED:", prompt);
+  console.debug("PROMPT RECEIVED:", prompt);
 
   const lower = prompt.toLowerCase();
 
@@ -65,7 +89,7 @@ User: ${prompt}
 Assistant:
 `;
 
-  console.log("Sending to LLM:", fullContext);
+  console.debug("Sending to LLM:", fullContext);
 
   try {
     const res = await fetchWithTimeout(`${base}/api/chat`, {
@@ -80,8 +104,8 @@ Assistant:
       }),
     }, 8000); // 8 seconds timeout
 
-    console.log("Response status:", res.status);
-    console.log("Raw body:", await res.clone().text());
+    console.debug("Response status:", res.status);
+    console.debug("Raw body:", await res.clone().text());
 
     if (!res.ok) {
       console.error("LLM API ERROR:", res.status, res.statusText);
@@ -113,7 +137,9 @@ Assistant:
     }
 
     if (err instanceof Error && err.message.includes('fetch')) {
-      return NextResponse.json({ reply: "Sorry, the assistant is temporarily unavailable. Try again soon!" });
+      // Fallback to mock response when Ollama is not available
+      const reply = getMockResponse(prompt);
+      return NextResponse.json({ reply });
     }
 
     return NextResponse.json({ reply: "Sorry, something went wrong with the AI assistant." });

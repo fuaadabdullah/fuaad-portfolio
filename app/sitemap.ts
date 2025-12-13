@@ -27,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.6,
     }));
-  } catch (error) {
+  } catch {
     // Fallback: manually list blog posts if fs operations fail in production
     const manualSlugs = [
       "building-rizzk",

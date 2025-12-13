@@ -1,6 +1,6 @@
 import React from "react";
 import { clsx } from "@/lib/utils";
-import { colors, radii } from "../tokens";
+import { colors } from "../tokens";
 
 export type BadgeVariant = "default" | "success" | "outline";
 

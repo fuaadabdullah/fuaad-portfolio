@@ -13,7 +13,6 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project, variant = "default" }: ProjectCardProps) {
   const isCompact = variant === "compact";
-  const isFeatured = variant === "featured";
   return (
     <Card variant={variant}>
       {project.image && !isCompact && (

@@ -1,6 +1,6 @@
 import React from "react";
 import { clsx } from "@/lib/utils";
-import { colors, spacing, fontSizes, radii } from "../tokens";
+import { colors } from "../tokens";
 
 export type ButtonVariant = "primary" | "secondary" | "ghost";
 export type ButtonSize = "sm" | "md" | "lg";
