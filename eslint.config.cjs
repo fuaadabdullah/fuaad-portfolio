@@ -24,15 +24,3 @@ module.exports = [
     },
   },
 ];
-/**
- * Flat config for ESLint v9+ — CommonJS variant compatible with `type: module`.
- */
-module.exports = [
-  { ignores: ['.next/**', 'node_modules/**', '.venv/**', 'public/**'] },
-  require("eslint-config-next").configs["core-web-vitals"],
-  {
-    rules: {
-      "no-console": ["warn", { allow: ["warn", "error", "debug"] }],
-    },
-  },
-];
