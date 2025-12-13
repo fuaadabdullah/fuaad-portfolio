@@ -1,0 +1,59 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import * as ButtonStories from '../stories/Button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+Buttons allow users to take actions and make choices with a single tap.
+
+## Usage
+
+```tsx
+import { Button } from './components/design-system/base/Button';
+
+<Button variant="primary" onClick={handleClick}>
+  Click me
+</Button>
+```
+
+## Variants
+
+<Canvas of={ButtonStories.Primary} />
+<Canvas of={ButtonStories.Secondary} />
+<Canvas of={ButtonStories.Ghost} />
+
+## Sizes
+
+<Canvas of={ButtonStories.Small} />
+<Canvas of={ButtonStories.Medium} />
+<Canvas of={ButtonStories.Large} />
+
+## States
+
+<Canvas of={ButtonStories.Disabled} />
+
+## Props
+
+<Controls />
+
+## Do's and Don'ts
+
+### ✅ Do
+- Use clear, action-oriented text
+- Keep button text concise
+- Use appropriate variants for hierarchy
+- Ensure sufficient touch targets on mobile
+
+### ❌ Don't
+- Use buttons for navigation (use links instead)
+- Put too much text in buttons
+- Disable buttons without explanation
+- Use generic text like "Submit" without context
+
+## Accessibility
+
+- Buttons are keyboard accessible
+- Focus indicators are visible
+- Screen readers announce button purpose
+- Disabled state is communicated

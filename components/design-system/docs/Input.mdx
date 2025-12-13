@@ -1,0 +1,59 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import * as InputStories from '../stories/Input.stories';
+
+<Meta of={InputStories} />
+
+# Input
+
+Form inputs allow users to enter and edit text data.
+
+## Usage
+
+```tsx
+import { Input } from './components/Input';
+import { FormProvider, useForm } from 'react-hook-form';
+
+function MyForm() {
+  const methods = useForm();
+  return (
+    <FormProvider {...methods}>
+      <Input
+        name="email"
+        label="Email Address"
+        type="email"
+        validation={{ required: 'Email is required' }}
+      />
+    </FormProvider>
+  );
+}
+```
+
+## Examples
+
+<Canvas of={InputStories.Default} />
+<Canvas of={InputStories.WithValidation} />
+
+## Props
+
+<Controls />
+
+## Do's and Don'ts
+
+### ✅ Do
+- Always provide clear labels
+- Use appropriate input types (email, password, etc.)
+- Show validation errors clearly
+- Provide helpful placeholder text
+
+### ❌ Don't
+- Use inputs without labels
+- Rely solely on placeholders for labels
+- Hide validation errors
+- Use inappropriate input types
+
+## Accessibility
+
+- Labels are properly associated with inputs
+- Validation errors are announced
+- Keyboard navigation works
+- Screen readers can identify input purpose

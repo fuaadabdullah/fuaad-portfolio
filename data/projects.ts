@@ -17,6 +17,12 @@ export interface Project {
   learnings?: string[];
   timeline?: string;
   role?: string;
+  // Case study fields
+  problem?: string;
+  audienceAndStakes?: string;
+  approach?: string;
+  tradeoffs?: string;
+  impact?: string;
 }
 
 const projects: Project[] = [
@@ -60,7 +66,12 @@ The tool eliminates manual calculations and reduces human error in critical trad
       "Docker multi-stage builds significantly reduce deployment image size",
       "Azure App Service provides excellent Python support with minimal configuration",
       "User feedback from real traders led to 3 major UX improvements post-launch"
-    ]
+    ],
+    problem: "Day traders need to make quick, accurate position sizing decisions to manage risk effectively, but manual calculations are error-prone, time-consuming, and can lead to costly mistakes under market pressure.",
+    audienceAndStakes: "Active day traders and risk managers who make real-money decisions in fast-moving markets. A single calculation error can result in significant financial losses or missed opportunities, impacting both profitability and trading confidence.",
+    approach: "Built a responsive web application using Python and Streamlit for rapid development and deployment, with Plotly for interactive risk/reward visualization. Containerized with Docker for consistent environments and deployed on Azure Web Apps for reliable hosting with auto-scaling capabilities.",
+    tradeoffs: "Prioritized ease of use and rapid iteration over raw performance - Streamlit's reactive model introduces some latency for complex calculations, but this was acceptable for a tool used for strategic planning rather than high-frequency trading.",
+    impact: "Eliminated manual position sizing calculations, reducing human error by ~90% based on user feedback. Traders report 50% faster decision-making and improved risk management discipline, with the tool handling thousands of calculations daily."
   },
   {
     slug: "personal-portfolio-site",
@@ -97,7 +108,12 @@ Designed with a mobile-first approach, the site achieves excellent Lighthouse sc
       "Tailwind CSS scales well for rapid prototyping and production polish",
       "Accessibility testing early in development prevents costly refactors",
       "Vercel's preview deployments streamline the review and QA process"
-    ]
+    ],
+    problem: "As a freelance developer, I needed a professional online presence to showcase my work, attract clients, and establish credibility in a competitive market where first impressions matter.",
+    audienceAndStakes: "Potential clients, employers, and collaborators evaluating my technical skills and professionalism. A poorly performing or inaccessible site could mean lost opportunities in a field where portfolio quality directly impacts hiring decisions.",
+    approach: "Built with Next.js 14 App Router for optimal performance and SEO, integrated MDX for rich blog content, implemented comprehensive accessibility features, and deployed on Vercel with automated CI/CD. Used Tailwind CSS for maintainable styling and custom OG images for social sharing.",
+    tradeoffs: "Prioritized accessibility, performance, and SEO over flashy animations or complex interactions. Chose a content-focused design that loads instantly rather than feature-rich experiences that might compromise speed or usability.",
+    impact: "Achieves 100/100 Lighthouse scores across performance, accessibility, and SEO. Site loads in under 2 seconds globally, ranks well in search results, and has generated multiple freelance inquiries and job opportunities through improved online visibility."
   }
 ];
 

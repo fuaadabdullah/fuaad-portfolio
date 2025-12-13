@@ -1,0 +1,48 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as TopbarStories from '../stories/Topbar.stories';
+
+<Meta of={TopbarStories} />
+
+# Topbar
+
+The topbar provides site-wide navigation and branding.
+
+## Usage
+
+```tsx
+import Topbar from './components/Topbar';
+
+function Layout({ children }) {
+  return (
+    <div>
+      <Topbar />
+      <main>{children}</main>
+    </div>
+  );
+}
+```
+
+## Example
+
+<Canvas of={TopbarStories.Default} />
+
+## Do's and Don'ts
+
+### ✅ Do
+- Keep navigation items concise
+- Use clear, descriptive labels
+- Maintain consistent navigation across pages
+- Ensure mobile responsiveness
+
+### ❌ Don't
+- Overcrowd the navigation
+- Use vague navigation labels
+- Change navigation structure frequently
+- Hide navigation on mobile without alternatives
+
+## Accessibility
+
+- Uses semantic `<header>` and `<nav>` elements
+- Keyboard navigation works
+- Skip links provided
+- Current page indicated with `aria-current`

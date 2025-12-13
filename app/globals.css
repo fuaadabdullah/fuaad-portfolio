@@ -1,3 +1,4 @@
+@import "highlight.js/styles/github-dark.css";
 @import "tailwindcss";
 
 /* Global theme tokens (Tailwind v4 compatible) */
@@ -54,7 +55,6 @@ a:hover {
 }
 
 /* Code highlighting (GitHub Dark theme) */
-@import "highlight.js/styles/github-dark.css";
 
 /* Accessibility: Reduced motion */
 @media (prefers-reduced-motion: reduce) {

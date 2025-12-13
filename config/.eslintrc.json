@@ -1,5 +1,28 @@
 {
   "extends": [
-    "next/core-web-vitals"
-  ]
+    "next/core-web-vitals",
+    "plugin:storybook/recommended"
+  ],
+  "rules": {
+    "max-lines-per-function": [
+      "warn",
+      {
+        "max": 120,
+        "skipComments": true,
+        "skipBlankLines": true
+      }
+    ],
+    "complexity": [
+      "warn",
+      10
+    ],
+    "max-params": [
+      "warn",
+      4
+    ],
+    "max-statements": [
+      "warn",
+      40
+    ]
+  }
 }

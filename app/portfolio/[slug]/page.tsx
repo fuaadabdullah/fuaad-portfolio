@@ -162,6 +162,45 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
+      {/* Case Study */}
+      {(project.problem || project.audienceAndStakes || project.approach || project.tradeoffs || project.impact) && (
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-6 text-green-500">Case Study</h2>
+          <div className="space-y-8">
+            {project.problem && (
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-white">The Problem</h3>
+                <p className="text-white/80 leading-relaxed">{project.problem}</p>
+              </div>
+            )}
+            {project.audienceAndStakes && (
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-white">Audience & Stakes</h3>
+                <p className="text-white/80 leading-relaxed">{project.audienceAndStakes}</p>
+              </div>
+            )}
+            {project.approach && (
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-white">My Approach</h3>
+                <p className="text-white/80 leading-relaxed">{project.approach}</p>
+              </div>
+            )}
+            {project.tradeoffs && (
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-white">Tradeoffs</h3>
+                <p className="text-white/80 leading-relaxed">{project.tradeoffs}</p>
+              </div>
+            )}
+            {project.impact && (
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-white">Impact</h3>
+                <p className="text-white/80 leading-relaxed">{project.impact}</p>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* Features */}
       {project.features && project.features.length > 0 && (
         <section className="mb-12">
