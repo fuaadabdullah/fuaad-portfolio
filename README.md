@@ -221,7 +221,7 @@ MIT License - feel free to use this as a template for your own portfolio.
 
 ## 🔗 Links
 
-- **Live Site**: [https://fuaadabdullah.com](https://fuaadabdullah.com)
+- **Live Site**: [https://heyimfuaad.me](https://heyimfuaad.me)
 - **GitHub**: [@fuaadabdullah](https://github.com/fuaadabdullah)
 - **LinkedIn**: [Fuaad Abdullah](https://linkedin.com/in/fuaadabdullah)
 
