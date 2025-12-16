@@ -7,7 +7,7 @@ const LOCAL_TIMEOUT = 8000; // 8 seconds
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 const HUGGINGFACE_API_KEY = process.env.HUGGINGFACE_API_KEY;
-const HUGGINGFACE_URL = 'https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium'; // Hugging Face fallback provider
+const HUGGINGFACE_URL = 'https://api-inference.huggingface.co/models/gpt2'; // Hugging Face fallback provider
 
 // System prompt for consistent persona
 const SYSTEM_PROMPT = `You are an AI assistant embedded on Fuaad Abdullah's personal portfolio website.
@@ -160,16 +160,13 @@ export async function callHuggingFaceAPI(prompt: string): Promise<string> {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          inputs: {
-            past_user_inputs: [],
-            generated_responses: [],
-            text: `${SYSTEM_PROMPT}\n\nUser: ${prompt}\n\nAssistant:`
-          },
+          inputs: `${SYSTEM_PROMPT}\n\nUser: ${prompt}\n\nAssistant:`,
           parameters: {
-            max_length: 200,
+            max_new_tokens: 150,
             temperature: 0.7,
             do_sample: true,
-            pad_token_id: 50256
+            pad_token_id: 50256,
+            eos_token_id: 50256
           }
         })
       });
@@ -183,7 +180,7 @@ export async function callHuggingFaceAPI(prompt: string): Promise<string> {
       // Handle different response formats
       let reply = '';
       if (Array.isArray(data) && data.length > 0) {
-        reply = data[0].generated_text || data[0].conversation?.generated_responses?.[0] || '';
+        reply = data[0].generated_text || '';
       } else if (data.generated_text) {
         reply = data.generated_text;
       }
@@ -196,6 +193,11 @@ export async function callHuggingFaceAPI(prompt: string): Promise<string> {
       const promptIndex = reply.indexOf('Assistant:');
       if (promptIndex !== -1) {
         reply = reply.substring(promptIndex + 10).trim();
+      }
+
+      // If the response is too long or contains the original prompt, truncate it
+      if (reply.length > 500) {
+        reply = reply.substring(0, 500) + '...';
       }
 
       console.log('Hugging Face succeeded');
