@@ -47,10 +47,10 @@ export function ChatBox() {
   }, [open]);
 
   const suggestions = [
-    "Tell me about your services",
-    "Show me your projects",
-    "What's your background?",
-    "How can I contact you?"
+    "View projects",
+    "Understand tech stack",
+    "Discuss services",
+    "Contact Fuaad"
   ];
 
   const handleSuggestionClick = async (suggestion: string) => {
