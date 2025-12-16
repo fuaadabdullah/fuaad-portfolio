@@ -1,37 +1,55 @@
 // Stale-while-revalidate caching implementation
-import { kv } from '@vercel/kv';
+import { createClient } from 'redis';
 
 const CACHE_TTL = 3600; // 1 hour in seconds for Redis
 const STALE_WHILE_REVALIDATE_TTL = 300; // 5 minutes for stale-while-revalidate
-const IS_VERCEL = process.env.VERCEL === '1' || process.env.VERCEL_ENV !== undefined;
 
-// In-memory cache fallback for when KV is not available
+// In-memory cache fallback for when Redis is not available
 const memoryCache = new Map<string, { data: string; timestamp: number; ttl: number }>();
+
+// Redis client
+let redisClient: any = null;
+
+async function getRedisClient() {
+  if (!redisClient) {
+    try {
+      redisClient = createClient({ url: process.env.REDIS_URL });
+      await redisClient.connect();
+      console.log('✅ Redis client connected');
+    } catch (error) {
+      console.log('❌ Redis connection failed, using memory cache:', error);
+      redisClient = null;
+    }
+  }
+  return redisClient;
+}
+
+// Check if Redis is available
+async function isRedisAvailable(): Promise<boolean> {
+  if (!process.env.REDIS_URL) return false;
+
+  try {
+    const client = await getRedisClient();
+    if (!client) return false;
+
+    // Test connection with a ping
+    await client.ping();
+    return true;
+  } catch (error) {
+    console.log('Redis not available:', error);
+    return false;
+  }
+}
 
 export interface CachedResponse {
   data: string | null;
   isStale: boolean;
 }
 
-// Check if KV is available
-async function isKVAvailable(): Promise<boolean> {
-  if (!IS_VERCEL) return false;
-
-  try {
-    // Try a simple KV operation to test connectivity
-    await kv.set('health-check', 'ok', { ex: 10 });
-    await kv.del('health-check');
-    return true;
-  } catch (error) {
-    console.log('KV not available, using in-memory cache:', error instanceof Error ? error.message : String(error));
-    return false;
-  }
-}
-
 export async function getCachedResponse(cacheKey: string): Promise<CachedResponse> {
-  const kvAvailable = await isKVAvailable();
+  const redisAvailable = await isRedisAvailable();
 
-  if (!kvAvailable) {
+  if (!redisAvailable) {
     // Use in-memory cache
     const cached = memoryCache.get(cacheKey);
     if (!cached) {
@@ -43,20 +61,25 @@ export async function getCachedResponse(cacheKey: string): Promise<CachedRespons
   }
 
   try {
-    const cached = await kv.get(cacheKey);
+    const client = await getRedisClient();
+    if (!client) {
+      throw new Error('Redis client not available');
+    }
+
+    const cached = await client.get(cacheKey);
     if (!cached) {
       return { data: null, isStale: false };
     }
 
     // Check if cache is stale (older than STALE_WHILE_REVALIDATE_TTL)
-    const cacheMetadata = await kv.get(`${cacheKey}:meta`);
+    const cacheMetadata = await client.get(`${cacheKey}:meta`);
     const isStale = cacheMetadata ?
-      (Date.now() - (cacheMetadata as any).timestamp) > (STALE_WHILE_REVALIDATE_TTL * 1000) :
+      (Date.now() - parseInt(cacheMetadata)) > (STALE_WHILE_REVALIDATE_TTL * 1000) :
       true;
 
-    return { data: cached as string, isStale };
+    return { data: cached, isStale };
   } catch (error) {
-    console.log('KV read error, falling back to memory cache:', error);
+    console.log('Redis read error, falling back to memory cache:', error);
     // Fallback to memory cache
     const cached = memoryCache.get(cacheKey);
     if (!cached) {
@@ -69,15 +92,18 @@ export async function getCachedResponse(cacheKey: string): Promise<CachedRespons
 }
 
 export async function setCachedResponse(cacheKey: string, data: string): Promise<void> {
-  const kvAvailable = await isKVAvailable();
+  const redisAvailable = await isRedisAvailable();
 
-  if (kvAvailable) {
+  if (redisAvailable) {
     try {
-      await kv.set(cacheKey, data, { ex: CACHE_TTL });
-      await kv.set(`${cacheKey}:meta`, { timestamp: Date.now() }, { ex: CACHE_TTL });
-      return;
+      const client = await getRedisClient();
+      if (client) {
+        await client.setEx(cacheKey, CACHE_TTL, data);
+        await client.setEx(`${cacheKey}:meta`, CACHE_TTL, Date.now().toString());
+        return;
+      }
     } catch (error) {
-      console.log('KV write error, falling back to memory cache:', error);
+      console.log('Redis write error, falling back to memory cache:', error);
     }
   }
 
@@ -120,11 +146,10 @@ export async function refreshCacheInBackground(
 }
 
 export async function getCacheConfig() {
-  const kvAvailable = await isKVAvailable();
+  const redisAvailable = await isRedisAvailable();
   return {
     ttl: CACHE_TTL,
     staleWhileRevalidateTtl: STALE_WHILE_REVALIDATE_TTL,
-    isVercel: IS_VERCEL,
-    kvAvailable
+    redisAvailable
   };
 }

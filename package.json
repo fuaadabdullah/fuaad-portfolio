@@ -37,6 +37,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-hook-form": "^7.68.0",
+    "redis": "^5.10.0",
     "rehype-highlight": "^7.0.2",
     "remark-gfm": "^4.0.1"
   },
