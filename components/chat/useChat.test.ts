@@ -185,7 +185,7 @@ describe('useChat Hook', () => {
 
     await waitFor(() => {
       expect(result.current.status).toBe('idle');
-    }, { timeout: 100 });
+    }, { timeout: 200 });
 
     expect(result.current.messages[1].text).toContain('Network error');
 

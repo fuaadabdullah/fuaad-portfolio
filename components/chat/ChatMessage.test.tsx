@@ -111,4 +111,50 @@ describe('ChatMessage Component', () => {
     const messageElement = screen.getByText(specialMessage.text);
     expect(messageElement).toBeInTheDocument();
   });
+
+  it('should parse and render markdown links as clickable elements', () => {
+    const linkMessage = {
+      id: '6',
+      from: 'bot' as const,
+      text: 'Check out his [featured projects](/portfolio) or [learn more about his background](/about).',
+      timestamp: new Date(),
+    };
+
+    render(<ChatMessage message={linkMessage} />);
+
+    // Check that the link elements are rendered
+    const portfolioLink = screen.getByRole('link', { name: 'featured projects' });
+    expect(portfolioLink).toHaveAttribute('href', '/portfolio');
+    expect(portfolioLink).toHaveAttribute('target', '_blank');
+    expect(portfolioLink).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(portfolioLink).toHaveClass('text-emerald-400', 'hover:text-emerald-300', 'underline');
+
+    const aboutLink = screen.getByRole('link', { name: 'learn more about his background' });
+    expect(aboutLink).toHaveAttribute('href', '/about');
+    expect(aboutLink).toHaveAttribute('target', '_blank');
+    expect(aboutLink).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(aboutLink).toHaveClass('text-emerald-400', 'hover:text-emerald-300', 'underline');
+
+    // Check that the message container contains the expected text content
+    const messageElement = screen.getByTestId('message-text');
+    expect(messageElement).toHaveTextContent('Check out his featured projects or learn more about his background.');
+  });
+
+  it('should handle messages without links', () => {
+    const noLinkMessage = {
+      id: '7',
+      from: 'bot' as const,
+      text: 'This is a message without any links.',
+      timestamp: new Date(),
+    };
+
+    render(<ChatMessage message={noLinkMessage} />);
+
+    const messageElement = screen.getByTestId('message-text');
+    expect(messageElement).toHaveTextContent('This is a message without any links.');
+    
+    // Should not have any link elements
+    const links = screen.queryAllByRole('link');
+    expect(links).toHaveLength(0);
+  });
 });
