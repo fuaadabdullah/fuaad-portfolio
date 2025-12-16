@@ -13,7 +13,7 @@ export async function callGeminiAPI(prompt: string): Promise<string> {
   return callProviderWithCircuitBreaker(
     'gemini-api',
     async () => {
-      console.log('Calling Gemini API...');
+      console.debug('Calling Gemini API...');
       const response = await fetch(`${AI_CONFIG.GEMINI.URL}?key=${process.env.GEMINI_API_KEY}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -46,7 +46,7 @@ export async function callGeminiAPI(prompt: string): Promise<string> {
         throw new Error('No valid response from Gemini');
       }
 
-      console.log('Gemini succeeded');
+      console.debug('Gemini succeeded');
       return reply;
     },
     getMockResponse(prompt) // Fallback if circuit breaker is open

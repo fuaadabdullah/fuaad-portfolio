@@ -13,7 +13,7 @@ export async function callHuggingFaceAPI(prompt: string): Promise<string> {
   return callProviderWithCircuitBreaker(
     'huggingface-api',
     async () => {
-      console.log('Calling Hugging Face API...');
+      console.debug('Calling Hugging Face API...');
       const response = await fetch(AI_CONFIG.HUGGINGFACE.URL, {
         method: 'POST',
         headers: {
@@ -61,7 +61,7 @@ export async function callHuggingFaceAPI(prompt: string): Promise<string> {
         reply = reply.substring(0, 500) + '...';
       }
 
-      console.log('Hugging Face succeeded');
+      console.debug('Hugging Face succeeded');
       return reply;
     },
     getMockResponse(prompt) // Fallback if circuit breaker is open
