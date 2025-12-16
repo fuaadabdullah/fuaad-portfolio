@@ -20,11 +20,6 @@
       "vitest.config.*"
     ]
   },
-  "env": {
-    "KV_URL": "@kv-url",
-    "KV_REST_API_URL": "@kv-rest-api-url",
-    "KV_REST_API_TOKEN": "@kv-rest-api-token"
-  },
   "rewrites": [
     {
       "source": "/api/(.*)",
