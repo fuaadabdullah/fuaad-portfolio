@@ -47,7 +47,7 @@ function BlogPostCard({ post }: { post: BlogPostMetadata }) {
       
       <Link
         href={`/blog/${post.slug}`}
-        className="inline-flex items-center gap-1 mt-4 text-[color:var(--color-accent)] hover:underline text-sm font-medium"
+        className="inline-flex items-center gap-1 mt-4 text-emerald-200 hover:underline text-sm font-medium"
       >
         Read more →
       </Link>
