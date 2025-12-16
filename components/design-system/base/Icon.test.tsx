@@ -5,13 +5,13 @@ import { Icon } from './Icon';
 describe('Icon', () => {
   it('renders with default props', () => {
     render(<Icon name="Heart" />);
-    const icon = screen.getByTestId ? screen.getByTestId('heart-icon') : document.querySelector('svg');
+    const icon = screen.getByTestId('heart-icon');
     expect(icon).toBeInTheDocument();
   });
 
   it('applies size classes correctly', () => {
     render(<Icon name="Star" size="lg" />);
-    const icon = document.querySelector('svg');
+    const icon = screen.getByTestId('star-icon');
     expect(icon).toHaveClass('w-6', 'h-6');
   });
 

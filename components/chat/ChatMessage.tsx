@@ -1,22 +1,40 @@
 interface ChatMessageProps {
-  message: { from: "user" | "bot"; text: string };
-  isUser: boolean;
+  message: {
+    id: string;
+    from: 'user' | 'bot';
+    text: string;
+    timestamp: Date;
+  };
 }
 
-export function ChatMessage({ message, isUser }: ChatMessageProps) {
+export function ChatMessage({ message }: ChatMessageProps) {
+  const isUser = message.from === 'user';
+
   return (
     <div
-      className={`${
-        isUser ? "text-right" : "text-left"
-      } flex items-start gap-2`}
+      data-testid="message-container"
+      className={`flex items-start gap-2 mb-2 ${isUser ? 'text-right justify-end' : 'text-left'}`}
     >
+      {!isUser && (
+        <div className="w-6 h-6 rounded-full bg-zinc-600 flex items-center justify-center">
+          <span className="text-xs">AI</span>
+        </div>
+      )}
       <div
-        className={`inline-block p-2 rounded ${
-          isUser ? "bg-emerald-600" : "bg-zinc-700"
-        } text-sm`}
+        data-testid="message-text"
+        className={`inline-block p-2 rounded text-sm max-w-xs break-words ${
+          isUser
+            ? 'bg-emerald-600 text-white'
+            : 'bg-zinc-700 text-gray-100'
+        }`}
       >
-        {message.text}
+        {message.text || ''}
       </div>
+      {isUser && (
+        <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center">
+          <span className="text-xs">U</span>
+        </div>
+      )}
     </div>
   );
 }

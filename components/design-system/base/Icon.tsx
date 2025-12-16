@@ -28,6 +28,7 @@ export const Icon: React.FC<IconProps> = ({ name, size = "md", className }) => {
   }
   return (
     <IconComponent
+      data-testid={`${name.toLowerCase()}-icon`}
       className={clsx(
         sizeClasses[size],
         `text-[${colors.secondary}]`,

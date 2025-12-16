@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useChat } from "./useChat";
 import { ChatMessage } from "./ChatMessage";
 
@@ -31,6 +31,20 @@ function TypingIndicator() {
 export function ChatBox() {
   const [open, setOpen] = useState(false);
   const { messages, input, setInput, sendMessage, status } = useChat();
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  // Focus input when chat opens
+  useEffect(() => {
+    if (open) {
+      inputRef.current?.focus();
+    }
+  }, [open]);
 
   const suggestions = [
     "Tell me about your services",
@@ -39,12 +53,17 @@ export function ChatBox() {
     "How can I contact you?"
   ];
 
-  const handleSuggestionClick = (suggestion: string) => {
+  const handleSuggestionClick = async (suggestion: string) => {
     setInput(suggestion);
     // Small delay to show the text in input before sending
-    setTimeout(() => {
+    await new Promise(resolve => setTimeout(resolve, 100));
+    sendMessage();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && status !== "loading") {
       sendMessage();
-    }, 100);
+    }
   };
 
   return (
@@ -53,6 +72,7 @@ export function ChatBox() {
       <button
         onClick={() => setOpen(!open)}
         className="fixed bottom-6 right-6 bg-emerald-600 text-white p-3 rounded-full shadow-lg hover:bg-emerald-500 transition"
+        aria-label={open ? "Close chat" : "Open chat"}
       >
         {open ? "✖" : "💬"}
       </button>
@@ -62,20 +82,21 @@ export function ChatBox() {
           {/* Header */}
           <div className="bg-zinc-800 p-3 text-center font-bold">
             Ask Me Anything
+            <div className="text-xs text-zinc-400 mt-1">Powered by TinyLlama + Gemini</div>
           </div>
 
           {/* Messages */}
           <div className="flex-1 p-2 space-y-2 overflow-y-auto">
-            {messages.map((msg, i) => (
+            {messages.map((msg) => (
               <ChatMessage
-                key={i}
+                key={msg.id}
                 message={msg}
-                isUser={msg.from === "user"}
               />
             ))}
             {status === "loading" && (
               <TypingIndicator />
             )}
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Suggestions */}
@@ -99,17 +120,20 @@ export function ChatBox() {
           {/* Input */}
           <div className="border-t border-zinc-800 p-2 flex gap-2">
             <input
+              ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && status !== "loading" && sendMessage()}
+              onKeyDown={handleKeyDown}
               placeholder="Type a question…"
               className="flex-1 px-2 py-1 rounded bg-zinc-800 text-white"
               disabled={status === "loading"}
+              aria-label="Chat input"
             />
             <button
               onClick={sendMessage}
               disabled={status === "loading"}
               className="px-3 bg-emerald-500 text-white rounded hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Send message"
             >
               {status === "loading" ? "..." : "Send"}
             </button>
