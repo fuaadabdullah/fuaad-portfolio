@@ -33,6 +33,11 @@ const nextConfig: NextConfig = {
               "connect-src 'self' https://vitals.vercel-insights.com",
             ].join("; "),
           },
+          // Ensure pages are indexable by search engines in production
+          {
+            key: "X-Robots-Tag",
+            value: process.env.VERCEL_ENV === "production" ? "index, follow" : "noindex",
+          },
         ],
       },
     ];
