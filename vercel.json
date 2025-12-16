@@ -20,9 +20,6 @@
       "vitest.config.*"
     ]
   },
-  "kv": {
-    "databaseId": "portfolio-ai-cache"
-  },
   "env": {
     "KV_URL": "@kv-url",
     "KV_REST_API_URL": "@kv-rest-api-url",
