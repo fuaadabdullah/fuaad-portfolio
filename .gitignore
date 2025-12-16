@@ -76,3 +76,6 @@ create-og-image.html
 
 *storybook.log
 storybook-static
+
+# virtual environment
+.venv/
