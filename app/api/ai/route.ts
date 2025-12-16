@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
 export async function GET() {
   return NextResponse.json({
     circuitBreakers: getCircuitBreakerStatus(),
-    cache: getCacheConfig(),
+    cache: await getCacheConfig(),
     rateLimit: getRateLimitConfig()
   });
 }

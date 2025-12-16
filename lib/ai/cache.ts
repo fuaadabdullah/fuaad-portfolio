@@ -5,14 +5,41 @@ const CACHE_TTL = 3600; // 1 hour in seconds for Redis
 const STALE_WHILE_REVALIDATE_TTL = 300; // 5 minutes for stale-while-revalidate
 const IS_VERCEL = process.env.VERCEL === '1' || process.env.VERCEL_ENV !== undefined;
 
+// In-memory cache fallback for when KV is not available
+const memoryCache = new Map<string, { data: string; timestamp: number; ttl: number }>();
+
 export interface CachedResponse {
   data: string | null;
   isStale: boolean;
 }
 
+// Check if KV is available
+async function isKVAvailable(): Promise<boolean> {
+  if (!IS_VERCEL) return false;
+
+  try {
+    // Try a simple KV operation to test connectivity
+    await kv.set('health-check', 'ok', { ex: 10 });
+    await kv.del('health-check');
+    return true;
+  } catch (error) {
+    console.log('KV not available, using in-memory cache:', error instanceof Error ? error.message : String(error));
+    return false;
+  }
+}
+
 export async function getCachedResponse(cacheKey: string): Promise<CachedResponse> {
-  if (!IS_VERCEL) {
-    return { data: null, isStale: false };
+  const kvAvailable = await isKVAvailable();
+
+  if (!kvAvailable) {
+    // Use in-memory cache
+    const cached = memoryCache.get(cacheKey);
+    if (!cached) {
+      return { data: null, isStale: false };
+    }
+
+    const isStale = (Date.now() - cached.timestamp) > (STALE_WHILE_REVALIDATE_TTL * 1000);
+    return { data: cached.data, isStale };
   }
 
   try {
@@ -29,19 +56,46 @@ export async function getCachedResponse(cacheKey: string): Promise<CachedRespons
 
     return { data: cached as string, isStale };
   } catch (error) {
-    console.log('Cache read error:', error);
-    return { data: null, isStale: false };
+    console.log('KV read error, falling back to memory cache:', error);
+    // Fallback to memory cache
+    const cached = memoryCache.get(cacheKey);
+    if (!cached) {
+      return { data: null, isStale: false };
+    }
+
+    const isStale = (Date.now() - cached.timestamp) > (STALE_WHILE_REVALIDATE_TTL * 1000);
+    return { data: cached.data, isStale };
   }
 }
 
 export async function setCachedResponse(cacheKey: string, data: string): Promise<void> {
-  if (!IS_VERCEL) return;
+  const kvAvailable = await isKVAvailable();
 
-  try {
-    await kv.set(cacheKey, data, { ex: CACHE_TTL });
-    await kv.set(`${cacheKey}:meta`, { timestamp: Date.now() }, { ex: CACHE_TTL });
-  } catch (error) {
-    console.log('Cache write error:', error);
+  if (kvAvailable) {
+    try {
+      await kv.set(cacheKey, data, { ex: CACHE_TTL });
+      await kv.set(`${cacheKey}:meta`, { timestamp: Date.now() }, { ex: CACHE_TTL });
+      return;
+    } catch (error) {
+      console.log('KV write error, falling back to memory cache:', error);
+    }
+  }
+
+  // Fallback to in-memory cache
+  memoryCache.set(cacheKey, {
+    data,
+    timestamp: Date.now(),
+    ttl: CACHE_TTL
+  });
+
+  // Clean up expired entries periodically
+  if (Math.random() < 0.1) { // 10% chance to clean up
+    const now = Date.now();
+    for (const [key, value] of memoryCache.entries()) {
+      if (now - value.timestamp > value.ttl * 1000) {
+        memoryCache.delete(key);
+      }
+    }
   }
 }
 
@@ -65,10 +119,12 @@ export async function refreshCacheInBackground(
   }
 }
 
-export function getCacheConfig() {
+export async function getCacheConfig() {
+  const kvAvailable = await isKVAvailable();
   return {
     ttl: CACHE_TTL,
     staleWhileRevalidateTtl: STALE_WHILE_REVALIDATE_TTL,
-    isVercel: IS_VERCEL
+    isVercel: IS_VERCEL,
+    kvAvailable
   };
 }
