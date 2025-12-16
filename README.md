@@ -15,6 +15,8 @@
 - 🔍 **SEO Optimized**: JSON-LD structured data, OG images, sitemap
 - 🎯 **Type Safe**: Full TypeScript coverage
 - 📊 **Analytics Ready**: Vercel Analytics integration
+- 🤖 **AI-Powered Chat**: Intelligent portfolio assistant with circuit breaker protection and caching
+- 🛡️ **Resilient Architecture**: Circuit breakers, stale-while-revalidate caching, and graceful degradation
 
 ## 🚀 Quick Start
 
@@ -78,6 +80,30 @@ See [docs/STRUCTURE.md](./docs/STRUCTURE.md) for complete structure documentatio
 - **Analytics**: Vercel Analytics
 - **Deployment**: Vercel (recommended)
 - **Package Manager**: pnpm
+
+## 🤖 AI Architecture
+
+The portfolio features a resilient AI chat system with enterprise-grade reliability patterns:
+
+### Circuit Breaker Protection
+- **Automatic Failover**: Disables failing AI providers after 3 consecutive failures
+- **Recovery Testing**: Periodically tests recovered providers
+- **Graceful Degradation**: Falls back to mock responses when all providers fail
+
+### Stale-While-Revalidate Caching
+- **Instant Responses**: Serves cached data immediately while refreshing in background
+- **Fresh Data**: Updates cache with latest responses asynchronously
+- **Cost Optimization**: Reduces API calls while maintaining data freshness
+
+### Multi-Provider Fallback Chain
+- **Local LLM**: TinyLlama (development only)
+- **Cloud API**: Google Gemini 2.5 Flash
+- **Mock Responses**: Keyword-based fallbacks for reliability
+
+### Monitoring & Observability
+- **Circuit Status**: `GET /api/ai` returns breaker states and cache metrics
+- **Performance Tracking**: Cache hit rates and response times
+- **Error Resilience**: Comprehensive error handling and logging
 
 ## 📝 Content Management
 

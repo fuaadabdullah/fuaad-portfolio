@@ -103,6 +103,74 @@ Value: cname.vercel-dns.com
 1. Click **"Save"**
 1. Redeploy to apply changes (go to **Deployments** → click **"•••"** → **"Redeploy"**)
 
+### 3.4 Set Up Vercel KV (Redis Caching)
+
+The portfolio includes AI chat functionality with Redis caching for improved performance and cost efficiency.
+
+#### Option A: Automatic Setup (Recommended)
+
+Run the included setup script:
+
+```bash
+# Make sure you're in the project directory
+cd fuaad-portfolio
+
+# Run the KV setup helper
+./setup-vercel-kv.sh
+```
+
+This script will:
+- ✅ Verify Vercel CLI installation and authentication
+- 📦 Create the KV database (`portfolio-ai-cache`)
+- 🔍 Check environment variables
+- 🧪 Test KV connectivity
+
+#### Option B: Manual Setup
+
+1. **Create KV Database:**
+   ```bash
+   # Install Vercel CLI if not already installed
+   pnpm add -g vercel
+   
+   # Login to Vercel
+   vercel login
+   
+   # Create KV database
+   vercel kv create portfolio-ai-cache
+   ```
+
+2. **Verify KV Integration:**
+   - KV environment variables are automatically set by Vercel:
+     - `KV_REST_API_URL`
+     - `KV_REST_API_TOKEN`
+     - `KV_URL`
+
+3. **Test KV Connection:**
+   ```bash
+   # The setup script includes a test, or run manually:
+   node -e "
+   import { kv } from '@vercel/kv';
+   async function test() {
+     try {
+       await kv.set('test:key', 'Hello KV!', { ex: 60 });
+       const value = await kv.get('test:key');
+       console.log('KV test:', value);
+       await kv.del('test:key');
+     } catch (error) {
+       console.log('KV error:', error.message);
+     }
+   }
+   test();
+   "
+   ```
+
+#### KV Configuration Details
+
+- **Database ID**: `portfolio-ai-cache`
+- **TTL**: 1 hour for cached AI responses
+- **Usage**: Automatically caches AI chat responses to reduce API costs
+- **Free Tier**: 30,000 commands/month included
+
 ## Step 4: Update Formspree Form ID
 
 1. Sign up at [formspree.io](https://formspree.io/)

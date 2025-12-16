@@ -8,6 +8,26 @@
       "maxDuration": 30
     }
   },
+  "build": {
+    "exclude": [
+      "**/*.test.*",
+      "**/*.spec.*",
+      "**/__tests__/**",
+      "test/**",
+      "coverage/**",
+      ".nyc_output/**",
+      "jest.config.*",
+      "vitest.config.*"
+    ]
+  },
+  "kv": {
+    "databaseId": "portfolio-ai-cache"
+  },
+  "env": {
+    "KV_URL": "@kv-url",
+    "KV_REST_API_URL": "@kv-rest-api-url",
+    "KV_REST_API_TOKEN": "@kv-rest-api-token"
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",
