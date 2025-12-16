@@ -36,9 +36,9 @@ export default function HomePage() {
             <Link href="/portfolio" className="inline-flex items-center gap-2 rounded-2xl bg-[color:var(--color-accent)] px-5 py-3 font-medium text-white hover:bg-[color:var(--color-accent)]/90 transition-colors">
               See portfolio <ArrowRight size={18} aria-hidden="true" />
             </Link>
-            <Link href="/Fuaad_Abdullah_Resume.pdf" className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 hover:bg-white/15 transition-colors">
+            <a href="/Fuaad_Abdullah_Resume.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 hover:bg-white/15 transition-colors">
               Résumé PDF <Download size={18} aria-hidden="true" />
-            </Link>
+            </a>
             <Link href="/services" className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 hover:bg-white/15 transition-colors">
               Services <ArrowRight size={18} aria-hidden="true" />
             </Link>
