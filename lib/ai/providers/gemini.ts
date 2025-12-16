@@ -5,6 +5,7 @@ import { SYSTEM_PROMPT } from '../prompts';
 import { getMockResponse } from '../fallback';
 
 export async function callGeminiAPI(prompt: string): Promise<string> {
+  console.log('Gemini API key present:', !!AI_CONFIG.GEMINI.API_KEY);
   if (!AI_CONFIG.GEMINI.API_KEY) {
     console.warn('Gemini API key not configured');
     return getMockResponse(prompt);
