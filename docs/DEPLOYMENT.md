@@ -71,7 +71,7 @@ vercel
 
 1. Go to your project **Settings** → **Domains**
 2. Click **"Add Domain"**
-3. Enter your domain (e.g., `heyimfuaad.com`)
+3. Enter your domain (e.g., `heyimfuaad.me`)
 4. Vercel will provide DNS records to add at your domain registrar:
    - **Option A (Recommended)**: Point nameservers to Vercel
    - **Option B**: Add A/CNAME records manually
@@ -97,7 +97,7 @@ Value: cname.vercel-dns.com
 
 | Name | Value | Environment |
 |------|-------|-------------|
-| `NEXT_PUBLIC_SITE_URL` | `https://heyimfuaad.com` | Production |
+| `NEXT_PUBLIC_SITE_URL` | `https://heyimfuaad.me` | Production |
 | `NEXT_PUBLIC_FORMSPREE_ID` | Your Formspree form ID | Production, Preview |
 
 1. Click **"Save"**
@@ -190,21 +190,21 @@ Replace `YOUR_FORM_ID` with your actual ID
 1. Go to [Google Search Console](https://search.google.com/search-console)
 2. Click **"Add Property"**
 3. Choose **"Domain"** property type
-4. Enter your domain: `heyimfuaad.com`
+4. Enter your domain: `heyimfuaad.me`
 5. Verify ownership (DNS TXT record method):
    - Copy the TXT record from Google
    - Add it to your DNS settings
    - Click **"Verify"**
 6. Once verified, submit your sitemap:
    - Go to **Sitemaps** in the left sidebar
-   - Enter: `https://heyimfuaad.com/sitemap.xml`
+   - Enter: `https://heyimfuaad.me/sitemap.xml`
    - Click **"Submit"**
 
 ## Step 6: Final Checklist
 
 After deployment, verify:
 
-- [ ] Site loads at your Vercel URL (e.g., `fuaad-portfolio.vercel.app`)
+- [ ] Site loads at `https://heyimfuaad.me`
 - [ ] Custom domain works (if configured)
 - [ ] Analytics are tracking (check Vercel Analytics tab)
 - [ ] Contact form works (test submission)
