@@ -15,7 +15,7 @@ describe('Mock AI API Route', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.reply).toBe('Hello! I\'m the portfolio assistant. How can I help you learn about Fuaad\'s work?');
+      expect(data.reply).toBe('I can walk you through Fuaad\'s projects, tech stack, or how to get in touch. Check out his [featured projects](/portfolio) or [learn more about his background](/about).');
     });
 
     it('should return mock response for tech', async () => {
@@ -31,7 +31,7 @@ describe('Mock AI API Route', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.reply).toBe('This portfolio uses Next.js 16, TypeScript, Tailwind CSS, MDX for blogs, and custom tooling.');
+      expect(data.reply).toBe('This site runs on Next.js 16 with TypeScript, Tailwind CSS, and MDX. Clean architecture with custom AI integration. Explore the [technical details](/about) or see the [live projects](/portfolio).');
     });
 
     it('should return mock response for fuaad', async () => {
@@ -47,7 +47,7 @@ describe('Mock AI API Route', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.reply).toBe('Fuaad is a finance major and full-stack developer who specializes in web apps, MVP tooling, and custom dashboards.');
+      expect(data.reply).toBe('Fuaad combines finance expertise with full-stack development. He focuses on practical web applications and developer tools. View his [professional background](/about) or [contact him directly](/resume).');
     });
 
     it('should return mock response for rizzk', async () => {
@@ -63,7 +63,7 @@ describe('Mock AI API Route', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.reply).toBe('RIZZK Calculator is a risk management tool for day traders, built with Python and Streamlit. It helps with position sizing and risk/reward calculations.');
+      expect(data.reply).toBe('RIZZK Calculator provides risk management tools for traders. Built with Python and Streamlit for position sizing and analysis. Try the [live demo](https://rizzk.streamlit.app) or see [more projects](/portfolio).');
     });
 
     it('should return mock response for 80/20', async () => {
@@ -79,7 +79,7 @@ describe('Mock AI API Route', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.reply).toBe('The 80/20 rule means focusing on the 20% of features that deliver 80% of the value. Fuaad uses this to ship production-ready projects in just 2 weeks.');
+      expect(data.reply).toBe('Fuaad applies the 80/20 principle to development: focus on core features that deliver maximum value, shipping MVPs in weeks. Read his [blog post about this approach](/blog/80-20-rule-student-projects) or [view his services](/services).');
     });
 
     it('should return mock response for services', async () => {
@@ -95,7 +95,7 @@ describe('Mock AI API Route', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.reply).toBe('Fuaad offers web app builds, MVP tooling, custom dashboards, and developer utilities.');
+      expect(data.reply).toBe('Fuaad builds web applications, MVPs, custom dashboards, and developer utilities. Focus on practical solutions. See his [service offerings](/services) or [get in touch to discuss your project](/resume).');
     });
 
     it('should return mock response for portfolio', async () => {
@@ -111,7 +111,7 @@ describe('Mock AI API Route', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.reply).toBe('This is Fuaad\'s personal portfolio showcasing his projects like RIZZK Calculator, this website, and various development tools.');
+      expect(data.reply).toBe('This portfolio showcases Fuaad\'s projects including trading tools, web applications, and development frameworks. Browse the [full portfolio](/portfolio) or [download his resume](/resume).');
     });
 
     it('should return default response for unknown prompt', async () => {
@@ -127,7 +127,7 @@ describe('Mock AI API Route', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.reply).toBe('I\'m here to help you learn about Fuaad\'s portfolio! Try asking about the tech stack, projects, or services.');
+      expect(data.reply).toBe('I\'m here to help you learn about Fuaad\'s portfolio! Try asking about the tech stack, projects, or services. Check out his [featured projects](/portfolio) or [learn more about his background](/about).');
     });
 
     it('should handle case insensitive matching', async () => {
@@ -143,7 +143,7 @@ describe('Mock AI API Route', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.reply).toBe('Hello! I\'m the portfolio assistant. How can I help you learn about Fuaad\'s work?');
+      expect(data.reply).toBe('I can walk you through Fuaad\'s projects, tech stack, or how to get in touch. Check out his [featured projects](/portfolio) or [learn more about his background](/about).');
     });
 
     it('should handle partial keyword matches', async () => {
@@ -159,7 +159,7 @@ describe('Mock AI API Route', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.reply).toBe('This portfolio uses Next.js 16, TypeScript, Tailwind CSS, MDX for blogs, and custom tooling.');
+      expect(data.reply).toBe('This site runs on Next.js 16 with TypeScript, Tailwind CSS, and MDX. Clean architecture with custom AI integration. Explore the [technical details](/about) or see the [live projects](/portfolio).');
     });
 
     it('should return valid JSON response', async () => {

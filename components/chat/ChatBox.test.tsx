@@ -64,7 +64,7 @@ describe('ChatBox Component', () => {
     fireEvent.click(toggleButton);
 
     expect(screen.getByText('Quick questions:')).toBeInTheDocument();
-    expect(screen.getByText('Tell me about your services')).toBeInTheDocument();
+    expect(screen.getByText('Discuss services')).toBeInTheDocument();
   });
 
   it('should not show suggestions when messages exist', () => {
@@ -86,10 +86,10 @@ describe('ChatBox Component', () => {
     const toggleButton = screen.getByRole('button', { name: /open chat/i });
     fireEvent.click(toggleButton);
 
-    const suggestion = screen.getByText('Tell me about your services');
+    const suggestion = screen.getByText('Discuss services');
     fireEvent.click(suggestion);
 
-    expect(mockReturnValue.setInput).toHaveBeenCalledWith('Tell me about your services');
+    expect(mockReturnValue.setInput).toHaveBeenCalledWith('Discuss services');
     await waitFor(() => {
       expect(mockReturnValue.sendMessage).toHaveBeenCalled();
     });
