@@ -5,7 +5,50 @@ import { SYSTEM_PROMPT } from '../prompts';
 import { getMockResponse } from '../fallback';
 
 export async function callGeminiAPI(prompt: string): Promise<string> {
-  console.log('Gemini API key present:', !!process.env.GEMINI_API_KEY);
-  // Temporarily force fallback to test Hugging Face
-  console.warn('Temporarily forcing Gemini to fail for testing');
-  return getMockResponse(prompt);
+  if (!process.env.GEMINI_API_KEY) {
+    console.warn('Gemini API key not configured');
+    return getMockResponse(prompt);
+  }
+
+  return callProviderWithCircuitBreaker(
+    'gemini-api',
+    async () => {
+      console.log('Calling Gemini API...');
+      const response = await fetch(`${AI_CONFIG.GEMINI.URL}?key=${process.env.GEMINI_API_KEY}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: prompt
+            }]
+          }],
+          systemInstruction: {
+            parts: [{
+              text: SYSTEM_PROMPT
+            }]
+          },
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 300
+          }
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Gemini API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+      if (!reply) {
+        throw new Error('No valid response from Gemini');
+      }
+
+      console.log('Gemini succeeded');
+      return reply;
+    },
+    getMockResponse(prompt) // Fallback if circuit breaker is open
+  );
+}
