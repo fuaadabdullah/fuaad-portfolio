@@ -67,8 +67,9 @@ export async function enrichPrompt(userPrompt: string): Promise<string> {
     action = 'Provide overview and direct to relevant section. Be a traffic router, not a conversationalist.';
   }
 
-  // Build context with intent and action guidance
+  // Build context with intent and action guidance (include site facts for richer responses)
   const contextParts = [
+    `Site: ${siteFacts.trim().replace(/\n+/g, ' ')}`,
     `Intent: ${intent}`,
     matchedFaq ? `FAQ: ${matchedFaq.answer}` : '',
     matchedBlog ? `Blog: ${matchedBlog.title} - ${matchedBlog.summary}` : '',
