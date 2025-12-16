@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface ChatMessageProps {
   message: {
     id: string;
@@ -5,6 +7,45 @@ interface ChatMessageProps {
     text: string;
     timestamp: Date;
   };
+}
+
+// Simple function to convert markdown-style links to HTML links
+function parseMarkdownLinks(text: string): React.ReactNode {
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    // Add text before the link
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+
+    // Add the link
+    const linkText = match[1];
+    const linkUrl = match[2];
+    parts.push(
+      <a
+        key={match.index}
+        href={linkUrl}
+        className="text-emerald-400 hover:text-emerald-300 underline"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {linkText}
+      </a>
+    );
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  // Add remaining text
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : text;
 }
 
 export function ChatMessage({ message }: ChatMessageProps) {
@@ -28,7 +69,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
             : 'bg-zinc-700 text-gray-100'
         }`}
       >
-        {message.text || ''}
+        {parseMarkdownLinks(message.text || '')}
       </div>
       {isUser && (
         <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center">
