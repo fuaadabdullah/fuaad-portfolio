@@ -26,7 +26,7 @@ export default function HomePage() {
                 Ongoing automation engine powering this site, risk tools, and workflows.
               </p>
             </div>
-            <span className="rounded-full bg-[color:var(--color-accent)]/15 px-3 py-1 text-[11px] text-[color:var(--color-accent)]">
+            <span className="rounded-full bg-[color:var(--color-accent)]/25 px-3 py-1 text-[11px] text-white">
               Active project
             </span>
           </div>

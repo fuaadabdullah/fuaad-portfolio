@@ -14,7 +14,7 @@ export default function Navbar(){
   return (
   <header className="sticky top-0 z-40 backdrop-blur bg-[color:var(--color-ink)]/70 border-b border-white/10">
       <nav className="mx-auto max-w-5xl px-6 h-14 flex items-center justify-between" aria-label="Main navigation">
-        <Link href="/" className="font-semibold" aria-label="Fuaad Abdullah - Home">
+        <Link href="/" className="font-semibold">
           Hey I'm Fuaad
         </Link>
         <ul className="flex gap-5 text-sm">
