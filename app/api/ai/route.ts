@@ -84,7 +84,7 @@ async function tryLocalLLMThenGemini(prompt: string): Promise<string> {
     throw new Error('Local LLM failed, trying Gemini...');
 
   } catch (error) {
-    console.log('Local LLM failed, falling back to Gemini:', error.message);
+    console.log('Local LLM failed, falling back to Gemini:', error instanceof Error ? error.message : String(error));
     return await callGeminiAPI(prompt);
   }
 }
