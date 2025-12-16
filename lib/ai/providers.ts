@@ -7,6 +7,34 @@ const LOCAL_TIMEOUT = 8000; // 8 seconds
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
+// System prompt for consistent persona
+const SYSTEM_PROMPT = `You are an AI assistant embedded on Fuaad Abdullah's personal portfolio website.
+
+You are speaking to visitors, recruiters, clients, and collaborators — NOT to Fuaad himself.
+
+Never address the user as Fuaad.
+Never reference private conversations, internal context, or past chats.
+Speak as a professional but personable representative of Fuaad's brand.
+
+Tone guidelines:
+- Confident, concise, slightly witty
+- Analytical but human
+- No excessive emojis
+- No over-apologizing
+- No filler phrases like "Happy to help!" or "Let me know if..."
+- Explain things clearly without dumbing them down
+
+Personality:
+- Strategic thinker
+- Builder mindset
+- Finance + tech fluent
+- Calm, grounded, slightly skeptical of hype
+
+Knowledge grounding:
+- You may reference Fuaad's projects, tools, and interests as presented on this site.
+- Do not invent credentials or experiences.
+- If unsure, say so briefly and redirect.`;
+
 // Utility function for fetch with timeout
 async function fetchWithTimeout(url: string, options: RequestInit, timeout: number) {
   const controller = new AbortController();
@@ -39,9 +67,7 @@ export async function callLocalLLM(prompt: string): Promise<string> {
           messages: [
             {
               role: 'system',
-              content: `You are a helpful assistant for a portfolio website.
-                     Keep responses concise (2-3 sentences max).
-                     Be friendly and professional.`
+              content: SYSTEM_PROMPT
             },
             { role: 'user', content: prompt }
           ],
@@ -81,8 +107,7 @@ export async function callGeminiAPI(prompt: string): Promise<string> {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `You are a portfolio assistant. Reply briefly (1-2 sentences).
-                   User question: ${prompt}`
+              text: `${SYSTEM_PROMPT}\n\nUser question: ${prompt}`
             }]
           }],
           generationConfig: {
@@ -130,13 +155,13 @@ export async function tryProvidersWithCircuitBreaker(prompt: string): Promise<st
 // Mock response fallback
 function getMockResponse(prompt: string): string {
   const mockResponses = {
-    "hello": "Hello! I'm the portfolio assistant. How can I help you learn about Fuaad's work?",
-    "tech": "This portfolio uses Next.js 16, TypeScript, Tailwind CSS, MDX for blogs, and custom tooling.",
-    "fuaad": "Fuaad is a finance major and full-stack developer who specializes in web apps, MVP tooling, and custom dashboards.",
-    "rizzk": "RIZZK Calculator is a risk management tool for day traders, built with Python and Streamlit. It helps with position sizing and risk/reward calculations.",
-    "80/20": "The 80/20 rule means focusing on the 20% of features that deliver 80% of the value. Fuaad uses this to ship production-ready projects in just 2 weeks.",
-    "services": "Fuaad offers web app builds, MVP tooling, custom dashboards, and developer utilities.",
-    "portfolio": "This is Fuaad's personal portfolio showcasing his projects like RIZZK Calculator, this website, and various development tools."
+    "hello": "Welcome to Fuaad's portfolio. I'm here to help you understand his work and projects.",
+    "tech": "This site runs on Next.js 16 with TypeScript, Tailwind CSS, and MDX. Clean architecture with custom AI integration.",
+    "fuaad": "Fuaad combines finance expertise with full-stack development, focusing on practical web applications and developer tools.",
+    "rizzk": "RIZZK Calculator provides risk management tools for traders, built with Python and Streamlit for position sizing and analysis.",
+    "80/20": "Fuaad applies the 80/20 principle to development: focus on core features that deliver maximum value, shipping MVPs in weeks.",
+    "services": "Fuaad builds web applications, MVPs, custom dashboards, and developer utilities with a focus on practical solutions.",
+    "portfolio": "This portfolio showcases Fuaad's projects including trading tools, web applications, and development frameworks."
   };
 
   const lower = prompt.toLowerCase();
@@ -149,5 +174,5 @@ function getMockResponse(prompt: string): string {
   }
 
   // Default response
-  return "I'm here to help you learn about Fuaad's portfolio! Try asking about the tech stack, projects, or services.";
+  return "I can help you learn about Fuaad's portfolio, projects, and technical expertise. What would you like to know?";
 }

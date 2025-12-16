@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Button from '@/components/Button';
 
 interface FileUploadProps {
   onUpload?: (result: { url: string; filename: string; size: number }) => void;

@@ -46,6 +46,5 @@ export async function enrichPrompt(userPrompt: string): Promise<string> {
   ].filter(Boolean);
 
   return `Portfolio context: ${contextParts.join(' | ')}
-Question: ${userPrompt}
-Keep answer under 100 words.`;
+Question: ${userPrompt}`;
 }
