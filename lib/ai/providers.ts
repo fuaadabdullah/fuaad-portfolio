@@ -7,7 +7,7 @@ const LOCAL_TIMEOUT = 8000; // 8 seconds
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 const HUGGINGFACE_API_KEY = process.env.HUGGINGFACE_API_KEY;
-const HUGGINGFACE_URL = 'https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium';
+const HUGGINGFACE_URL = 'https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium'; // Hugging Face fallback provider
 
 // System prompt for consistent persona
 const SYSTEM_PROMPT = `You are an AI assistant embedded on Fuaad Abdullah's personal portfolio website.
