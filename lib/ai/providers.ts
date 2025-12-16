@@ -107,9 +107,14 @@ export async function callGeminiAPI(prompt: string): Promise<string> {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `${SYSTEM_PROMPT}\n\nUser question: ${prompt}`
+              text: prompt
             }]
           }],
+          systemInstruction: {
+            parts: [{
+              text: SYSTEM_PROMPT
+            }]
+          },
           generationConfig: {
             temperature: 0.7,
             maxOutputTokens: 300
