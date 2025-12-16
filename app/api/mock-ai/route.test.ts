@@ -47,7 +47,7 @@ describe('Mock AI API Route', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.reply).toBe('Fuaad combines finance expertise with full-stack development. He focuses on practical web applications and developer tools. View his [professional background](/about) or [contact him directly](/resume).');
+      expect(data.reply).toBe('Fuaad combines finance expertise with full-stack development, focusing on practical web applications and developer tools. View his [professional background](/about) or [contact him directly](/resume).');
     });
 
     it('should return mock response for rizzk', async () => {
