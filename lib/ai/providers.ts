@@ -211,12 +211,12 @@ export async function callHuggingFaceAPI(prompt: string): Promise<string> {
 export async function tryProvidersWithCircuitBreaker(prompt: string): Promise<string> {
   // Skip local LLM in production (Vercel) since Ollama isn't available
   if (process.env.VERCEL) {
-    console.log('Skipping local LLM in production, trying Gemini first');
+    console.log('Testing Hugging Face first in production');
     try {
-      return await callGeminiAPI(prompt);
-    } catch (error) {
-      console.log('Gemini failed, falling back to Hugging Face:', error instanceof Error ? error.message : String(error));
       return await callHuggingFaceAPI(prompt);
+    } catch (error) {
+      console.log('Hugging Face failed, falling back to Gemini:', error instanceof Error ? error.message : String(error));
+      return await callGeminiAPI(prompt);
     }
   }
 
