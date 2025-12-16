@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://platform.linkedin.com https://www.linkedin.com https://va.vercel-scripts.com",
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://platform.linkedin.com https://www.linkedin.com https://va.vercel-scripts.com https://badges.linkedin.com",
               "frame-src https://www.linkedin.com",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https: blob:",
