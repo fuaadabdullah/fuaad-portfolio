@@ -1,13 +1,5 @@
-// app/robots.ts
-import type { MetadataRoute } from "next";
-
-export default function robots(): MetadataRoute.Robots {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-    },
-    sitemap: `${base}/sitemap.xml`,
-  };
+// Removed dynamic robots route in favor of static public/robots.txt
+// Exporting no-op to avoid accidental dynamic robots generation.
+export default function robots(){
+  return null as any;
 }
