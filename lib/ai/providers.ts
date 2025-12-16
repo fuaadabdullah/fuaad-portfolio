@@ -6,6 +6,8 @@ const LOCAL_LLM_URL = 'http://localhost:11434/api/chat';
 const LOCAL_TIMEOUT = 8000; // 8 seconds
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
+const HUGGINGFACE_API_KEY = process.env.HUGGINGFACE_API_KEY;
+const HUGGINGFACE_URL = 'https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium';
 
 // System prompt for consistent persona
 const SYSTEM_PROMPT = `You are an AI assistant embedded on Fuaad Abdullah's personal portfolio website.
@@ -140,12 +142,80 @@ export async function callGeminiAPI(prompt: string): Promise<string> {
   );
 }
 
+// Hugging Face API provider
+export async function callHuggingFaceAPI(prompt: string): Promise<string> {
+  if (!HUGGINGFACE_API_KEY) {
+    console.warn('Hugging Face API key not configured');
+    return getMockResponse(prompt);
+  }
+
+  return callProviderWithCircuitBreaker(
+    'huggingface-api',
+    async () => {
+      console.log('Calling Hugging Face API...');
+      const response = await fetch(HUGGINGFACE_URL, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${HUGGINGFACE_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          inputs: {
+            past_user_inputs: [],
+            generated_responses: [],
+            text: `${SYSTEM_PROMPT}\n\nUser: ${prompt}\n\nAssistant:`
+          },
+          parameters: {
+            max_length: 200,
+            temperature: 0.7,
+            do_sample: true,
+            pad_token_id: 50256
+          }
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Hugging Face API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Handle different response formats
+      let reply = '';
+      if (Array.isArray(data) && data.length > 0) {
+        reply = data[0].generated_text || data[0].conversation?.generated_responses?.[0] || '';
+      } else if (data.generated_text) {
+        reply = data.generated_text;
+      }
+
+      if (!reply) {
+        throw new Error('No valid response from Hugging Face');
+      }
+
+      // Clean up the response (remove the prompt if it's included)
+      const promptIndex = reply.indexOf('Assistant:');
+      if (promptIndex !== -1) {
+        reply = reply.substring(promptIndex + 10).trim();
+      }
+
+      console.log('Hugging Face succeeded');
+      return reply;
+    },
+    getMockResponse(prompt) // Fallback if circuit breaker is open
+  );
+}
+
 // Main provider selection logic
 export async function tryProvidersWithCircuitBreaker(prompt: string): Promise<string> {
   // Skip local LLM in production (Vercel) since Ollama isn't available
   if (process.env.VERCEL) {
-    console.log('Skipping local LLM in production, going straight to Gemini');
-    return await callGeminiAPI(prompt);
+    console.log('Skipping local LLM in production, trying Gemini first');
+    try {
+      return await callGeminiAPI(prompt);
+    } catch (error) {
+      console.log('Gemini failed, falling back to Hugging Face:', error instanceof Error ? error.message : String(error));
+      return await callHuggingFaceAPI(prompt);
+    }
   }
 
   try {
@@ -153,7 +223,12 @@ export async function tryProvidersWithCircuitBreaker(prompt: string): Promise<st
     return await callLocalLLM(prompt);
   } catch (error) {
     console.log('Local LLM failed, falling back to Gemini:', error instanceof Error ? error.message : String(error));
-    return await callGeminiAPI(prompt);
+    try {
+      return await callGeminiAPI(prompt);
+    } catch (geminiError) {
+      console.log('Gemini also failed, falling back to Hugging Face:', geminiError instanceof Error ? geminiError.message : String(geminiError));
+      return await callHuggingFaceAPI(prompt);
+    }
   }
 }
 

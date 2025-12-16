@@ -31,6 +31,12 @@ const circuitBreakers: Record<string, CircuitBreakerState> = {
     lastFailureTime: 0,
     nextAttemptTime: 0,
   },
+  'huggingface-api': {
+    state: 'CLOSED',
+    failures: 0,
+    lastFailureTime: 0,
+    nextAttemptTime: 0,
+  },
 };
 
 export function canExecute(provider: string): boolean {
