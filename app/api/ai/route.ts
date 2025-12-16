@@ -52,6 +52,12 @@ export async function POST(request: NextRequest) {
 // ========== IMPLEMENTATION DETAILS ==========
 
 async function tryLocalLLMThenGemini(prompt: string): Promise<string> {
+  // Skip local LLM in production (Vercel) since Ollama isn't available
+  if (process.env.VERCEL) {
+    console.log('Skipping local LLM in production, going straight to Gemini');
+    return await callGeminiAPI(prompt);
+  }
+
   try {
     // First attempt: Local TinyLlama
     console.log('Attempting local LLM...');
