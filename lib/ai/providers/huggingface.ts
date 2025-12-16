@@ -5,7 +5,7 @@ import { SYSTEM_PROMPT } from '../prompts';
 import { getMockResponse } from '../fallback';
 
 export async function callHuggingFaceAPI(prompt: string): Promise<string> {
-  if (!AI_CONFIG.HUGGINGFACE.API_KEY) {
+  if (!process.env.HUGGINGFACE_API_KEY) {
     console.warn('Hugging Face API key not configured');
     return getMockResponse(prompt);
   }
@@ -17,7 +17,7 @@ export async function callHuggingFaceAPI(prompt: string): Promise<string> {
       const response = await fetch(AI_CONFIG.HUGGINGFACE.URL, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${AI_CONFIG.HUGGINGFACE.API_KEY}`,
+          'Authorization': `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({

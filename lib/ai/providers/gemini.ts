@@ -5,8 +5,8 @@ import { SYSTEM_PROMPT } from '../prompts';
 import { getMockResponse } from '../fallback';
 
 export async function callGeminiAPI(prompt: string): Promise<string> {
-  console.log('Gemini API key present:', !!AI_CONFIG.GEMINI.API_KEY);
-  if (!AI_CONFIG.GEMINI.API_KEY) {
+  console.log('Gemini API key present:', !!process.env.GEMINI_API_KEY);
+  if (!process.env.GEMINI_API_KEY) {
     console.warn('Gemini API key not configured');
     return getMockResponse(prompt);
   }
@@ -15,7 +15,7 @@ export async function callGeminiAPI(prompt: string): Promise<string> {
     'gemini-api',
     async () => {
       console.log('Calling Gemini API...');
-      const response = await fetch(`${AI_CONFIG.GEMINI.URL}?key=${AI_CONFIG.GEMINI.API_KEY}`, {
+      const response = await fetch(`${AI_CONFIG.GEMINI.URL}?key=${process.env.GEMINI_API_KEY}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
