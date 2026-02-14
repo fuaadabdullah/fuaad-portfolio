@@ -1,59 +1,82 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getAllSlugs, getPostBySlug, formatDate } from "@/lib/blog";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { useMDXComponents } from "@/mdx-components";
-import remarkGfm from "remark-gfm";
-import rehypeHighlight from "rehype-highlight";
+import { type Metadata } from "next";
+import { getAllBlogSlugs, getBlogPostEntry, type BlogPostModule } from "@/content/blog/posts";
+import { getMDXComponents } from "@/mdx-components";
+import { formatDate } from "@/lib/date";
 import { BlogCTA } from "@/components/BlogCTA";
+import Badge from "@/components/Badge";
+import Container from "@/components/layout/Container";
 
-const categoryColors = {
-  essay: "bg-purple-500/20 text-purple-300 border-purple-500/30",
-  "release-note": "bg-blue-500/20 text-blue-300 border-blue-500/30",
-  tutorial: "bg-green-500/20 text-green-300 border-green-500/30",
-};
+type Category = NonNullable<BlogPostModule["frontmatter"]>["category"];
 
-export async function generateStaticParams() {
-  const slugs = getAllSlugs();
-  return slugs.map(slug => ({ slug }));
+function categoryLabel(category: Category): string {
+  if (category === "release-note") return "Release Note";
+  return category.charAt(0).toUpperCase() + category.slice(1);
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+function categoryVariant(category: Category): "default" | "success" | "outline" {
+  if (category === "tutorial") return "success";
+  if (category === "release-note") return "default";
+  return "outline";
+}
 
-  if (!post) {
-    return {
-      title: "Post Not Found",
-    };
+export async function generateStaticParams() {
+  return getAllBlogSlugs().map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const entry = getBlogPostEntry(slug);
+  if (!entry) {
+    return { title: "Post Not Found — Fuaad Abdullah" };
+  }
+
+  const mod = (await entry.load()) as BlogPostModule;
+  const fm = mod.frontmatter;
+  if (!fm) {
+    return { title: "Post Not Found — Fuaad Abdullah" };
   }
 
   return {
-    title: `${post.title} - Fuaad Abdullah`,
-    description: post.excerpt,
+    title: `${fm.title} — Fuaad Abdullah`,
+    description: fm.excerpt,
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: fm.title,
+      description: fm.excerpt,
       type: "article",
-      publishedTime: post.date,
+      publishedTime: fm.date,
       authors: ["Fuaad Abdullah"],
       images: ["/og-default.png"],
     },
   };
 }
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
-
-  if (!post) {
+  const entry = getBlogPostEntry(slug);
+  if (!entry) {
     notFound();
   }
 
-  const components = useMDXComponents({});
+  const mod = (await entry.load()) as BlogPostModule;
+  const Content = mod.default;
+  const fm = mod.frontmatter;
+  if (!fm) {
+    notFound();
+  }
 
   return (
-    <article className="mx-auto max-w-3xl px-6 py-16">
+    <Container size="narrow" className="py-16">
+      <article>
       <Link
         href="/blog"
         className="inline-flex items-center gap-1 text-white/60 hover:text-[color:var(--color-accent)] transition-colors mb-8"
@@ -63,47 +86,35 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <header className="mb-8">
         <div className="flex items-center gap-3 mb-4">
-          <span className={`text-xs font-medium px-2 py-1 rounded border ${categoryColors[post.category]}`}>
-            {post.category === "release-note" ? "Release Note" : post.category.charAt(0).toUpperCase() + post.category.slice(1)}
-          </span>
-          <time className="text-sm text-white/60">{formatDate(post.date)}</time>
+          <Badge variant={categoryVariant(fm.category)}>
+            {categoryLabel(fm.category)}
+          </Badge>
+          <time className="text-sm text-white/60">{formatDate(fm.date)}</time>
         </div>
 
         <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-          {post.title}
+          {fm.title}
         </h1>
 
-        {post.excerpt && (
-          <p className="text-xl text-white/80 leading-relaxed">
-            {post.excerpt}
-          </p>
+        {fm.excerpt && (
+          <p className="text-xl text-white/80 leading-relaxed">{fm.excerpt}</p>
         )}
 
-        {post.tags && post.tags.length > 0 && (
+        {fm.tags && fm.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-4">
-            {post.tags.map(tag => (
-              <span key={tag} className="text-xs text-white/50 bg-white/5 px-2 py-1 rounded">
+            {fm.tags.map((tag) => (
+              <Badge key={tag} variant="outline" className="border-white/10 text-white/70 bg-white/0">
                 #{tag}
-              </span>
+              </Badge>
             ))}
           </div>
         )}
       </header>
 
-      <div className="prose prose-invert max-w-none">
-        <MDXRemote
-          source={post.content}
-          components={components}
-          options={{
-            mdxOptions: {
-              remarkPlugins: [remarkGfm],
-              rehypePlugins: [rehypeHighlight],
-            },
-          }}
-        />
+      <div className="mt-10">
+        <Content components={getMDXComponents({})} />
       </div>
 
-      {/* Strategic CTA based on post content */}
       <BlogCTA variant="services" />
 
       <footer className="mt-12 pt-8 border-t border-white/10">
@@ -114,6 +125,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           ← Back to all posts
         </Link>
       </footer>
-    </article>
+      </article>
+    </Container>
   );
 }

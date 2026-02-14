@@ -1,0 +1,85 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Design System/Accessibility" />
+
+# Accessibility Guidelines
+
+This design system follows WCAG 2.2 AA standards for accessibility. Below are the key rules and best practices for implementing accessible components.
+
+## Core Principles
+
+### 1. Perceivable
+- Provide text alternatives for non-text content
+- Ensure sufficient color contrast (4.5:1 for normal text, 3:1 for large text)
+- Make content adaptable and distinguishable
+
+### 2. Operable
+- All functionality must be keyboard accessible
+- Provide enough time for users to read and use content
+- Do not design content that causes seizures
+- Make it easy to navigate and find content
+
+### 3. Understandable
+- Make text readable and understandable
+- Make content appear and operate in predictable ways
+- Help users avoid and correct mistakes
+
+### 4. Robust
+- Maximize compatibility with current and future user agents
+
+## Component-Specific Rules
+
+### Buttons
+- Always provide accessible names via children text or `aria-label`
+- Ensure focus indicators are visible
+- Do not use `<div>` or `<span>` for interactive elements
+
+### Forms
+- Associate labels with inputs using `htmlFor` and `id`
+- Mark required fields with `aria-required`
+- Provide clear error messages and validation feedback
+
+### Images
+- Always provide meaningful alt text
+- Use empty alt (`alt=""`) for decorative images
+- Ensure images don't cause layout shifts
+
+### Navigation
+- Use semantic `<nav>` elements
+- Provide skip links for keyboard users
+- Indicate current page with `aria-current="page"`
+
+### Headings
+- Maintain logical heading hierarchy (H1 → H2 → H3)
+- Don't skip heading levels
+- Use headings for structure, not styling
+
+## Do's and Don'ts
+
+### ✅ Do
+- Use semantic HTML elements
+- Provide descriptive labels and alt text
+- Ensure keyboard navigation works
+- Test with screen readers
+- Maintain focus management
+
+### ❌ Don't
+- Rely solely on color for meaning
+- Use images of text
+- Create custom interactive elements without proper ARIA
+- Hide focus indicators
+- Use low contrast text
+
+## Testing
+
+- Use automated tools like axe, WAVE, and Lighthouse
+- Test manually with keyboard navigation
+- Validate with screen readers
+- Check color contrast ratios
+- Test at different zoom levels
+
+## Resources
+
+- [WCAG 2.2 Guidelines](https://www.w3.org/TR/WCAG22/)
+- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
+- [MDN Accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility)

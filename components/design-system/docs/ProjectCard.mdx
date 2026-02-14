@@ -1,0 +1,47 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import * as ProjectCardStories from '../stories/ProjectCard.stories';
+
+<Meta of={ProjectCardStories} />
+
+# ProjectCard
+
+Project cards display project information in a structured format.
+
+## Usage
+
+```tsx
+import ProjectCard from './components/ProjectCard';
+
+<ProjectCard project={projectData} variant="default" />
+```
+
+## Variants
+
+<Canvas of={ProjectCardStories.Default} />
+<Canvas of={ProjectCardStories.Compact} />
+<Canvas of={ProjectCardStories.Featured} />
+
+## Props
+
+<Controls />
+
+## Do's and Don'ts
+
+### ✅ Do
+- Use high-quality project images
+- Keep descriptions concise
+- Include relevant technology badges
+- Provide clear call-to-action links
+
+### ❌ Don't
+- Use low-resolution images
+- Include too much text
+- Mix unrelated technologies
+- Hide important project links
+
+## Accessibility
+
+- Images have descriptive alt text
+- Links are properly labeled
+- Technology list is accessible
+- Keyboard navigation works for all actions

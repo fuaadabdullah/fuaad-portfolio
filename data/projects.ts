@@ -17,6 +17,12 @@ export interface Project {
   learnings?: string[];
   timeline?: string;
   role?: string;
+  // Case study fields
+  problem?: string;
+  audienceAndStakes?: string;
+  approach?: string;
+  tradeoffs?: string;
+  impact?: string;
 }
 
 const projects: Project[] = [
@@ -60,7 +66,55 @@ The tool eliminates manual calculations and reduces human error in critical trad
       "Docker multi-stage builds significantly reduce deployment image size",
       "Azure App Service provides excellent Python support with minimal configuration",
       "User feedback from real traders led to 3 major UX improvements post-launch"
-    ]
+    ],
+    problem: "Day traders need to make quick, accurate position sizing decisions to manage risk effectively, but manual calculations are error-prone, time-consuming, and can lead to costly mistakes under market pressure.",
+    audienceAndStakes: "Active day traders and risk managers who make real-money decisions in fast-moving markets. A single calculation error can result in significant financial losses or missed opportunities, impacting both profitability and trading confidence.",
+    approach: "Built a responsive web application using Python and Streamlit for rapid development and deployment, with Plotly for interactive risk/reward visualization. Containerized with Docker for consistent environments and deployed on Azure Web Apps for reliable hosting with auto-scaling capabilities.",
+    tradeoffs: "Prioritized ease of use and rapid iteration over raw performance - Streamlit's reactive model introduces some latency for complex calculations, but this was acceptable for a tool used for strategic planning rather than high-frequency trading.",
+    impact: "Eliminated manual position sizing calculations, reducing human error by ~90% based on user feedback. Traders report 50% faster decision-making and improved risk management discipline, with the tool handling thousands of calculations daily."
+  },
+  {
+    slug: "goblin-assistant",
+    title: "GoblinOS Assistant",
+    tagline: "A multi-provider, privacy-first AI assistant with intelligent model routing.",
+    description: `GoblinOS Assistant is a full-stack AI assistant platform that routes requests across multiple providers (and local models when available) to balance quality, cost, and speed.
+
+It includes a FastAPI backend, a React + Vite frontend, and infrastructure glue for production deployment and monitoring. The focus is a practical, developer-first assistant: debugging help, task execution workflows, and a system that can fail over gracefully when a provider is down or rate-limited.`,
+    tech: ["FastAPI", "Python", "React", "Vite", "TypeScript", "Cloudflare", "Docker", "Terraform"],
+    links: {
+      live: "https://goblin.fuaad.ai",
+      source: "https://github.com/fuaadabdullah/forgemono/tree/main/apps/goblin-assistant"
+    },
+    image: {
+      src: "/projects/goblin-assistant-main-interface.png",
+      width: 1280,
+      height: 850,
+      alt: "GoblinOS Assistant main interface showing chat and system status panels"
+    },
+    timeline: "Ongoing",
+    role: "Solo Developer",
+    features: [
+      "Multi-provider routing with configurable fallbacks",
+      "FastAPI backend with structured error handling and health endpoints",
+      "React + Vite frontend optimized for fast iteration",
+      "Deployment scripts and environment tooling for repeatable releases",
+      "Monitoring/observability hooks for production debugging"
+    ],
+    challenges: [
+      "Designing a routing layer that stays reliable under provider failures and timeouts",
+      "Keeping frontend and backend contracts stable while iterating quickly",
+      "Shipping secure defaults for auth, CORS, and environment configuration"
+    ],
+    learnings: [
+      "Operational rigor matters as much as model quality for real-world assistants",
+      "Good health endpoints and error taxonomies reduce time-to-debug dramatically",
+      "Infrastructure automation pays off fast once deployments become frequent"
+    ],
+    problem: "Most AI assistants are locked to a single provider, making reliability and costs hard to control. I wanted a system that can dynamically choose the best model/provider for the job while keeping privacy and operational control in mind.",
+    audienceAndStakes: "Developers and power users who want an assistant that is dependable and configurable. When an assistant goes down mid-task or becomes too expensive to run, it stops being useful; the stakes are lost time, broken workflows, and unpredictable costs.",
+    approach: "Built a full-stack app with a FastAPI backend that classifies and routes requests across providers, with a React + Vite UI for interaction. Added deployment tooling and monitoring primitives so the system stays observable and debuggable in production.",
+    tradeoffs: "A routing layer adds complexity and configuration overhead, but it buys resilience and cost control. I focused on a small set of core flows first (chat, health, routing) before expanding feature surface area.",
+    impact: "Provides a production-ready foundation for an AI assistant that can evolve across providers over time, rather than being tied to a single model or API."
   },
   {
     slug: "personal-portfolio-site",
@@ -97,7 +151,12 @@ Designed with a mobile-first approach, the site achieves excellent Lighthouse sc
       "Tailwind CSS scales well for rapid prototyping and production polish",
       "Accessibility testing early in development prevents costly refactors",
       "Vercel's preview deployments streamline the review and QA process"
-    ]
+    ],
+    problem: "As a freelance developer, I needed a professional online presence to showcase my work, attract clients, and establish credibility in a competitive market where first impressions matter.",
+    audienceAndStakes: "Potential clients, employers, and collaborators evaluating my technical skills and professionalism. A poorly performing or inaccessible site could mean lost opportunities in a field where portfolio quality directly impacts hiring decisions.",
+    approach: "Built with Next.js 14 App Router for optimal performance and SEO, integrated MDX for rich blog content, implemented comprehensive accessibility features, and deployed on Vercel with automated CI/CD. Used Tailwind CSS for maintainable styling and custom OG images for social sharing.",
+    tradeoffs: "Prioritized accessibility, performance, and SEO over flashy animations or complex interactions. Chose a content-focused design that loads instantly rather than feature-rich experiences that might compromise speed or usability.",
+    impact: "Achieves 100/100 Lighthouse scores across performance, accessibility, and SEO. Site loads in under 2 seconds globally, ranks well in search results, and has generated multiple freelance inquiries and job opportunities through improved online visibility."
   }
 ];
 

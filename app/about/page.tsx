@@ -1,5 +1,7 @@
 // app/about/page.tsx
 import Image from "next/image";
+import Container from "@/components/layout/Container";
+import PageHeader from "@/components/layout/PageHeader";
 
 export const metadata = {
   title: "About - Fuaad Abdullah",
@@ -9,19 +11,19 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="mx-auto max-w-5xl px-4 py-12 space-y-12">
-        {/* Intro (photos deferred) */}
-        <section className="space-y-4">
-        <p className="text-sm uppercase tracking-[0.2em] text-white/50">LORE</p>
-        <h1 className="text-3xl md:text-4xl font-semibold">
-          Soccer kid. Tank builder. Late-night thinker. 👺
-        </h1>
+    <Container className="py-12 space-y-12">
+      {/* Intro */}
+      <section className="space-y-4">
+        <PageHeader
+          eyebrow="Lore"
+          title="Soccer kid. Tank builder. Late-night thinker."
+        />
         <div className="space-y-4 text-white/80 leading-relaxed">
           <p>
-            I am Fuaad. Saudi-raised, Atlanta-based. I grew up playing soccer, became interested in tennis, and enjoy watching basketball for hours. When I am not working on finance or code projects, I am likely gaming, checking scores, or building small ecosystems in tanks.
+            I'm Fuaad. Saudi raised, Atlanta based. I grew up playing a lot of soccer, recently got interested in tennis, and I'll happily sit and watch basketball for hours. When I'm not on some finance or code thing, I'm probably gaming, checking scores, or zoning out while I build little ecosystems in tanks.
           </p>
           <p>
-            I am Muslim, and that is a meaningful part of my identity — it informs how I move, what I care about, and how I try to treat others. I moved to the United States to continue my studies and broaden my worldview. At my core, I am a thoughtful, observant person who values simple things: good people, good food, meaningful work, and living honestly.
+            I'm Muslim and that's a big part of how I move, what I care about, and how I try to treat people. I came to the US to keep studying and stretch my world a bit, but at my core I'm a pretty chill, observant person who likes simple things: good people, good food, good vibes, and a life that feels honest to who I am.
           </p>
         </div>
       </section>
@@ -56,7 +58,7 @@ export default function AboutPage() {
             />
           </div>
         ))}
-
+        
         {/* Coming soon placeholders */}
         <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10 flex items-center justify-center">
           <div className="text-center space-y-2 px-4">
@@ -64,14 +66,14 @@ export default function AboutPage() {
             <p className="text-xs text-white/60 font-medium">Coming soon</p>
           </div>
         </div>
-
+        
         <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10 flex items-center justify-center">
           <div className="text-center space-y-2 px-4">
             <p className="text-2xl">🎪</p>
             <p className="text-xs text-white/60 font-medium">Coming soon</p>
           </div>
         </div>
-
+        
         <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10 flex items-center justify-center">
           <div className="text-center space-y-2 px-4">
             <p className="text-2xl">🎨</p>
@@ -84,33 +86,17 @@ export default function AboutPage() {
       <section className="grid gap-6 md:grid-cols-3 text-sm text-white/70">
         <div>
           <p className="font-semibold text-white">Now</p>
-          <p>Georgia State University (GSU) — Finance: building risk tools, workflow automation, and client projects.</p>
+          <p>GSU Finance · building risk tools, GoblinOS, and client projects.</p>
         </div>
         <div>
           <p className="font-semibold text-white">Next 1–2 years</p>
-          <p>Day-trading stack, gold import/export groundwork, and a stronger brand.</p>
+          <p>Day trading stack, gold import/export groundwork, stronger brand.</p>
         </div>
         <div>
           <p className="font-semibold text-white">How I work</p>
-          <p>Low noise, high clarity — data-first, ego-last.</p>
+          <p>Low noise, high clarity, data first, ego last.</p>
         </div>
       </section>
-
-      {/* Case studies are available on the Case Studies page */}
-      <section className="space-y-4">
-        <p className="text-sm uppercase tracking-[0.2em] text-white/50">CASE STUDIES</p>
-        <h2 className="text-2xl font-semibold">More Case Studies</h2>
-
-        <div className="space-y-3 text-white/80 leading-relaxed">
-          <p>
-            I keep in-depth case studies — detailing context, constraints, solutions, artifacts, and results — on a dedicated page.
-          </p>
-        </div>
-
-        <p className="text-sm text-white/70">
-          <a href="/case-studies" className="text-white underline">View Case Studies</a>
-        </p>
-      </section>
-    </main>
+    </Container>
   );
 }

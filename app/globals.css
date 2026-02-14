@@ -1,3 +1,4 @@
+@import "highlight.js/styles/github-dark.css";
 @import "tailwindcss";
 
 /* Global theme tokens (Tailwind v4 compatible) */
@@ -18,8 +19,48 @@
 body {
   background-color: var(--color-ink);
   color: #f9fafb;
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  line-height: 1.08;
+}
+
+h2,
+h3 {
+  line-height: 1.15;
+}
+
+/* Subtle background overlay to keep the dark theme from feeling flat. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(900px 600px at 18% 8%, rgba(77, 124, 15, 0.18), transparent 55%),
+    radial-gradient(750px 520px at 82% 18%, rgba(244, 237, 225, 0.07), transparent 58%),
+    radial-gradient(700px 700px at 55% 110%, rgba(30, 41, 51, 0.22), transparent 60%);
+}
+
+/* Ensure the overlay stays behind actual content. */
+body > * {
+  position: relative;
+  z-index: 1;
 }
 
 a {
@@ -54,7 +95,6 @@ a:hover {
 }
 
 /* Code highlighting (GitHub Dark theme) */
-@import "highlight.js/styles/github-dark.css";
 
 /* Accessibility: Reduced motion */
 @media (prefers-reduced-motion: reduce) {

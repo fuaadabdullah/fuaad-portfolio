@@ -1,0 +1,50 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import * as CardStories from '../stories/Card.stories';
+
+<Meta of={CardStories} />
+
+# Card
+
+Cards are flexible containers for grouping related content and actions.
+
+## Usage
+
+```tsx
+import Card from './components/Card';
+
+<Card>
+  <h3>Card Title</h3>
+  <p>Card content goes here.</p>
+</Card>
+```
+
+## Variants
+
+<Canvas of={CardStories.Default} />
+<Canvas of={CardStories.Compact} />
+<Canvas of={CardStories.Featured} />
+
+## Props
+
+<Controls />
+
+## Do's and Don'ts
+
+### ✅ Do
+- Use cards to group related information
+- Keep card content focused and concise
+- Use appropriate variants for different contexts
+- Ensure cards are visually distinct
+
+### ❌ Don't
+- Overload cards with too much content
+- Use cards for navigation (consider links)
+- Mix different content types in one card
+- Make cards too small to be usable
+
+## Accessibility
+
+- Cards use semantic `<article>` elements
+- Content is properly structured
+- Focus management for interactive elements
+- Screen readers can navigate card content

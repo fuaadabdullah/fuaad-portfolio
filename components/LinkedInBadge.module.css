@@ -1,0 +1,87 @@
+.container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0;
+}
+
+.card {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 20, 25, 0.6) 0%,
+    rgba(11, 15, 19, 0.8) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(0, 119, 181, 0.4);
+  box-shadow: 0 12px 48px rgba(0, 119, 181, 0.2);
+  transform: translateY(-2px);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.icon {
+  color: #0077b5;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* Ensure LinkedIn badge renders properly */
+.card :global(.LI-profile-badge) {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Style the fallback link before script loads */
+.fallbackLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #0077b5;
+  color: white !important;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.fallbackLink:hover {
+  background: #005885;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 119, 181, 0.3);
+}
+
+.fallbackLink::before {
+  content: "→";
+  font-size: 20px;
+}
+
+/* Isolate LinkedIn script styles */
+.card * {
+  box-sizing: border-box;
+}
+

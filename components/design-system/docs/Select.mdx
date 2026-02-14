@@ -1,0 +1,64 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import * as SelectStories from '../stories/Select.stories';
+
+<Meta of={SelectStories} />
+
+# Select
+
+Select dropdowns allow users to choose from a predefined set of options.
+
+## Usage
+
+```tsx
+import { Select } from './components/Select';
+import { FormProvider, useForm } from 'react-hook-form';
+
+const options = [
+  { value: 'option1', label: 'Option 1' },
+  { value: 'option2', label: 'Option 2' },
+];
+
+function MyForm() {
+  const methods = useForm();
+  return (
+    <FormProvider {...methods}>
+      <Select
+        name="category"
+        label="Category"
+        options={options}
+        validation={{ required: 'Please select a category' }}
+      />
+    </FormProvider>
+  );
+}
+```
+
+## Examples
+
+<Canvas of={SelectStories.Default} />
+<Canvas of={SelectStories.WithValidation} />
+
+## Props
+
+<Controls />
+
+## Do's and Don'ts
+
+### ✅ Do
+- Provide a default/placeholder option
+- Use clear, descriptive option labels
+- Keep option lists manageable
+- Sort options logically
+
+### ❌ Don't
+- Use selects for binary choices (use checkboxes)
+- Have too many options (consider search/filter)
+- Use technical jargon in labels
+- Forget to handle the default state
+
+## Accessibility
+
+- Labels are properly associated
+- Keyboard navigation works (arrow keys, enter)
+- Screen readers announce options
+- Validation errors are communicated

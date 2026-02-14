@@ -1,5 +1,9 @@
 import Link from "next/link";
-import { getAllPosts, formatDate, type BlogPostMetadata } from "@/lib/blog";
+import { getAllBlogPostMeta } from "@/content/blog/posts";
+import { formatDate } from "@/lib/date";
+import Badge from "@/components/Badge";
+import Container from "@/components/layout/Container";
+import PageHeader from "@/components/layout/PageHeader";
 
 export const metadata = {
   title: "Blog - Fuaad Abdullah",
@@ -11,19 +15,24 @@ export const metadata = {
   }
 };
 
-const categoryColors = {
-  essay: "bg-purple-500/20 text-purple-300 border-purple-500/30",
-  "release-note": "bg-blue-500/20 text-blue-300 border-blue-500/30",
-  tutorial: "bg-green-500/20 text-green-300 border-green-500/30",
-};
+function categoryLabel(category: BlogPostMetadata["category"]): string {
+  if (category === "release-note") return "Release Note";
+  return category.charAt(0).toUpperCase() + category.slice(1);
+}
+
+function categoryVariant(category: BlogPostMetadata["category"]): "default" | "success" | "outline" {
+  if (category === "tutorial") return "success";
+  if (category === "release-note") return "default";
+  return "outline";
+}
 
 function BlogPostCard({ post }: { post: BlogPostMetadata }) {
   return (
   <article className="border border-white/10 rounded-lg p-6 hover:border-[color:var(--color-accent)]/50 transition-colors">
       <div className="flex items-center gap-3 mb-3">
-        <span className={`text-xs font-medium px-2 py-1 rounded border ${categoryColors[post.category]}`}>
-          {post.category === "release-note" ? "Release Note" : post.category.charAt(0).toUpperCase() + post.category.slice(1)}
-        </span>
+        <Badge variant={categoryVariant(post.category)}>
+          {categoryLabel(post.category)}
+        </Badge>
         <time className="text-sm text-white/60">{formatDate(post.date)}</time>
       </div>
       
@@ -38,9 +47,9 @@ function BlogPostCard({ post }: { post: BlogPostMetadata }) {
       {post.tags && post.tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {post.tags.map(tag => (
-            <span key={tag} className="text-xs text-white/50 bg-white/5 px-2 py-1 rounded">
+            <Badge key={tag} variant="outline" className="border-white/10 text-white/70 bg-white/0">
               #{tag}
-            </span>
+            </Badge>
           ))}
         </div>
       )}
@@ -55,15 +64,23 @@ function BlogPostCard({ post }: { post: BlogPostMetadata }) {
   );
 }
 
-export default function BlogPage() {
-  const posts = getAllPosts();
+type BlogPostMetadata = Awaited<ReturnType<typeof getAllBlogPostMeta>>[number]["frontmatter"] & {
+  slug: string;
+};
+
+function toPostMeta(p: Awaited<ReturnType<typeof getAllBlogPostMeta>>[number]): BlogPostMetadata {
+  return { slug: p.slug, ...p.frontmatter };
+}
+
+export default async function BlogPage() {
+  const posts = (await getAllBlogPostMeta()).map(toPostMeta);
 
   return (
-    <section className="mx-auto max-w-4xl px-6 py-16">
-      <h1 className="text-3xl md:text-5xl font-semibold tracking-tight">Blog</h1>
-      <p className="text-white/80 mt-3 mb-8">
-        Essays, release notes, and tutorials on building disciplined tools.
-      </p>
+    <Container size="default" className="py-16">
+      <PageHeader
+        title="Blog"
+        description="Essays, release notes, and tutorials on building disciplined tools."
+      />
 
       {posts.length === 0 ? (
         <div className="border border-white/10 rounded-lg p-12 text-center">
@@ -73,12 +90,12 @@ export default function BlogPage() {
           </Link>
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="mt-10 space-y-6">
           {posts.map(post => (
             <BlogPostCard key={post.slug} post={post} />
           ))}
         </div>
       )}
-    </section>
+    </Container>
   );
 }

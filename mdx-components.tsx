@@ -123,3 +123,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ...components,
   };
 }
+
+// Back-compat for older imports in this repo.
+export const getMDXComponents = useMDXComponents;

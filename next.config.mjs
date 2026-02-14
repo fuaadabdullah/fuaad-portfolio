@@ -1,21 +1,33 @@
-import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
+import remarkGfm from "remark-gfm";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import rehypeHighlight from "rehype-highlight";
 
-const nextConfig: NextConfig = {
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [remarkGfm, remarkFrontmatter, remarkMdxFrontmatter],
+    rehypePlugins: [rehypeHighlight],
+  },
+});
+
+/** @type {import("next").NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
+  pageExtensions: ["ts", "tsx", "mdx"],
   experimental: {
-    optimizeCss: true
+    optimizeCss: true,
   },
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [360, 640, 768, 1024, 1280, 1536, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
-    // Allow optimized images from common CDNs used in this project
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "plus.unsplash.com" },
     ],
   },
-  // CSP headers for LinkedIn badge integration
   async headers() {
     return [
       {
@@ -37,7 +49,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // Turbopack configuration removed to avoid workspace root issues
 };
 
-export default nextConfig;
+export default withMDX(nextConfig);
+

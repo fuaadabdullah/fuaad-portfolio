@@ -61,7 +61,10 @@ fuaad-portfolio/
 │   ├── postcss.config.js # PostCSS configuration
 │   └── tailwind.config.ts # Tailwind CSS configuration
 └── docs/                  # Documentation files
-    └── See docs/ for documentation (duplicates removed)
+    ├── DEPLOYMENT.md      # Deployment guide
+    ├── ACCESSIBILITY.md   # Accessibility features
+    ├── SEO_VALIDATION.md  # SEO best practices
+    └── OPERATIONS.md      # Maintenance guide
 ```
 
 See [docs/STRUCTURE.md](./docs/STRUCTURE.md) for complete structure documentation.
@@ -139,7 +142,7 @@ git push origin main
 # Deploy on Vercel (auto-deploys on push)
 ```
 
-See deployment documentation in docs/ for details.
+See [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md) for detailed deployment instructions.
 
 ## 🧪 Quality Assurance
 
@@ -156,7 +159,7 @@ See deployment documentation in docs/ for details.
 - Screen reader optimized
 - High contrast mode
 
-See accessibility documentation in docs/ for details.
+See [docs/ACCESSIBILITY.md](./docs/ACCESSIBILITY.md) for details.
 
 ## 🤖 GoblinOS Integration
 
@@ -172,7 +175,7 @@ PORTFOLIO_DIR=/path/to/portfolio bash ../tools/portfolio_env.sh dev
 PORTFOLIO_DIR=/path/to/portfolio bash ../tools/portfolio_env.sh build
 ```
 
-See GoblinOS integration documentation in docs/ for details.
+See [docs/GOBLIN_ENHANCEMENT_PLAN.md](./docs/GOBLIN_ENHANCEMENT_PLAN.md) for automation details.
 
 ## 📚 Documentation
 
@@ -199,3 +202,4 @@ MIT License - feel free to use this as a template for your own portfolio.
 ---
 
 **Built with ❤️ by Fuaad Abdullah**
+

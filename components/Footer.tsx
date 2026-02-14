@@ -1,9 +1,10 @@
 import SocialIcon from "./SocialIcon";
+import Container from "./layout/Container";
 
 export default function Footer(){
   return (
     <footer className="mt-24 border-t border-white/10">
-      <div className="mx-auto max-w-5xl px-6 py-10">
+      <Container className="py-10">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-white/60">
             © {new Date().getFullYear()} Fuaad Abdullah.
@@ -15,8 +16,7 @@ export default function Footer(){
             <SocialIcon type="github" href="https://github.com/fuaadabdullah" label="GitHub" />
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }
-

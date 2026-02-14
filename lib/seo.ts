@@ -13,10 +13,12 @@ export const personJsonLd = {
   ]
 };
 
-export const servicesJsonLd = (services: Array<any>) => ({
+type ServiceLike = { title: string; slug: string };
+
+export const servicesJsonLd = (services: ServiceLike[]) => ({
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "itemListElement": services.map((s: any, i: number) => ({
+  "itemListElement": services.map((s, i) => ({
     "@type": "Service",
     "position": i + 1,
     "name": s.title,

@@ -1,0 +1,69 @@
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Stack, StackProps } from '../base/Stack';
+import { Button } from '../base/Button';
+
+const meta: Meta<typeof Stack> = {
+  title: 'Design System/Stack',
+  component: Stack,
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    direction: {
+      control: { type: 'select' },
+      options: ['row', 'column'],
+    },
+    align: {
+      control: { type: 'select' },
+      options: ['start', 'center', 'end', 'stretch'],
+    },
+    justify: {
+      control: { type: 'select' },
+      options: ['start', 'center', 'end', 'between', 'around', 'evenly'],
+    },
+    gap: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+    },
+    wrap: { control: 'boolean' },
+  },
+  args: {
+    children: (
+      <>
+        <Button>Item 1</Button>
+        <Button>Item 2</Button>
+        <Button>Item 3</Button>
+      </>
+    ),
+  },
+};
+
+export default meta;
+type Story = StoryObj<StackProps>;
+
+export const Column: Story = {
+  args: {
+    direction: 'column',
+  },
+};
+
+export const Row: Story = {
+  args: {
+    direction: 'row',
+  },
+};
+
+export const Centered: Story = {
+  args: {
+    align: 'center',
+    justify: 'center',
+  },
+};
+
+export const Spaced: Story = {
+  args: {
+    justify: 'between',
+    gap: 'lg',
+  },
+};

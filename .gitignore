@@ -64,6 +64,7 @@ next-env.d.ts
 # OS
 .DS_Store
 Thumbs.db
+._*
 
 # portfolio build artifacts
 portfolio/*.pdf
@@ -73,3 +74,6 @@ portfolio/*.pdf
 lighthouse-*.json
 lighthouse-*.html
 create-og-image.html
+
+*storybook.log
+storybook-static

@@ -1,15 +1,26 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import JsonLd from "@/components/JsonLd";
-import { personJsonLd } from "@/lib/seo";
-
-const inter = Inter({ subsets: ["latin"] });
+import { ChatBox } from "@/components/chat/ChatBox";
+import { IBM_Plex_Sans, Space_Grotesk } from "next/font/google";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+const headingFont = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-heading",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const bodyFont = IBM_Plex_Sans({
+  subsets: ["latin"],
+  variable: "--font-body",
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Fuaad Abdullah - Builder, Trader, Student",
@@ -34,7 +45,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className={`antialiased ${headingFont.variable} ${bodyFont.variable}`}>
         <a href="#main-content" className="skip-to-main">
           Skip to main content
         </a>
@@ -43,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
+        <ChatBox />
         <Analytics />
       </body>
     </html>
