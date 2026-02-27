@@ -15,115 +15,148 @@ export const resumeData = {
   header: {
     name: "Fuaad Abdullah",
     tagline:
-      "Finance major at Georgia State University · freelance developer · day trader. I build practical fintech tools, trading dashboards, and portfolio sites with a focus on discipline, data, and clean execution.",
+      "Finance student at Georgia State University with experience in account management, marketing, and customer-facing roles, plus hands-on work as an independent day trader and freelance developer.",
     pdfHref: "/Fuaad_Abdullah_Resume.pdf",
     linkedInHref: "https://www.linkedin.com/in/fuaadabdullah",
     emailHref: "mailto:fuaadabdullah@gmail.com",
   },
   summary: {
-    eyebrow: "For recruiters · clients · schools",
+    eyebrow: "Professional Summary",
     title: "Summary",
     paragraphs: [
-      "I operate at the intersection of finance, trading, and software. I use code to turn messy ideas into systems: risk tools that keep traders honest, dashboards that surface real metrics, and portfolio sites that look professional instead of improvised.",
-      "This page is for recruiters, clients, and schools: a clear view of what I've built so far, what I'm studying, and where I'm trying to go next.",
+      "I build practical tools in Python, Streamlit, and spreadsheets, along with higher-performance prototypes in Rust, to turn data into decisions, automate workflows, and support trading operations.",
+      "I am comfortable taking projects from scope to delivery and communicating technical tradeoffs to non-technical clients.",
     ],
     sideCards: [
       {
-        eyebrow: "Currently open to",
+        eyebrow: "Contact",
         body:
-          "• Internships in finance, fintech, or software engineering\n• Freelance / contract projects (web, dashboards, tools)\n• Transfer / advanced study opportunities in finance, data, or technology",
+          "• Email: fuaadabdullah@gmail.com\n• Phone: (404) 494-6262\n• Portfolio: heyimfuaad.me",
       },
       {
-        eyebrow: "Where I add value",
+        eyebrow: "Currently open to",
         body:
-          "• Turning fuzzy requirements into concrete, scoped builds\n• Bridging trading / finance concepts with real software\n• Shipping small, reliable releases instead of half-finished ideas",
+          "• Internships in fintech, software engineering, and analytics\n• Freelance/contract development work\n• Roles combining finance, data, and product execution",
       },
     ] as ResumeCard[],
   },
   academic: {
-    title: "Academic Profile",
+    title: "Education",
     cards: [
       {
-        eyebrow: "Degree",
-        title: "B.B.A. Finance (in progress) · Georgia State University",
+        eyebrow: "University",
+        title: "Georgia State University · B.B.A., Finance",
         body:
-          "Building a foundation in markets, risk, and financial decision-making, with a growing focus on fintech and quantitative tools applied through personal trading and software projects.",
+          "2020 – Present. Completed an Associate of Science prior to continuing toward the B.B.A. Relevant coursework: Financial Accounting, Business Technology, Intro to Business, Marketing Principles.",
       },
       {
-        eyebrow: "Academic interests",
-        body:
-          "Risk management, market microstructure, behavioral finance, trading systems, and how software can enforce discipline instead of emotion in financial decisions.",
+        eyebrow: "High School",
+        title: "North Springs Charter School · Diploma",
+        body: "2017 – 2019 · GPA: 3.7",
       },
       {
-        eyebrow: "Next steps",
+        eyebrow: "Focus",
         body:
-          "Exploring transfer and advanced programs that take finance, data, and technology seriously and value hands-on, project-based work alongside traditional coursework.",
+          "Finance + software execution: risk management, reporting, automation, and practical tool-building for real workflows.",
       },
     ] as ResumeCard[],
   },
   experience: {
-    title: "Experience & Projects",
+    title: "Experience",
     entries: [
       {
-        title: "Freelance Development",
-        subtitle: "Ongoing",
+        title: "Independent Day Trader & Freelance Developer",
+        subtitle: "Self-Employed · Atlanta, GA · Feb 2023 – Present",
         description:
-          "Building small, production-ready web apps for clients and students using Next.js, TypeScript, and modern UI patterns. Work includes portfolio sites optimized for recruiters, trading dashboards, and fintech tools.",
+          "Trade equities with a disciplined risk-to-reward framework while building practical tooling for live trading workflows and client reporting needs.",
         bullets: [
-          "End-to-end delivery: scope → build → deploy → documentation",
-          "Designed recruiter-friendly portfolio sites with strong SEO, clean layout, and fast performance scores",
-          "Translated vague client goals into concrete scopes, timelines, and deliverables",
+          "Maintain structured trade logs and weekly performance reviews to improve edge and risk control",
+          "Built Python utilities and Streamlit apps including position-sizing calculators, trade-log exporters, and lightweight dashboards",
+          "Delivered spreadsheet cleanups, automation scripts, and ad-hoc reporting for peers and small businesses",
         ],
       },
       {
-        title: 'Position Sizing & Risk Calculator (codename "RIZZK")',
-        subtitle: "Personal project / Side work",
+        title: "Jr. Account Manager",
+        subtitle: "ABC Consultants Group · Atlanta, GA · May 2022 – Feb 2023",
         description:
-          "Web-based position sizing and risk-reward calculator for day traders. Calculates risk per trade, position size, and R:R ratios in real time. Built as a Python + Streamlit app with a tested calculation core and deployed using Docker and Azure Web Apps.",
+          "Supported account operations, communication, and reporting to keep client work moving on schedule.",
         bullets: [
-          "Applied trading and finance knowledge to build a tool traders can use during live sessions",
-          "Implemented unit-tested calculation logic to keep outputs reliable under different market scenarios",
-          "Designed end-to-end: from concept and UX to deployment and ongoing iteration based on real usage",
+          "Managed client communication, project documentation, and status reporting",
+          "Supported timely invoicing and on-schedule deliverables",
+          "Maintained Salesforce and internal trackers for account health visibility and next actions",
         ],
       },
       {
-        title: "Portfolio Site · heyimfuaad.me",
-        subtitle: "Personal branding project",
+        title: "Marketing Intern",
+        subtitle: "Mixdiety · Atlanta, GA · Jun 2021 – Feb 2022",
         description:
-          "Designed and built this site to present services, showcase projects, and provide a professional resume hub for recruiters, clients, and schools. Focus on SEO, accessibility, and mobile performance.",
+          "Researched trends and customer behavior to support campaign planning and reporting.",
         bullets: [
-          "Implemented structured metadata (JSON-LD), OG images, and sitemaps to support search engine visibility",
-          "Tuned layout, typography, and color system for a calm, earth-toned, dark-mode experience that still meets accessibility standards",
-          "Deployed on Vercel with automated CI/CD and integrated analytics to measure traffic and engagement over time",
+          "Supported outreach across social and email channels",
+          "Prepared performance summaries for leadership",
+          "Contributed to campaign decisions using customer and trend analysis",
+        ],
+      },
+      {
+        title: "Server",
+        subtitle: "Benihana · Atlanta, GA · Jun 2020 – Jun 2021",
+        description:
+          "Delivered high-volume customer service and coordinated with kitchen staff in a fast-paced environment.",
+        bullets: [
+          "Maintained hospitality standards during peak service periods",
+          "Improved communication speed across front-of-house and kitchen teams",
+          "Balanced customer experience with operational efficiency",
+        ],
+      },
+      {
+        title: "Server",
+        subtitle: "Intermezzo Cafe · Atlanta, GA · Jan 2019 – Jun 2020",
+        description:
+          "Provided professional front-of-house service and contributed to sales-support initiatives.",
+        bullets: [
+          "Supported upselling and daily-specials initiatives",
+          "Built consistency in customer experience and service quality",
+          "Handled customer interactions with professionalism and speed",
+        ],
+      },
+      {
+        title: "Featured Project: (⌐■_■) RIZZK Calculator 🚀",
+        subtitle: "Python, Streamlit, Docker, Azure",
+        description:
+          "Production-grade web app for day traders that calculates position size, risk dollars, risk percentage, and R-multiples from account size, entry, and stop-loss levels.",
+        bullets: [
+          "Supports both percent-of-account and fixed-dollar risk modes",
+          "Includes live risk preview, responsive Plotly charts, permalink URLs, and a unit-tested calculation engine",
+          "Deployed on Azure Web App for Containers with Docker and CI/CD",
         ],
       },
     ] as ResumeExperience[],
   },
   skills: {
-    title: "Skills",
+    title: "Core Skills",
     cards: [
       {
-        eyebrow: "Technical",
+        eyebrow: "Languages & technical",
         body:
-          "Next.js, React, TypeScript, Tailwind, Python, Streamlit, FastAPI, REST APIs, Vercel, Azure, Git, basic CI/CD.",
+          "Python, Rust, JavaScript/TypeScript, SQL, pandas, numpy, Streamlit, REST/WebSocket APIs, webhook handling, ETL/data cleaning, Plotly/matplotlib, Docker, Linux, basic CI, Git/GitHub.",
       },
       {
         eyebrow: "Finance & trading",
         body:
-          "Day trading basics, risk/reward, position sizing, journaling, performance tracking, and building tools that support discipline instead of impulse.",
+          "Risk management, position sizing, trade journaling, basic backtesting, and performance analytics.",
       },
       {
-        eyebrow: "How I work",
+        eyebrow: "Market data, tools & client work",
         body:
-          "Calm, low-ego collaborator. Prefers clear scopes, written plans, and small, testable launches over big promises and chaos.",
+          "Benzinga API, Polygon.io (REST/WebSocket), TradingView webhooks, CME Group market data, Sterling Trader sandbox experiments, Jupyter, VS Code, Google Sheets, Excel (advanced formulas/pivots), project scoping, and dashboard/report delivery.",
       },
     ] as ResumeCard[],
   },
   contact: {
-    title: "Contact & Next Steps",
+    title: "Contact & Certifications",
     paragraphs: [
-      "Open to internships, part-time roles, project work, and transfer or advanced study opportunities that sit at the intersection of finance, data, and software.",
-      "Response time: Usually within 24 hours. Prefer email for initial contact, then we can hop on a call or schedule something in-person.",
+      "Open to internships, analyst-track opportunities, and practical software/fintech roles where disciplined execution and clear communication matter.",
+      "Certifications: Excel Quick Tips (LinkedIn Learning, Sep 2025) · Creating Your Personal Brand (LinkedIn Learning, Oct 2025).",
     ],
     emailLabel: "fuaadabdullah@gmail.com",
     emailHref: "mailto:fuaadabdullah@gmail.com",
