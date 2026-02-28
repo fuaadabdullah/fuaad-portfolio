@@ -6,15 +6,22 @@ This portfolio is a content-driven Next.js application with static and server-re
 
 ## Application layers
 
-- `app/`: route handlers and page composition
-- `components/`: shared UI primitives and feature components
-- `data/`: structured content for resume, projects, services, and assistant context
-- `content/`: MDX blog content
-- `lib/`: utilities and assistant logic
-- `public/`: static assets including screenshots and generated resume PDF
+- `app/`: App Router pages, API routes, route metadata.
+- `components/`: reusable UI primitives and layout blocks.
+- `data/`: typed resume/project/service content sources.
+- `content/`: MDX blog posts and long-form writeups.
+- `lib/`: assistant context helpers and utility functions.
+- `public/`: screenshots, downloadable resume PDF, and static media.
 
 ## Data flow
 
-1. Structured content in `data/*.ts` drives page rendering.
-2. Metadata is generated per route for sharing and indexing.
-3. Assistant routes consume local knowledge structures.
+1. Structured content from `data/*.ts` is imported into page routes.
+2. Pages render server-side metadata and static content for SEO.
+3. Assistant endpoints consume curated local knowledge files.
+4. Resume route and script flow publish `public/Fuaad_Abdullah_Resume.pdf`.
+
+## Deployment topology
+
+- Frontend and API routes deploy on Vercel as a single Next.js project.
+- Static assets (screenshots, PDF) are served from the same deployment.
+- Optional LLM route integrations point to configured upstream providers.

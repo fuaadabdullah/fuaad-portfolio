@@ -8,6 +8,12 @@ Production portfolio for Fuaad Abdullah, focused on employer-ready project prese
 - Publishes a resume page and downloadable PDF for applications and recruiter outreach.
 - Includes lightweight portfolio assistant endpoints and public API docs.
 
+## Screenshots
+
+![Portfolio homepage hero](docs/images/hero.webp)
+![Project index and case-study cards](docs/images/feature-01.webp)
+![Resume page with downloadable PDF flow](docs/images/feature-02.webp)
+
 ## Stack
 
 - Next.js (App Router)

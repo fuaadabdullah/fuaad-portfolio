@@ -1,11 +1,23 @@
 # Impact
 
-## Why this repository matters
+## Problem addressed
 
-This is the primary hiring and credibility surface for Fuaad's engineering work.
+Recruiters and hiring managers need a fast way to evaluate technical range, project depth, and communication quality.
 
 ## Outcomes
 
-- Faster recruiter evaluation through clear project narratives and source links
-- Better trust through accessible resume delivery and transparent project documentation
-- Stronger professional signal through consistent engineering quality and communication
+- Clear project narratives with direct source/live links reduce ambiguity during review.
+- Resume route + downloadable PDF provides a frictionless application artifact.
+- Structured API docs and assistant endpoints demonstrate production-minded engineering habits.
+
+## Reliability and quality signal
+
+- Type/lint/test command set is documented and repeatable.
+- Content and project links are normalized to canonical repositories.
+- Portfolio experience is optimized for desktop and mobile recruiter workflows.
+
+## Next roadmap
+
+- Add deeper observability to assistant endpoints.
+- Expand case-study measurement sections with before/after outcomes.
+- Continue tightening performance and accessibility budgets.
