@@ -120,6 +120,17 @@ export const resumeData = {
         ],
       },
       {
+        title: "GoblinOS Assistant",
+        subtitle: "Full-stack AI product · Personal project",
+        description:
+          "Multi-provider, privacy-first AI assistant with observable model routing and real-time system status visibility. Built with FastAPI, Next.js, TypeScript, PostgreSQL, Redis, and cloud-native deployment patterns.",
+        bullets: [
+          "Implemented full-stack architecture with typed API contracts between FastAPI backend and Next.js frontend",
+          "Integrated deployment workflows across Vercel, Fly.io, Cloudflare, Docker, and Terraform for reproducible infrastructure",
+          "Surfaced provider health, latency, and routing decisions to users for transparency and cost visibility",
+        ],
+      },
+      {
         title: "Featured Project: (⌐■_■) RIZZK Calculator 🚀",
         subtitle: "Python, Streamlit, Docker, Azure",
         description:
