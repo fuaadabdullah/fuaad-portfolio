@@ -1,6 +1,6 @@
 import Link from "next/link";
 import LinkedInBadge from "@/components/LinkedInBadge";
-import { resumeData, type ResumeCard, type ResumeExperience } from "@/data/resume";
+import { resumeData, type ResumeCard, type ResumeExperience, type ResumeProject } from "@/data/resume";
 import Container from "@/components/layout/Container";
 
 export const metadata = {
@@ -68,6 +68,40 @@ function ExperienceCard({ exp }: { exp: ResumeExperience }) {
           <li key={b}>{b}</li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+function ProjectCard({ project }: { project: ResumeProject }) {
+  return (
+    <div className="rounded-2xl bg-[color:var(--color-coal)] border border-white/5 p-4 space-y-2">
+      <div>
+        <h3 className="text-base font-semibold text-zinc-100">{project.title}</h3>
+        <p className="text-sm text-zinc-300">{project.tagline}</p>
+      </div>
+      
+      <div className="flex flex-wrap gap-1">
+        {project.tech.map((t) => (
+          <span key={t} className="text-xs bg-white/10 text-zinc-300 px-2 py-1 rounded">
+            {t}
+          </span>
+        ))}
+      </div>
+      
+      {project.links && (
+        <div className="flex gap-2 text-xs pt-2">
+          {project.links.live && (
+            <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+              Live
+            </a>
+          )}
+          {project.links.source && (
+            <a href={project.links.source} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+              Source
+            </a>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -202,6 +236,25 @@ function ResumeExperienceSection({
   );
 }
 
+function ProjectsSection({
+  title,
+  items,
+}: {
+  title: string;
+  items: ResumeProject[];
+}) {
+  return (
+    <section className="space-y-4">
+      <h2 className="text-lg font-semibold text-zinc-100">{title}</h2>
+      <div className="grid gap-3 md:grid-cols-2">
+        {items.map((p) => (
+          <ProjectCard key={p.title} project={p} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function ResumeContact({
   contact,
 }: {
@@ -232,18 +285,22 @@ function ResumeContact({
 }
 
 export default function ResumePage() {
-  const { header, summary, academic, experience, skills, contact } = resumeData;
+  const { header, summary, academic, experience, projects, skills, contact } = resumeData;
 
   return (
-    <main>
+    <section aria-labelledby="resume-heading">
+      <h1 id="resume-heading" className="sr-only">
+        Resume
+      </h1>
       <Container className="py-12 space-y-10">
         <ResumeHero header={header} />
         <ResumeSummary summary={summary} />
         <ResumeCardGrid title={academic.title} cards={academic.cards} />
         <ResumeExperienceSection title={experience.title} entries={experience.entries} />
+        <ProjectsSection title={projects.title} items={projects.items} />
         <ResumeCardGrid title={skills.title} cards={skills.cards} />
         <ResumeContact contact={contact} />
       </Container>
-    </main>
+    </section>
   );
 }

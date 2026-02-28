@@ -11,6 +11,13 @@ export type ResumeCard = {
   body: string;
 };
 
+export type ResumeProject = {
+  title: string;
+  tagline: string;
+  tech: string[];
+  links?: { live?: string; source?: string };
+};
+
 export const resumeData = {
   header: {
     name: "Fuaad Abdullah",
@@ -142,6 +149,46 @@ export const resumeData = {
         ],
       },
     ] as ResumeExperience[],
+  },
+  projects: {
+    title: "Featured Projects",
+    items: [
+      {
+        title: "(⌐■_■) RIZZK Calculator 🚀",
+        tagline: "Production-grade position sizing and risk calculator for day traders",
+        tech: ["Python", "Streamlit", "Plotly", "Docker", "Azure"],
+        links: {
+          live: "https://rizzk-calculator-demo-eus2-f1.azurewebsites.net",
+          source: "https://github.com/fuaadabdullah/rr-calculator",
+        },
+      },
+      {
+        title: "GoblinOS Assistant",
+        tagline: "Multi-provider AI assistant with observable routing and privacy controls",
+        tech: ["FastAPI", "Next.js", "TypeScript", "PostgreSQL", "Redis", "Vercel", "Fly.io"],
+        links: {
+          live: "https://goblin-assistant.vercel.app",
+          source: "https://github.com/fuaadabdullah/forgemono",
+        },
+      },
+      {
+        title: "Portfolio Site · heyimfuaad.me",
+        tagline: "Production portfolio with blog, case studies, and SEO optimization",
+        tech: ["Next.js", "React", "TypeScript", "Tailwind", "MDX", "Vercel"],
+        links: {
+          live: "https://heyimfuaad.me",
+          source: "https://github.com/fuaadabdullah/fuaad-portfolio",
+        },
+      },
+      {
+        title: "Elbey Projects Website",
+        tagline: "Customer marketing site for mobile mechanic business with conversion focus",
+        tech: ["Next.js", "TypeScript", "Tailwind", "Vercel"],
+        links: {
+          live: "https://marcus-website-iof60vvkq-fuaadabdullahs-projects.vercel.app",
+        },
+      },
+    ] as ResumeProject[],
   },
   skills: {
     title: "Core Skills",
