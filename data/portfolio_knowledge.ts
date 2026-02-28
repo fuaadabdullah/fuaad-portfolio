@@ -3,7 +3,7 @@ import type { FaqEntry } from "@/types/assistant";
 export const siteFacts = `
 This is the portfolio of Fuaad — B.B.A. finance graduate and full-stack developer.
 Built with Next.js 16, App Router, TypeScript, Tailwind CSS, and MDX blogs.
-Projects include RIZZK Calculator, GoblinOS Assistant, personal portfolio site, Elbey Projects customer website, and Gradem8 HF Space 2.
+Projects include RIZZK Calculator, GoblinOS Assistant, personal portfolio site, Elbey Projects customer website, Gradem8 HF Space 2, and ShopMindAI.
 
 He offers services:
 – Web app builds
@@ -24,6 +24,10 @@ export const faq: FaqEntry[] = [
   {
     trigger: ["goblin", "goblinos", "goblin assistant"],
     answer: "GoblinOS Assistant is a multi-provider, privacy-first AI assistant platform with intelligent model routing. It’s built with a FastAPI backend and a Next.js (React/TypeScript) frontend, plus Cloudflare edge, Vercel deployment, and infrastructure automation. Canonical repo: github.com/fuaadabdullah/goblinos-assistant."
+  },
+  {
+    trigger: ["shopmind", "shopmindai", "automotive ai", "diagnostic assistant"],
+    answer: "ShopMindAI is an automotive diagnostic assistant that converts VIN, OBD codes, and symptom inputs into ranked likely causes and confirmatory tests. It uses a FastAPI backend with observability endpoints and is deployed on Azure. Canonical repo: github.com/fuaadabdullah/shopmind-ai."
   },
   {
     trigger: ["tech stack", "built with", "tech"],

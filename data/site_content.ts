@@ -131,5 +131,19 @@ export const projectContent: ContentEntry[] = [
       "Deployed on Vercel",
       "Canonical repository: github.com/fuaadabdullah/gradem8-hf-space-2"
     ]
+  },
+  {
+    slug: "shopmind-ai",
+    title: "ShopMindAI",
+    summary:
+      "Automotive diagnostic assistant that turns VIN/OBD/symptom intake into ranked, testable repair guidance with production monitoring endpoints.",
+    keyPoints: [
+      "FastAPI backend with typed schemas and modular service layer",
+      "Structured intake for VIN, OBD codes, and free-text symptoms",
+      "Ranked likely causes plus confirmatory tests",
+      "Operational health and metrics endpoints (`/health`, `/metrics`)",
+      "Azure App Service deployment",
+      "Canonical repository: github.com/fuaadabdullah/shopmind-ai"
+    ]
   }
 ];

@@ -176,6 +176,15 @@ export const resumeData = {
           source: "https://github.com/fuaadabdullah/gradem8-hf-space-2",
         },
       },
+      {
+        title: "ShopMindAI",
+        tagline: "Automotive diagnostic assistant with ranked causes, confirmatory tests, and observability endpoints",
+        tech: ["FastAPI", "Python", "SQLAlchemy", "FAISS", "Azure"],
+        links: {
+          live: "https://shopmindai-backend.azurewebsites.net",
+          source: "https://github.com/fuaadabdullah/shopmind-ai",
+        },
+      },
     ] as ResumeProject[],
   },
   skills: {

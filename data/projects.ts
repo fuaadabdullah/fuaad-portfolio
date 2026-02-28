@@ -326,6 +326,77 @@ Delivered a complete multi-page site (About, Services, Gallery, Contact/booking,
     timeline: "2 weeks",
     role: "Owner / Developer",
   },
+  {
+    slug: "shopmind-ai",
+    title: "ShopMindAI",
+    tagline:
+      "Automotive diagnostic assistant with ranked repair guidance and production observability.",
+    description: `ShopMindAI is an automotive diagnostic assistant built to help technicians and small shops move from symptom notes to structured, testable repair plans.
+
+The platform combines VIN and OBD-code intake, retrieval context, and LLM-supported reasoning to return ranked likely causes plus confirmatory tests. It includes production health and metrics endpoints and is deployed on Azure.`,
+    tech: [
+      "FastAPI",
+      "Python",
+      "SQLAlchemy",
+      "FAISS",
+      "Azure App Service",
+      "Prometheus Metrics",
+    ],
+    links: {
+      live: "https://shopmindai-backend.azurewebsites.net",
+      source: "https://github.com/fuaadabdullah/shopmind-ai",
+    },
+    image: {
+      src: "/projects/shopmind-ai-hero.webp",
+      width: 1600,
+      height: 1000,
+      alt: "ShopMindAI diagnostic assistant hero view",
+      priority: false,
+    },
+    gallery: [
+      {
+        src: "/projects/shopmind-ai-feature-01.webp",
+        width: 1600,
+        height: 1000,
+        alt: "ShopMindAI technician intake workflow for VIN, OBD codes, and symptoms",
+      },
+      {
+        src: "/projects/shopmind-ai-feature-02.webp",
+        width: 1600,
+        height: 1000,
+        alt: "ShopMindAI ranked diagnostic response with likely causes and confirmatory tests",
+      },
+    ],
+    features: [
+      "Structured intake for VIN, OBD codes, and free-text symptoms",
+      "Ranked diagnostic causes with confidence and confirmatory test recommendations",
+      "FastAPI API surface with typed request/response schemas",
+      "Operational endpoints for uptime (`/health`) and metrics (`/metrics`)",
+      "Azure-hosted deployment for recruiter/demo access",
+    ],
+    challenges: [
+      "Balancing strict validation with flexible real-world technician input",
+      "Combining retrieval context with model reasoning into actionable outputs",
+      "Keeping production observability simple enough for small-team operations",
+    ],
+    learnings: [
+      "Structured response design makes AI outputs far easier to operationalize",
+      "Health and metrics endpoints are non-negotiable for production credibility",
+      "Input validation quality has a direct effect on output reliability",
+    ],
+    timeline: "Ongoing",
+    role: "Owner / Full-stack Developer",
+    problem:
+      "Technicians often lose time on inconsistent first-pass troubleshooting from unstructured symptom descriptions.",
+    audienceAndStakes:
+      "Independent mechanics and small shops where each misdiagnosis increases labor cost, parts waste, and customer downtime.",
+    approach:
+      "Built a FastAPI application with structured intake, ranking logic, and deployment-safe configuration. Added health and metrics endpoints for production monitoring and deployed on Azure.",
+    tradeoffs:
+      "Prioritized reliability and clear response structure over a complex front-end experience to keep iteration speed high and output quality measurable.",
+    impact:
+      "Delivers a production-ready diagnostic workflow demo that turns free-text issues into ranked, testable repair guidance with operational monitoring built in.",
+  },
 ];
 
 export default projects;

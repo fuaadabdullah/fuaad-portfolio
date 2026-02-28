@@ -1,121 +1,114 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const puppeteer = require('puppeteer');
-const MarkdownIt = require('markdown-it');
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { spawn } from "node:child_process";
+import http from "node:http";
+import https from "node:https";
 
-const md = new MarkdownIt();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-async function generatePDF() {
-  try {
-    // Read the resume markdown
-    const resumePath = path.join(__dirname, '../portfolio/resume.md');
-    const resumeContent = fs.readFileSync(resumePath, 'utf8');
-    
-    // Convert markdown to HTML
-    const htmlContent = md.render(resumeContent);
-    
-    // Create full HTML page with styling
-    const fullHtml = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <style>
-    @page {
-      size: letter;
-      margin: 0.75in;
-    }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      font-size: 11pt;
-      line-height: 1.5;
-      color: #000;
-      max-width: 100%;
-    }
-    h1 {
-      font-size: 20pt;
-      margin-bottom: 0.25em;
-      border-bottom: 2px solid #000;
-      padding-bottom: 0.25em;
-    }
-    h2 {
-      font-size: 14pt;
-      margin-top: 1em;
-      margin-bottom: 0.5em;
-      border-bottom: 1px solid #333;
-      padding-bottom: 0.15em;
-    }
-    h3 {
-      font-size: 12pt;
-      margin-top: 0.75em;
-      margin-bottom: 0.25em;
-    }
-    p {
-      margin: 0.5em 0;
-    }
-    ul {
-      margin: 0.5em 0;
-      padding-left: 1.5em;
-    }
-    li {
-      margin: 0.25em 0;
-    }
-    strong {
-      font-weight: 600;
-    }
-    a {
-      color: #0066cc;
-      text-decoration: none;
-    }
-    @media print {
-      body {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
+const PDF_PATH = path.join(__dirname, "../public/Fuaad_Abdullah_Resume.pdf");
+const HOST = process.env.RESUME_HOST || "127.0.0.1";
+const PORT = Number(process.env.RESUME_PORT || "3012");
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function runCommand(command, args, options = {}) {
+  return new Promise((resolve, reject) => {
+    const child = spawn(command, args, {
+      stdio: "inherit",
+      ...options,
+    });
+
+    child.on("error", reject);
+    child.on("close", (code) => {
+      if (code === 0) {
+        resolve();
+        return;
       }
+      reject(new Error(`${command} ${args.join(" ")} failed with exit code ${code}`));
+    });
+  });
+}
+
+function isUrlReachable(url) {
+  return new Promise((resolve) => {
+    const client = url.startsWith("https://") ? https : http;
+    const request = client.get(url, (response) => {
+      response.resume();
+      resolve(Boolean(response.statusCode && response.statusCode >= 200 && response.statusCode < 500));
+    });
+    request.on("error", () => resolve(false));
+    request.setTimeout(2500, () => {
+      request.destroy();
+      resolve(false);
+    });
+  });
+}
+
+async function waitForUrl(url, timeoutMs = 120000) {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < timeoutMs) {
+    if (await isUrlReachable(url)) {
+      return;
     }
-  </style>
-</head>
-<body>
-  ${htmlContent}
-</body>
-</html>
-    `;
-    
-    // Launch browser and generate PDF
-    console.log('Launching browser...');
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
-    
-    const page = await browser.newPage();
-    await page.setContent(fullHtml, { waitUntil: 'networkidle0' });
-    
-    const outputPath = path.join(__dirname, '../public/Fuaad_Abdullah_Resume.pdf');
-    console.log('Generating PDF...');
-    
-    await page.pdf({
-      path: outputPath,
-      format: 'letter',
-      margin: {
-        top: '0.75in',
-        right: '0.75in',
-        bottom: '0.75in',
-        left: '0.75in'
-      },
-      printBackground: true
-    });
-    
-    await browser.close();
-    
-    console.log(`✅ PDF generated successfully at: ${outputPath}`);
-    
-  } catch (error) {
-    console.error('Error generating PDF:', error);
-    process.exit(1);
+    await sleep(1000);
+  }
+  throw new Error(`Timed out waiting for ${url}`);
+}
+
+function startDevServer() {
+  console.log(`Starting Next.js dev server on http://${HOST}:${PORT} ...`);
+  return spawn("pnpm", ["exec", "next", "dev", "--hostname", HOST, "--port", String(PORT)], {
+    cwd: path.join(__dirname, ".."),
+    stdio: "inherit",
+    env: process.env,
+  });
+}
+
+async function generatePdfFromResumeRoute() {
+  let devServer = null;
+
+  try {
+    const configuredResumeUrl = process.env.RESUME_URL;
+    let resumeUrl = configuredResumeUrl;
+    if (!resumeUrl) {
+      devServer = startDevServer();
+      resumeUrl = `http://${HOST}:${PORT}/resume`;
+    }
+
+    console.log(`Waiting for resume page at ${resumeUrl} ...`);
+    await waitForUrl(resumeUrl);
+
+    console.log("Rendering PDF with Playwright CLI ...");
+    await runCommand(
+      "npx",
+      [
+        "--yes",
+        "playwright@1.52.0",
+        "pdf",
+        "--browser=chromium",
+        "--paper-format=Letter",
+        "--wait-for-timeout=2000",
+        resumeUrl,
+        PDF_PATH,
+      ],
+      { env: { ...process.env, TMPDIR: process.env.TMPDIR || "/tmp" } }
+    );
+
+    console.log(`PDF generated successfully at: ${PDF_PATH}`);
+  } finally {
+    if (devServer) {
+      devServer.kill("SIGTERM");
+    }
   }
 }
 
-generatePDF();
+generatePdfFromResumeRoute().catch((error) => {
+  console.error("Error generating PDF:", error?.message || error);
+  process.exit(1);
+});
