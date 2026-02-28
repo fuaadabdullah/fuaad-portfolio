@@ -1,0 +1,118 @@
+openapi: 3.1.0
+info:
+  title: Fuaad Portfolio API
+  version: 1.0.0
+  description: |
+    Public API endpoints for the Fuaad portfolio site.
+    This schema documents the assistant endpoints and basic health checks.
+servers:
+  - url: /
+    description: Same-origin
+paths:
+  /api/health:
+    get:
+      summary: Health check
+      description: Returns service health status.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+              examples:
+                ok:
+                  value:
+                    status: ok
+  /api/ai:
+    post:
+      summary: Portfolio assistant
+      description: Generates a portfolio assistant reply based on site context.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PromptRequest"
+            examples:
+              question:
+                value:
+                  prompt: "What projects has Fuaad built?"
+      responses:
+        "200":
+          description: Assistant reply
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReplyResponse"
+              examples:
+                reply:
+                  value:
+                    reply: "Here are a few projects from the portfolio..."
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReplyResponse"
+              examples:
+                invalid:
+                  value:
+                    reply: "Please enter a question."
+  /api/mock-ai:
+    post:
+      summary: Mock portfolio assistant
+      description: Returns a mock assistant reply for local development.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PromptRequest"
+            examples:
+              question:
+                value:
+                  prompt: "Tell me about the tech stack."
+      responses:
+        "200":
+          description: Mock assistant reply
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReplyResponse"
+              examples:
+                reply:
+                  value:
+                    reply: "This portfolio uses Next.js 16, TypeScript, and Tailwind."
+components:
+  schemas:
+    PromptRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - prompt
+      properties:
+        prompt:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          description: User prompt for the assistant.
+    ReplyResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - reply
+      properties:
+        reply:
+          type: string
+          description: Assistant response text.
+    HealthResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - ok

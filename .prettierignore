@@ -1,0 +1,33 @@
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Testing
+coverage/
+
+# Misc
+.DS_Store
+*.log
+.env*.local
+
+# Storybook
+storybook-static/
+
+# Cache
+.cache/
+.turbo/
+
+# Lock files and package manager
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Generated files
+*.tsbuildinfo
