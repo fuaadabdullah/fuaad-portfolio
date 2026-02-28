@@ -2,13 +2,16 @@
 import { NextResponse } from "next/server";
 
 const mockResponses = {
-  "hello": "I can walk you through Fuaad's projects, tech stack, or how to get in touch. Check out his [featured projects](/portfolio) or [learn more about his background](/about).",
-  "tech": "This site runs on Next.js 16 with TypeScript, Tailwind CSS, and MDX. Clean architecture with custom AI integration. Explore the [technical details](/about) or see the [live projects](/portfolio).",
-  "fuaad": "Fuaad combines finance expertise with full-stack development, focusing on practical web applications and developer tools. View his [professional background](/about) or [contact him directly](/resume).",
-  "rizzk": "RIZZK Calculator provides risk management tools for traders. Built with Python and Streamlit for position sizing and analysis. Try the [live demo](https://rizzk.streamlit.app) or see [more projects](/portfolio).",
-  "80/20": "Fuaad applies the 80/20 principle to development: focus on core features that deliver maximum value, shipping MVPs in weeks. Read his [blog post about this approach](/blog/80-20-rule-student-projects) or [view his services](/services).",
-  "services": "Fuaad builds web applications, MVPs, custom dashboards, and developer utilities. Focus on practical solutions. See his [service offerings](/services) or [get in touch to discuss your project](/resume).",
-  "portfolio": "This portfolio showcases Fuaad's projects including trading tools, web applications, and development frameworks. Browse the [full portfolio](/portfolio) or [download his resume](/resume)."
+  "hello": "Hello! I'm the portfolio assistant. How can I help you learn about Fuaad's work?",
+  "tech": "This portfolio uses Next.js 16, TypeScript, Tailwind CSS, MDX for blogs, and custom tooling.",
+  "projects": "A few projects: RIZZK Calculator (risk/position sizing), GoblinOS Assistant (multi-provider AI routing), Elbey Projects website (customer delivery), Gradem8 HF Space demo, and this portfolio site. Ask about any one for details.",
+  "rizzk": "RIZZK Calculator is a risk management tool for day traders, built with Python and Streamlit. It helps with position sizing and risk/reward calculations.",
+  "goblin": "GoblinOS Assistant is a multi-provider, privacy-first AI assistant with routing observability. Canonical repo: github.com/fuaadabdullah/goblinos-assistant.",
+  "github": "Canonical repos are: fuaad-portfolio, rr-calculator, goblinos-assistant, marcus-website, and gradem8-hf-space-2.",
+  "80/20": "The 80/20 rule means focusing on the 20% of features that deliver 80% of the value. Fuaad uses this to ship production-ready projects in just 2 weeks.",
+  "services": "Fuaad offers web app builds, MVP tooling, custom dashboards, and developer utilities.",
+  "portfolio": "This is Fuaad's personal portfolio showcasing production projects across fintech tooling, AI systems, and customer web delivery.",
+  "fuaad": "Fuaad is a B.B.A. finance graduate and full-stack developer who specializes in web apps, MVP tooling, and custom dashboards."
 };
 
 function getMockResponse(prompt: string): string {
@@ -22,7 +25,7 @@ function getMockResponse(prompt: string): string {
   }
 
   // Default response
-  return "I'm here to help you learn about Fuaad's portfolio! Try asking about the tech stack, projects, or services. Check out his [featured projects](/portfolio) or [learn more about his background](/about).";
+  return "I'm here to help you learn about Fuaad's portfolio! Try asking about the tech stack, projects, or services.";
 }
 
 export async function POST(request: Request) {

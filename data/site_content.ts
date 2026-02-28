@@ -1,4 +1,6 @@
-export const blogContent = [
+import type { ContentEntry } from "@/types/assistant";
+
+export const blogContent: ContentEntry[] = [
   {
     slug: "performance-tips",
     title: "Next.js Performance Tips",
@@ -32,7 +34,7 @@ export const blogContent = [
       "Free tool reached 500+ users",
       "Distribution beats features",
       "Side projects teach full-stack skills",
-      "Built with Next.js, FastAPI, and Azure"
+      "Built with Python, Streamlit, and Azure"
     ]
   },
   {
@@ -46,10 +48,23 @@ export const blogContent = [
       "Iterate based on user feedback",
       "Done beats perfect"
     ]
+  },
+  {
+    slug: "goblinos-assistant-release",
+    title: "GoblinOS Assistant: Multi-Provider AI Assistant",
+    summary: "Release note for GoblinOS Assistant and its chat + system status UI.",
+    keyPoints: [
+      "Chat interface with system status panels",
+      "Multi-provider routing with intelligent selection",
+      "FastAPI backend (Python)",
+      "Next.js frontend (React/TypeScript)",
+      "Cloudflare edge + Vercel frontend",
+      "Docker + Terraform infrastructure"
+    ]
   }
 ];
 
-export const projectContent = [
+export const projectContent: ContentEntry[] = [
   {
     slug: "rizzk-calculator",
     title: "(⌐■_■) RIZZK Calculator 🚀",
@@ -64,16 +79,57 @@ export const projectContent = [
     ]
   },
   {
+    slug: "goblin-assistant",
+    title: "GoblinOS Assistant",
+    summary: "Multi-provider, privacy-first AI assistant with intelligent model routing and a chat + system status UI.",
+    keyPoints: [
+      "Chat interface with system status panels",
+      "Multi-provider routing with intelligent selection",
+      "FastAPI backend (Python)",
+      "Next.js frontend (React/TypeScript)",
+      "Cloudflare edge + Vercel frontend",
+      "Docker + Terraform infrastructure",
+      "Canonical repository: github.com/fuaadabdullah/goblinos-assistant"
+    ]
+  },
+  {
     slug: "personal-portfolio-site",
     title: "Personal Portfolio & Services Site",
     summary: "Modern portfolio website showcasing projects with excellent performance and accessibility scores.",
     keyPoints: [
-      "Next.js 14 with App Router",
+      "Next.js 16 with App Router",
       "Lighthouse 100/100 accessibility",
       "MDX-powered blog system",
       "Tailwind CSS styling",
       "Vercel deployment",
       "SEO optimized"
+    ]
+  },
+  {
+    slug: "elbey-projects",
+    title: "Elbey Projects Website",
+    summary:
+      "Customer website for a mobile mechanic business, built as a fast, multi-page marketing site with clean UX and SEO-ready structure.",
+    keyPoints: [
+      "Next.js App Router + TypeScript",
+      "Tailwind CSS theme and responsive layout",
+      "Multi-page site: services, gallery, FAQ, blog, legal pages",
+      "Mobile-first navigation and clear CTAs",
+      "Deployed on Vercel",
+      "Performance + SEO focused",
+      "Canonical repository: github.com/fuaadabdullah/marcus-website"
+    ]
+  },
+  {
+    slug: "gradem8-hf-space-2",
+    title: "Gradem8 — HF Space 2",
+    summary: "Integration demo connecting a Next.js UI to a Hugging Face Space for model-hosting workflows.",
+    keyPoints: [
+      "Hugging Face Spaces integration demo",
+      "Next.js + TypeScript frontend",
+      "Model-hosting and inference workflow exploration",
+      "Deployed on Vercel",
+      "Canonical repository: github.com/fuaadabdullah/gradem8-hf-space-2"
     ]
   }
 ];
