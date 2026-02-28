@@ -32,7 +32,7 @@
     "highlight.js": "^11.11.1",
     "lucide-react": "latest",
     "next": "^16.0.10",
-    "next-mdx-remote": "^5.0.0",
+    "next-mdx-remote": "^6.0.0",
     "node-fetch": "^3.3.2",
     "react": "latest",
     "react-dom": "latest",
