@@ -1,70 +1,152 @@
-# Fuaad Abdullah - Resume
+# Fuaad Abdullah
 
-Stonecrest, GA • Email: [fuaadabdullah@gmail.com](mailto:fuaadabdullah@gmail.com) • Phone: (404) 494-6262 • Portfolio: [heyimfuaad.me](https://heyimfuaad.me)
+B.B.A., Finance — Full-Stack Developer · Day Trader · AI & Automation Engineer
 
-## Professional Summary
+[fuaadabdullah@gmail.com](mailto:fuaadabdullah@gmail.com) · (404) 494-6262 · [heyimfuaad.me](https://heyimfuaad.me) · Atlanta, GA
 
-Finance student at Georgia State University with experience in account management, marketing, and customer-facing roles, plus hands-on work as an independent day trader and freelance developer. I build practical tools (Python, Streamlit, spreadsheets) and higher-performance prototypes (Rust) to turn data into decisions, automate workflows, and support trading operations. Comfortable taking projects from scope to delivery and communicating technical tradeoffs to non-technical clients.
+---
 
-## Core Skills
+## Summary
 
-- Languages: Python, Rust, JavaScript/TypeScript, SQL
-- Finance & Trading: risk management, position sizing, trade journaling, basic backtesting, performance analytics
-- Market data & Integrations: Benzinga API, Polygon.io (REST/WebSocket), TradingView alerts/webhooks, CME Group market data, Sterling Trader (sandbox/order-routing experiments)
-- Technical & Data: pandas, numpy, Streamlit, REST & WebSocket APIs, webhook handlers, ETL and data cleaning, Plotly/matplotlib
-- Infrastructure & Deployment: Docker, Linux, basic CI (GitHub Actions), lightweight deployment patterns for Streamlit apps
-- Product & Client Work: project scoping, client communication, dashboard/report delivery, basic UX for trading tools
-- Tools & Environments: Jupyter, VS Code, Google Sheets, Excel (advanced formulas & pivot tables), Git & GitHub
+Product-minded software engineer and disciplined active trader who ships production tooling for trading operations, reporting, and AI orchestration. Bridges finance domain expertise with full-stack execution to deliver reliable, observable systems that cut manual work and sharpen decision quality. Strengths: turning ambiguous requirements into shipped deliverables, clear stakeholder communication, and disciplined operational execution.
+
+---
+
+## Skills
+
+**Languages & Frameworks:** Python · TypeScript · JavaScript · Rust · SQL · React · Next.js · Streamlit · FastAPI
+
+**Data & Automation:** pandas · numpy · ETL pipelines · spreadsheet automation · reporting workflows · dashboard delivery
+
+**Infrastructure:** Docker · Linux · Git/GitHub · WebSockets · REST APIs · PostgreSQL · Redis · Vercel · Fly.io · Azure
+
+**AI & ML Ops:** Model hosting · Hugging Face Spaces · inference pipelines · LLM provider routing · observability
+
+**Trading & Ops:** Risk management · position sizing · trade journaling · weekly performance reviews · execution discipline
+
+---
 
 ## Experience
 
-**Independent Day Trader & Freelance Developer** - *Self-Employed, Atlanta, GA* | Feb 2023 - Present
+### Independent Day Trader & Full-Stack Developer
 
-- Trade equities with a disciplined risk-to-reward framework; maintain structured trade logs and weekly performance reviews to improve edge and risk control.
-- Built Python utilities and Streamlit web apps (position-sizing calculators, trade-log exporters, and lightweight dashboards) used in live trading and by freelance clients.
-- Delivered spreadsheet cleanups, automation scripts, and ad-hoc reporting for peers and small businesses to reduce manual work and improve reporting accuracy.
+*Self-employed* · Feb 2023 – Present
 
-**Jr. Account Manager** - *ABC Consultants Group, Atlanta, GA* | May 2022 - Feb 2023
+- Trade equities under strict risk controls with documented trade logs; run weekly reviews to refine edge and execution quality.
+- Shipped production Streamlit apps — position-sizing calculators, trade-log exporters, and performance dashboards — used daily in live trading workflows and by freelance clients.
+- Delivered automation scripts and spreadsheet overhauls that cut manual reporting effort and improved data accuracy for small-business clients.
 
-- Managed client communication, project documentation, and status reporting to support timely invoicing and on-schedule deliverables.
-- Maintained Salesforce and internal trackers to provide clear visibility into account health and next actions for cross-functional teams.
+### Jr. Account Manager
 
-**Marketing Intern** - *Mixdiety, Atlanta, GA* | Jun 2021 - Feb 2022
+*ABC Consultants Group* · May 2022 – Feb 2023
 
-- Researched trends and customer behavior to inform campaigns; supported outreach across social and email channels and prepared performance summaries for leadership.
+- Owned client communications, project documentation, and status reporting to drive timely invoicing and on-schedule delivery.
+- Maintained Salesforce and internal trackers to surface account health and eliminate missed deliverables.
+- Coordinated cross-functional teams to align priorities and clear delivery blockers.
 
-**Server** - *Benihana, Atlanta, GA* | Jun 2020 - Jun 2021
+### Marketing Intern
 
-- Delivered high-volume customer service, coordinated with kitchen staff, and consistently met hospitality standards.
+*Mixdiety* · Jun 2021 – Feb 2022
 
-**Server** - *Intermezzo Cafe, Atlanta, GA* | Jan 2019 - Jun 2020
+- Conducted market and customer research that directly informed campaign strategy and audience targeting.
+- Ran multi-channel outreach (email, social) and built performance summaries that guided leadership decisions.
+- Streamlined campaign reporting to clarify ROI and prioritize follow-up actions.
 
-- Provided professional front-of-house service and supported upselling and daily-specials initiatives.
+### Server — Benihana
+
+*Jun 2020 – Jun 2021*
+
+- Delivered high-volume customer service; coordinated front-of-house and kitchen timing during peak service.
+
+### Server — Intermezzo Cafe
+
+*Jan 2019 – Jun 2020*
+
+- Drove upselling initiatives and sustained fast-paced, professional customer interactions.
+
+---
 
 ## Education
 
-Georgia State University - Bachelor of Business Administration (B.B.A.), Finance
-2020 - Present
+**Georgia State University** · B.B.A., Finance · 2020 – 2025
 
-- Completed an Associate of Science prior to continuing toward the B.B.A. Relevant coursework: Financial Accounting, Business Technology, Intro to Business, Marketing Principles.
+Coursework: Financial Accounting · Business Technology · Marketing Principles
 
-North Springs Charter School - High School Diploma (GPA: 3.7)
-2017 - 2019
+**North Springs Charter School** · High School Diploma · 2017 – 2019 · GPA 3.7
+
+---
 
 ## Projects
 
-### Featured Project
+### Goblin Assistant — Featured
 
-**Position Sizing Web App (RIZZK)** - *Python, Streamlit, Docker, Azure*
+Production multi-provider AI assistant with routing, observability, and privacy controls.
 
-- Production-grade web app for day traders that calculates position size, risk $, risk %, and R multiples from account size, entry, and stop-loss levels. Supports both % of account and fixed $ risk modes.
-- Features live risk preview, responsive Plotly charts, shareable permalink URLs, unit-tested calculation engine, and mobile-friendly responsive design.
-- Includes trading strategies section (micro pullbacks, VWAP bounces, HOD breaks, failed breakout shorts) and professional feedback/support system.
-- Deployed on Azure Web App for Containers with Docker, force-refresh cache-busting, and CI/CD workflow.
-- [Live App](https://rizzk-calculator-demo-eus2-f1.azurewebsites.net) | [View Source](https://github.com/fuaadabdullah/rr-calculator)
+*FastAPI · Next.js · TypeScript · PostgreSQL · Redis · Docker · Fly.io · Vercel*
+
+- Architected provider-routing and request orchestration supporting multiple LLM hosts with health checks and automatic fallbacks.
+- Built observability layer — metrics, health monitoring, and latency tracking — for provider performance and system reliability.
+- Designed privacy-aware request flows and modular backend services; deployed full stack to production infrastructure.
+
+### RIZZK Calculator
+
+Production position-sizing and risk management tool for active day traders.
+
+*Python · Streamlit · Plotly · Docker · Azure*
+
+- Built live risk calculator with exportable trade logs used in active trading workflows.
+- Added dashboarding for weekly performance reviews and automated position sizing.
+
+### GradeM8
+
+Model hosting and inference workflow demo integrating Hugging Face Spaces.
+
+*Next.js · TypeScript · Hugging Face Spaces · Vercel*
+
+- Connected frontend UI to hosted inference endpoints; demonstrated real-time prediction pipelines.
+- Showcased end-to-end deployment flow for scalable ML product delivery.
+
+### ShopMindAI
+
+Automotive diagnostic assistant with ranked causes and confirmatory test suggestions.
+
+*FastAPI · Python · SQLAlchemy · FAISS · Azure*
+
+- Built semantic search over service manuals returning ranked diagnostic suggestions with confidence scoring.
+- Added observability endpoints and structured logging for debugging and production scaling.
+
+### Elbey Projects Website
+
+Conversion-focused marketing site for a mobile mechanic business.
+
+*Next.js · TypeScript · Tailwind · Vercel*
+
+- Implemented conversion-optimized UI with analytics hooks to track bookings and lead flow.
+
+### Portfolio — [heyimfuaad.me](https://heyimfuaad.me)
+
+Personal site featuring blog, case studies, and SEO optimizations.
+
+*Next.js · React · TypeScript · Tailwind · MDX · Vercel*
+
+---
+
+## Key Accomplishments
+
+- Launched a production AI orchestration platform (Goblin Assistant) with multi-provider routing, observability, and privacy controls.
+- Built trader-facing tooling that eliminated manual sizing and logging friction in live workflows.
+- Delivered client automation and reporting work that improved invoice accuracy and cut manual reconciliation overhead.
+- Shipped end-to-end features across the full stack repeatedly: Next.js → FastAPI → Docker → cloud.
+
+---
 
 ## Certifications
 
-- Excel Quick Tips - LinkedIn Learning (Issued Sep 2025)
-- Creating Your Personal Brand - LinkedIn Learning (Issued Oct 2025)
+- **Excel Quick Tips** — LinkedIn Learning (Sep 2025)
+- **Creating Your Personal Brand** — LinkedIn Learning (Oct 2025)
 
+---
+
+## Availability
+
+Open to software engineering roles (fintech preferred), internships, and contract development that value product thinking, disciplined execution, and end-to-end delivery.

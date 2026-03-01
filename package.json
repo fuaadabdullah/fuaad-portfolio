@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint 'app/**/*.{ts,tsx}' 'components/**/*.{ts,tsx}' 'lib/**/*.{ts,tsx}' --ext .ts,.tsx",
     "test": "vitest",
-    "generate-resume": "node scripts/generate-resume-pdf.js",
+    "generate-resume": "node scripts/generate-resume-pdf.cjs",
     "capture-screenshots": "TMPDIR=/tmp node scripts/capture-rizzk-screenshot.js",
     "process-headshot": "node scripts/process-headshot.js",
     "process-headshot:roomy": "node scripts/process-headshot.js",
