@@ -10,7 +10,7 @@ const md = new MarkdownIt();
 async function generatePDF() {
   try {
     // Read the resume markdown
-    const resumePath = path.join(__dirname, '../portfolio/resume.md');
+    const resumePath = path.join(__dirname, '../content/resume.md');
     const resumeContent = fs.readFileSync(resumePath, 'utf8');
     
     // Convert markdown to HTML
@@ -53,21 +53,29 @@ async function generatePDF() {
       margin-bottom: 0.25em;
     }
     p {
-      margin: 0.5em 0;
+      margin: 0.4em 0;
     }
     ul {
-      margin: 0.5em 0;
+      margin: 0.25em 0;
       padding-left: 1.5em;
     }
     li {
-      margin: 0.25em 0;
+      margin: 0.15em 0;
     }
     strong {
       font-weight: 600;
     }
+    em {
+      font-style: italic;
+    }
     a {
       color: #0066cc;
       text-decoration: none;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 0.75em 0;
     }
     @media print {
       body {
@@ -80,22 +88,20 @@ async function generatePDF() {
 <body>
   ${htmlContent}
 </body>
-</html>
-    `;
-    
-    // Launch browser and generate PDF
+</html>`;
+
     console.log('Launching browser...');
     const browser = await puppeteer.launch({
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
-    
+
     const page = await browser.newPage();
     await page.setContent(fullHtml, { waitUntil: 'networkidle0' });
-    
+
     const outputPath = path.join(__dirname, '../public/Fuaad_Abdullah_Resume.pdf');
     console.log('Generating PDF...');
-    
+
     await page.pdf({
       path: outputPath,
       format: 'letter',
@@ -107,11 +113,10 @@ async function generatePDF() {
       },
       printBackground: true
     });
-    
+
     await browser.close();
-    
-    console.log(`✅ PDF generated successfully at: ${outputPath}`);
-    
+    console.log(`PDF generated at: ${outputPath}`);
+
   } catch (error) {
     console.error('Error generating PDF:', error);
     process.exit(1);

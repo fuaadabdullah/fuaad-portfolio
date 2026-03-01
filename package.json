@@ -12,7 +12,7 @@
     "typecheck": "tsc -p tsconfig.typecheck.json --noEmit",
     "test": "vitest",
     "test:run": "vitest run",
-    "generate-resume": "node scripts/generate-resume-pdf.js",
+    "generate-resume": "node scripts/generate-resume-pdf.cjs",
     "capture-screenshots": "TMPDIR=/tmp node scripts/capture-rizzk-screenshot.js",
     "process-headshot": "node scripts/process-headshot.js",
     "process-headshot:roomy": "node scripts/process-headshot.js",

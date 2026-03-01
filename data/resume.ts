@@ -22,28 +22,28 @@ export const resumeData = {
   header: {
     name: "Fuaad Abdullah",
     tagline:
-      "Finance student at Georgia State University with experience in account management, marketing, and customer-facing roles, plus hands-on work as an independent day trader and freelance developer.",
+      "B.B.A., Finance — Full-Stack Developer · Day Trader · AI & Automation Engineer",
     pdfHref: "/Fuaad_Abdullah_Resume.pdf",
     linkedInHref: "https://www.linkedin.com/in/fuaadabdullah",
     emailHref: "mailto:fuaadabdullah@gmail.com",
   },
   summary: {
-    eyebrow: "Professional Summary",
+    eyebrow: "Summary",
     title: "Summary",
     paragraphs: [
-      "I build practical tools in Python, Streamlit, and spreadsheets, along with higher-performance prototypes in Rust, to turn data into decisions, automate workflows, and support trading operations.",
-      "I am comfortable taking projects from scope to delivery and communicating technical tradeoffs to non-technical clients.",
+      "Product-minded software engineer and disciplined active trader who ships production tooling for trading operations, reporting, and AI orchestration.",
+      "Bridges finance domain expertise with full-stack execution to deliver reliable, observable systems that cut manual work and sharpen decision quality. Strengths: turning ambiguous requirements into shipped deliverables, clear stakeholder communication, and disciplined operational execution.",
     ],
     sideCards: [
       {
         eyebrow: "Contact",
         body:
-          "• Email: fuaadabdullah@gmail.com\n• Phone: (404) 494-6262\n• Portfolio: heyimfuaad.me",
+          "• fuaadabdullah@gmail.com\n• (404) 494-6262\n• heyimfuaad.me\n• Atlanta, GA",
       },
       {
-        eyebrow: "Currently open to",
+        eyebrow: "Open to",
         body:
-          "• Internships in fintech, software engineering, and analytics\n• Freelance/contract development work\n• Roles combining finance, data, and product execution",
+          "• Software engineering (fintech preferred)\n• Internships & contract development\n• Product-driven teams valuing end-to-end delivery",
       },
     ] as ResumeCard[],
   },
@@ -54,17 +54,12 @@ export const resumeData = {
         eyebrow: "University",
         title: "Georgia State University · B.B.A., Finance",
         body:
-          "2020 – Present. Completed an Associate of Science prior to continuing toward the B.B.A. Relevant coursework: Financial Accounting, Business Technology, Intro to Business, Marketing Principles.",
+          "2020 – 2025 · Financial Accounting, Business Technology, Marketing Principles",
       },
       {
         eyebrow: "High School",
         title: "North Springs Charter School · Diploma",
-        body: "2017 – 2019 · GPA: 3.7",
-      },
-      {
-        eyebrow: "Focus",
-        body:
-          "Finance + software execution: risk management, reporting, automation, and practical tool-building for real workflows.",
+        body: "2017 – 2019 · GPA 3.7",
       },
     ] as ResumeCard[],
   },
@@ -72,90 +67,67 @@ export const resumeData = {
     title: "Experience",
     entries: [
       {
-        title: "Independent Day Trader & Freelance Developer",
-        subtitle: "Self-Employed · Atlanta, GA · Feb 2023 – Present",
+        title: "Independent Day Trader & Full-Stack Developer",
+        subtitle: "Self-employed · Feb 2023 – Present",
         description:
-          "Trade equities with a disciplined risk-to-reward framework while building practical tooling for live trading workflows and client reporting needs.",
+          "Trade equities under strict risk controls with documented trade logs; build production tooling for live trading workflows and client reporting.",
         bullets: [
-          "Maintain structured trade logs and weekly performance reviews to improve edge and risk control",
-          "Built Python utilities and Streamlit apps including position-sizing calculators, trade-log exporters, and lightweight dashboards",
-          "Delivered spreadsheet cleanups, automation scripts, and ad-hoc reporting for peers and small businesses",
+          "Shipped Streamlit apps — position-sizing calculators, trade-log exporters, performance dashboards — used daily in live trading and by freelance clients",
+          "Delivered automation scripts and spreadsheet overhauls that cut manual reporting effort and improved data accuracy for small-business clients",
+          "Run weekly performance reviews to refine edge and execution quality",
         ],
       },
       {
         title: "Jr. Account Manager",
-        subtitle: "ABC Consultants Group · Atlanta, GA · May 2022 – Feb 2023",
+        subtitle: "ABC Consultants Group · May 2022 – Feb 2023",
         description:
-          "Supported account operations, communication, and reporting to keep client work moving on schedule.",
+          "Owned client communications, project documentation, and status reporting to drive timely invoicing and delivery.",
         bullets: [
-          "Managed client communication, project documentation, and status reporting",
-          "Supported timely invoicing and on-schedule deliverables",
-          "Maintained Salesforce and internal trackers for account health visibility and next actions",
+          "Maintained Salesforce and internal trackers to surface account health and eliminate missed deliverables",
+          "Coordinated cross-functional teams to align priorities and clear delivery blockers",
         ],
       },
       {
         title: "Marketing Intern",
-        subtitle: "Mixdiety · Atlanta, GA · Jun 2021 – Feb 2022",
+        subtitle: "Mixdiety · Jun 2021 – Feb 2022",
         description:
-          "Researched trends and customer behavior to support campaign planning and reporting.",
+          "Conducted market and customer research that directly informed campaign strategy and targeting.",
         bullets: [
-          "Supported outreach across social and email channels",
-          "Prepared performance summaries for leadership",
-          "Contributed to campaign decisions using customer and trend analysis",
+          "Ran multi-channel outreach (email, social) and built performance summaries that guided leadership decisions",
+          "Streamlined campaign reporting to clarify ROI and prioritize follow-up actions",
         ],
       },
       {
-        title: "Server",
-        subtitle: "Benihana · Atlanta, GA · Jun 2020 – Jun 2021",
+        title: "Server — Benihana",
+        subtitle: "Jun 2020 – Jun 2021",
         description:
-          "Delivered high-volume customer service and coordinated with kitchen staff in a fast-paced environment.",
-        bullets: [
-          "Maintained hospitality standards during peak service periods",
-          "Improved communication speed across front-of-house and kitchen teams",
-          "Balanced customer experience with operational efficiency",
-        ],
+          "Delivered high-volume customer service; coordinated front-of-house and kitchen timing during peak service.",
+        bullets: [],
       },
       {
-        title: "Server",
-        subtitle: "Intermezzo Cafe · Atlanta, GA · Jan 2019 – Jun 2020",
+        title: "Server — Intermezzo Cafe",
+        subtitle: "Jan 2019 – Jun 2020",
         description:
-          "Provided professional front-of-house service and contributed to sales-support initiatives.",
-        bullets: [
-          "Supported upselling and daily-specials initiatives",
-          "Built consistency in customer experience and service quality",
-          "Handled customer interactions with professionalism and speed",
-        ],
-      },
-      {
-        title: "GoblinOS Assistant",
-        subtitle: "Full-stack AI product · Personal project",
-        description:
-          "Multi-provider, privacy-first AI assistant with observable model routing and real-time system status visibility. Built with FastAPI, Next.js, TypeScript, PostgreSQL, Redis, and cloud-native deployment patterns.",
-        bullets: [
-          "Implemented full-stack architecture with typed API contracts between FastAPI backend and Next.js frontend",
-          "Integrated deployment workflows across Vercel, Fly.io, Cloudflare, Docker, and Terraform for reproducible infrastructure",
-          "Surfaced provider health, latency, and routing decisions to users for transparency and cost visibility",
-        ],
-      },
-      {
-        title: "Featured Project: (⌐■_■) RIZZK Calculator 🚀",
-        subtitle: "Python, Streamlit, Docker, Azure",
-        description:
-          "Production-grade web app for day traders that calculates position size, risk dollars, risk percentage, and R-multiples from account size, entry, and stop-loss levels.",
-        bullets: [
-          "Supports both percent-of-account and fixed-dollar risk modes",
-          "Includes live risk preview, responsive Plotly charts, permalink URLs, and a unit-tested calculation engine",
-          "Deployed on Azure Web App for Containers with Docker and CI/CD",
-        ],
+          "Drove upselling initiatives and sustained fast-paced, professional customer interactions.",
+        bullets: [],
       },
     ] as ResumeExperience[],
   },
   projects: {
-    title: "Featured Projects",
+    title: "Projects",
     items: [
       {
-        title: "(⌐■_■) RIZZK Calculator 🚀",
-        tagline: "Production-grade position sizing and risk calculator for day traders",
+        title: "Goblin Assistant — Featured",
+        tagline: "Production multi-provider AI assistant with routing, observability, and privacy controls",
+        tech: ["FastAPI", "Next.js", "TypeScript", "PostgreSQL", "Redis", "Docker", "Fly.io", "Vercel"],
+        links: {
+          live: "https://goblin-assistant.vercel.app",
+          source: "https://github.com/fuaadabdullah/forgemono",
+        },
+      },
+      {
+        title: "RIZZK Calculator",
+        tagline: "Production position-sizing and risk management tool for active day traders",
         tech: ["Python", "Streamlit", "Plotly", "Docker", "Azure"],
         links: {
           live: "https://rizzk-calculator-demo-eus2-f1.azurewebsites.net",
@@ -163,61 +135,75 @@ export const resumeData = {
         },
       },
       {
-        title: "GoblinOS Assistant",
-        tagline: "Multi-provider AI assistant with observable routing and privacy controls",
-        tech: ["FastAPI", "Next.js", "TypeScript", "PostgreSQL", "Redis", "Vercel", "Fly.io"],
+        title: "GradeM8",
+        tagline: "Model hosting and inference workflow demo integrating Hugging Face Spaces",
+        tech: ["Next.js", "TypeScript", "Hugging Face Spaces", "Vercel"],
         links: {
-          live: "https://goblin-assistant.vercel.app",
-          source: "https://github.com/fuaadabdullah/forgemono",
+          live: "https://huggingface.co/spaces/fuaadabdullah/gradem8",
         },
       },
       {
-        title: "Portfolio Site · heyimfuaad.me",
-        tagline: "Production portfolio with blog, case studies, and SEO optimization",
+        title: "ShopMindAI",
+        tagline: "Automotive diagnostic assistant with ranked causes and confirmatory test suggestions",
+        tech: ["FastAPI", "Python", "SQLAlchemy", "FAISS", "Azure"],
+        links: {},
+      },
+      {
+        title: "Elbey Projects",
+        tagline: "Conversion-focused marketing site for a mobile mechanic business",
+        tech: ["Next.js", "TypeScript", "Tailwind", "Vercel"],
+        links: {
+          live: "https://marcus-website-iof60vvkq-fuaadabdullahs-projects.vercel.app",
+        },
+      },
+      {
+        title: "Portfolio — heyimfuaad.me",
+        tagline: "Personal site featuring blog, case studies, and SEO optimizations",
         tech: ["Next.js", "React", "TypeScript", "Tailwind", "MDX", "Vercel"],
         links: {
           live: "https://heyimfuaad.me",
           source: "https://github.com/fuaadabdullah/fuaad-portfolio",
         },
       },
-      {
-        title: "Elbey Projects Website",
-        tagline: "Customer marketing site for mobile mechanic business with conversion focus",
-        tech: ["Next.js", "TypeScript", "Tailwind", "Vercel"],
-        links: {
-          live: "https://marcus-website-iof60vvkq-fuaadabdullahs-projects.vercel.app",
-        },
-      },
     ] as ResumeProject[],
   },
   skills: {
-    title: "Core Skills",
+    title: "Skills",
     cards: [
       {
-        eyebrow: "Languages & technical",
+        eyebrow: "Languages & Frameworks",
         body:
-          "Python, Rust, JavaScript/TypeScript, SQL, pandas, numpy, Streamlit, REST/WebSocket APIs, webhook handling, ETL/data cleaning, Plotly/matplotlib, Docker, Linux, basic CI, Git/GitHub.",
+          "Python · TypeScript · JavaScript · Rust · SQL · React · Next.js · Streamlit · FastAPI",
       },
       {
-        eyebrow: "Finance & trading",
+        eyebrow: "Data & Automation",
         body:
-          "Risk management, position sizing, trade journaling, basic backtesting, and performance analytics.",
+          "pandas · numpy · ETL pipelines · spreadsheet automation · reporting workflows · dashboard delivery",
       },
       {
-        eyebrow: "Market data, tools & client work",
+        eyebrow: "Infrastructure",
         body:
-          "Benzinga API, Polygon.io (REST/WebSocket), TradingView webhooks, CME Group market data, Sterling Trader sandbox experiments, Jupyter, VS Code, Google Sheets, Excel (advanced formulas/pivots), project scoping, and dashboard/report delivery.",
+          "Docker · Linux · Git/GitHub · WebSockets · REST APIs · PostgreSQL · Redis · Vercel · Fly.io · Azure",
+      },
+      {
+        eyebrow: "AI & ML Ops",
+        body:
+          "Model hosting · Hugging Face Spaces · inference pipelines · LLM provider routing · observability",
+      },
+      {
+        eyebrow: "Trading & Ops",
+        body:
+          "Risk management · position sizing · trade journaling · weekly performance reviews · execution discipline",
       },
     ] as ResumeCard[],
   },
   contact: {
-    title: "Contact & Certifications",
+    title: "Accomplishments & Certifications",
     paragraphs: [
-      "Open to internships, analyst-track opportunities, and practical software/fintech roles where disciplined execution and clear communication matter.",
-      "Certifications: Excel Quick Tips (LinkedIn Learning, Sep 2025) · Creating Your Personal Brand (LinkedIn Learning, Oct 2025).",
+      "Launched a production AI orchestration platform with multi-provider routing, observability, and privacy controls. Built trader-facing tooling that eliminated manual sizing and logging friction. Delivered client automation that improved invoice accuracy and cut reconciliation overhead. Shipped end-to-end features across the full stack repeatedly.",
+      "Certifications: Excel Quick Tips (LinkedIn Learning, Sep 2025) · Creating Your Personal Brand (LinkedIn Learning, Oct 2025)",
     ],
     emailLabel: "fuaadabdullah@gmail.com",
     emailHref: "mailto:fuaadabdullah@gmail.com",
   },
 };
-
