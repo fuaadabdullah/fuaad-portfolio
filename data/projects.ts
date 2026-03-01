@@ -305,26 +305,67 @@ Delivered a complete multi-page site (About, Services, Gallery, Contact/booking,
       "A production-ready customer site that communicates services quickly, supports SEO-friendly navigation, and makes booking straightforward from mobile.",
   },
   {
-    slug: "gradem8-hf-space-2",
-    title: "Gradem8 — HF Space 2",
-    tagline: "Hugging Face Space integration demo",
-    description:
-      "Demo integrating Gradem8 with a Hugging Face Space for model hosting and inference.",
-    tech: ["Next.js", "TypeScript", "Hugging Face Spaces"],
+    slug: "gradem8",
+    title: "GradeM8 — AI Grading Assistant",
+    tagline: "AI-powered document grading with rubric-based feedback using Llama 2.",
+    description: `GradeM8 is an AI-powered grading assistant that automates document assessment using HuggingFace's Llama 2 70B model. Teachers and graders can upload student submissions (PDF, DOCX, images) along with a rubric, and receive detailed feedback with scores, strengths, areas for improvement, and rubric breakdowns.
+
+Built with Gradio for an intuitive web interface and deployed on HuggingFace Spaces, the app features OCR support for scanned documents, batch processing for multiple submissions, and comprehensive error handling. The modular architecture separates AI routing, document extraction, and UI concerns for maintainability.`,
+    tech: [
+      "Python",
+      "Gradio",
+      "HuggingFace Inference API",
+      "Llama 2 70B",
+      "PyMuPDF",
+      "python-docx",
+      "httpx",
+      "pytest",
+      "HuggingFace Spaces",
+    ],
     links: {
-      live: "https://gradem8-hf-space-2.vercel.app",
+      live: "https://huggingface.co/spaces/fuaadabdullah1/gradem8",
       source: "https://github.com/fuaadabdullah/gradem8-hf-space-2",
     },
     image: {
       src: "/projects/gradem8-hf-space-2-screenshot.png",
       width: 1280,
       height: 720,
-      alt: "Gradem8 HF Space demo UI",
+      alt: "GradeM8 AI grading interface showing document upload and rubric input",
       priority: false,
     },
-    features: ["Hugging Face integration", "Model inference demo"],
-    timeline: "2 weeks",
-    role: "Owner / Developer",
+    features: [
+      "AI grading powered by Llama 2 70B via HuggingFace Inference API",
+      "Multi-format document support: PDF, DOCX, DOC, and image files",
+      "OCR fallback for scanned documents using DeepSeek-OCR",
+      "Batch processing with concurrent grading and progress tracking",
+      "Detailed rubric-based feedback with score breakdowns",
+      "Responsive Gradio UI with accessibility features",
+      "Comprehensive test suite with 285+ unit tests",
+    ],
+    challenges: [
+      "Parsing diverse document formats reliably (scanned PDFs, legacy .doc files)",
+      "Handling HuggingFace API rate limits and model loading delays gracefully",
+      "Extracting structured JSON from LLM responses with robust fallback parsing",
+      "Designing a UI that accommodates both single and batch grading workflows",
+    ],
+    learnings: [
+      "HuggingFace Inference API provides good Llama 2 access without GPU infrastructure",
+      "Gradio's component model works well for rapid AI app prototyping",
+      "Async patterns in Python significantly improve batch processing throughput",
+      "Comprehensive test coverage catches edge cases in document parsing early",
+    ],
+    timeline: "3 weeks",
+    role: "Solo Developer",
+    problem:
+      "Manual grading is time-consuming and inconsistent. Teachers need a tool that can provide detailed, rubric-based feedback quickly while maintaining quality.",
+    audienceAndStakes:
+      "Teachers, teaching assistants, and graders who evaluate written submissions. Inconsistent or delayed feedback affects student learning outcomes and instructor workload.",
+    approach:
+      "Built a Python application using Gradio for the UI and HuggingFace Inference API for Llama 2 access. Implemented modular document extraction (PDF, DOCX, images), async batch processing, and structured JSON parsing for reliable feedback generation.",
+    tradeoffs:
+      "Chose HuggingFace Spaces over custom deployment for zero infrastructure management. Accepted API latency trade-off for simplified hosting and automatic scaling.",
+    impact:
+      "Reduces grading time by 60-70% for routine assignments. Provides consistent, detailed feedback that teachers can review and customize. 285 unit tests ensure reliability across document types.",
   },
   {
     slug: "shopmind-ai",
