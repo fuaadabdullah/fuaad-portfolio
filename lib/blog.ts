@@ -23,6 +23,16 @@ export interface BlogPostMetadata {
   tags?: string[];
 }
 
+function getFallbackTitle(slug: string): string {
+  const words = slug
+    .split("-")
+    .map(part => part.trim())
+    .filter(Boolean)
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1));
+
+  return words.join(" ") || "Post";
+}
+
 // Ensure blog directory exists
 function ensureBlogDirectory() {
   if (!fs.existsSync(postsDirectory)) {
@@ -44,7 +54,7 @@ export function getAllPosts(): BlogPostMetadata[] {
 
       return {
         slug,
-        title: data.title || "Untitled",
+        title: data.title || getFallbackTitle(slug),
         date: data.date || new Date().toISOString(),
         excerpt: data.excerpt || "",
         category: data.category || "essay",
@@ -72,7 +82,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
 
     return {
       slug,
-      title: data.title || "Untitled",
+      title: data.title || getFallbackTitle(slug),
       date: data.date || new Date().toISOString(),
       excerpt: data.excerpt || "",
       category: data.category || "essay",
