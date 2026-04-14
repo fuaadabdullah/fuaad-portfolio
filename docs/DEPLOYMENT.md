@@ -96,9 +96,10 @@ Value: cname.vercel-dns.com
 2. Add the following:
 
 | Name | Value | Environment |
-|------|-------|-------------|
+| --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | `https://heyimfuaad.me` | Production |
-| `NEXT_PUBLIC_FORMSPREE_ID` | Your Formspree form ID | Production, Preview |
+| `DATABASE_URL` | Supabase pooled Postgres URL | Production, Preview |
+| `DIRECT_URL` | Supabase direct Postgres URL | Production, Preview |
 
 1. Click **"Save"**
 1. Redeploy to apply changes (go to **Deployments** → click **"•••"** → **"Redeploy"**)
@@ -120,6 +121,7 @@ cd fuaad-portfolio
 ```
 
 This script will:
+
 - ✅ Verify Vercel CLI installation and authentication
 - 📦 Create the KV database (`portfolio-ai-cache`)
 - 🔍 Check environment variables
@@ -128,24 +130,27 @@ This script will:
 #### Option B: Manual Setup
 
 1. **Create KV Database:**
+
    ```bash
    # Install Vercel CLI if not already installed
    pnpm add -g vercel
-   
+
    # Login to Vercel
    vercel login
-   
+
    # Create KV database
    vercel kv create portfolio-ai-cache
    ```
 
 2. **Verify KV Integration:**
+
    - KV environment variables are automatically set by Vercel:
      - `KV_REST_API_URL`
      - `KV_REST_API_TOKEN`
      - `KV_URL`
 
 3. **Test KV Connection:**
+
    ```bash
    # The setup script includes a test, or run manually:
    node -e "
@@ -171,19 +176,20 @@ This script will:
 - **Usage**: Automatically caches AI chat responses to reduce API costs
 - **Free Tier**: 30,000 commands/month included
 
-## Step 4: Update Formspree Form ID
+## Step 4: Configure Supabase Database
 
-1. Sign up at [formspree.io](https://formspree.io/)
-2. Create a new form
-3. Copy your form ID (looks like `xyzabc123`)
-4. Update `app/services/page.tsx`:
+1. Create a project at [supabase.com](https://supabase.com/)
+2. Open **Project Settings → Database**
+3. Copy both connection strings:
+   - **Connection pooling** URL (for `DATABASE_URL`)
+   - **Direct connection** URL (for `DIRECT_URL`)
+4. Add both vars in Vercel **Settings → Environment Variables**
+5. Run Prisma migration against Supabase:
 
-```tsx
-action="https://formspree.io/f/YOUR_FORM_ID"
+```bash
+pnpm prisma migrate deploy
+pnpm prisma generate
 ```
-
-Replace `YOUR_FORM_ID` with your actual ID
-5. Commit and push the change
 
 ## Step 5: Google Search Console
 

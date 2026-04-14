@@ -10,10 +10,11 @@
 Copy `.env.local.example` to `.env.local`.
 
 | Variable | Required | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Yes | Canonical site URL for metadata and links |
 | `OLLAMA_API_URL` | Optional | Local/remote Ollama endpoint for assistant features |
-| `NEXT_PUBLIC_FORMSPREE_ID` | Optional | Contact form integration |
+| `DATABASE_URL` | Yes | Supabase pooled Postgres URL for runtime queries |
+| `DIRECT_URL` | Yes | Supabase direct Postgres URL for Prisma migrations |
 
 ## Install
 
