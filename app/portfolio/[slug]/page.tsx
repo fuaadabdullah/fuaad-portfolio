@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import projects from "@/data/projects";
 import Badge from "@/components/Badge";
+import ProjectProofMedia from "@/components/ProjectProofMedia";
+import ProjectResultChips from "@/components/ProjectResultChips";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
@@ -82,13 +84,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </h1>
         <p className="text-xl text-white/80 mb-6">{project.tagline}</p>
         
-        {/* Tech stack */}
-        <div className="flex flex-wrap gap-2 mb-6" aria-label="Technologies used">
-          {project.tech.map((t) => (
-            <Badge key={t}>{t}</Badge>
-          ))}
-        </div>
-
         {/* Meta info */}
         {(project.timeline || project.role) && (
           <div className="flex flex-wrap gap-6 text-sm text-white/60 mb-6">
@@ -136,21 +131,69 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </header>
 
-      {/* Project image */}
-      {project.image && (
-        <div className="mb-12 rounded-xl overflow-hidden border border-white/10">
-          <Image
-            src={project.image.src}
-            alt={project.image.alt}
-            width={project.image.width}
-            height={project.image.height}
-            priority={project.image.priority}
-            className="w-full h-auto"
-          />
-        </div>
+      {(project.problem || project.audienceAndStakes || project.approach || project.tradeoffs || project.impact || (project.learnings && project.learnings.length > 0)) && (
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-6 text-green-500">Problem framing & decision process</h2>
+          <div className="space-y-8">
+            {project.problem && (
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-white">Problem / Research Question</h3>
+                <p className="text-white/80 leading-relaxed">{project.problem}</p>
+              </div>
+            )}
+            {project.audienceAndStakes && (
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-white">Why This Problem Matters</h3>
+                <p className="text-white/80 leading-relaxed">{project.audienceAndStakes}</p>
+              </div>
+            )}
+            {project.approach && (
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-white">Approach / Decision Process</h3>
+                <p className="text-white/80 leading-relaxed">{project.approach}</p>
+              </div>
+            )}
+            {project.tradeoffs && (
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-white">Tradeoffs / Alternatives</h3>
+                <p className="text-white/80 leading-relaxed">{project.tradeoffs}</p>
+              </div>
+            )}
+            {project.learnings && project.learnings.length > 0 && (
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-white">What Changed My Thinking</h3>
+                <ul className="space-y-3">
+                  {project.learnings.map((learning, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <svg
+                        className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                        />
+                      </svg>
+                      <span className="text-white/80">{learning}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {project.impact && (
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-white">Outcome</h3>
+                <p className="text-white/80 leading-relaxed">{project.impact}</p>
+              </div>
+            )}
+          </div>
+        </section>
       )}
 
-      {/* Description */}
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4 text-green-500">Overview</h2>
         <div className="prose prose-invert max-w-none">
@@ -162,42 +205,48 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
-      {/* Case Study */}
-      {(project.problem || project.audienceAndStakes || project.approach || project.tradeoffs || project.impact) && (
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4 text-green-500">Results at a glance</h2>
+        <ProjectResultChips results={project.results} />
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4 text-green-500">Demo walkthrough</h2>
+        <ProjectProofMedia media={project.proofMedia} mode="detail" />
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4 text-green-500">Tech stack</h2>
+        <div className="flex flex-wrap gap-2" aria-label="Technologies used">
+          {project.tech.map((t) => (
+            <Badge key={t}>{t}</Badge>
+          ))}
+        </div>
+      </section>
+
+      {project.architectureHighlights && project.architectureHighlights.length > 0 && (
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-6 text-green-500">Case Study</h2>
-          <div className="space-y-8">
-            {project.problem && (
-              <div>
-                <h3 className="text-lg font-medium mb-2 text-white">The Problem</h3>
-                <p className="text-white/80 leading-relaxed">{project.problem}</p>
-              </div>
-            )}
-            {project.audienceAndStakes && (
-              <div>
-                <h3 className="text-lg font-medium mb-2 text-white">Audience & Stakes</h3>
-                <p className="text-white/80 leading-relaxed">{project.audienceAndStakes}</p>
-              </div>
-            )}
-            {project.approach && (
-              <div>
-                <h3 className="text-lg font-medium mb-2 text-white">My Approach</h3>
-                <p className="text-white/80 leading-relaxed">{project.approach}</p>
-              </div>
-            )}
-            {project.tradeoffs && (
-              <div>
-                <h3 className="text-lg font-medium mb-2 text-white">Tradeoffs</h3>
-                <p className="text-white/80 leading-relaxed">{project.tradeoffs}</p>
-              </div>
-            )}
-            {project.impact && (
-              <div>
-                <h3 className="text-lg font-medium mb-2 text-white">Impact</h3>
-                <p className="text-white/80 leading-relaxed">{project.impact}</p>
-              </div>
-            )}
-          </div>
+          <h2 className="text-2xl font-semibold mb-4 text-green-500">Architecture highlights</h2>
+          <ul className="space-y-3">
+            {project.architectureHighlights.map((item, idx) => (
+              <li key={idx} className="flex items-start gap-3">
+                <svg
+                  className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 17l4 4 4-4m0-5l-4-4-4 4"
+                  />
+                </svg>
+                <span className="text-white/80">{item}</span>
+              </li>
+            ))}
+          </ul>
         </section>
       )}
 
@@ -270,33 +319,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   />
                 </svg>
                 <span className="text-white/80">{challenge}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {/* Learnings */}
-      {project.learnings && project.learnings.length > 0 && (
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4 text-green-500">Key Learnings</h2>
-          <ul className="space-y-3">
-            {project.learnings.map((learning, idx) => (
-              <li key={idx} className="flex items-start gap-3">
-                <svg 
-                  className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" 
-                  />
-                </svg>
-                <span className="text-white/80">{learning}</span>
               </li>
             ))}
           </ul>

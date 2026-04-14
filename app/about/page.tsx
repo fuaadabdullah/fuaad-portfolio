@@ -1,10 +1,11 @@
 // app/about/page.tsx
 import Image from "next/image";
+import { aboutPhotos } from "../../data/aboutPhotos";
 
 export const metadata = {
   title: "About - Fuaad Abdullah",
   description:
-    "Finance major, day trader, and dev building disciplined tools for traders, students, and lean teams.",
+    "Finance student, trader, and builder connecting disciplined decision-making with real-world software systems and problem-solving.",
 };
 
 export default function AboutPage() {
@@ -23,25 +24,17 @@ export default function AboutPage() {
           <p>
             I'm Muslim and that's a big part of how I move, what I care about, and how I try to treat people. I came to the US to keep studying and stretch my world a bit, but at my core I'm a pretty chill, observant person who likes simple things: good people, good food, good vibes, and a life that feels honest to who I am.
           </p>
+          <p>
+            Finance is not a side note in my story. I trade, review risk, and live in numbers-heavy decisions, so when I build for traders or other operators who care about precision, I'm building from my own workflow instead of guessing what the job feels like.
+          </p>
+          <p>
+            The reason I keep building is that software gives me a way to turn abstract finance ideas into something testable. Studying finance taught me to think about incentives, uncertainty, and downside. Trading made those ideas immediate. Building tools is how I close the gap between theory and behavior, whether that means making risk clearer, reducing workflow friction, or turning messy decisions into processes you can actually learn from.
+          </p>
         </div>
       </section>
 
-      {/* Real photos from iCloud */}
       <section className="grid grid-cols-2 md:grid-cols-3 gap-3">
-        {[
-          {
-            src: "/lore-10.jpg",
-            alt: "Fuaad - lore photo 10",
-          },
-          {
-            src: "/lore-3.jpg",
-            alt: "Fuaad - lore photo 3",
-          },
-          {
-            src: "/lore-11.jpg",
-            alt: "Fuaad - lore photo 11",
-          },
-        ].map((p, i) => (
+        {aboutPhotos.map((p, i) => (
           <div
             key={i}
             className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10"
@@ -56,28 +49,6 @@ export default function AboutPage() {
             />
           </div>
         ))}
-        
-        {/* Coming soon placeholders */}
-        <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10 flex items-center justify-center">
-          <div className="text-center space-y-2 px-4">
-            <p className="text-2xl">🎭</p>
-            <p className="text-xs text-white/60 font-medium">Coming soon</p>
-          </div>
-        </div>
-        
-        <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10 flex items-center justify-center">
-          <div className="text-center space-y-2 px-4">
-            <p className="text-2xl">🎪</p>
-            <p className="text-xs text-white/60 font-medium">Coming soon</p>
-          </div>
-        </div>
-        
-        <div className="relative h-40 md:h-56 lg:h-64 rounded-lg overflow-hidden bg-[color:var(--color-coal)] ring-1 ring-white/10 flex items-center justify-center">
-          <div className="text-center space-y-2 px-4">
-            <p className="text-2xl">🎨</p>
-            <p className="text-xs text-white/60 font-medium">Coming soon</p>
-          </div>
-        </div>
       </section>
 
       {/* Short "stats" row */}

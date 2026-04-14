@@ -27,7 +27,7 @@ describe('ChatBox Component', () => {
 
     const toggleButton = screen.getByRole('button', { name: /open chat/i });
     expect(toggleButton).toBeInTheDocument();
-    expect(toggleButton).toHaveTextContent('💬');
+    expect(toggleButton).toHaveAttribute('aria-expanded', 'false');
   });
 
   it('should not show chat initially', () => {
@@ -42,8 +42,9 @@ describe('ChatBox Component', () => {
     const toggleButton = screen.getByRole('button', { name: /open chat/i });
     fireEvent.click(toggleButton);
 
-    expect(screen.getByText('Ask Me Anything')).toBeInTheDocument();
-    expect(toggleButton).toHaveTextContent('✖');
+    expect(screen.getByRole('dialog', { name: /ask me anything/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /close chat/i })).toBeInTheDocument();
+    expect(toggleButton).toHaveAttribute('aria-expanded', 'true');
   });
 
   it('should hide chat when toggle is clicked again', () => {
@@ -54,7 +55,7 @@ describe('ChatBox Component', () => {
     fireEvent.click(toggleButton); // Close
 
     expect(screen.queryByText('Ask Me Anything')).not.toBeInTheDocument();
-    expect(toggleButton).toHaveTextContent('💬');
+    expect(toggleButton).toHaveAttribute('aria-expanded', 'false');
   });
 
   it('should show suggestions when no messages exist', () => {
@@ -63,7 +64,7 @@ describe('ChatBox Component', () => {
     const toggleButton = screen.getByRole('button', { name: /open chat/i });
     fireEvent.click(toggleButton);
 
-    expect(screen.getByText('Quick questions:')).toBeInTheDocument();
+    expect(screen.getByText('Quick questions')).toBeInTheDocument();
     expect(screen.getByText('Discuss services')).toBeInTheDocument();
   });
 
@@ -106,7 +107,6 @@ describe('ChatBox Component', () => {
 
     expect(input).toBeInTheDocument();
     expect(sendButton).toBeInTheDocument();
-    expect(sendButton).toHaveTextContent('Send');
   });
 
   it('should call setInput when typing in input field', () => {

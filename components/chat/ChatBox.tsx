@@ -1,7 +1,9 @@
 
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
+import { Bot, MessageSquareMore, SendHorizonal, X } from "lucide-react";
+import clsx from "clsx";
 import { useChat } from "./useChat";
 import { ChatMessage } from "./ChatMessage";
 
@@ -17,7 +19,7 @@ function TypingIndicator() {
   }, []);
 
   return (
-    <div className="flex items-center gap-2 text-sm text-zinc-400">
+    <div className="flex items-center gap-2 text-sm text-zinc-400" role="status" aria-live="polite">
       <div className="flex gap-1">
         <div className="w-2 h-2 bg-zinc-400 rounded-full animate-pulse"></div>
         <div className="w-2 h-2 bg-zinc-400 rounded-full animate-pulse" style={{animationDelay: "0.2s"}}></div>
@@ -31,8 +33,13 @@ function TypingIndicator() {
 export function ChatBox() {
   const [open, setOpen] = useState(false);
   const { messages, input, setInput, sendMessage, status } = useChat();
+  const dialogId = useId();
+  const titleId = useId();
+  const descriptionId = useId();
+  const inputId = useId();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const toggleButtonRef = useRef<HTMLButtonElement>(null);
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
@@ -44,6 +51,26 @@ export function ChatBox() {
     if (open) {
       inputRef.current?.focus();
     }
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setOpen(false);
+        requestAnimationFrame(() => toggleButtonRef.current?.focus());
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
   }, [open]);
 
   const suggestions = [
@@ -60,6 +87,11 @@ export function ChatBox() {
     sendMessage();
   };
 
+  const handleClose = () => {
+    setOpen(false);
+    requestAnimationFrame(() => toggleButtonRef.current?.focus());
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && status !== "loading") {
       sendMessage();
@@ -70,75 +102,141 @@ export function ChatBox() {
     <>
       {/* Toggle Button */}
       <button
-        onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 bg-emerald-600 text-white p-3 rounded-full shadow-lg hover:bg-emerald-500 transition"
+        ref={toggleButtonRef}
+        type="button"
+        onClick={() => setOpen((current) => !current)}
+        className={clsx(
+          "fixed z-[140] bottom-[calc(env(safe-area-inset-bottom)+1rem)] right-4 sm:right-6",
+          "inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-white shadow-lg transition",
+          "hover:bg-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--color-ink)]"
+        )}
         aria-label={open ? "Close chat" : "Open chat"}
+        aria-controls={dialogId}
+        aria-expanded={open}
+        aria-haspopup="dialog"
       >
-        {open ? "✖" : "💬"}
+        {open ? <X size={22} aria-hidden="true" /> : <Bot size={22} aria-hidden="true" />}
       </button>
 
       {open && (
-        <div className="fixed bottom-20 right-6 w-80 max-h-[65vh] bg-zinc-900 text-white rounded-lg shadow-xl flex flex-col overflow-hidden">
+        <>
+          <button
+            type="button"
+            className="fixed inset-0 z-[120] bg-black/55 backdrop-blur-[1px]"
+            aria-label="Close chat overlay"
+            onClick={handleClose}
+          />
+
+          <section
+            id={dialogId}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            aria-describedby={descriptionId}
+            className={clsx(
+              "fixed z-[130] inset-x-3 top-20 bottom-[calc(env(safe-area-inset-bottom)+5rem)]",
+              "flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-zinc-950/95 text-white shadow-2xl",
+              "sm:inset-x-auto sm:top-auto sm:right-6 sm:bottom-24 sm:w-[24rem] sm:h-[min(36rem,70vh)]"
+            )}
+          >
           {/* Header */}
-          <div className="bg-zinc-800 p-3 text-center font-bold">
-            Ask Me Anything
-            <div className="text-xs text-zinc-400 mt-1">Powered by TinyLlama + Gemini</div>
-          </div>
+            <div className="flex items-start justify-between gap-3 border-b border-white/10 bg-zinc-900/80 px-4 py-4">
+              <div className="flex items-start gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500/15 text-emerald-300">
+                  <MessageSquareMore size={20} aria-hidden="true" />
+                </div>
+                <div>
+                  <h2 id={titleId} className="text-base font-semibold tracking-tight">
+                    Ask Me Anything
+                  </h2>
+                  <p id={descriptionId} className="mt-1 text-xs text-zinc-400">
+                    Ask about projects, stack, availability, or how to get in touch.
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleClose}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full text-white/70 transition hover:bg-white/5 hover:text-white"
+                aria-label="Close chat"
+              >
+                <X size={20} aria-hidden="true" />
+              </button>
+            </div>
 
           {/* Messages */}
-          <div className="flex-1 p-2 space-y-2 overflow-y-auto">
-            {messages.map((msg) => (
-              <ChatMessage
-                key={msg.id}
-                message={msg}
-              />
-            ))}
-            {status === "loading" && (
-              <TypingIndicator />
-            )}
-            <div ref={messagesEndRef} />
-          </div>
+            <div
+              className="flex-1 space-y-3 overflow-y-auto px-4 py-4"
+              role="log"
+              aria-live="polite"
+              aria-relevant="additions text"
+            >
+              {messages.map((msg) => (
+                <ChatMessage
+                  key={msg.id}
+                  message={msg}
+                />
+              ))}
+              {status === "loading" && (
+                <TypingIndicator />
+              )}
+              <div ref={messagesEndRef} />
+            </div>
 
           {/* Suggestions */}
-          {messages.length === 0 && (
-            <div className="border-t border-zinc-800 p-2">
-              <div className="text-xs text-zinc-400 mb-2">Quick questions:</div>
-              <div className="flex flex-wrap gap-1">
-                {suggestions.map((suggestion, i) => (
-                  <button
-                    key={i}
-                    onClick={() => handleSuggestionClick(suggestion)}
-                    className="text-xs px-2 py-1 bg-zinc-700 hover:bg-zinc-600 rounded text-zinc-300 transition"
-                  >
-                    {suggestion}
-                  </button>
-                ))}
+            {messages.length === 0 && (
+              <div className="border-t border-white/10 px-4 py-3">
+                <div className="mb-2 text-xs font-medium uppercase tracking-[0.08em] text-zinc-400">
+                  Quick questions
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {suggestions.map((suggestion, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => handleSuggestionClick(suggestion)}
+                      className="min-h-10 rounded-full bg-white/6 px-3 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10"
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
           {/* Input */}
-          <div className="border-t border-zinc-800 p-2 flex gap-2">
-            <input
-              ref={inputRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Type a question…"
-              className="flex-1 px-2 py-1 rounded bg-zinc-800 text-white"
-              disabled={status === "loading"}
-              aria-label="Chat input"
-            />
-            <button
-              onClick={sendMessage}
-              disabled={status === "loading"}
-              className="px-3 bg-emerald-500 text-white rounded hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed"
-              aria-label="Send message"
+            <form
+              className="border-t border-white/10 p-3"
+              onSubmit={(e) => {
+                e.preventDefault();
+                sendMessage();
+              }}
             >
-              {status === "loading" ? "..." : "Send"}
-            </button>
-          </div>
-        </div>
+              <div className="flex items-end gap-2">
+                <input
+                  id={inputId}
+                  ref={inputRef}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Type a question…"
+                  className="min-h-11 flex-1 rounded-2xl border border-white/10 bg-zinc-900 px-3 py-2 text-white placeholder:text-zinc-500 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+                  disabled={status === "loading"}
+                  aria-label="Chat input"
+                />
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500 text-white transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-50"
+                  aria-label="Send message"
+                >
+                  {status === "loading" ? "..." : <SendHorizonal size={18} aria-hidden="true" />}
+                </button>
+              </div>
+            </form>
+          </section>
+        </>
       )}
     </>
   );

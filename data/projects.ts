@@ -4,8 +4,10 @@ export interface Project {
   title: string;
   tagline: string;
   description: string;
+  results: ResultMetric[];
   tech: string[];
   links?: { live?: string; source?: string };
+  proofMedia?: ProofMediaItem[];
   image?: {
     src: string;
     width: number;
@@ -24,12 +26,29 @@ export interface Project {
   learnings?: string[];
   timeline?: string;
   role?: string;
+  architectureHighlights?: string[];
   // Case study fields
   problem?: string;
   audienceAndStakes?: string;
   approach?: string;
   tradeoffs?: string;
   impact?: string;
+}
+
+export interface ResultMetric {
+  label: string;
+  value: string;
+  sourceLabel: string;
+  timeframe?: string;
+}
+
+export interface ProofMediaItem {
+  type: "gif" | "image";
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  status: "ready" | "pending";
 }
 
 const projects: Project[] = [
@@ -45,6 +64,51 @@ The tool eliminates manual calculations and reduces human error in critical trad
       live: "https://rizzk-calculator-demo-eus2-f1.azurewebsites.net",
       source: "https://github.com/fuaadabdullah/rr-calculator",
     },
+    results: [
+      {
+        label: "fewer position-size mistakes",
+        value: "~90%",
+        sourceLabel: "user-reported",
+        timeframe: "post-launch",
+      },
+      {
+        label: "faster sizing decisions",
+        value: "~50%",
+        sourceLabel: "user-reported",
+        timeframe: "live sessions",
+      },
+      {
+        label: "build to production",
+        value: "4 weeks",
+        sourceLabel: "delivery scope",
+      },
+    ],
+    proofMedia: [
+      {
+        type: "gif",
+        src: "pending:rizzk-calculator-demo",
+        width: 1280,
+        height: 720,
+        alt: "RIZZK calculator interaction demo",
+        status: "pending",
+      },
+      {
+        type: "image",
+        src: "/rizzk-desktop-screenshot.png",
+        width: 1920,
+        height: 1080,
+        alt: "RIZZK desktop risk calculator view",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "/rizzk-mobile-screenshot.png",
+        width: 375,
+        height: 812,
+        alt: "RIZZK mobile position-sizing view",
+        status: "ready",
+      },
+    ],
     image: {
       src: "/rizzk-desktop-screenshot.png",
       width: 1920,
@@ -111,6 +175,65 @@ The interface pairs chat with live system status panels so you can see provider 
       live: "https://goblin-assistant.vercel.app",
       source: "https://github.com/fuaadabdullah/goblinos-assistant",
     },
+    results: [
+      {
+        label: "deployment layers integrated",
+        value: "3",
+        sourceLabel: "deployment architecture",
+      },
+      {
+        label: "observable workflow views",
+        value: "4",
+        sourceLabel: "product walkthrough",
+      },
+      {
+        label: "core technologies shipped",
+        value: "12",
+        sourceLabel: "stack inventory",
+      },
+    ],
+    proofMedia: [
+      {
+        type: "gif",
+        src: "pending:goblin-assistant-demo",
+        width: 1280,
+        height: 720,
+        alt: "GoblinOS Assistant demo walkthrough",
+        status: "pending",
+      },
+      {
+        type: "image",
+        src: "/projects/goblin-assistant-main-interface.png",
+        width: 1280,
+        height: 850,
+        alt: "Goblin Assistant main interface",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "pending:goblin-assistant-provider-status",
+        width: 1280,
+        height: 850,
+        alt: "Provider status panel view",
+        status: "pending",
+      },
+      {
+        type: "image",
+        src: "pending:goblin-assistant-workflow-execution",
+        width: 1280,
+        height: 850,
+        alt: "Workflow execution screen",
+        status: "pending",
+      },
+      {
+        type: "image",
+        src: "pending:goblin-assistant-cost-tracking",
+        width: 1280,
+        height: 850,
+        alt: "Cost tracking dashboard",
+        status: "pending",
+      },
+    ],
     image: {
       src: "/projects/goblin-assistant-main-interface.png",
       width: 1280,
@@ -119,28 +242,10 @@ The interface pairs chat with live system status panels so you can see provider 
     },
     gallery: [
       {
-        src: "/projects/goblin-assistant-provider-status.png",
+        src: "/projects/goblin-assistant-main-interface.png",
         width: 1280,
         height: 850,
-        alt: "Goblin Assistant home screen in high contrast mode",
-      },
-      {
-        src: "/projects/goblin-assistant-workflow-execution.png",
-        width: 1280,
-        height: 850,
-        alt: "Guest sandbox view with code editor and output logs",
-      },
-      {
-        src: "/projects/goblin-assistant-orchestration-demo.png",
-        width: 1280,
-        height: 850,
-        alt: "Guest sandbox overview showing the editor layout",
-      },
-      {
-        src: "/projects/goblin-assistant-cost-tracking.png",
-        width: 1280,
-        height: 850,
-        alt: "Help center page with common topics and support chat",
+        alt: "Goblin Assistant chat and status panels in the main product view",
       },
     ],
     timeline: "Ongoing",
@@ -166,6 +271,14 @@ The interface pairs chat with live system status panels so you can see provider 
       "Cost visibility changes how routing rules are tuned",
       "Infra-as-code keeps deployments reproducible",
     ],
+    architectureHighlights: [
+      "FastAPI backend with typed request/response contracts and modular provider routing.",
+      "PostgreSQL for durable records plus Redis for fast cache and transient state.",
+      "Observable status panels surface routing decisions, provider health, and latency.",
+      "Cloudflare edge in front of UI/API paths to improve resilience and traffic control.",
+      "Docker + Terraform keep runtime and infra changes reproducible across environments.",
+      "Fly.io + Vercel split workload concerns between backend runtime and frontend delivery.",
+    ],
     problem:
       "Single-provider assistants are brittle and hard to control; this needed to be multi-provider, privacy-first, and observable.",
     audienceAndStakes:
@@ -190,6 +303,57 @@ Designed with a mobile-first approach, the site achieves excellent Lighthouse sc
       live: "https://heyimfuaad.me",
       source: "https://github.com/fuaadabdullah/fuaad-portfolio",
     },
+    results: [
+      {
+        label: "Lighthouse score (perf, a11y, SEO)",
+        value: "100/100",
+        sourceLabel: "performance audit",
+      },
+      {
+        label: "global load time",
+        value: "<2s",
+        sourceLabel: "performance audit",
+      },
+      {
+        label: "build + launch timeline",
+        value: "2 weeks",
+        sourceLabel: "delivery scope",
+      },
+    ],
+    proofMedia: [
+      {
+        type: "gif",
+        src: "pending:personal-portfolio-site-demo",
+        width: 1280,
+        height: 720,
+        alt: "Portfolio navigation and project browsing demo",
+        status: "pending",
+      },
+      {
+        type: "image",
+        src: "/projects/personal-portfolio-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "Personal portfolio homepage hero",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "/projects/personal-portfolio-feature-01.webp",
+        width: 1600,
+        height: 900,
+        alt: "Portfolio project index and case study cards",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "/projects/personal-portfolio-feature-02.webp",
+        width: 1600,
+        height: 900,
+        alt: "Portfolio resume and downloadable PDF route",
+        status: "ready",
+      },
+    ],
     timeline: "2 weeks",
     role: "Solo Developer & Designer",
     features: [
@@ -248,32 +412,55 @@ Delivered a complete multi-page site (About, Services, Gallery, Contact/booking,
       live: "https://marcus-website-iof60vvkq-fuaadabdullahs-projects.vercel.app",
       source: "https://github.com/fuaadabdullah/marcus-website",
     },
-    image: {
-      src: "/projects/elbey-projects-home.png",
-      width: 1280,
-      height: 850,
-      alt: "Elbey Projects homepage showing the hero section and primary calls to action",
-    },
-    gallery: [
+    results: [
       {
-        src: "/projects/elbey-projects-services.png",
-        width: 1280,
-        height: 850,
-        alt: "Elbey Projects services page showing the service catalog layout",
+        label: "customer-facing pages shipped",
+        value: "7",
+        sourceLabel: "delivery scope",
       },
       {
-        src: "/projects/elbey-projects-gallery.png",
-        width: 1280,
-        height: 850,
-        alt: "Elbey Projects gallery page showing the media grid",
+        label: "delivery timeline",
+        value: "1 week",
+        sourceLabel: "delivery scope",
       },
       {
-        src: "/projects/elbey-projects-faq.png",
-        width: 1280,
-        height: 850,
-        alt: "Elbey Projects FAQ page showing expandable questions",
+        label: "core booking conversion paths",
+        value: "3",
+        sourceLabel: "ux scope",
       },
     ],
+    proofMedia: [
+      {
+        type: "image",
+        src: "/projects/elbey-projects-home.png",
+        width: 1440,
+        height: 1080,
+        alt: "Elbey Projects homepage and primary CTA",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "/projects/elbey-projects-gallery.png",
+        width: 1440,
+        height: 1080,
+        alt: "Elbey Projects gallery view with recent repair work",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "/projects/elbey-projects-contact.png",
+        width: 1440,
+        height: 1080,
+        alt: "Elbey Projects contact and booking form",
+        status: "ready",
+      },
+    ],
+    image: {
+      src: "/projects/elbey-projects-home.png",
+      width: 1440,
+      height: 1080,
+      alt: "Elbey Projects homepage with booking CTA and service navigation",
+    },
     timeline: "1 week",
     role: "Full-stack Developer",
     features: [
@@ -326,6 +513,49 @@ Built with Gradio for an intuitive web interface and deployed on HuggingFace Spa
       live: "https://huggingface.co/spaces/fuaadabdullah1/gradem8",
       source: "https://github.com/fuaadabdullah/gradem8-hf-space-2",
     },
+    results: [
+      {
+        label: "routine grading time reduced",
+        value: "60-70%",
+        sourceLabel: "user-reported",
+      },
+      {
+        label: "unit tests in suite",
+        value: "285+",
+        sourceLabel: "test suite",
+      },
+      {
+        label: "document formats supported",
+        value: "4",
+        sourceLabel: "product scope",
+      },
+    ],
+    proofMedia: [
+      {
+        type: "gif",
+        src: "pending:gradem8-demo",
+        width: 1280,
+        height: 720,
+        alt: "GradeM8 grading workflow demo",
+        status: "pending",
+      },
+      {
+        type: "image",
+        src: "/projects/gradem8-hf-space-2-screenshot.png",
+        width: 1280,
+        height: 720,
+        alt: "GradeM8 grading interface",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "pending:gradem8-batch-workflow",
+        width: 1280,
+        height: 720,
+        alt: "GradeM8 batch grading queue view",
+        status: "pending",
+      },
+    ],
     image: {
       src: "/projects/gradem8-hf-space-2-screenshot.png",
       width: 1280,
@@ -387,6 +617,57 @@ The platform combines VIN and OBD-code intake, retrieval context, and LLM-suppor
       live: "https://shopmindai-backend.azurewebsites.net",
       source: "https://github.com/fuaadabdullah/shopmind-ai",
     },
+    results: [
+      {
+        label: "production health endpoints",
+        value: "2",
+        sourceLabel: "operational scope",
+      },
+      {
+        label: "structured intake inputs",
+        value: "3",
+        sourceLabel: "request schema",
+      },
+      {
+        label: "documented workflow screens",
+        value: "3",
+        sourceLabel: "demo coverage",
+      },
+    ],
+    proofMedia: [
+      {
+        type: "gif",
+        src: "pending:shopmind-ai-demo",
+        width: 1280,
+        height: 720,
+        alt: "ShopMindAI diagnostic walkthrough demo",
+        status: "pending",
+      },
+      {
+        type: "image",
+        src: "/projects/shopmind-ai-hero.webp",
+        width: 1600,
+        height: 1000,
+        alt: "ShopMindAI diagnostic assistant hero",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "/projects/shopmind-ai-feature-01.webp",
+        width: 1600,
+        height: 1000,
+        alt: "ShopMindAI intake flow for VIN and OBD codes",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "/projects/shopmind-ai-feature-02.webp",
+        width: 1600,
+        height: 1000,
+        alt: "ShopMindAI ranked likely causes and tests",
+        status: "ready",
+      },
+    ],
     image: {
       src: "/projects/shopmind-ai-hero.webp",
       width: 1600,

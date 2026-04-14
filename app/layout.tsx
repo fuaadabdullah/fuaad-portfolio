@@ -10,12 +10,12 @@ import { personJsonLd } from '@/lib/seo';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {
-  title: "Fuaad Abdullah - Builder, Trader, Student",
-  description: "Finance student at GSU building risk discipline tools for day traders. I ship focused, numbers-first web apps and offer consulting for student projects.",
+  title: "Fuaad Abdullah - Finance Student & Developer",
+  description: "Finance student and developer building trading, automation, and AI tools from real workflow experience. Recruiter-ready portfolio, resume, and shipped projects.",
   metadataBase: new URL(siteUrl),
   openGraph: {
     title: "Fuaad Abdullah - Portfolio",
-    description: "Finance student building disciplined tools for traders and students. Check out my projects, resume, and consulting services.",
+    description: "Finance x dev portfolio with shipped trading tools, quantified outcomes, and current availability for fintech SWE roles and internships.",
     siteName: "Fuaad Abdullah",
     url: siteUrl,
     type: "website",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Fuaad Abdullah - Portfolio",
-    description: "Finance student building disciplined tools for traders and students. Check out my projects, resume, and consulting services.",
+    description: "Finance x dev portfolio with shipped trading tools, quantified outcomes, and current availability for fintech SWE roles and internships.",
     creator: "@fuaadabdullah"
   }
 };

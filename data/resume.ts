@@ -11,10 +11,32 @@ export type ResumeCard = {
   body: string;
 };
 
+export type AcademicDetail = {
+  institution: string;
+  degree: string;
+  years: string;
+  coursework?: string[];
+  gpa?: string;
+  honors?: string[];
+  notes?: string;
+};
+
+export type ResumeSignal = {
+  label: string;
+  value: string;
+};
+
+export type ResumeProjectMetric = {
+  value: string;
+  label: string;
+};
+
 export type ResumeProject = {
   title: string;
   tagline: string;
   tech: string[];
+  metrics?: ResumeProjectMetric[];
+  bullets?: string[];
   links?: { live?: string; source?: string };
 };
 
@@ -22,18 +44,30 @@ export const resumeData = {
   header: {
     name: "Fuaad Abdullah",
     tagline:
-      "B.B.A., Finance — Full-Stack Developer · Day Trader · AI & Automation Engineer",
+      "Finance student and developer building tools I use in my own trading.",
+    subline:
+      "B.B.A., Finance at Georgia State University · Full-stack developer shipping fintech, automation, and AI products end to end.",
+    availability: "Open to fintech SWE roles, internships, and selective contract work",
+    signals: [
+      { label: "Primary stack", value: "Python · TypeScript · Next.js · FastAPI · PostgreSQL" },
+      { label: "Flagship proof", value: "Trading tools, AI workflows, and client sites shipped to production" },
+    ] as ResumeSignal[],
     pdfHref: "/Fuaad_Abdullah_Resume.pdf",
     linkedInHref: "https://www.linkedin.com/in/fuaadabdullah",
     emailHref: "mailto:fuaadabdullah@gmail.com",
   },
   summary: {
     eyebrow: "Summary",
-    title: "Summary",
+    title: "Finance x software delivery",
     paragraphs: [
-      "Product-minded software engineer and disciplined active trader who ships production tooling for trading operations, reporting, and AI orchestration.",
-      "Bridges finance domain expertise with full-stack execution to deliver reliable, observable systems that cut manual work and sharpen decision quality. Strengths: turning ambiguous requirements into shipped deliverables, clear stakeholder communication, and disciplined operational execution.",
+      "Finance student and full-stack developer building trading, automation, and AI tools from lived workflow experience, not classroom hypotheticals.",
+      "I ship products across the stack, from trader-facing calculators and reporting workflows to production AI backends and client sites, with an emphasis on speed, reliability, and measurable outcomes.",
     ],
+    highlights: [
+      { label: "Finance edge", value: "Active trader building tools for real trading decisions" },
+      { label: "Can ship", value: "Production apps delivered across Next.js, FastAPI, Python, Azure, Fly.io, and Vercel" },
+      { label: "What I want", value: "Fintech SWE roles, internships, and selective contract work" },
+    ] as ResumeSignal[],
     sideCards: [
       {
         eyebrow: "Contact",
@@ -41,14 +75,22 @@ export const resumeData = {
           "• fuaadabdullah@gmail.com\n• (404) 494-6262\n• heyimfuaad.me\n• Atlanta, GA",
       },
       {
-        eyebrow: "Open to",
+        eyebrow: "Recruiter scan",
         body:
-          "• Software engineering (fintech preferred)\n• Internships & contract development\n• Product-driven teams valuing end-to-end delivery",
+          "• Finance major with real trading domain context\n• Full-stack builder shipping production tools\n• Strong fit for fintech, product, and automation teams",
       },
     ] as ResumeCard[],
   },
   academic: {
     title: "Education",
+    details: {
+      institution: "Georgia State University",
+      degree: "B.B.A., Finance",
+      years: "2020 – 2025",
+      coursework: ["Financial Accounting", "Business Technology", "Marketing Principles"],
+      notes:
+        "Academic detail is intentionally concise here; the full CV expands the coursework and project framing for graduate-school applications.",
+    } as AcademicDetail,
     cards: [
       {
         eyebrow: "University",
@@ -57,9 +99,10 @@ export const resumeData = {
           "2020 – 2025 · Financial Accounting, Business Technology, Marketing Principles",
       },
       {
-        eyebrow: "High School",
-        title: "North Springs Charter School · Diploma",
-        body: "2017 – 2019 · GPA 3.7",
+        eyebrow: "Relevant focus",
+        title: "Markets, reporting, and systems thinking",
+        body:
+          "Applied finance training to trading workflows, risk management, and numbers-first product decisions.",
       },
     ] as ResumeCard[],
   },
@@ -70,56 +113,51 @@ export const resumeData = {
         title: "Independent Day Trader & Full-Stack Developer",
         subtitle: "Self-employed · Feb 2023 – Present",
         description:
-          "Trade equities under strict risk controls with documented trade logs; build production tooling for live trading workflows and client reporting.",
+          "Trade equities under strict risk controls while shipping tooling for live trading workflows, reporting, and client delivery.",
         bullets: [
-          "Shipped Streamlit apps — position-sizing calculators, trade-log exporters, performance dashboards — used daily in live trading and by freelance clients",
-          "Delivered automation scripts and spreadsheet overhauls that cut manual reporting effort and improved data accuracy for small-business clients",
-          "Run weekly performance reviews to refine edge and execution quality",
+          "Shipped RIZZK, a production risk calculator that cut position-size mistakes by ~90% and made sizing decisions ~50% faster in live trading sessions.",
+          "Built Streamlit trading dashboards, export tools, and spreadsheet automations used in daily workflows and freelance client reporting.",
+          "Operate with weekly review loops, documented trade logs, and measurable execution discipline that carry directly into product work.",
         ],
       },
       {
         title: "Jr. Account Manager",
         subtitle: "ABC Consultants Group · May 2022 – Feb 2023",
         description:
-          "Owned client communications, project documentation, and status reporting to drive timely invoicing and delivery.",
+          "Owned client communications, documentation, and status tracking to keep delivery and invoicing on schedule.",
         bullets: [
-          "Maintained Salesforce and internal trackers to surface account health and eliminate missed deliverables",
-          "Coordinated cross-functional teams to align priorities and clear delivery blockers",
+          "Maintained Salesforce and internal trackers to surface account health and reduce the risk of missed deliverables.",
+          "Coordinated cross-functional teams, clarified blockers early, and kept project updates actionable for stakeholders.",
         ],
       },
       {
         title: "Marketing Intern",
         subtitle: "Mixdiety · Jun 2021 – Feb 2022",
         description:
-          "Conducted market and customer research that directly informed campaign strategy and targeting.",
+          "Conducted market research and campaign reporting that informed targeting and follow-up priorities.",
         bullets: [
-          "Ran multi-channel outreach (email, social) and built performance summaries that guided leadership decisions",
-          "Streamlined campaign reporting to clarify ROI and prioritize follow-up actions",
+          "Ran multi-channel outreach across email and social, then packaged performance insights for leadership review.",
+          "Improved reporting clarity so campaign ROI and next actions were easier to evaluate quickly.",
         ],
-      },
-      {
-        title: "Server — Benihana",
-        subtitle: "Jun 2020 – Jun 2021",
-        description:
-          "Delivered high-volume customer service; coordinated front-of-house and kitchen timing during peak service.",
-        bullets: [],
-      },
-      {
-        title: "Server — Intermezzo Cafe",
-        subtitle: "Jan 2019 – Jun 2020",
-        description:
-          "Drove upselling initiatives and sustained fast-paced, professional customer interactions.",
-        bullets: [],
       },
     ] as ResumeExperience[],
   },
   projects: {
-    title: "Projects",
+    title: "Selected projects",
     items: [
       {
-        title: "Goblin Assistant — Featured",
-        tagline: "Production multi-provider AI assistant with routing, observability, and privacy controls",
+        title: "Goblin Assistant",
+        tagline: "Production multi-provider AI assistant with routing, observability, and privacy controls.",
         tech: ["FastAPI", "Next.js", "TypeScript", "PostgreSQL", "Redis", "Docker", "Fly.io", "Vercel"],
+        metrics: [
+          { value: "3", label: "deployment layers integrated" },
+          { value: "4", label: "observable workflow views" },
+          { value: "12", label: "core technologies shipped" },
+        ],
+        bullets: [
+          "Built a production AI system spanning frontend, backend, infra, and provider routing instead of a single demo surface.",
+          "Added live status, latency, and routing visibility so model behavior is explainable and operationally credible.",
+        ],
         links: {
           live: "https://goblin-assistant.vercel.app",
           source: "https://github.com/fuaadabdullah/forgemono",
@@ -127,8 +165,16 @@ export const resumeData = {
       },
       {
         title: "RIZZK Calculator",
-        tagline: "Production position-sizing and risk management tool for active day traders",
+        tagline: "Production position-sizing and risk management tool for active day traders.",
         tech: ["Python", "Streamlit", "Plotly", "Docker", "Azure"],
+        metrics: [
+          { value: "~90%", label: "fewer position-size mistakes" },
+          { value: "~50%", label: "faster sizing decisions" },
+          { value: "4 weeks", label: "build to production" },
+        ],
+        bullets: [
+          "Built for real-money trading workflows I use myself, which made the UX and risk model grounded in actual trading pressure.",
+        ],
         links: {
           live: "https://rizzk-calculator-demo-eus2-f1.azurewebsites.net",
           source: "https://github.com/fuaadabdullah/rr-calculator",
@@ -136,39 +182,59 @@ export const resumeData = {
       },
       {
         title: "GradeM8",
-        tagline: "Model hosting and inference workflow demo integrating Hugging Face Spaces",
-        tech: ["Next.js", "TypeScript", "Hugging Face Spaces", "Vercel"],
+        tagline: "AI grading assistant with rubric-based feedback and production-minded test coverage.",
+        tech: ["Python", "Gradio", "Hugging Face", "pytest"],
+        metrics: [
+          { value: "60-70%", label: "routine grading time reduced" },
+          { value: "285+", label: "tests in suite" },
+          { value: "4", label: "document formats supported" },
+        ],
+        bullets: [
+          "Combined document parsing, inference workflows, and test discipline into a tool teachers can actually evaluate for repeated use.",
+        ],
         links: {
-          live: "https://huggingface.co/spaces/fuaadabdullah/gradem8",
+          live: "https://huggingface.co/spaces/fuaadabdullah1/gradem8",
+          source: "https://github.com/fuaadabdullah/gradem8-hf-space-2",
         },
       },
       {
-        title: "ShopMindAI",
-        tagline: "Automotive diagnostic assistant with ranked causes and confirmatory test suggestions",
-        tech: ["FastAPI", "Python", "SQLAlchemy", "FAISS", "Azure"],
-        links: {},
-      },
-      {
-        title: "Elbey Projects",
-        tagline: "Conversion-focused marketing site for a mobile mechanic business",
-        tech: ["Next.js", "TypeScript", "Tailwind", "Vercel"],
-        links: {
-          live: "https://marcus-website-iof60vvkq-fuaadabdullahs-projects.vercel.app",
-        },
-      },
-      {
-        title: "Portfolio — heyimfuaad.me",
-        tagline: "Personal site featuring blog, case studies, and SEO optimizations",
+        title: "Portfolio",
+        tagline: "Recruiter-ready portfolio and case-study site built for performance, accessibility, and SEO.",
         tech: ["Next.js", "React", "TypeScript", "Tailwind", "MDX", "Vercel"],
+        metrics: [
+          { value: "100/100", label: "Lighthouse score" },
+          { value: "<2s", label: "global load time" },
+          { value: "2 weeks", label: "build + launch timeline" },
+        ],
+        bullets: [
+          "Built a portfolio that performs like a product, not a static brochure, with strong search and resume delivery baked in.",
+        ],
         links: {
           live: "https://heyimfuaad.me",
           source: "https://github.com/fuaadabdullah/fuaad-portfolio",
         },
       },
+      {
+        title: "Elbey Projects",
+        tagline: "Conversion-focused website for a mobile mechanic business.",
+        tech: ["Next.js", "TypeScript", "Tailwind", "Vercel"],
+        metrics: [
+          { value: "7", label: "customer-facing pages shipped" },
+          { value: "1 week", label: "delivery timeline" },
+          { value: "3", label: "core booking paths" },
+        ],
+        bullets: [
+          "Delivered a complete, SEO-ready client site in one week with mobile booking flows and clear service navigation.",
+        ],
+        links: {
+          live: "https://marcus-website-iof60vvkq-fuaadabdullahs-projects.vercel.app",
+          source: "https://github.com/fuaadabdullah/marcus-website",
+        },
+      },
     ] as ResumeProject[],
   },
   skills: {
-    title: "Skills",
+    title: "Stack",
     cards: [
       {
         eyebrow: "Languages & Frameworks",
@@ -198,10 +264,10 @@ export const resumeData = {
     ] as ResumeCard[],
   },
   contact: {
-    title: "Accomplishments & Certifications",
+    title: "Why recruiters reach out",
     paragraphs: [
-      "Launched a production AI orchestration platform with multi-provider routing, observability, and privacy controls. Built trader-facing tooling that eliminated manual sizing and logging friction. Delivered client automation that improved invoice accuracy and cut reconciliation overhead. Shipped end-to-end features across the full stack repeatedly.",
-      "Certifications: Excel Quick Tips (LinkedIn Learning, Sep 2025) · Creating Your Personal Brand (LinkedIn Learning, Oct 2025)",
+      "Rare finance-plus-engineering profile: I understand markets and trading workflows, then build the software around them myself.",
+      "Strong fit for teams that want an intern or early-career engineer who can ship user-facing product work, APIs, automation, and operational tooling without needing every task over-scoped first.",
     ],
     emailLabel: "fuaadabdullah@gmail.com",
     emailHref: "mailto:fuaadabdullah@gmail.com",

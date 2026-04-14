@@ -18,6 +18,16 @@ module.exports = [
     rules: {
       'no-console': ['warn', { allow: ['warn', 'error', 'debug'] }],
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/explicit-function-return-type': ['warn', {
+        allowExpressions: true,
+        allowTypedFunctionExpressions: true,
+        allowHigherOrderFunctions: true,
+      }],
+      '@typescript-eslint/strict-boolean-expressions': 'warn',
+      '@typescript-eslint/no-floating-promises': 'warn',
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
     },
     settings: {
       react: { version: 'detect' },

@@ -1,6 +1,6 @@
 # Fuaad Abdullah
 
-B.B.A., Finance — Full-Stack Developer · Day Trader · AI & Automation Engineer
+Finance student and developer building tools I use in my own trading.
 
 [fuaadabdullah@gmail.com](mailto:fuaadabdullah@gmail.com) · (404) 494-6262 · [heyimfuaad.me](https://heyimfuaad.me) · Atlanta, GA
 
@@ -8,7 +8,11 @@ B.B.A., Finance — Full-Stack Developer · Day Trader · AI & Automation Engine
 
 ## Summary
 
-Product-minded software engineer and disciplined active trader who ships production tooling for trading operations, reporting, and AI orchestration. Bridges finance domain expertise with full-stack execution to deliver reliable, observable systems that cut manual work and sharpen decision quality. Strengths: turning ambiguous requirements into shipped deliverables, clear stakeholder communication, and disciplined operational execution.
+Finance student and full-stack developer building trading, automation, and AI tools from lived workflow experience, not classroom hypotheticals.
+
+I ship products across the stack, from trader-facing calculators and reporting workflows to production AI backends and client sites, with an emphasis on speed, reliability, and measurable outcomes.
+
+**Open to:** fintech software engineering roles, internships, and selective contract work.
 
 ---
 
@@ -32,37 +36,26 @@ Product-minded software engineer and disciplined active trader who ships product
 
 *Self-employed* · Feb 2023 – Present
 
-- Trade equities under strict risk controls with documented trade logs; run weekly reviews to refine edge and execution quality.
-- Shipped production Streamlit apps — position-sizing calculators, trade-log exporters, and performance dashboards — used daily in live trading workflows and by freelance clients.
-- Delivered automation scripts and spreadsheet overhauls that cut manual reporting effort and improved data accuracy for small-business clients.
+- Trade equities under strict risk controls while shipping tooling for live trading workflows, reporting, and client delivery.
+- Shipped RIZZK, a production risk calculator that cut position-size mistakes by ~90% and made sizing decisions ~50% faster in live trading sessions.
+- Built Streamlit dashboards, export tools, and spreadsheet automations used in daily workflows and freelance client reporting.
+- Operate with weekly review loops, documented trade logs, and measurable execution discipline that carry directly into product work.
 
 ### Jr. Account Manager
 
 *ABC Consultants Group* · May 2022 – Feb 2023
 
-- Owned client communications, project documentation, and status reporting to drive timely invoicing and on-schedule delivery.
-- Maintained Salesforce and internal trackers to surface account health and eliminate missed deliverables.
-- Coordinated cross-functional teams to align priorities and clear delivery blockers.
+- Owned client communications, project documentation, and status tracking to keep delivery and invoicing on schedule.
+- Maintained Salesforce and internal trackers to surface account health and reduce the risk of missed deliverables.
+- Coordinated cross-functional teams, clarified blockers early, and kept project updates actionable for stakeholders.
 
 ### Marketing Intern
 
 *Mixdiety* · Jun 2021 – Feb 2022
 
-- Conducted market and customer research that directly informed campaign strategy and audience targeting.
-- Ran multi-channel outreach (email, social) and built performance summaries that guided leadership decisions.
-- Streamlined campaign reporting to clarify ROI and prioritize follow-up actions.
-
-### Server — Benihana
-
-*Jun 2020 – Jun 2021*
-
-- Delivered high-volume customer service; coordinated front-of-house and kitchen timing during peak service.
-
-### Server — Intermezzo Cafe
-
-*Jan 2019 – Jun 2020*
-
-- Drove upselling initiatives and sustained fast-paced, professional customer interactions.
+- Conducted market research and campaign reporting that informed targeting and follow-up priorities.
+- Ran multi-channel outreach across email and social, then packaged performance insights for leadership review.
+- Improved reporting clarity so campaign ROI and next actions were easier to evaluate quickly.
 
 ---
 
@@ -70,7 +63,7 @@ Product-minded software engineer and disciplined active trader who ships product
 
 **Georgia State University** · B.B.A., Finance · 2020 – 2025
 
-Coursework: Financial Accounting · Business Technology · Marketing Principles
+Selected coursework: Financial Accounting · Business Technology · Marketing Principles
 
 **North Springs Charter School** · High School Diploma · 2017 – 2019 · GPA 3.7
 
@@ -78,15 +71,14 @@ Coursework: Financial Accounting · Business Technology · Marketing Principles
 
 ## Projects
 
-### Goblin Assistant — Featured
+### Goblin Assistant
 
 Production multi-provider AI assistant with routing, observability, and privacy controls.
 
 *FastAPI · Next.js · TypeScript · PostgreSQL · Redis · Docker · Fly.io · Vercel*
 
-- Architected provider-routing and request orchestration supporting multiple LLM hosts with health checks and automatic fallbacks.
-- Built observability layer — metrics, health monitoring, and latency tracking — for provider performance and system reliability.
-- Designed privacy-aware request flows and modular backend services; deployed full stack to production infrastructure.
+- Built a production AI system spanning frontend, backend, infra, and provider routing instead of a single demo surface.
+- Added live status, latency, and routing visibility across 4 observable workflow views and 3 deployment layers.
 
 ### RIZZK Calculator
 
@@ -94,49 +86,42 @@ Production position-sizing and risk management tool for active day traders.
 
 *Python · Streamlit · Plotly · Docker · Azure*
 
-- Built live risk calculator with exportable trade logs used in active trading workflows.
-- Added dashboarding for weekly performance reviews and automated position sizing.
+- Cut position-size mistakes by ~90% and sped up sizing decisions by ~50% in live trading sessions.
+- Shipped to production in 4 weeks and built it around real-money trading workflows I use myself.
 
 ### GradeM8
 
-Model hosting and inference workflow demo integrating Hugging Face Spaces.
+AI grading assistant with rubric-based feedback and production-minded test coverage.
 
-*Next.js · TypeScript · Hugging Face Spaces · Vercel*
+*Python · Gradio · Hugging Face · pytest*
 
-- Connected frontend UI to hosted inference endpoints; demonstrated real-time prediction pipelines.
-- Showcased end-to-end deployment flow for scalable ML product delivery.
+- Reduced routine grading time by 60-70% while supporting 4 document formats.
+- Backed the app with 285+ tests to keep document parsing and grading flows reliable.
 
-### ShopMindAI
+### Portfolio
 
-Automotive diagnostic assistant with ranked causes and confirmatory test suggestions.
-
-*FastAPI · Python · SQLAlchemy · FAISS · Azure*
-
-- Built semantic search over service manuals returning ranked diagnostic suggestions with confidence scoring.
-- Added observability endpoints and structured logging for debugging and production scaling.
-
-### Elbey Projects Website
-
-Conversion-focused marketing site for a mobile mechanic business.
-
-*Next.js · TypeScript · Tailwind · Vercel*
-
-- Implemented conversion-optimized UI with analytics hooks to track bookings and lead flow.
-
-### Portfolio — [heyimfuaad.me](https://heyimfuaad.me)
-
-Personal site featuring blog, case studies, and SEO optimizations.
+Recruiter-ready portfolio and case-study site built for performance, accessibility, and SEO.
 
 *Next.js · React · TypeScript · Tailwind · MDX · Vercel*
 
+- Achieved 100/100 Lighthouse scores and sub-2s global load times.
+- Designed and shipped the site in 2 weeks with resume delivery, case studies, and SEO foundations built in.
+
+### Elbey Projects
+
+Conversion-focused website for a mobile mechanic business.
+
+*Next.js · TypeScript · Tailwind · Vercel*
+
+- Shipped 7 customer-facing pages in 1 week with 3 core booking conversion paths.
+- Delivered a complete, SEO-ready client site optimized for mobile service discovery and booking.
+
 ---
 
-## Key Accomplishments
+## Why Recruiters Reach Out
 
-- Launched a production AI orchestration platform (Goblin Assistant) with multi-provider routing, observability, and privacy controls.
-- Built trader-facing tooling that eliminated manual sizing and logging friction in live workflows.
-- Delivered client automation and reporting work that improved invoice accuracy and cut manual reconciliation overhead.
-- Shipped end-to-end features across the full stack repeatedly: Next.js → FastAPI → Docker → cloud.
+- Rare finance-plus-engineering profile: I understand markets and trading workflows, then build the software around them myself.
+- Strong fit for teams that want an intern or early-career engineer who can ship user-facing product work, APIs, automation, and operational tooling without needing every task over-scoped first.
 
 ---
 
@@ -144,9 +129,3 @@ Personal site featuring blog, case studies, and SEO optimizations.
 
 - **Excel Quick Tips** — LinkedIn Learning (Sep 2025)
 - **Creating Your Personal Brand** — LinkedIn Learning (Oct 2025)
-
----
-
-## Availability
-
-Open to software engineering roles (fintech preferred), internships, and contract development that value product thinking, disciplined execution, and end-to-end delivery.

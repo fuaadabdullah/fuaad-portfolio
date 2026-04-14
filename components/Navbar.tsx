@@ -6,16 +6,32 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 import clsx from "clsx";
 import Container from "@/components/layout/Container";
+import SocialIcon from "@/components/SocialIcon";
+import { bookingCta, bookingLink } from "@/data/contact";
 
 const links = [
   { href: "/", label: "Home" },
   { href: "/portfolio", label: "Portfolio" },
+  { href: "/contact", label: "Contact" },
   { href: "/blog", label: "Blog" },
-  { href: "/about", label: "Lore" },
+  { href: "/about", label: "About / Lore" },
   { href: "/resume", label: "Resume" },
+  { href: "/cv", label: "CV" },
 ] as const;
 
-const cta = { href: "/services", label: "Let's Work" } as const;
+const cta = { href: bookingLink, label: bookingCta.shortLabel } as const;
+const socialLinks = [
+  {
+    href: "https://github.com/fuaadabdullah",
+    label: "GitHub",
+    type: "github" as const,
+  },
+  {
+    href: "https://www.linkedin.com/in/fuaadabdullah",
+    label: "LinkedIn",
+    type: "linkedin" as const,
+  },
+] as const;
 
 function isActivePath(pathname: string, href: string): boolean {
   if (href === "/") return pathname === "/";
@@ -44,9 +60,21 @@ function DesktopLinks({ pathname }: { pathname: string }) {
           </li>
         );
       })}
+      <li className="ml-3 flex items-center gap-3 border-l border-white/10 pl-3">
+        {socialLinks.map((social) => (
+          <SocialIcon
+            key={social.href}
+            type={social.type}
+            href={social.href}
+            label={social.label}
+          />
+        ))}
+      </li>
       <li className="ml-2">
-        <Link
+        <a
           href={cta.href}
+          target="_blank"
+          rel="noopener noreferrer"
           className={clsx(
             "inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-medium transition-colors",
             "bg-[color:var(--color-accent)] text-black hover:bg-[color:var(--color-accent)]/90"
@@ -54,7 +82,7 @@ function DesktopLinks({ pathname }: { pathname: string }) {
         >
           {cta.label}
           <ArrowUpRight size={16} aria-hidden="true" />
-        </Link>
+        </a>
       </li>
     </ul>
   );
@@ -108,7 +136,7 @@ function MobileMenu({
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex items-center justify-center rounded-full p-2 text-white/80 hover:text-white hover:bg-white/5 transition-colors"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/5 hover:text-white"
             aria-label="Close menu"
           >
             <X size={20} aria-hidden="true" />
@@ -136,15 +164,28 @@ function MobileMenu({
             );
           })}
 
+          <div className="flex items-center gap-4 px-1 pt-3 text-white/80">
+            {socialLinks.map((social) => (
+              <SocialIcon
+                key={social.href}
+                type={social.type}
+                href={social.href}
+                label={social.label}
+              />
+            ))}
+          </div>
+
           <div className="pt-2">
-            <Link
+            <a
               href={cta.href}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={onClose}
               className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[color:var(--color-accent)] px-4 py-3 font-semibold text-black hover:bg-[color:var(--color-accent)]/90 transition-colors"
             >
               {cta.label}
               <ArrowUpRight size={18} aria-hidden="true" />
-            </Link>
+            </a>
           </div>
         </div>
       </div>
@@ -174,7 +215,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="md:hidden inline-flex items-center justify-center rounded-full p-2 text-white/80 hover:text-white hover:bg-white/5 transition-colors"
+            className="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/5 hover:text-white"
             aria-label="Open menu"
             aria-expanded={open}
             aria-controls={menuId}

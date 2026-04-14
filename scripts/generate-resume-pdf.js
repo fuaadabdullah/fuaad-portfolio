@@ -66,7 +66,7 @@ function startDevServer() {
   return spawn("pnpm", ["exec", "next", "dev", "--hostname", HOST, "--port", String(PORT)], {
     cwd: path.join(__dirname, ".."),
     stdio: "inherit",
-    env: process.env,
+    env: { ...process.env, TMPDIR: process.env.TMPDIR || "/tmp" },
   });
 }
 

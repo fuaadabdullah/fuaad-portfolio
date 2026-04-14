@@ -7,11 +7,42 @@ const sampleProject: Project = {
   title: "Sample Project",
   tagline: "A sample project for demonstration",
   description: "This is a sample project description.",
+  results: [
+    { label: "conversion lift", value: "18%", sourceLabel: "analytics" },
+    { label: "delivery timeline", value: "3 weeks", sourceLabel: "delivery scope" },
+    { label: "weekly active users", value: "1.2k", sourceLabel: "product metrics" },
+  ],
   tech: ["React", "TypeScript", "Tailwind"],
   links: {
     live: "https://example.com",
     source: "https://github.com/example",
   },
+  proofMedia: [
+    {
+      type: "gif",
+      src: "/projects/demos/sample-project.gif",
+      width: 1280,
+      height: 720,
+      alt: "Sample project demo",
+      status: "pending",
+    },
+    {
+      type: "image",
+      src: "/sample-image.png",
+      width: 800,
+      height: 600,
+      alt: "Sample project image",
+      status: "ready",
+    },
+    {
+      type: "image",
+      src: "/sample-image-2.png",
+      width: 800,
+      height: 600,
+      alt: "Second sample project image",
+      status: "pending",
+    },
+  ],
   image: {
     src: "/sample-image.png",
     width: 800,

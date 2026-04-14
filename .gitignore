@@ -64,6 +64,8 @@ next-env.d.ts
 # OS
 .DS_Store
 Thumbs.db
+._*
+**/._*
 
 # portfolio build artifacts
 portfolio/*.pdf
@@ -79,3 +81,11 @@ storybook-static
 
 # virtual environment
 .venv/
+
+# external-drive / transfer artifacts
+node_modules.__*/
+output/
+Volumes/
+*.zip
+/.tmp-cv.rtf
+/.tmp-resume.rtf

@@ -1,69 +1,237 @@
 import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
+import projects from "@/data/projects";
+import { servicesSummaryCard } from "@/data/services";
+import { bookingCta, bookingLink, testimonials } from "@/data/contact";
+import { resumeData } from "@/data/resume";
+import { cvData } from "@/data/cv";
+import { getLatestGitActivity } from "@/lib/git-activity";
 
-// Updated: 2025-11-05 - Latest changes deployed
-export default function HomePage() {
+function SignalChip({ children, tone = "default" }: { children: React.ReactNode; tone?: "default" | "accent" }) {
+  const classes =
+    tone === "accent"
+      ? "rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1.5"
+      : "rounded-full border border-white/10 bg-white/5 px-3 py-1.5";
+
+  return <span className={classes}>{children}</span>;
+}
+
+export default async function HomePage() {
+  const goblinProject = projects.find((project) => project.slug === "goblin-assistant");
+  const rizzkProject = projects.find((project) => project.slug === "rizzk-calculator");
+  const testimonial = testimonials[0];
+  const activity = getLatestGitActivity();
+
   return (
     <section className="mx-auto max-w-5xl px-6 py-16">
       <section className="space-y-4">
-        {/* Text / hero copy */}
-        <div className="space-y-4 max-w-3xl">
+        <div className="max-w-3xl space-y-5">
           <p className="text-sm uppercase tracking-[0.2em] text-white/50">
-            Finance • Tools • Automations
-          </p>
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
-            I build tools and automations for creators, founders or anyone tired of guessing.
-          </h1>
-          <p className="text-white/80 max-w-2xl">
-            Finance student · freelance dev · day trader building disciplined, numbers based tooling and automations.
+            Recruiter-ready portfolio • Finance x software • Trading tools • Production builds
           </p>
 
-          {/* Feature row: Risk tools */}
-          <div className="mt-4 flex items-center justify-between rounded-2xl bg-white/5 px-3 py-2">
-            <div>
-              <p className="font-medium text-zinc-100">GoblinOS</p>
-              <p className="text-[11px] text-zinc-400">
-                Ongoing automation engine powering this site, risk tools, and workflows.
+          <div className="flex flex-wrap gap-3 text-sm text-white/80">
+            <SignalChip tone="accent">{resumeData.header.availability}</SignalChip>
+            <SignalChip>Finance major who actually trades</SignalChip>
+            <SignalChip>Python · TypeScript · Next.js · FastAPI</SignalChip>
+          </div>
+
+          <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">
+            Finance student and developer building tools I use in my own trading.
+          </h1>
+
+          <p className="max-w-2xl text-white/80">
+            I ship fintech, automation, and AI products end to end, from trader-facing risk tools to production web apps and API backends. Recruiters screening for can-this-person-ship, stack clarity, and seriousness should find that answer fast here.
+          </p>
+
+          <div className="grid gap-3 sm:grid-cols-3 text-sm">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+              <p className="text-xs uppercase tracking-[0.18em] text-white/45">Finance edge</p>
+              <p className="mt-2 text-white/85">Active trader building products around real market workflows.</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+              <p className="text-xs uppercase tracking-[0.18em] text-white/45">Shipping proof</p>
+              <p className="mt-2 text-white/85">~90% fewer sizing mistakes, 60-70% grading time saved, 7-page client site shipped in 1 week.</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+              <p className="text-xs uppercase tracking-[0.18em] text-white/45">Current stack</p>
+              <p className="mt-2 text-white/85">Next.js, React, TypeScript, Python, FastAPI, PostgreSQL, Redis, Docker, Azure, Fly.io.</p>
+            </div>
+          </div>
+
+          {activity ? (
+            <div className="rounded-2xl border border-cyan-400/20 bg-cyan-500/10 p-4 text-sm text-cyan-50">
+              <p className="text-[11px] uppercase tracking-[0.18em] text-cyan-100/70">Recently shipped</p>
+              <p className="mt-1 font-medium">{activity.subject}</p>
+              <p className="mt-1 text-cyan-100/80">
+                Last commit {activity.relativeTime} on {activity.committedAt}.
               </p>
             </div>
-            <span className="rounded-full bg-[color:var(--color-accent)]/25 px-3 py-1 text-[11px] text-white">
-              Active project
-            </span>
-          </div>
+          ) : null}
 
-          {/* CTA row */}
-          <div className="mt-6 flex gap-3 flex-wrap">
-            <Link href="/portfolio" className="inline-flex items-center gap-2 rounded-2xl bg-[color:var(--color-accent)] px-5 py-3 font-medium text-white hover:bg-[color:var(--color-accent)]/90 transition-colors">
+          {goblinProject && (
+            <article className="mt-2 rounded-2xl border border-emerald-400/30 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 p-4">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="font-medium text-zinc-100">Flagship: {goblinProject.title}</p>
+                <span className="rounded-full bg-emerald-400/20 px-3 py-1 text-[11px] text-emerald-100">
+                  FastAPI · Postgres · Redis · Terraform · Fly.io
+                </span>
+              </div>
+              <p className="mt-2 text-sm text-white/80">
+                Multi-provider AI assistant with observable routing, live provider health, and production-ready infra split across edge, backend, and frontend.
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                {goblinProject.results.map((result) => (
+                  <span key={result.label} className="rounded-full bg-white/10 px-2.5 py-1 text-white/90">
+                    {result.value} {result.label}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <Link
+                  href={`/portfolio/${goblinProject.slug}`}
+                  className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-400"
+                >
+                  Explore flagship case study
+                </Link>
+                <Link
+                  href="/resume"
+                  className="rounded-lg bg-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/15"
+                >
+                  View web resume
+                </Link>
+                <Link
+                  href="/cv"
+                  className="rounded-lg bg-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/15"
+                >
+                  View academic CV
+                </Link>
+              </div>
+            </article>
+          )}
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              href="/resume"
+              className="inline-flex items-center gap-2 rounded-2xl bg-[color:var(--color-accent)] px-6 py-3.5 font-semibold text-black transition-colors hover:bg-[color:var(--color-accent)]/90"
+            >
+              View resume <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+            <Link
+              href="/portfolio"
+              className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 transition-colors hover:bg-white/15"
+            >
               See portfolio <ArrowRight size={18} aria-hidden="true" />
             </Link>
-            <a href="/Fuaad_Abdullah_Resume.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 hover:bg-white/15 transition-colors">
-              Résumé PDF <Download size={18} aria-hidden="true" />
-            </a>
-            <Link href="/services" className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 hover:bg-white/15 transition-colors">
-              Services <ArrowRight size={18} aria-hidden="true" />
+            <Link
+              href="/cv"
+              className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 transition-colors hover:bg-white/15"
+            >
+              View CV <ArrowRight size={18} aria-hidden="true" />
             </Link>
+            <a
+              href={resumeData.header.linkedInHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 transition-colors hover:bg-white/15"
+            >
+              LinkedIn <ArrowRight size={18} aria-hidden="true" />
+            </a>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 transition-colors hover:bg-white/15"
+            >
+              Contact <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+            <a
+              href="/Fuaad_Abdullah_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 transition-colors hover:bg-white/15"
+            >
+              Resume (1 page) <Download size={18} aria-hidden="true" />
+            </a>
+            <a
+              href={cvData.header.pdfHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 transition-colors hover:bg-white/15"
+            >
+              CV (full) <Download size={18} aria-hidden="true" />
+            </a>
           </div>
+
+          {testimonial ? (
+            <figure className="mt-8 max-w-2xl rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+              <blockquote className="text-lg font-medium text-white">
+                "{testimonial.quote}"
+              </blockquote>
+              <figcaption className="mt-3 text-sm text-white/65">
+                {testimonial.client} · {testimonial.context}
+              </figcaption>
+            </figure>
+          ) : null}
         </div>
       </section>
-      <div className="mt-16 grid md:grid-cols-2 gap-6">
+
+      <div className="mt-16 grid gap-6 md:grid-cols-2">
+        {rizzkProject && (
+          <article className="rounded-2xl border border-white/10 p-6">
+            <p className="text-xs uppercase tracking-[0.18em] text-white/45">Trading proof</p>
+            <h2 className="mt-2 text-xl font-semibold">{rizzkProject.title}</h2>
+            <p className="mt-2 text-white/80">{rizzkProject.tagline}</p>
+            <div className="mt-4 flex flex-wrap gap-2 text-xs">
+              {rizzkProject.results.map((result) => (
+                <span key={result.label} className="rounded-full bg-white/10 px-2.5 py-1 text-white/90">
+                  {result.value} {result.label}
+                </span>
+              ))}
+            </div>
+            <div className="mt-4 flex gap-3">
+              {rizzkProject.links?.live && (
+                <a
+                  className="rounded-lg bg-white/10 px-4 py-2 transition-colors hover:bg-white/15"
+                  href={rizzkProject.links.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Live demo
+                </a>
+              )}
+              {rizzkProject.links?.source && (
+                <a
+                  className="rounded-lg bg-white/10 px-4 py-2 transition-colors hover:bg-white/15"
+                  href={rizzkProject.links.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Source
+                </a>
+              )}
+            </div>
+          </article>
+        )}
+
         <article className="rounded-2xl border border-white/10 p-6">
-          <h2 className="text-xl font-semibold">Position Sizing Web App</h2>
-          <p className="text-white/80 mt-2">Production-grade risk calculator that forces day traders to respect their risk, not their ego. Built with Python, Streamlit, and Azure (internal codename: RIZZK).</p>
-          <div className="mt-4 flex gap-3">
-            <a className="rounded-lg bg-white/10 px-4 py-2 hover:bg-white/15 transition-colors" href="https://rizzk-calculator-demo-eus2-f1.azurewebsites.net" target="_blank" rel="noopener noreferrer">
-              Live demo
+          <p className="text-xs uppercase tracking-[0.18em] text-white/45">Selective contract work</p>
+          <h2 className="mt-2 text-xl font-semibold">{servicesSummaryCard.title}</h2>
+          <p className="mt-2 text-white/80">{servicesSummaryCard.description}</p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <a
+              className="inline-flex items-center gap-2 rounded-lg bg-[color:var(--color-accent)] px-4 py-2 text-white transition-colors hover:bg-[color:var(--color-accent)]/90"
+              href={servicesSummaryCard.href}
+            >
+              {servicesSummaryCard.ctaLabel}
             </a>
-            <a className="rounded-lg bg-white/10 px-4 py-2 hover:bg-white/15 transition-colors" href="https://github.com/fuaadabdullah/rr-calculator" target="_blank" rel="noopener noreferrer">
-              Source
+            <a
+              href={bookingLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 transition-colors hover:bg-white/15"
+            >
+              {bookingCta.label} <ArrowRight size={16} aria-hidden="true" />
             </a>
           </div>
-        </article>
-        <article className="rounded-2xl border border-white/10 p-6">
-          <h2 className="text-xl font-semibold">Consulting</h2>
-          <p className="text-white/80 mt-2">Frontend polish, Streamlit/Next.js builds, and deployment-ready MVPs.</p>
-          <a className="mt-4 inline-block rounded-lg bg-[color:var(--color-accent)] px-4 py-2 text-white hover:bg-[color:var(--color-accent)]/90 transition-colors" href="/services">
-            View services
-          </a>
         </article>
       </div>
     </section>

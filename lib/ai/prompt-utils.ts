@@ -1,6 +1,7 @@
 // Prompt optimization and enrichment utilities
-import { siteFacts, faq } from '@/data/portfolio_knowledge';
+import { siteFacts } from '@/data/portfolio_knowledge';
 import { blogContent, projectContent } from '@/data/site_content';
+import { findFaqEntry } from '@/lib/ai/knowledge';
 
 export function optimizePrompt(userPrompt: string): string {
   // Remove unnecessary words, keep context concise
@@ -31,9 +32,7 @@ export async function enrichPrompt(userPrompt: string): Promise<string> {
   }
 
   // FAQ matches
-  const matchedFaq = faq.find(f =>
-    f.trigger.some(t => lower.includes(t))
-  );
+  const matchedFaq = findFaqEntry(lower);
 
   // Blog matches
   const matchedBlog = blogContent.find(b =>
@@ -71,7 +70,7 @@ export async function enrichPrompt(userPrompt: string): Promise<string> {
   const contextParts = [
     `Site: ${siteFacts.trim().replace(/\n+/g, ' ')}`,
     `Intent: ${intent}`,
-    matchedFaq ? `FAQ: ${matchedFaq.answer}` : '',
+    matchedFaq ? `FAQ: ${matchedFaq}` : '',
     matchedBlog ? `Blog: ${matchedBlog.title} - ${matchedBlog.summary}` : '',
     matchedProject ? `Project: ${matchedProject.title} - ${matchedProject.summary}` : '',
     `Action: ${action}`

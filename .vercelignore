@@ -1,0 +1,16 @@
+.git
+.next
+.vercel
+.vscode
+Volumes
+docs
+output
+test
+storybook-static
+node_modules
+node_modules.__*
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

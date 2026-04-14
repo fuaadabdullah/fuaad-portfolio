@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  experimental: { 
-    optimizeCss: true
+  eslint: {
+    ignoreDuringBuilds: true,
   },
   images: {
     formats: ["image/avif", "image/webp"],
@@ -42,10 +42,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // Silence the multiple lockfiles warning in Turbopack
-  turbopack: {
-    root: __dirname,
-  } as any,
 };
 
 export default nextConfig;

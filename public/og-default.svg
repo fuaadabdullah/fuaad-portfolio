@@ -1,0 +1,48 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#050608"/>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1020" cy="90" r="210" fill="#EF4444" fill-opacity="0.18"/>
+  <circle cx="160" cy="560" r="240" fill="#22C55E" fill-opacity="0.16"/>
+  <rect x="24" y="24" width="1152" height="582" rx="28" fill="url(#panel)" stroke="rgba(255,255,255,0.08)"/>
+
+  <circle cx="72" cy="78" r="6" fill="#EF4444"/>
+  <text x="88" y="86" fill="rgba(255,255,255,0.74)" font-family="SF Pro Display, Inter, Arial, sans-serif" font-size="24" letter-spacing="1">heyimfuaad.me</text>
+
+  <rect x="913" y="54" width="223" height="48" rx="24" fill="rgba(239,68,68,0.12)" stroke="rgba(239,68,68,0.34)"/>
+  <text x="939" y="84" fill="#FCA5A5" font-family="SF Pro Display, Inter, Arial, sans-serif" font-size="22">Finance x Software</text>
+
+  <text x="64" y="170" fill="rgba(255,255,255,0.62)" font-family="SF Pro Display, Inter, Arial, sans-serif" font-size="22" letter-spacing="4">BUILDER • TRADER • FINANCE MAJOR</text>
+
+  <text x="64" y="276" fill="white" font-family="SF Pro Display, Inter, Arial, sans-serif" font-size="68" font-weight="800" letter-spacing="-2.4">Fuaad Abdullah</text>
+  <text x="64" y="348" fill="#E5E7EB" font-family="SF Pro Display, Inter, Arial, sans-serif" font-size="64" font-weight="800" letter-spacing="-2.2">Disciplined tools for traders</text>
+  <text x="64" y="416" fill="#E5E7EB" font-family="SF Pro Display, Inter, Arial, sans-serif" font-size="64" font-weight="800" letter-spacing="-2.2">and operators.</text>
+
+  <text x="64" y="474" fill="rgba(255,255,255,0.76)" font-family="SF Pro Text, Inter, Arial, sans-serif" font-size="28">Full-stack builds with a finance edge: trading tools, client sites,</text>
+  <text x="64" y="512" fill="rgba(255,255,255,0.76)" font-family="SF Pro Text, Inter, Arial, sans-serif" font-size="28">and numbers-first products that feel sharp, trustworthy, and production-ready.</text>
+
+  <g>
+    <rect x="64" y="542" width="114" height="42" rx="21" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.16)"/>
+    <text x="92" y="568" fill="rgba(255,255,255,0.78)" font-family="SF Pro Text, Inter, Arial, sans-serif" font-size="22">Next.js</text>
+
+    <rect x="190" y="542" width="98" height="42" rx="21" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.16)"/>
+    <text x="221" y="568" fill="rgba(255,255,255,0.78)" font-family="SF Pro Text, Inter, Arial, sans-serif" font-size="22">Python</text>
+
+    <rect x="300" y="542" width="171" height="42" rx="21" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.16)"/>
+    <text x="330" y="568" fill="rgba(255,255,255,0.78)" font-family="SF Pro Text, Inter, Arial, sans-serif" font-size="22">Trading Systems</text>
+
+    <rect x="483" y="542" width="143" height="42" rx="21" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.16)"/>
+    <text x="518" y="568" fill="rgba(255,255,255,0.78)" font-family="SF Pro Text, Inter, Arial, sans-serif" font-size="22">Client Builds</text>
+  </g>
+
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1120 70) rotate(144.319) scale(876.046 1271.63)">
+      <stop stop-color="#121922"/>
+      <stop offset="0.53" stop-color="#0D1117"/>
+      <stop offset="1" stop-color="#050608"/>
+    </radialGradient>
+    <linearGradient id="panel" x1="600" y1="24" x2="600" y2="606" gradientUnits="userSpaceOnUse">
+      <stop stop-color="rgba(255,255,255,0.05)"/>
+      <stop offset="1" stop-color="rgba(255,255,255,0.02)"/>
+    </linearGradient>
+  </defs>
+</svg>

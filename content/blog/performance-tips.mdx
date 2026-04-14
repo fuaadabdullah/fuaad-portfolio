@@ -1,0 +1,302 @@
+---
+title: "Next.js Performance Tips"
+date: "2025-12-15"
+excerpt: "Practical performance optimization strategies for Next.js applications, from image optimization to caching strategies."
+category: "tutorial"
+tags: ["Next.js", "performance", "optimization", "web-development"]
+---
+
+## The Performance Problem
+
+Next.js makes it easy to build fast applications, but it's also easy to accidentally hurt performance. I've learned this the hard way while building my portfolio and other projects.
+
+Common performance killers:
+- **Unoptimized images** that load slowly on mobile
+- **Large JavaScript bundles** that block rendering
+- **Missing caching** that forces unnecessary re-fetching
+- **Inefficient data fetching** that blocks page loads
+
+## Image Optimization
+
+### Use Next.js Image Component
+
+The biggest win is switching from `<img>` tags to Next.js `<Image>`:
+
+```tsx
+// Before: Slow, no optimization
+<img src="/hero.jpg" alt="Hero" />
+
+// After: Automatic optimization
+import Image from 'next/image';
+
+<Image
+  src="/hero.jpg"
+  alt="Hero"
+  width={800}
+  height={600}
+  priority={true} // For above-the-fold images
+/>
+```
+
+**Benefits:**
+- Automatic WebP conversion
+- Lazy loading for below-the-fold images
+- Built-in responsive sizing
+- Blur placeholder for better perceived performance
+
+### Optimize Image Sizes
+
+Don't serve 2000px images to mobile devices:
+
+```tsx
+// Serve different sizes based on viewport
+<Image
+  src="/hero.jpg"
+  alt="Hero"
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+  fill
+  style={{ objectFit: 'cover' }}
+/>
+```
+
+## Bundle Optimization
+
+### Dynamic Imports
+
+Split your JavaScript into smaller chunks:
+
+```tsx
+// Before: Loads everything upfront
+import { HeavyChart } from '@/components/HeavyChart';
+
+// After: Load only when needed
+import dynamic from 'next/dynamic';
+
+const HeavyChart = dynamic(() => import('@/components/HeavyChart'), {
+  loading: () => <div>Loading chart...</div>,
+  ssr: false, // Skip on server-side rendering
+});
+```
+
+### Analyze Bundle Size
+
+Use webpack-bundle-analyzer to find bloat:
+
+```bash
+npm install --save-dev webpack-bundle-analyzer
+```
+
+Add to next.config.js:
+
+```js
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+module.exports = withBundleAnalyzer({
+  // your config
+});
+```
+
+Then run: `ANALYZE=true npm run build`
+
+## Caching Strategies
+
+### Static Generation (SSG)
+
+For content that doesn't change often:
+
+```tsx
+export async function getStaticProps() {
+  const data = await fetch('https://api.example.com/data');
+  const posts = await data.json();
+
+  return {
+    props: { posts },
+    revalidate: 60, // Re-generate every 60 seconds
+  };
+}
+```
+
+### Server-Side Rendering (SSR)
+
+For personalized content:
+
+```tsx
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
+```
+
+### Client-Side Data Fetching
+
+For data that updates frequently:
+
+```tsx
+import useSWR from 'swr';
+
+function Dashboard() {
+  const { data, error } = useSWR('/api/dashboard', fetcher, {
+    refreshInterval: 30000, // Refresh every 30 seconds
+    revalidateOnFocus: false, // Don't refetch on window focus
+  });
+
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
+
+  return <div>{/* render dashboard */}</div>;
+}
+```
+
+## Data Fetching Optimization
+
+### Parallel Requests
+
+Don't fetch data sequentially:
+
+```tsx
+// Before: Sequential (slow)
+export async function getServerSideProps() {
+  const user = await fetch('/api/user');
+  const posts = await fetch('/api/posts');
+  const comments = await fetch('/api/comments');
+  
+  return { props: { user, posts, comments } };
+}
+
+// After: Parallel (fast)
+export async function getServerSideProps() {
+  const [user, posts, comments] = await Promise.all([
+    fetch('/api/user'),
+    fetch('/api/posts'),
+    fetch('/api/comments'),
+  ]);
+  
+  return { props: { user, posts, comments } };
+}
+```
+
+### API Route Optimization
+
+Use caching in API routes:
+
+```tsx
+// pages/api/data.ts
+export default async function handler(req, res) {
+  // Set cache headers
+  res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
+  
+  const data = await expensiveDataFetch();
+  res.status(200).json(data);
+}
+```
+
+## CSS and Styling
+
+### Critical CSS
+
+Extract critical CSS for above-the-fold content:
+
+```tsx
+// Use Tailwind's purge to remove unused styles
+// next.config.js
+module.exports = {
+  purge: ['./components/**/*.{js,ts,jsx,tsx}', './pages/**/*.{js,ts,jsx,tsx}'],
+};
+```
+
+### Font Optimization
+
+Preload critical fonts:
+
+```tsx
+// pages/_document.tsx
+import { Html, Head, Main, NextScript } from 'next/document';
+
+export default function Document() {
+  return (
+    <Html>
+      <Head>
+        <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </Head>
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  );
+}
+```
+
+## Monitoring Performance
+
+### Lighthouse CI
+
+Set up automated performance monitoring:
+
+```json
+// package.json
+{
+  "scripts": {
+    "lighthouse": "lhci autorun"
+  }
+}
+```
+
+### Real User Monitoring
+
+Track actual user performance:
+
+```tsx
+// pages/_app.tsx
+useEffect(() => {
+  if ('PerformanceObserver' in window) {
+    const observer = new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        if (entry.entryType === 'largest-contentful-paint') {
+          console.log('LCP:', entry.startTime);
+        }
+      }
+    });
+    observer.observe({ entryTypes: ['largest-contentful-paint'] });
+  }
+}, []);
+```
+
+## Quick Wins
+
+1. **Enable compression**: Next.js does this automatically
+2. **Use CDN**: Vercel provides global CDN
+3. **Minimize third-party scripts**: Load only when needed
+4. **Optimize fonts**: Use system fonts or preload web fonts
+5. **Lazy load components**: Use dynamic imports for heavy components
+
+## Performance Checklist
+
+- [ ] Use Next.js Image component for all images
+- [ ] Implement dynamic imports for heavy components
+- [ ] Set appropriate cache headers
+- [ ] Analyze bundle size regularly
+- [ ] Use parallel data fetching
+- [ ] Preload critical fonts and CSS
+- [ ] Monitor Core Web Vitals
+- [ ] Test on slow networks and devices
+
+Performance optimization is an ongoing process. Start with these strategies, measure the impact, and iterate based on real user data.
+
+---
+
+**Tags**: #Next.js #performance #optimization #web-development

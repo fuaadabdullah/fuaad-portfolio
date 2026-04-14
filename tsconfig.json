@@ -42,6 +42,7 @@
     "**/*.stories.ts",
     "**/*.stories.tsx",
     "components/design-system/stories/**/*",
-    ".storybook/**/*"
+    ".storybook/**/*",
+    "vitest.config.ts"
   ]
 }
