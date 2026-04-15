@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getClientIP } from '@/lib/ai/ip-detection';
-import { checkRateLimit, getRateLimitConfig } from '@/lib/ai/rate-limit';
-import { getCachedResponse, setCachedResponse, refreshCacheInBackground, getCacheConfig } from '@/lib/ai/cache';
-import { getCircuitBreakerStatus } from '@/lib/ai/circuit-breaker';
-import { tryProvidersWithCircuitBreaker } from '@/lib/ai/providers';
-import { optimizePrompt, enrichPrompt } from '@/lib/ai/prompt-utils';
-import { getFallbackResponse } from '@/lib/ai/responses';
+import { getClientIP } from '../../../lib/ai/ip-detection';
+import { checkRateLimit, getRateLimitConfig } from '../../../lib/ai/rate-limit';
+import { getCachedResponse, setCachedResponse, refreshCacheInBackground, getCacheConfig } from '../../../lib/ai/cache';
+import { getCircuitBreakerStatus } from '../../../lib/ai/circuit-breaker';
+import { tryProvidersWithCircuitBreaker } from '../../../lib/ai/providers';
+import { optimizePrompt, enrichPrompt } from '../../../lib/ai/prompt-utils';
+import { getFallbackResponse } from '../../../lib/ai/responses';
 
 export async function POST(request: NextRequest) {
   const { prompt } = await request.json();

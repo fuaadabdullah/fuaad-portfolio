@@ -28,6 +28,7 @@ describe("Contact API route", () => {
     createMock.mockReset();
     findManyMock.mockReset();
     createMock.mockResolvedValue({ id: "test-id" });
+    findManyMock.mockResolvedValue([]);
   });
 
   it("rejects invalid payloads with field errors", async () => {
@@ -109,5 +110,54 @@ describe("Contact API route", () => {
 
     expect(blocked.status).toBe(429);
     expect(data.error).toContain("Too many submissions");
+  });
+
+  it("rejects invalid ORDER BY values in GET query params", async () => {
+    const { GET } = await import("./route");
+
+    const request = new Request(
+      "http://localhost/api/contact?sortBy=createdAt;DROP TABLE ContactSubmission--&sortOrder=desc",
+      { method: "GET" }
+    );
+
+    const response = await GET(request as any);
+    const data = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(data.error).toBe("Invalid query parameters");
+    expect(findManyMock).not.toHaveBeenCalled();
+  });
+
+  it("rejects invalid WHERE email filters in GET query params", async () => {
+    const { GET } = await import("./route");
+
+    const request = new Request(
+      "http://localhost/api/contact?email=foo@example.com' OR 1=1 --",
+      { method: "GET" }
+    );
+
+    const response = await GET(request as any);
+
+    expect(response.status).toBe(400);
+    expect(findManyMock).not.toHaveBeenCalled();
+  });
+
+  it("uses allowlisted sort and validated where values in GET query params", async () => {
+    const { GET } = await import("./route");
+
+    const request = new Request(
+      "http://localhost/api/contact?sortBy=email&sortOrder=asc&limit=25&email=JANE@EXAMPLE.COM",
+      { method: "GET" }
+    );
+
+    const response = await GET(request as any);
+
+    expect(response.status).toBe(200);
+    expect(findManyMock).toHaveBeenCalledTimes(1);
+    expect(findManyMock.mock.calls[0][0]).toEqual({
+      where: { email: "jane@example.com" },
+      orderBy: { email: "asc" },
+      take: 25,
+    });
   });
 });

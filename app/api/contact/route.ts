@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { ContactFormSchema, sanitizeText } from '@/lib/validation';
+import { isRequestAuthorized } from '@/lib/auth';
+import { kv } from '@vercel/kv';
 import { z } from 'zod';
 
-// Track rate limiting per IP (in-memory, resets on restart)
-// In production, use Redis or a distributed rate limit service
-const submissionCounts = new Map<string, { count: number; resetTime: number }>();
+const ContactSubmissionsQuerySchema = z.object({
+  sortBy: z.enum(['createdAt', 'email', 'name']).default('createdAt'),
+  sortOrder: z.enum(['asc', 'desc']).default('desc'),
+  limit: z.coerce.number().int().min(1).max(100).default(100),
+});
 
 /**
  * Extract client IP from request headers
@@ -21,22 +25,24 @@ function getClientIp(request: NextRequest): string {
 
 /**
  * Check rate limit: max 5 submissions per 24 hours per IP
+ * Uses Vercel KV for persistent rate limiting across deployments
  */
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = submissionCounts.get(ip);
-
-  if (!entry || now > entry.resetTime) {
-    submissionCounts.set(ip, { count: 1, resetTime: now + 24 * 60 * 60 * 1000 });
+async function isRateLimited(ip: string): Promise<boolean> {
+  try {
+    const key = `ratelimit:contact:${ip}`;
+    const current = await kv.incr(key);
+    
+    // Set expiry on first increment
+    if (current === 1) {
+      await kv.expire(key, 86400); // 24 hours
+    }
+    
+    return current > 5;
+  } catch (error) {
+    console.error('Rate limit check failed:', error);
+    // Fail open on Redis error; don't block legitimate users
     return false;
   }
-
-  if (entry.count >= 5) {
-    return true;
-  }
-
-  entry.count++;
-  return false;
 }
 
 /**
@@ -53,8 +59,8 @@ export async function POST(request: NextRequest) {
     // Get client IP for rate limiting
     const clientIp = getClientIp(request);
 
-    // Check rate limit
-    if (isRateLimited(clientIp)) {
+    // Check rate limit (now async)
+    if (await isRateLimited(clientIp)) {
       return NextResponse.json(
         { error: 'Too many submissions. Please try again later.' },
         { status: 429 }
@@ -92,7 +98,8 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     // Handle validation errors
     if (error instanceof z.ZodError) {
-      const fieldErrors = error.errors.reduce<Record<string, string>>(
+      const zodError = error as z.ZodError;
+      const fieldErrors = zodError.issues.reduce<Record<string, string>>(
         (acc: Record<string, string>, err: any) => {
           const path = err.path.join('.');
           acc[path] = err.message;
@@ -120,23 +127,75 @@ export async function POST(request: NextRequest) {
 }
 
 /**
- * GET /api/contact (admin only, optional)
+ * GET /api/contact (admin only)
  * 
- * Fetch all contact submissions (requires admin authentication in production)
- * This is a basic example - add proper authentication/authorization before using
+ * Fetch all contact submissions with authentication required.
+ * Requires Bearer token via Authorization header.
+ * 
+ * Example:
+ * curl -H 'Authorization: Bearer YOUR_ADMIN_TOKEN' \
+ *   http://localhost:3000/api/contact?sortBy=createdAt&sortOrder=desc&limit=50
+ * 
+ * Query Parameters:
+ * - sortBy: 'createdAt' | 'email' | 'name' (default: 'createdAt')
+ * - sortOrder: 'asc' | 'desc' (default: 'desc')
+ * - limit: number 1-100 (default: 100)
  */
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    // TODO: Add authentication check here
-    // if (!isAdmin(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    // Verify admin authentication
+    const authHeader = request.headers.get('authorization');
+    
+    if (!isRequestAuthorized(authHeader)) {
+      return NextResponse.json(
+        { error: 'Unauthorized. Admin Bearer token required.' },
+        { 
+          status: 401,
+          headers: {
+            'WWW-Authenticate': 'Bearer realm="admin"'
+          }
+        }
+      );
+    }
 
-    const submissions = await prisma.contactSubmission.findMany({
-      orderBy: { createdAt: 'desc' },
-      take: 100, // Limit to last 100 submissions
+    const { searchParams } = new URL(request.url);
+    const parsedQuery = ContactSubmissionsQuerySchema.parse({
+      sortBy: searchParams.get('sortBy') ?? undefined,
+      sortOrder: searchParams.get('sortOrder') ?? undefined,
+      limit: searchParams.get('limit') ?? undefined,
     });
 
-    return NextResponse.json(submissions, { status: 200 });
+    const submissions = await prisma.contactSubmission.findMany({
+      orderBy: { [parsedQuery.sortBy]: parsedQuery.sortOrder },
+      take: parsedQuery.limit,
+    });
+
+    return NextResponse.json(
+      {
+        data: submissions,
+        count: submissions.length,
+        query: {
+          sortBy: parsedQuery.sortBy,
+          sortOrder: parsedQuery.sortOrder,
+          limit: parsedQuery.limit,
+        }
+      },
+      { status: 200 }
+    );
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { 
+          error: 'Invalid query parameters',
+          details: error.errors.map(e => ({
+            field: e.path.join('.'),
+            message: e.message
+          }))
+        },
+        { status: 400 }
+      );
+    }
+
     console.error('Failed to fetch submissions:', error);
     return NextResponse.json(
       { error: 'Failed to fetch submissions' },

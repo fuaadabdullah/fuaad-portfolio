@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:contact": "node test-contact-security.js",
+    "test:contact:prod": "BASE_URL=https://heyimfuaad.me node test-contact-security.js"
   },
   "dependencies": {
     "@prisma/client": "^5.20.0",
