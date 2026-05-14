@@ -1,0 +1,1 @@
+[[{"Pattern":"const nextConfig: NextConfig = \\{\\s*reactStrictMode: true,\\s*eslint: \\{\\s*ignoreDuringBuilds: true,\\s*\\},","Replacement":"const nextConfig: NextConfig = {\n  reactStrictMode: true,"}]]
