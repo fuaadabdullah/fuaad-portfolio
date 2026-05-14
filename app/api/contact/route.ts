@@ -2,8 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { ContactFormSchema, sanitizeText } from '@/lib/validation';
 import { isRequestAuthorized } from '@/lib/auth';
-import { kv } from '@vercel/kv';
 import { z } from 'zod';
+
+// Rate limiting state (in-memory fallback when Vercel KV is unavailable)
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 
 const ContactSubmissionsQuerySchema = z.object({
   sortBy: z.enum(['createdAt', 'email', 'name']).default('createdAt'),
@@ -25,24 +27,22 @@ function getClientIp(request: NextRequest): string {
 
 /**
  * Check rate limit: max 5 submissions per 24 hours per IP
- * Uses Vercel KV for persistent rate limiting across deployments
+ * Uses in-memory state with 24-hour TTL per IP
+ * TODO: Consider adding @vercel/kv for persistent rate limiting across deployments
  */
 async function isRateLimited(ip: string): Promise<boolean> {
-  try {
-    const key = `ratelimit:contact:${ip}`;
-    const current = await kv.incr(key);
-    
-    // Set expiry on first increment
-    if (current === 1) {
-      await kv.expire(key, 86400); // 24 hours
-    }
-    
-    return current > 5;
-  } catch (error) {
-    console.error('Rate limit check failed:', error);
-    // Fail open on Redis error; don't block legitimate users
+  const now = Date.now();
+  const limit = rateLimitMap.get(ip);
+  
+  // If no record or TTL expired, allow and create new limit
+  if (!limit || now >= limit.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + 24 * 60 * 60 * 1000 });
     return false;
   }
+  
+  // Increment count and check if over limit
+  limit.count++;
+  return limit.count > 5;
 }
 
 /**

@@ -1,1 +1,3 @@
-config/tailwind.config.ts
+import config from './config/tailwind.config';
+
+export default config;
