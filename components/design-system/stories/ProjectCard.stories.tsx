@@ -99,3 +99,42 @@ export const Featured: Story = {
     variant: 'featured',
   },
 };
+
+export const WithoutLinks: Story = {
+  args: {
+    project: {
+      ...sampleProject,
+      links: undefined,
+    },
+    variant: 'default',
+  },
+};
+
+export const WithoutProofMedia: Story = {
+  args: {
+    project: {
+      ...sampleProject,
+      proofMedia: undefined,
+    },
+    variant: 'default',
+  },
+};
+
+export const WithPendingMedia: Story = {
+  args: {
+    project: {
+      ...sampleProject,
+      proofMedia: [
+        {
+          type: "gif",
+          src: "pending:project-demo",
+          width: 1280,
+          height: 720,
+          alt: "Project demo (pending)",
+          status: "pending",
+        },
+      ],
+    },
+    variant: 'featured',
+  },
+};

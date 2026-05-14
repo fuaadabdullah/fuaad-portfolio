@@ -1,0 +1,36 @@
+#!/bin/sh
+# Pre-commit hook: Run typecheck and lint before allowing commits
+# Prevents dirty code from reaching the repository
+# Usage: Automatically runs on `git commit`
+# Override: `git commit --no-verify` (not recommended)
+
+set -e
+
+echo "🔍 Running pre-commit checks..."
+echo ""
+
+# Step 1: TypeScript type checking (fast, catches type errors early)
+echo "📋 Checking TypeScript types..."
+pnpm typecheck
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ TypeScript check failed. Fix type errors above before committing."
+  exit 1
+fi
+
+echo "✅ TypeScript types OK"
+echo ""
+
+# Step 2: ESLint (catches style, logic, and syntax issues)
+echo "🎨 Running ESLint..."
+pnpm lint
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ ESLint check failed. Fix linting errors above before committing."
+  echo "💡 Tip: Run 'pnpm lint -- --fix' to auto-fix some issues."
+  exit 1
+fi
+
+echo "✅ ESLint passed"
+echo ""
+echo "✅ All pre-commit checks passed! Proceeding with commit..."
