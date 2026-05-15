@@ -21,3 +21,9 @@ Recruiters and hiring managers need a fast way to evaluate technical range, proj
 - Add deeper observability to assistant endpoints.
 - Expand case-study measurement sections with before/after outcomes.
 - Continue tightening performance and accessibility budgets.
+
+## Backlog (real ones, not urgent)
+
+- E2E tests with Playwright. Valuable for confidence, but not urgent for a portfolio.
+- OpenAPI docs for assistant endpoints. Matters primarily if external developers start integrating with the API.
+- `CHANGELOG.md` discipline. Good project hygiene, low urgency right now.

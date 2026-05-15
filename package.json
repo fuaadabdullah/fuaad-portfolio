@@ -12,6 +12,10 @@
     "test:run": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest --coverage",
+    "e2e": "playwright test",
+    "e2e:headed": "playwright test --headed",
+    "e2e:ui": "playwright test --ui",
+    "e2e:report": "playwright show-report",
     "prepare": "husky",
     "test:contact": "node test-contact-security.js",
     "test:contact:prod": "BASE_URL=https://heyimfuaad.me node test-contact-security.js"
@@ -46,6 +50,7 @@
     "@types/react-dom": "^19.2.3",
     "@typescript/native-preview": "7.0.0-dev.20260514.1",
     "@vitejs/plugin-react": "^6.0.1",
+    "@playwright/test": "^1.56.1",
     "eslint-plugin-storybook": "10.4.0",
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
