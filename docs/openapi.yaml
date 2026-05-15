@@ -1,0 +1,468 @@
+openapi: 3.1.0
+info:
+  title: Fuaad Portfolio External API
+  version: 1.0.0
+  summary: External API contracts for assistant and contact endpoints
+  description: |
+    Public and external-facing API contracts for integrations.
+
+    Notes:
+    - Assistant responses may be cached and can be served stale while a background refresh runs.
+    - Contact submission retrieval is admin-only and requires a Bearer token.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: https://heyimfuaad.me
+    description: Production
+  - url: http://localhost:3000
+    description: Local development
+tags:
+  - name: assistant
+    description: Portfolio assistant endpoints
+  - name: contact
+    description: Contact form endpoints
+paths:
+  /api/ai:
+    post:
+      tags:
+        - assistant
+      security:
+        - {}
+      operationId: createAssistantReply
+      summary: Generate assistant reply
+      description: |
+        Accepts a prompt and returns an assistant reply.
+        Responses may be returned from cache and can indicate stale-while-revalidate behavior.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssistantRequest'
+            examples:
+              basic:
+                value:
+                  prompt: "What projects are highlighted in this portfolio?"
+      responses:
+        '200':
+          description: Reply generated or served from cache
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssistantReplyResponse'
+              examples:
+                fresh:
+                  value:
+                    reply: "The portfolio highlights product engineering and fintech-adjacent work."
+                    cached: false
+                cachedFresh:
+                  value:
+                    reply: "The portfolio highlights product engineering and fintech-adjacent work."
+                    cached: true
+                    stale: false
+                cachedStale:
+                  value:
+                    reply: "The portfolio highlights product engineering and fintech-adjacent work."
+                    cached: true
+                    stale: true
+                fallback:
+                  value:
+                    reply: "Sorry, something went wrong with the AI assistant. Please try again."
+                    cached: false
+        '400':
+          description: Missing or empty prompt
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Prompt is required
+        '429':
+          description: Rate limit exceeded for client IP
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Rate limit exceeded. Please try again later.
+    get:
+      tags:
+        - assistant
+      security:
+        - {}
+      operationId: getAssistantRuntimeStatus
+      summary: Get assistant runtime status
+      description: Returns monitoring metadata for circuit breakers, cache config, and rate-limit config.
+      responses:
+        '200':
+          description: Runtime status payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssistantRuntimeStatusResponse'
+        '500':
+          description: Unexpected runtime status retrieval error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Failed to load assistant runtime status
+  /api/contact:
+    post:
+      tags:
+        - contact
+      security:
+        - {}
+      operationId: createContactSubmission
+      summary: Submit contact form
+      description: Public endpoint for submitting contact messages.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactSubmissionRequest'
+            examples:
+              valid:
+                value:
+                  name: "Jane Doe"
+                  email: "jane@example.com"
+                  message: "I would like to discuss a project collaboration."
+      responses:
+        '201':
+          description: Contact submission accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactSubmissionCreatedResponse'
+              example:
+                message: Your message has been received. Thank you for reaching out!
+                id: c0f780bb-8371-4a95-8a4b-e6fa7f4d0c2c
+        '400':
+          description: Validation failed for one or more fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactValidationErrorResponse'
+              example:
+                error: Validation failed
+                details:
+                  email: Invalid email format
+        '429':
+          description: Too many submissions from this client IP
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Too many submissions. Please try again later.
+        '500':
+          description: Internal server error while saving submission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Failed to submit contact form. Please try again.
+    get:
+      tags:
+        - contact
+      operationId: listContactSubmissions
+      summary: List contact submissions (admin)
+      description: |
+        Admin-only endpoint to list contact submissions.
+        Requires `Authorization: Bearer <ADMIN_TOKEN>`.
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: sortBy
+          required: false
+          description: Field to sort by
+          schema:
+            type: string
+            enum: [createdAt, email, name]
+            default: createdAt
+        - in: query
+          name: sortOrder
+          required: false
+          description: Sort direction
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: desc
+        - in: query
+          name: limit
+          required: false
+          description: Number of results to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+      responses:
+        '200':
+          description: Contact submissions list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactSubmissionsResponse'
+        '400':
+          description: Invalid query parameter values
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactQueryValidationErrorResponse'
+              example:
+                error: Invalid query parameters
+                details:
+                  - field: limit
+                    message: Number must be less than or equal to 100
+        '401':
+          description: Missing or invalid admin bearer token
+          headers:
+            WWW-Authenticate:
+              description: Bearer auth challenge for admin realm
+              schema:
+                type: string
+                example: Bearer realm="admin"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Unauthorized. Admin Bearer token required.
+        '500':
+          description: Internal server error while fetching submissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Failed to fetch submissions
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque token
+  schemas:
+    AssistantRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - prompt
+      properties:
+        prompt:
+          type: string
+          minLength: 1
+          description: User prompt string
+          example: "Tell me about your engineering background."
+    AssistantReplyResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - reply
+      properties:
+        reply:
+          type: string
+          description: Assistant response text
+        cached:
+          type: boolean
+          description: True when served from cache
+        stale:
+          type: boolean
+          description: True when cached response is stale and a background refresh was triggered
+    CircuitBreakerState:
+      type: object
+      additionalProperties: false
+      required:
+        - state
+        - failures
+        - lastFailureTime
+        - nextAttemptTime
+      properties:
+        state:
+          type: string
+          enum: [CLOSED, OPEN, HALF_OPEN]
+        failures:
+          type: integer
+        lastFailureTime:
+          type: integer
+          description: Unix epoch milliseconds
+        nextAttemptTime:
+          type: integer
+          description: Unix epoch milliseconds
+    AssistantRuntimeStatusResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - circuitBreakers
+        - cache
+        - rateLimit
+      properties:
+        circuitBreakers:
+          type: object
+          description: Provider-specific circuit breaker states
+          additionalProperties:
+            $ref: '#/components/schemas/CircuitBreakerState'
+        cache:
+          type: object
+          additionalProperties: false
+          required:
+            - ttl
+            - staleWhileRevalidateTtl
+            - redisAvailable
+          properties:
+            ttl:
+              type: integer
+              description: Cache TTL in seconds
+            staleWhileRevalidateTtl:
+              type: integer
+              description: Stale-while-revalidate threshold in seconds
+            redisAvailable:
+              type: boolean
+        rateLimit:
+          type: object
+          additionalProperties: false
+          required:
+            - maxRequestsPerMinute
+          properties:
+            maxRequestsPerMinute:
+              type: integer
+    ContactSubmissionRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - name
+        - email
+        - message
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: "^[a-zA-Z\\s'-]*$"
+          description: Letters, spaces, hyphens, and apostrophes only
+          example: Jane Doe
+        email:
+          type: string
+          format: email
+          maxLength: 255
+          example: jane@example.com
+        message:
+          type: string
+          minLength: 1
+          maxLength: 5000
+          example: I would like to discuss collaboration.
+    ContactSubmissionCreatedResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - message
+        - id
+      properties:
+        message:
+          type: string
+        id:
+          type: string
+    ContactSubmission:
+      type: object
+      required:
+        - id
+        - name
+        - email
+        - message
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        message:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    ContactSubmissionsResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - data
+        - count
+        - query
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactSubmission'
+        count:
+          type: integer
+        query:
+          type: object
+          additionalProperties: false
+          required:
+            - sortBy
+            - sortOrder
+            - limit
+          properties:
+            sortBy:
+              type: string
+              enum: [createdAt, email, name]
+            sortOrder:
+              type: string
+              enum: [asc, desc]
+            limit:
+              type: integer
+    ContactValidationErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - error
+        - details
+      properties:
+        error:
+          type: string
+        details:
+          type: object
+          additionalProperties:
+            type: string
+    ContactQueryValidationErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - error
+        - details
+      properties:
+        error:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required:
+              - field
+              - message
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - error
+      properties:
+        error:
+          type: string

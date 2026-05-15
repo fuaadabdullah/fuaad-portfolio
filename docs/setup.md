@@ -36,6 +36,27 @@ pnpm lint
 pnpm test:run
 ```
 
+## External API docs
+
+Use these docs only if you are integrating with the project APIs:
+
+- Human guide: [API.md](API.md)
+- Machine contract: [openapi.yaml](openapi.yaml)
+
+Quick local checks:
+
+```bash
+curl -sS -X POST "http://localhost:3000/api/ai" \
+	-H "Content-Type: application/json" \
+	-d '{"prompt":"Summarize this portfolio in one sentence."}'
+```
+
+```bash
+curl -sS -X POST "http://localhost:3000/api/contact" \
+	-H "Content-Type: application/json" \
+	-d '{"name":"Jane Doe","email":"jane@example.com","message":"Hello"}'
+```
+
 ## Generate resume PDF
 
 ```bash

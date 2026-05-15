@@ -37,18 +37,42 @@ pnpm lint
 pnpm test:run
 ```
 
+## E2E tests (Playwright)
+
+```bash
+pnpm exec playwright install chromium
+pnpm e2e
+```
+
+Optional debug commands:
+
+```bash
+pnpm e2e:headed
+pnpm e2e:ui
+pnpm e2e:report
+```
+
+Current E2E scope (MVP):
+
+- Route smoke checks for `/`, `/portfolio`, `/resume`, `/contact`, `/cv`
+- Contact form happy-path submission (mocked `/api/contact` for deterministic UI validation)
+- Resume and CV PDF link and response validation
+
 ## Key routes
 
 - `/` home
 - `/portfolio` project index
 - `/resume` resume page
-- `/api-docs` API documentation
+- `/api/ai` assistant endpoint
+- `/api/contact` contact endpoint
 
 ## Docs
 
 - [Architecture](docs/architecture.md)
 - [Setup](docs/setup.md)
 - [Impact](docs/impact.md)
+- [External API Guide](docs/API.md)
+- [OpenAPI Spec](docs/openapi.yaml)
 
 ## Contact
 
