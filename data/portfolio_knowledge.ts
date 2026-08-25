@@ -29,7 +29,7 @@ export const faq: FaqEntry[] = [
   },
   {
     trigger: ["goblin tech stack", "goblinos tech stack", "goblin assistant tech stack", "what's your tech stack for goblinos"],
-    answer: "GoblinOS Assistant uses a FastAPI backend, Next.js frontend, TypeScript, Tailwind CSS, PostgreSQL, Redis, Cloudflare, Docker, Terraform, Fly.io, and Vercel. The focus is multi-provider routing, privacy-first behavior, and clear observability across the stack."
+    answer: "GoblinOS Assistant uses a FastAPI backend, Next.js frontend, TypeScript, Tailwind CSS, PostgreSQL, Redis, Docker, Fly.io, and Vercel. The focus is multi-provider routing, privacy-first behavior, and clear observability across the stack."
   },
   {
     trigger: ["rizzk", "rizzk calculator", "position sizing", "risk calculator"],
@@ -37,7 +37,7 @@ export const faq: FaqEntry[] = [
   },
   {
     trigger: ["goblin", "goblinos", "goblin assistant"],
-    answer: "GoblinOS Assistant is a multi-provider, privacy-first AI assistant with observable routing. It combines a FastAPI backend with a Next.js and TypeScript frontend, adds PostgreSQL and Redis for state and caching, and uses Cloudflare, Docker, Terraform, Fly.io, and Vercel for deployment and infrastructure."
+    answer: "GoblinOS Assistant is a multi-provider, privacy-first AI assistant with observable routing. It combines a FastAPI backend with a Next.js and TypeScript frontend, adds PostgreSQL and Redis for state and caching, and and uses Docker, Fly.io, and Vercel for deployment and infrastructure."
   },
   {
     trigger: ["portfolio tech stack", "portfolio site tech stack", "tech stack for the portfolio", "what powers this site"],
@@ -77,7 +77,7 @@ export const faq: FaqEntry[] = [
   },
   {
     trigger: ["tech stack", "built with", "tech"],
-    answer: "The stack depends on the project. Recent work across the portfolio uses Next.js, TypeScript, Tailwind CSS, FastAPI, Python, PostgreSQL, Redis, Docker, Terraform, Azure, Fly.io, Vercel, and Hugging Face Spaces."
+    answer: "The stack depends on the project. Recent work across the portfolio uses Next.js, TypeScript, Tailwind CSS, FastAPI, Python, PostgreSQL, Redis, Docker, Azure, Fly.io, Vercel, and Hugging Face Spaces."
   },
   {
     trigger: ["contact", "reach you", "email"],

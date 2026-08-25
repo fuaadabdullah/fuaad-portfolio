@@ -8,7 +8,7 @@ export const dynamic = "force-static";
 export const revalidate = 3600; // Revalidate every hour
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://heyimfuaad.me";
   const defaultBlogSlugs = [
     "goblinos-assistant-release",
     "portfolio-v1-release",

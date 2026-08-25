@@ -5,7 +5,6 @@ import ProjectResultChips from "@/components/ProjectResultChips";
 import GoblinArchitectureDiagram from "@/components/case-study/GoblinArchitectureDiagram";
 import GoblinRoutingSequence from "@/components/case-study/GoblinRoutingSequence";
 import ProductionObservability from "@/components/case-study/ProductionObservability";
-import IncidentPostmortemCard from "@/components/case-study/IncidentPostmortemCard";
 import AtScalePlan from "@/components/case-study/AtScalePlan";
 import { Project } from "@/data/projects";
 
@@ -105,7 +104,7 @@ export default function GoblinCaseStudy({ project }: { project: Project }) {
       {project.routingSequence && (
         <section className="mb-14">
           <SectionLabel>Request lifecycle</SectionLabel>
-          <SectionHeading>Provider routing: the failover path</SectionHeading>
+          <SectionHeading>Provider routing: the failover branch</SectionHeading>
           <p className="mt-4 mb-6 leading-relaxed text-white/75">{project.routingSequence}</p>
           <GoblinRoutingSequence />
         </section>
@@ -118,17 +117,6 @@ export default function GoblinCaseStudy({ project }: { project: Project }) {
           <SectionHeading>Production observability</SectionHeading>
           <div className="mt-4">
             <ProductionObservability observability={project.observability} />
-          </div>
-        </section>
-      )}
-
-      {/* Hard production problem */}
-      {project.incidentPostmortem && (
-        <section className="mb-14">
-          <SectionLabel>One difficult production problem</SectionLabel>
-          <SectionHeading>Incident postmortem</SectionHeading>
-          <div className="mt-4">
-            <IncidentPostmortemCard postmortem={project.incidentPostmortem} />
           </div>
         </section>
       )}

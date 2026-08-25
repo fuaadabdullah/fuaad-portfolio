@@ -49,9 +49,9 @@ This project represents a significant step forward in building production-ready 
 - **Accessibility**: WCAG 2.2 AA compliant
 
 ### Infrastructure
-- **Backend**: Cloudflare Workers for edge deployment
+- **Backend**: FastAPI containerized with Docker on Fly.io
 - **Frontend**: Vercel for optimal performance
-- **Database**: Optional Redis for caching and session management
+- **Data**: Redis for caching and session management
 - **Monitoring**: Custom metrics and health endpoints
 - **CI/CD**: GitHub Actions with automated testing
 
@@ -105,9 +105,9 @@ OLLAMA_BASE_URL=http://localhost:11434
 ```
 
 ### Deployment
-- **Backend**: Deploy to Cloudflare Workers
+- **Backend**: Deploy the Dockerized FastAPI service (e.g. Fly.io)
 - **Frontend**: Deploy to Vercel
-- **Infrastructure**: Terraform for reproducible deployments
+- **Infrastructure**: Docker for reproducible runtime environments
 
 ## 🎨 User Experience
 
@@ -162,7 +162,7 @@ Areas where help is especially welcome:
 ### Technical Skills Developed
 - **Full-stack development** with modern frameworks
 - **API design** and multi-provider architecture
-- **Infrastructure as Code** with Terraform
+- **Containerized deployments** with Docker
 - **Performance optimization** and monitoring
 - **Security best practices** for AI applications
 

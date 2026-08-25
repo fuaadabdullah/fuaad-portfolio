@@ -20,8 +20,8 @@ export default function GoblinArchitectureDiagram() {
       >
         <title id="goblin-arch-title">GoblinOS Assistant deployment topology</title>
         <desc id="goblin-arch-desc">
-          Browser traffic enters through the Cloudflare edge, hits the Next.js app on Vercel whose
-          route-handler proxy forwards requests to the FastAPI gateway on Fly.io or Render. The
+          Browser traffic enters the Next.js app on Vercel whose route-handler proxy forwards
+          requests to the FastAPI gateway running as a container on Fly.io. The
           gateway reads routing strategy and provider health from Redis, persists durable records to
           PostgreSQL, and calls the LLM provider pool. Telemetry flows back to the UI status panels.
         </desc>
@@ -59,18 +59,7 @@ export default function GoblinArchitectureDiagram() {
           chat session
         </text>
 
-        <line x1="480" y1="78" x2="480" y2="116" stroke={arrowStroke} strokeWidth="1.5" markerEnd="url(#goblin-arch-arrow)" />
-
-        {/* Cloudflare */}
-        <rect x="370" y="118" width="220" height="54" rx="10" fill={boxFill} stroke={boxStroke} />
-        <text x="480" y="142" textAnchor="middle" fontSize="14" fontWeight="600" fill={titleFill}>
-          Cloudflare edge
-        </text>
-        <text x="480" y="160" textAnchor="middle" fontSize="11" fill={subFill}>
-          edge cache · rate control
-        </text>
-
-        <line x1="480" y1="172" x2="480" y2="210" stroke={arrowStroke} strokeWidth="1.5" markerEnd="url(#goblin-arch-arrow)" />
+        <line x1="480" y1="78" x2="480" y2="210" stroke={arrowStroke} strokeWidth="1.5" markerEnd="url(#goblin-arch-arrow)" />
 
         {/* Vercel / Next.js */}
         <rect x="250" y="212" width="460" height="104" rx="12" fill={boxFill} stroke={boxStroke} />
@@ -97,7 +86,7 @@ export default function GoblinArchitectureDiagram() {
         {/* FastAPI gateway */}
         <rect x="250" y="372" width="460" height="116" rx="12" fill={boxFill} stroke={boxStroke} />
         <text x="480" y="398" textAnchor="middle" fontSize="14" fontWeight="600" fill={titleFill}>
-          Fly.io / Render — FastAPI gateway
+          Fly.io — FastAPI gateway
         </text>
         <rect x="270" y="412" width="200" height="56" rx="8" fill={chipFill} stroke={chipStroke} strokeOpacity="0.5" />
         <text x="370" y="434" textAnchor="middle" fontSize="12" fontWeight="600" fill={titleFill}>
@@ -184,7 +173,7 @@ export default function GoblinArchitectureDiagram() {
 
         {/* Footnote */}
         <text x="480" y="692" textAnchor="middle" fontSize="12" fill="rgba(255,255,255,0.45)">
-          Docker images + Terraform keep every layer reproducible across environments.
+          Docker keeps every layer reproducible across environments.
         </text>
       </svg>
     </figure>
