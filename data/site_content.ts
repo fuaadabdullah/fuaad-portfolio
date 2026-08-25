@@ -58,8 +58,8 @@ export const blogContent: ContentEntry[] = [
       "Multi-provider routing with intelligent selection",
       "FastAPI backend (Python)",
       "Next.js frontend (React/TypeScript)",
-      "Cloudflare edge + Vercel frontend",
-      "Docker + Terraform infrastructure"
+      "Vercel frontend + Fly.io backend",
+      "Docker-based infrastructure"
     ]
   }
 ];
@@ -87,8 +87,8 @@ export const projectContent: ContentEntry[] = [
       "Multi-provider routing with intelligent selection",
       "FastAPI backend (Python)",
       "Next.js frontend (React/TypeScript)",
-      "Cloudflare edge + Vercel frontend",
-      "Docker + Terraform infrastructure",
+      "Vercel frontend + Fly.io backend",
+      "Docker-based infrastructure",
       "Canonical repository: github.com/fuaadabdullah/goblin-assistant"
     ]
   },

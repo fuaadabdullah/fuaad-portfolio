@@ -99,7 +99,7 @@ const projects: Project[] = [
       "A multi-provider, privacy-first AI assistant with observable routing.",
     description: `GoblinOS Assistant is a multi-provider, privacy-first AI assistant with intelligent model routing.
 
-The interface pairs chat with live system status panels so you can see provider health, latency, and routing behavior at a glance. The backend is FastAPI (Python) with a SQL data layer, while the frontend is built in Next.js (React/TypeScript) with Tailwind CSS. Deployment uses Vercel for the UI with Cloudflare at the edge, and Docker + Terraform keep infrastructure repeatable.`,
+The interface pairs chat with live system status panels so you can see provider health, latency, and routing behavior at a glance. The backend is FastAPI (Python) with a SQL data layer, while the frontend is built in Next.js (React/TypeScript) with Tailwind CSS. Deployment uses Vercel for the UI with the FastAPI backend running as a container on Fly.io, and Docker keeps the runtime reproducible.`,
     tech: [
       "FastAPI",
       "Python",
@@ -108,9 +108,7 @@ The interface pairs chat with live system status panels so you can see provider 
       "Tailwind CSS",
       "PostgreSQL",
       "Redis",
-      "Cloudflare",
       "Docker",
-      "Terraform",
       "Fly.io",
       "Vercel",
     ],
@@ -200,7 +198,7 @@ The interface pairs chat with live system status panels so you can see provider 
       "Cost tracking and usage visibility by provider",
       "FastAPI backend with structured, typed API surface",
       "Next.js frontend in TypeScript with Tailwind CSS",
-      "Cloudflare edge + Docker/Terraform infrastructure",
+"Docker-based deployment across Vercel and Fly.io",
     ],
     challenges: [
       "Keeping routing behavior explainable while supporting multiple providers",
@@ -212,14 +210,13 @@ The interface pairs chat with live system status panels so you can see provider 
       "Routing logic needs visibility (status panels) to be trustworthy",
       "Type-safe contracts reduce frontend/backend drift",
       "Cost visibility changes how routing rules are tuned",
-      "Infra-as-code keeps deployments reproducible",
+      "Containerized infrastructure keeps deployments reproducible",
     ],
     architectureHighlights: [
       "FastAPI backend with typed request/response contracts and modular provider routing.",
       "PostgreSQL for durable records plus Redis for fast cache and transient state.",
       "Observable status panels surface routing decisions, provider health, and latency.",
-      "Cloudflare edge in front of UI/API paths to improve resilience and traffic control.",
-      "Docker + Terraform keep runtime and infra changes reproducible across environments.",
+      "Docker keeps runtime changes reproducible across environments.",
       "Fly.io + Vercel split workload concerns between backend runtime and frontend delivery.",
     ],
     problem:
@@ -227,13 +224,13 @@ The interface pairs chat with live system status panels so you can see provider 
     audienceAndStakes:
       "Developers and power users who want a controllable assistant with dependable routing and clear system status.",
     approach:
-      "Built a FastAPI backend with a Next.js UI, surfaced status panels alongside chat, and deployed with Vercel, Fly.io, and Cloudflare. Docker + Terraform keep environments repeatable.",
+      "Built a FastAPI backend with a Next.js UI, surfaced status panels alongside chat, and and deployed with Vercel for the frontend and Fly.io for the containerized backend. Docker keeps environments repeatable.",
     tradeoffs:
       "The most consequential call was adding a dedicated FastAPI routing gateway instead of calling providers directly from Next.js route handlers. A direct-call approach would have been simpler — one fewer service, one fewer network hop, no inter-service auth to maintain — and it would have shipped faster. The gateway adds 15–30ms per request under normal conditions. The trade-off that justified it: the gateway is the single owner of routing strategy, provider health scoring, response normalization, and cost telemetry. Without it, that logic lives in Next.js serverless functions — stateless, short-lived, unable to maintain circuit-breaker state across requests. The latency cost is real and measurable. Routing logic scattered across stateless functions without shared state was exactly the failure mode I was building against, which the failover-stampede incident later confirmed.",
     impact:
       "A production-ready foundation for a provider-agnostic assistant with transparent routing and cost visibility.",
     architectureDiagram:
-      "The system runs as three deployment layers: a Cloudflare edge in front of a Vercel-hosted Next.js client whose route handlers proxy to a FastAPI gateway running on Fly.io/Render. The gateway owns routing strategy, provider health scoring, and response normalization; PostgreSQL keeps durable records while Redis holds cache, session, and provider-health state.",
+      "The system runs as two deployment layers: a Vercel-hosted Next.js client whose route handlers proxy to a FastAPI gateway running as a container on Fly.io. The gateway owns routing strategy, provider health scoring, and response normalization; PostgreSQL keeps durable records while Redis holds cache, session, and provider-health state.",
     routingSequence:
       "Every chat turn follows the same path: a typed contract from the UI, an internal-key-authenticated hop to the gateway, strategy and health evaluation, the provider call, and a normalized response that carries telemetry back to the status panels. This sequence shows the failover branch — what actually happens when the primary provider rate-limits mid-burst.",
     observability: {
