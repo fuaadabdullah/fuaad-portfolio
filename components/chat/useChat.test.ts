@@ -127,6 +127,10 @@ describe('useChat Hook', () => {
       from: 'bot',
       text: 'Hello from AI!',
     });
+    expect(fetchMock).toHaveBeenCalledWith(
+      '/api/mock-ai',
+      expect.objectContaining({ method: 'POST' })
+    );
 
     vi.useFakeTimers();
   });

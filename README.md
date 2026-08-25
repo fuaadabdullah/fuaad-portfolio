@@ -6,7 +6,7 @@ Production portfolio for Fuaad Abdullah, focused on employer-ready project prese
 
 - Presents selected engineering and fintech-adjacent projects with clear business and technical context.
 - Publishes a resume page and downloadable PDF for applications and recruiter outreach.
-- Includes lightweight portfolio assistant endpoints and public API docs.
+- Includes a lightweight public portfolio assistant plus authenticated admin API docs.
 
 ## Screenshots
 
@@ -25,31 +25,31 @@ Production portfolio for Fuaad Abdullah, focused on employer-ready project prese
 ## Quickstart
 
 ```bash
-pnpm install
-pnpm dev
+corepack pnpm install
+corepack pnpm dev
 ```
 
 ## Quality checks
 
 ```bash
-pnpm typecheck
-pnpm lint
-pnpm test:run
+corepack pnpm typecheck
+corepack pnpm lint
+corepack pnpm test
 ```
 
 ## E2E tests (Playwright)
 
 ```bash
-pnpm exec playwright install chromium
-pnpm e2e
+corepack pnpm exec playwright install chromium
+corepack pnpm e2e
 ```
 
 Optional debug commands:
 
 ```bash
-pnpm e2e:headed
-pnpm e2e:ui
-pnpm e2e:report
+corepack pnpm e2e:headed
+corepack pnpm e2e:ui
+corepack pnpm e2e:report
 ```
 
 Current E2E scope (MVP):
@@ -63,7 +63,8 @@ Current E2E scope (MVP):
 - `/` home
 - `/portfolio` project index
 - `/resume` resume page
-- `/api/ai` assistant endpoint
+- `/api/mock-ai` public portfolio assistant
+- `/api/ai` authenticated provider-backed assistant/admin endpoint
 - `/api/contact` contact endpoint
 
 ## Docs

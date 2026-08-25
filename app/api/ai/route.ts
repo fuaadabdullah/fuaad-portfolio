@@ -6,8 +6,14 @@ import { getCircuitBreakerStatus } from '../../../lib/ai/circuit-breaker';
 import { tryProvidersWithCircuitBreaker } from '../../../lib/ai/providers';
 import { optimizePrompt, enrichPrompt } from '../../../lib/ai/prompt-utils';
 import { getFallbackResponse } from '../../../lib/ai/responses';
+import { isRequestAuthorized } from '@/lib/auth';
+import { unauthorizedAdminResponse } from '@/lib/admin-response';
 
 export async function POST(request: NextRequest) {
+  if (!isRequestAuthorized(request.headers.get('authorization'))) {
+    return unauthorizedAdminResponse();
+  }
+
   const { prompt } = await request.json();
 
   if (!prompt?.trim()) {
@@ -79,7 +85,11 @@ export async function POST(request: NextRequest) {
 }
 
 // Circuit breaker status endpoint for monitoring
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!isRequestAuthorized(request.headers.get('authorization'))) {
+    return unauthorizedAdminResponse();
+  }
+
   return NextResponse.json({
     circuitBreakers: getCircuitBreakerStatus(),
     cache: await getCacheConfig(),

@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/og";
 import projects from "@/data/projects";
 
-export const runtime = "edge";
 export const alt = "Project Details";
 export const size = {
   width: 1200,
@@ -38,14 +37,14 @@ export default async function Image({ params }: Props) {
         <div tw="absolute bottom-[-10%] left-[-5%] w-[450px] h-[450px] rounded-full bg-blue-500/15 blur-2xl" />
 
         {/* Content */}
-        <div tw="flex flex-col gap-5 z-10 max-w-[1050px]">
+        <div tw="flex flex-col gap-5 max-w-[1050px]">
           <div tw="text-[56px]">📊</div>
           <div tw="text-[76px] font-black leading-[1.05] tracking-[-0.03em] drop-shadow">{project.title}</div>
           <div tw="text-[34px] text-white/85 leading-snug max-w-[950px]">{project.tagline}</div>
         </div>
 
         {/* Bottom: Tech + Branding */}
-        <div tw="flex flex-col gap-6 z-10 w-full">
+        <div tw="flex flex-col gap-6 w-full">
           <div tw="flex flex-wrap gap-3">
             {project.tech.slice(0, 6).map((tech) => (
               <div

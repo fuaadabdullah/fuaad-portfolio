@@ -1,5 +1,6 @@
 export interface Project {
   slug: string;
+  featured?: boolean;
   category?: "personal" | "customer";
   title: string;
   tagline: string;
@@ -8,6 +9,8 @@ export interface Project {
   tech: string[];
   links?: { live?: string; source?: string };
   proofMedia?: ProofMediaItem[];
+  /** When true, no interactive demo was captured — shown honestly, never fabricated. */
+  missingDemoEvidence?: boolean;
   image?: {
     src: string;
     width: number;
@@ -33,6 +36,12 @@ export interface Project {
   approach?: string;
   tradeoffs?: string;
   impact?: string;
+  // Flagship case study extensions (currently GoblinOS)
+  architectureDiagram?: string;
+  routingSequence?: string;
+  observability?: ObservabilitySection;
+  incidentPostmortem?: IncidentPostmortem;
+  atScale?: AtScaleSection;
 }
 
 export interface ResultMetric {
@@ -40,6 +49,8 @@ export interface ResultMetric {
   value: string;
   sourceLabel: string;
   timeframe?: string;
+  /** Optional link to verifiable evidence for this metric. */
+  proof?: { href: string; label: string };
 }
 
 export interface ProofMediaItem {
@@ -51,14 +62,271 @@ export interface ProofMediaItem {
   status: "ready" | "pending";
 }
 
+export interface ObservabilityShot {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  caption: string;
+}
+
+export interface ObservabilitySection {
+  intro: string;
+  shots: ObservabilityShot[];
+}
+
+export interface IncidentPostmortem {
+  title: string;
+  summary: string;
+  symptom: string;
+  detection: string;
+  rootCause: string[];
+  fix: string[];
+  aftermath: string;
+}
+
+export interface AtScaleSection {
+  intro: string;
+  items: { change: string; why: string }[];
+}
+
 const projects: Project[] = [
   {
+    slug: "goblin-assistant",
+    featured: true,
+    title: "GoblinOS Assistant",
+    tagline:
+      "A multi-provider, privacy-first AI assistant with observable routing.",
+    description: `GoblinOS Assistant is a multi-provider, privacy-first AI assistant with intelligent model routing.
+
+The interface pairs chat with live system status panels so you can see provider health, latency, and routing behavior at a glance. The backend is FastAPI (Python) with a SQL data layer, while the frontend is built in Next.js (React/TypeScript) with Tailwind CSS. Deployment uses Vercel for the UI with Cloudflare at the edge, and Docker + Terraform keep infrastructure repeatable.`,
+    tech: [
+      "FastAPI",
+      "Python",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "Redis",
+      "Cloudflare",
+      "Docker",
+      "Terraform",
+      "Fly.io",
+      "Vercel",
+    ],
+    links: {
+      live: "https://goblin-assistant.vercel.app",
+      source: "https://github.com/fuaadabdullah/goblin-assistant",
+    },
+    results: [
+      {
+        label: "deployment layers integrated",
+        value: "3",
+        sourceLabel: "deployment architecture",
+      },
+      {
+        label: "observable workflow views",
+        value: "4",
+        sourceLabel: "product walkthrough",
+      },
+      {
+        label: "core technologies shipped",
+        value: "12",
+        sourceLabel: "stack inventory",
+      },
+    ],
+    proofMedia: [
+      {
+        type: "gif",
+        src: "/projects/demos/goblin-assistant-demo.gif",
+        width: 1280,
+        height: 800,
+        alt: "GoblinOS live control panel — status board with live indicators, rotating 'Currently running' domain tag, live chat preview, and a health badge toggling between Degraded and OK",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "/projects/goblin-assistant-main-interface.png",
+        width: 1280,
+        height: 850,
+        alt: "Goblin Assistant main interface",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "/projects/goblin-live-control-panel.png",
+        width: 1280,
+        height: 800,
+        alt: "GoblinOS production control panel with live component status",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "/projects/goblinos-chat-workflow.webp",
+        width: 1280,
+        height: 808,
+        alt: "GoblinOS Assistant chat workflow",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "/projects/goblin-live-agent.png",
+        width: 1280,
+        height: 800,
+        alt: "GoblinOS agent workflow execution page",
+        status: "ready",
+      },
+    ],
+    image: {
+      src: "/projects/goblin-assistant-main-interface.png",
+      width: 1280,
+      height: 850,
+      alt: "Goblin Assistant home screen with navigation and quick actions",
+    },
+    gallery: [
+      {
+        src: "/projects/goblin-assistant-main-interface.png",
+        width: 1280,
+        height: 850,
+        alt: "Goblin Assistant chat and status panels in the main product view",
+      },
+    ],
+    timeline: "Ongoing",
+    role: "Solo Developer",
+    features: [
+      "Chat interface paired with live system status panels",
+      "Multi-provider routing with observable decision signals",
+      "Workflow execution and orchestration tools",
+      "Cost tracking and usage visibility by provider",
+      "FastAPI backend with structured, typed API surface",
+      "Next.js frontend in TypeScript with Tailwind CSS",
+      "Cloudflare edge + Docker/Terraform infrastructure",
+    ],
+    challenges: [
+      "Keeping routing behavior explainable while supporting multiple providers",
+      "Surfacing system status without overwhelming the core chat UX",
+      "Maintaining a clean API contract between FastAPI and the UI",
+      "Balancing privacy-first defaults with practical routing flexibility",
+    ],
+    learnings: [
+      "Routing logic needs visibility (status panels) to be trustworthy",
+      "Type-safe contracts reduce frontend/backend drift",
+      "Cost visibility changes how routing rules are tuned",
+      "Infra-as-code keeps deployments reproducible",
+    ],
+    architectureHighlights: [
+      "FastAPI backend with typed request/response contracts and modular provider routing.",
+      "PostgreSQL for durable records plus Redis for fast cache and transient state.",
+      "Observable status panels surface routing decisions, provider health, and latency.",
+      "Cloudflare edge in front of UI/API paths to improve resilience and traffic control.",
+      "Docker + Terraform keep runtime and infra changes reproducible across environments.",
+      "Fly.io + Vercel split workload concerns between backend runtime and frontend delivery.",
+    ],
+    problem:
+      "Single-provider assistants are brittle and hard to control; this needed to be multi-provider, privacy-first, and observable.",
+    audienceAndStakes:
+      "Developers and power users who want a controllable assistant with dependable routing and clear system status.",
+    approach:
+      "Built a FastAPI backend with a Next.js UI, surfaced status panels alongside chat, and deployed with Vercel, Fly.io, and Cloudflare. Docker + Terraform keep environments repeatable.",
+    tradeoffs:
+      "The most consequential call was adding a dedicated FastAPI routing gateway instead of calling providers directly from Next.js route handlers. A direct-call approach would have been simpler — one fewer service, one fewer network hop, no inter-service auth to maintain — and it would have shipped faster. The gateway adds 15–30ms per request under normal conditions. The trade-off that justified it: the gateway is the single owner of routing strategy, provider health scoring, response normalization, and cost telemetry. Without it, that logic lives in Next.js serverless functions — stateless, short-lived, unable to maintain circuit-breaker state across requests. The latency cost is real and measurable. Routing logic scattered across stateless functions without shared state was exactly the failure mode I was building against, which the failover-stampede incident later confirmed.",
+    impact:
+      "A production-ready foundation for a provider-agnostic assistant with transparent routing and cost visibility.",
+    architectureDiagram:
+      "The system runs as three deployment layers: a Cloudflare edge in front of a Vercel-hosted Next.js client whose route handlers proxy to a FastAPI gateway running on Fly.io/Render. The gateway owns routing strategy, provider health scoring, and response normalization; PostgreSQL keeps durable records while Redis holds cache, session, and provider-health state.",
+    routingSequence:
+      "Every chat turn follows the same path: a typed contract from the UI, an internal-key-authenticated hop to the gateway, strategy and health evaluation, the provider call, and a normalized response that carries telemetry back to the status panels. This sequence shows the failover branch — what actually happens when the primary provider rate-limits mid-burst.",
+    observability: {
+      intro:
+        "Routing logic you can't see is routing logic you can't trust. The deployed app leads with a live control panel — component health, routing status, and audit logs with a freshness timestamp — captured here from production. These are captures of the real system, not mockups.",
+      shots: [
+        {
+          src: "/projects/goblin-live-control-panel.png",
+          width: 1280,
+          height: 800,
+          alt: "GoblinOS Assistant production control panel showing live status for models, routing, and sandbox components",
+          caption:
+            "Production control panel — live component health reported in-product: Models ok, Routing ok, Sandbox degraded, with a refresh action and audit-log surface. This capture is from the deployed system at a moment when a component was actually degraded — which is exactly what this panel is for.",
+        },
+        {
+          src: "/projects/goblin-live-chat.png",
+          width: 1280,
+          height: 800,
+          alt: "GoblinOS Assistant chat workspace with guest mode, saved threads, and live tools",
+          caption:
+            "Chat workspace — the primary surface. Threads, tool routing across chat/search/sandbox/admin panels, and guest-mode access so the demo works without an account.",
+        },
+        {
+          src: "/projects/goblin-live-agent.png",
+          width: 1280,
+          height: 800,
+          alt: "GoblinOS Assistant agent workflow execution page showing task intake, worker status, logs, and PR review flow",
+          caption:
+            "Agent workflow execution — task intake normalizes UI requests and GitHub issues into one task record; a Fly.io worker runs Aider, tests, and the PR flow while status, logs, and artifacts are tracked per task. Observability extends past chat into orchestration.",
+        },
+      ],
+    },
+    incidentPostmortem: {
+      title: "The failover stampede — when the resilience logic caused the outage",
+      summary:
+        "A burst of 429s from the primary provider triggered the exact failover path built for resilience — and the failover itself took the app down. The router treated rate-limit responses like outages, flipped the primary's health flag, and moved 100% of traffic to the standby, which then hit its own limits. Both providers were healthy; the routing logic wasn't.",
+      symptom:
+        "During a traffic burst, chat latency spiked and error rates climbed. The status panel showed the primary provider amber, then the standby amber within roughly 90 seconds — the router had failed over, then failed its own failover.",
+      detection:
+        "The observability panels caught it before any user report: telemetry showed 429s on both providers simultaneously while both providers' status pages were green — the tell that this was self-inflicted, not an upstream outage.",
+      rootCause: [
+        "429 (rate limit) and 5xx (outage) were scored identically, so 'back off' was interpreted as 'switch away' — exactly backwards for a rate limit.",
+        "Provider health snapshots cached in Redis went stale under burst traffic, so failover decisions were made against pre-burst data.",
+        "Failover was binary: a provider received either 0% or 100% of traffic with no gradual shifting, so the standby inherited the full spike that had just rate-limited the primary.",
+      ],
+      fix: [
+        "Split 429 handling from 5xx in provider scoring: rate limits now trigger jittered exponential backoff that respects Retry-After, not failover.",
+        "Replaced the sticky health flag with a per-provider circuit breaker using half-open probes, so recovery is tested before traffic returns.",
+        "Made traffic shifting score-based (0–100) instead of binary, so bursts degrade gracefully across providers instead of cascading.",
+        "Moved usage/telemetry writes ahead of the response path so postmortems have complete data even on failed turns.",
+      ],
+      aftermath:
+        "Replaying the same burst against the fixed router: the primary sheds load, the standby absorbs a fraction, and zero requests cascade. The incident also set a rule that survives in code review — routing-rule changes get the same scrutiny as data-layer migrations, because they carry the same class of risk.",
+    },
+    atScale: {
+      intro:
+        "The current architecture is sized for a solo-operated product. These are the concrete changes I'd make before accepting 10× the traffic — each one comes from a limit I've already hit or can see clearly from here.",
+      items: [
+        {
+          change: "Route from regional edge PoPs with regional health snapshots",
+          why: "One global health snapshot lies under regional rate limits; a provider can be healthy in EU and throttled in US.",
+        },
+        {
+          change: "Move orchestration workflows onto an async job queue",
+          why: "Long-running multi-provider workflows holding request-path connections is the first wall this architecture hits under load.",
+        },
+        {
+          change: "Adopt OpenTelemetry traces spanning UI → proxy → router → provider",
+          why: "Bespoke telemetry works at one service; per-provider SLOs and error budgets turn 'which provider is healthy' into a query instead of a guess.",
+        },
+        {
+          change: "Split usage/cost events into append-only, partitioned storage",
+          why: "A row-per-request in the hot database is fine at thousands of turns — at millions it becomes the outage.",
+        },
+        {
+          change: "Make provider token/quota budgets a first-class routing input",
+          why: "Latency and unit cost already drive routing; projected spend against a monthly budget is the missing third signal.",
+        },
+        {
+          change: "Serve status panels from edge cache with SSE invalidation",
+          why: "Polling the API for system state adds load precisely when the system is degraded — the worst possible time to do it.",
+        },
+      ],
+    },
+  },
+  {
     slug: "rizzk-calculator",
+    featured: true,
     title: "(⌐■_■) RIZZK Calculator 🚀",
     tagline: "Position sizing and risk/reward math with a responsive UI.",
     description: `(⌐■_■) RIZZK Calculator 🚀 is a production-grade risk management tool designed for day traders who need to make quick, accurate position sizing decisions. Built with Python and Streamlit, it provides real-time calculations for stop-loss, take-profit, and position size based on account risk parameters.
 
-The tool eliminates manual calculations and reduces human error in critical trading decisions. It features an intuitive interface with interactive charts powered by Plotly, making complex risk/reward scenarios easy to visualize and understand.`,
+The tool removes the manual calculation step from pre-trade sizing decisions. It features an intuitive interface with interactive charts powered by Plotly, making complex risk/reward scenarios easy to visualize and understand.`,
     tech: ["Python", "Streamlit", "Plotly", "Docker", "Azure"],
     links: {
       live: "https://rizzk-calculator-demo-eus2-f1.azurewebsites.net",
@@ -68,13 +336,13 @@ The tool eliminates manual calculations and reduces human error in critical trad
       {
         label: "fewer position-size mistakes",
         value: "~90%",
-        sourceLabel: "user-reported",
-        timeframe: "post-launch",
+        sourceLabel: "self-reported · my sessions + early traders",
+        timeframe: "informal, post-launch",
       },
       {
         label: "faster sizing decisions",
         value: "~50%",
-        sourceLabel: "user-reported",
+        sourceLabel: "self-reported · my trading workflow",
         timeframe: "live sessions",
       },
       {
@@ -86,11 +354,11 @@ The tool eliminates manual calculations and reduces human error in critical trad
     proofMedia: [
       {
         type: "gif",
-        src: "pending:rizzk-calculator-demo",
+        src: "/projects/demos/rizzk-calculator-demo.gif",
         width: 1280,
-        height: 720,
-        alt: "RIZZK calculator interaction demo",
-        status: "pending",
+        height: 800,
+        alt: "RIZZK Calculator — adjusting account size (25000→10000), entry and stop-loss prices, and risk mode, then viewing the calculated position risk of $100.00",
+        status: "ready",
       },
       {
         type: "image",
@@ -147,250 +415,11 @@ The tool eliminates manual calculations and reduces human error in critical trad
     tradeoffs:
       "Prioritized ease of use and rapid iteration over raw performance - Streamlit's reactive model introduces some latency for complex calculations, but this was acceptable for a tool used for strategic planning rather than high-frequency trading.",
     impact:
-      "Eliminated manual position sizing calculations, reducing human error by ~90% based on user feedback. Traders report 50% faster decision-making and improved risk management discipline, with the tool handling thousands of calculations daily.",
-  },
-  {
-    slug: "goblin-assistant",
-    title: "GoblinOS Assistant",
-    tagline:
-      "A multi-provider, privacy-first AI assistant with observable routing.",
-    description: `GoblinOS Assistant is a multi-provider, privacy-first AI assistant with intelligent model routing.
-
-The interface pairs chat with live system status panels so you can see provider health, latency, and routing behavior at a glance. The backend is FastAPI (Python) with a SQL data layer, while the frontend is built in Next.js (React/TypeScript) with Tailwind CSS. Deployment uses Vercel for the UI with Cloudflare at the edge, and Docker + Terraform keep infrastructure repeatable.`,
-    tech: [
-      "FastAPI",
-      "Python",
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "PostgreSQL",
-      "Redis",
-      "Cloudflare",
-      "Docker",
-      "Terraform",
-      "Fly.io",
-      "Vercel",
-    ],
-    links: {
-      live: "https://goblin-assistant.vercel.app",
-      source: "https://github.com/fuaadabdullah/goblinos-assistant",
-    },
-    results: [
-      {
-        label: "deployment layers integrated",
-        value: "3",
-        sourceLabel: "deployment architecture",
-      },
-      {
-        label: "observable workflow views",
-        value: "4",
-        sourceLabel: "product walkthrough",
-      },
-      {
-        label: "core technologies shipped",
-        value: "12",
-        sourceLabel: "stack inventory",
-      },
-    ],
-    proofMedia: [
-      {
-        type: "gif",
-        src: "pending:goblin-assistant-demo",
-        width: 1280,
-        height: 720,
-        alt: "GoblinOS Assistant demo walkthrough",
-        status: "pending",
-      },
-      {
-        type: "image",
-        src: "/projects/goblin-assistant-main-interface.png",
-        width: 1280,
-        height: 850,
-        alt: "Goblin Assistant main interface",
-        status: "ready",
-      },
-      {
-        type: "image",
-        src: "pending:goblin-assistant-provider-status",
-        width: 1280,
-        height: 850,
-        alt: "Provider status panel view",
-        status: "pending",
-      },
-      {
-        type: "image",
-        src: "pending:goblin-assistant-workflow-execution",
-        width: 1280,
-        height: 850,
-        alt: "Workflow execution screen",
-        status: "pending",
-      },
-      {
-        type: "image",
-        src: "pending:goblin-assistant-cost-tracking",
-        width: 1280,
-        height: 850,
-        alt: "Cost tracking dashboard",
-        status: "pending",
-      },
-    ],
-    image: {
-      src: "/projects/goblin-assistant-main-interface.png",
-      width: 1280,
-      height: 850,
-      alt: "Goblin Assistant home screen with navigation and quick actions",
-    },
-    gallery: [
-      {
-        src: "/projects/goblin-assistant-main-interface.png",
-        width: 1280,
-        height: 850,
-        alt: "Goblin Assistant chat and status panels in the main product view",
-      },
-    ],
-    timeline: "Ongoing",
-    role: "Solo Developer",
-    features: [
-      "Chat interface paired with live system status panels",
-      "Multi-provider routing with observable decision signals",
-      "Workflow execution and orchestration tools",
-      "Cost tracking and usage visibility by provider",
-      "FastAPI backend with structured, typed API surface",
-      "Next.js frontend in TypeScript with Tailwind CSS",
-      "Cloudflare edge + Docker/Terraform infrastructure",
-    ],
-    challenges: [
-      "Keeping routing behavior explainable while supporting multiple providers",
-      "Surfacing system status without overwhelming the core chat UX",
-      "Maintaining a clean API contract between FastAPI and the UI",
-      "Balancing privacy-first defaults with practical routing flexibility",
-    ],
-    learnings: [
-      "Routing logic needs visibility (status panels) to be trustworthy",
-      "Type-safe contracts reduce frontend/backend drift",
-      "Cost visibility changes how routing rules are tuned",
-      "Infra-as-code keeps deployments reproducible",
-    ],
-    architectureHighlights: [
-      "FastAPI backend with typed request/response contracts and modular provider routing.",
-      "PostgreSQL for durable records plus Redis for fast cache and transient state.",
-      "Observable status panels surface routing decisions, provider health, and latency.",
-      "Cloudflare edge in front of UI/API paths to improve resilience and traffic control.",
-      "Docker + Terraform keep runtime and infra changes reproducible across environments.",
-      "Fly.io + Vercel split workload concerns between backend runtime and frontend delivery.",
-    ],
-    problem:
-      "Single-provider assistants are brittle and hard to control; this needed to be multi-provider, privacy-first, and observable.",
-    audienceAndStakes:
-      "Developers and power users who want a controllable assistant with dependable routing and clear system status.",
-    approach:
-      "Built a FastAPI backend with a Next.js UI, surfaced status panels alongside chat, and deployed with Vercel, Fly.io, and Cloudflare. Docker + Terraform keep environments repeatable.",
-    tradeoffs:
-      "Added routing and observability complexity for flexibility and privacy control, in exchange for more operational setup.",
-    impact:
-      "A production-ready foundation for a provider-agnostic assistant with transparent routing and cost visibility.",
-  },
-  {
-    slug: "personal-portfolio-site",
-    title: "Personal Portfolio & Services Site",
-    tagline:
-      "Production-ready portfolio built with accessibility, performance, and SEO in mind.",
-    description: `A modern, performant portfolio website showcasing projects, services, and professional experience. Built with Next.js 14+ using the App Router for optimal performance and SEO. The site features a fully integrated blog system, dynamic service listings, and a downloadable PDF resume.
-
-Designed with a mobile-first approach, the site achieves excellent Lighthouse scores across all metrics including accessibility, performance, and SEO. Deployed on Vercel with automatic CI/CD integration for seamless updates.`,
-    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "MDX", "Vercel"],
-    links: {
-      live: "https://heyimfuaad.me",
-      source: "https://github.com/fuaadabdullah/fuaad-portfolio",
-    },
-    results: [
-      {
-        label: "Lighthouse score (perf, a11y, SEO)",
-        value: "100/100",
-        sourceLabel: "performance audit",
-      },
-      {
-        label: "global load time",
-        value: "<2s",
-        sourceLabel: "performance audit",
-      },
-      {
-        label: "build + launch timeline",
-        value: "2 weeks",
-        sourceLabel: "delivery scope",
-      },
-    ],
-    proofMedia: [
-      {
-        type: "gif",
-        src: "pending:personal-portfolio-site-demo",
-        width: 1280,
-        height: 720,
-        alt: "Portfolio navigation and project browsing demo",
-        status: "pending",
-      },
-      {
-        type: "image",
-        src: "/projects/personal-portfolio-hero.webp",
-        width: 1600,
-        height: 900,
-        alt: "Personal portfolio homepage hero",
-        status: "ready",
-      },
-      {
-        type: "image",
-        src: "/projects/personal-portfolio-feature-01.webp",
-        width: 1600,
-        height: 900,
-        alt: "Portfolio project index and case study cards",
-        status: "ready",
-      },
-      {
-        type: "image",
-        src: "/projects/personal-portfolio-feature-02.webp",
-        width: 1600,
-        height: 900,
-        alt: "Portfolio resume and downloadable PDF route",
-        status: "ready",
-      },
-    ],
-    timeline: "2 weeks",
-    role: "Solo Developer & Designer",
-    features: [
-      "Server-side rendering with Next.js App Router for optimal performance",
-      "MDX-powered blog with syntax highlighting and rich content support",
-      "Dynamic service listings with structured data for SEO",
-      "Responsive design with Tailwind CSS utility-first approach",
-      "Accessibility-first implementation with ARIA labels and semantic HTML",
-      "Custom OG images and metadata for social sharing",
-      "Contact form integration with Formspree",
-      "Google Search Console verified with sitemap and robots.txt",
-    ],
-    challenges: [
-      "Implementing proper SEO with Next.js metadata API and JSON-LD structured data",
-      "Optimizing image loading and responsive layouts for various screen sizes",
-      "Balancing design aesthetics with accessibility requirements",
-      "Setting up automated deployment pipeline with git-based workflow",
-    ],
-    learnings: [
-      "Next.js 14 App Router provides excellent DX with built-in SEO features",
-      "Tailwind CSS scales well for rapid prototyping and production polish",
-      "Accessibility testing early in development prevents costly refactors",
-      "Vercel's preview deployments streamline the review and QA process",
-    ],
-    problem:
-      "As a freelance developer, I needed a professional online presence to showcase my work, attract clients, and establish credibility in a competitive market where first impressions matter.",
-    audienceAndStakes:
-      "Potential clients, employers, and collaborators evaluating my technical skills and professionalism. A poorly performing or inaccessible site could mean lost opportunities in a field where portfolio quality directly impacts hiring decisions.",
-    approach:
-      "Built with Next.js 14 App Router for optimal performance and SEO, integrated MDX for rich blog content, implemented comprehensive accessibility features, and deployed on Vercel with automated CI/CD. Used Tailwind CSS for maintainable styling and custom OG images for social sharing.",
-    tradeoffs:
-      "Prioritized accessibility, performance, and SEO over flashy animations or complex interactions. Chose a content-focused design that loads instantly rather than feature-rich experiences that might compromise speed or usability.",
-    impact:
-      "Achieves 100/100 Lighthouse scores across performance, accessibility, and SEO. Site loads in under 2 seconds globally, ranks well in search results, and has generated multiple freelance inquiries and job opportunities through improved online visibility.",
+      "Removed the manual arithmetic step from pre-trade sizing in my own workflow and for early traders I shared it with. My ~90% / ~50% mistake-and-speed figures are self-reported estimates from those sessions — not a controlled measurement — so treat them as directional. I don't publish aggregate usage stats; the honest signal is that it became a default step before entering orders.",
   },
   {
     slug: "elbey-projects",
+    featured: true,
     category: "customer",
     title: "Elbey Projects Website",
     tagline:
@@ -429,6 +458,7 @@ Delivered a complete multi-page site (About, Services, Gallery, Contact/booking,
         sourceLabel: "ux scope",
       },
     ],
+    missingDemoEvidence: true,
     proofMedia: [
       {
         type: "image",
@@ -493,6 +523,7 @@ Delivered a complete multi-page site (About, Services, Gallery, Contact/booking,
   },
   {
     slug: "gradem8",
+    featured: true,
     title: "GradeM8 — AI Grading Assistant",
     tagline: "AI-powered document grading with rubric-based feedback using Llama 2.",
     description: `GradeM8 is an AI-powered grading assistant that automates document assessment using HuggingFace's Llama 2 70B model. Teachers and graders can upload student submissions (PDF, DOCX, images) along with a rubric, and receive detailed feedback with scores, strengths, areas for improvement, and rubric breakdowns.
@@ -517,12 +548,12 @@ Built with Gradio for an intuitive web interface and deployed on HuggingFace Spa
       {
         label: "routine grading time reduced",
         value: "60-70%",
-        sourceLabel: "user-reported",
+        sourceLabel: "teacher feedback · informal",
       },
       {
         label: "unit tests in suite",
         value: "285+",
-        sourceLabel: "test suite",
+        sourceLabel: "verifiable in linked repo",
       },
       {
         label: "document formats supported",
@@ -533,11 +564,11 @@ Built with Gradio for an intuitive web interface and deployed on HuggingFace Spa
     proofMedia: [
       {
         type: "gif",
-        src: "pending:gradem8-demo",
+        src: "/projects/demos/gradem8-demo.gif",
         width: 1280,
-        height: 720,
-        alt: "GradeM8 grading workflow demo",
-        status: "pending",
+        height: 800,
+        alt: "GradeM8 HuggingFace Space — document upload and rubric input setup (no grading result captured in demo)",
+        status: "ready",
       },
       {
         type: "image",
@@ -546,14 +577,6 @@ Built with Gradio for an intuitive web interface and deployed on HuggingFace Spa
         height: 720,
         alt: "GradeM8 grading interface",
         status: "ready",
-      },
-      {
-        type: "image",
-        src: "pending:gradem8-batch-workflow",
-        width: 1280,
-        height: 720,
-        alt: "GradeM8 batch grading queue view",
-        status: "pending",
       },
     ],
     image: {
@@ -614,7 +637,6 @@ The platform combines VIN and OBD-code intake, retrieval context, and LLM-suppor
       "Prometheus Metrics",
     ],
     links: {
-      live: "https://shopmindai-backend.azurewebsites.net",
       source: "https://github.com/fuaadabdullah/shopmind-ai",
     },
     results: [
@@ -635,14 +657,6 @@ The platform combines VIN and OBD-code intake, retrieval context, and LLM-suppor
       },
     ],
     proofMedia: [
-      {
-        type: "gif",
-        src: "pending:shopmind-ai-demo",
-        width: 1280,
-        height: 720,
-        alt: "ShopMindAI diagnostic walkthrough demo",
-        status: "pending",
-      },
       {
         type: "image",
         src: "/projects/shopmind-ai-hero.webp",
@@ -718,6 +732,100 @@ The platform combines VIN and OBD-code intake, retrieval context, and LLM-suppor
       "Prioritized reliability and clear response structure over a complex front-end experience to keep iteration speed high and output quality measurable.",
     impact:
       "Delivers a production-ready diagnostic workflow demo that turns free-text issues into ranked, testable repair guidance with operational monitoring built in.",
+  },
+  {
+    slug: "personal-portfolio-site",
+    title: "Personal Portfolio & Services Site",
+    tagline:
+      "Production-ready portfolio built with accessibility, performance, and SEO in mind.",
+    description: `A modern, performant portfolio website showcasing projects, services, and professional experience. Built with Next.js 14+ using the App Router for optimal performance and SEO. The site features a fully integrated blog system, dynamic service listings, and a downloadable PDF resume.
+
+Designed with a mobile-first approach; latest public Lighthouse mobile audit (Aug 2026) scored performance 89/100 and SEO/best-practices 100/100 — dated audit artifacts are published alongside the project results. Deployed on Vercel with automatic CI/CD integration for seamless updates.`,
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "MDX", "Vercel"],
+    links: {
+      live: "https://heyimfuaad.me",
+      source: "https://github.com/fuaadabdullah/fuaad-portfolio",
+    },
+    results: [
+      {
+        label: "Lighthouse performance · homepage, mobile",
+        value: "89/100",
+        sourceLabel: "audit of Aug 25 2026",
+        proof: { href: "/proofs/lighthouse-home-mobile-2026-08-25.json", label: "audit JSON" },
+      },
+      {
+        label: "LCP · homepage, mobile",
+        value: "2.0s",
+        sourceLabel: "same audit · CLS 0",
+        timeframe: "TBT 300ms",
+        proof: { href: "/proofs/lighthouse-home-mobile-2026-08-25.json", label: "audit JSON" },
+      },
+      {
+        label: "build + launch timeline",
+        value: "2 weeks",
+        sourceLabel: "delivery scope",
+      },
+    ],
+    proofMedia: [
+      {
+        type: "image",
+        src: "/projects/personal-portfolio-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "Personal portfolio homepage hero",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "/projects/personal-portfolio-feature-01.webp",
+        width: 1600,
+        height: 900,
+        alt: "Portfolio project index and case study cards",
+        status: "ready",
+      },
+      {
+        type: "image",
+        src: "/projects/personal-portfolio-feature-02.webp",
+        width: 1600,
+        height: 900,
+        alt: "Portfolio resume and downloadable PDF route",
+        status: "ready",
+      },
+    ],
+    timeline: "2 weeks",
+    role: "Solo Developer & Designer",
+    features: [
+      "Server-side rendering with Next.js App Router for optimal performance",
+      "MDX-powered blog with syntax highlighting and rich content support",
+      "Dynamic service listings with structured data for SEO",
+      "Responsive design with Tailwind CSS utility-first approach",
+      "Accessibility-first implementation with ARIA labels and semantic HTML",
+      "Custom OG images and metadata for social sharing",
+      "Contact form integration with Formspree",
+      "Google Search Console verified with sitemap and robots.txt",
+    ],
+    challenges: [
+      "Implementing proper SEO with Next.js metadata API and JSON-LD structured data",
+      "Optimizing image loading and responsive layouts for various screen sizes",
+      "Balancing design aesthetics with accessibility requirements",
+      "Setting up automated deployment pipeline with git-based workflow",
+    ],
+    learnings: [
+      "Next.js 14 App Router provides excellent DX with built-in SEO features",
+      "Tailwind CSS scales well for rapid prototyping and production polish",
+      "Accessibility testing early in development prevents costly refactors",
+      "Vercel's preview deployments streamline the review and QA process",
+    ],
+    problem:
+      "As a freelance developer, I needed a professional online presence to showcase my work, attract clients, and establish credibility in a competitive market where first impressions matter.",
+    audienceAndStakes:
+      "Potential clients, employers, and collaborators evaluating my technical skills and professionalism. A poorly performing or inaccessible site could mean lost opportunities in a field where portfolio quality directly impacts hiring decisions.",
+    approach:
+      "Built with Next.js 14 App Router for optimal performance and SEO, integrated MDX for rich blog content, implemented comprehensive accessibility features, and deployed on Vercel with automated CI/CD. Used Tailwind CSS for maintainable styling and custom OG images for social sharing.",
+    tradeoffs:
+      "Prioritized accessibility, performance, and SEO over flashy animations or complex interactions. Chose a content-focused design that loads instantly rather than feature-rich experiences that might compromise speed or usability.",
+    impact:
+      "Latest public audit (Lighthouse 13, Aug 25 2026, mobile emulation): homepage scores performance 89/100, accessibility 95/100, best-practices 100/100, SEO 100/100 with LCP 2.0s and CLS 0; this case-study page scored 94/96/100/100 (audit JSONs kept in /public/proofs/). I track inquiries that arrive through the contact form but can't cleanly attribute them to search visibility, so I don't claim the site \"generates\" opportunities.",
   },
 ];
 

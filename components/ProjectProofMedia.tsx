@@ -1,9 +1,6 @@
-"use client";
-
 import clsx from "clsx";
 import Image from "next/image";
-import { useState } from "react";
-import { ProofMediaItem } from "@/data/projects";
+import type { ProofMediaItem } from "@/data/projects";
 
 interface ProjectProofMediaProps {
   media?: ProofMediaItem[];
@@ -11,39 +8,21 @@ interface ProjectProofMediaProps {
   className?: string;
 }
 
-function selectHeroMedia(media: ProofMediaItem[]): ProofMediaItem | undefined {
+function selectHeroMedia(ready: ProofMediaItem[]): ProofMediaItem | undefined {
   return (
-    media.find((item) => item.type === "gif" && item.status === "ready") ??
-    media.find((item) => item.status === "ready") ??
-    media[0]
+    ready.find((item) => item.type === "gif") ??
+    ready[0]
   );
 }
 
-function renderMediaTile(
+function renderTile(
   item: ProofMediaItem,
   index: number,
   className?: string,
   showCaption?: boolean,
-  onLoadError?: (src: string) => void
+  sizes?: string,
+  priority?: boolean
 ) {
-  if (item.status !== "ready") {
-    return (
-      <article
-        key={`pending-${index}`}
-        data-testid="project-proof-pending"
-        className={clsx(
-          "flex h-full min-h-[120px] flex-col justify-center rounded-xl border border-dashed border-white/20 bg-white/[0.02] p-4",
-          className
-        )}
-      >
-        <p className="text-xs font-medium uppercase tracking-[0.08em] text-amber-300">
-          Demo capture pending
-        </p>
-        <p className="mt-2 text-sm text-white/70">{item.alt}</p>
-      </article>
-    );
-  }
-
   return (
     <figure
       key={`${item.src}-${index}`}
@@ -55,9 +34,11 @@ function renderMediaTile(
         alt={item.alt}
         width={item.width}
         height={item.height}
-        unoptimized={item.type === "gif"}
+        sizes={sizes}
+        priority={priority}
+        loading={priority ? "eager" : undefined}
+        unoptimized={item.type === "gif" ? true : undefined}
         className="h-full w-full object-cover"
-        onError={() => onLoadError?.(item.src)}
       />
       {showCaption && <figcaption className="p-2 text-xs text-white/70">{item.alt}</figcaption>}
     </figure>
@@ -69,81 +50,106 @@ export default function ProjectProofMedia({
   mode = "card",
   className,
 }: ProjectProofMediaProps) {
-  const [failedSources, setFailedSources] = useState<string[]>([]);
-  const mediaItems: ProofMediaItem[] =
-    media && media.length > 0
-      ? media
-      : [
-          {
-            type: "image",
-            src: "pending",
-            width: 1280,
-            height: 720,
-            alt: "Demo media for this project will be added soon.",
-            status: "pending",
-          },
-        ];
+  const readyItems = (media ?? []).filter((item) => item.status === "ready");
+  const hasPending = (media ?? []).some((item) => item.status === "pending");
 
-  const resolvedMedia: ProofMediaItem[] = mediaItems.map((item): ProofMediaItem =>
-    item.status === "ready" && failedSources.includes(item.src)
-      ? { ...item, status: "pending" }
-      : item
-  );
-
-  function handleLoadError(src: string) {
-    setFailedSources((current) => (current.includes(src) ? current : [...current, src]));
-  }
-
-  const hero = selectHeroMedia(resolvedMedia);
-  const remaining = resolvedMedia.filter((item) => item !== hero);
+  const hero = selectHeroMedia(readyItems);
+  const readyRemaining = readyItems.filter((item) => item !== hero);
 
   if (mode === "detail") {
-    const ordered = hero ? [hero, ...remaining] : resolvedMedia;
+    if (readyItems.length === 0) {
+      return (
+        <div
+          data-testid="project-proof-detail"
+          className={clsx(
+            "flex min-h-[160px] flex-col justify-center rounded-xl border border-dashed border-white/20 bg-white/[0.02] p-6 text-center",
+            className
+          )}
+        >
+          <p
+            data-testid="project-proof-pending"
+            className="text-xs font-medium uppercase tracking-[0.08em] text-amber-300"
+          >
+            Demo capture pending
+          </p>
+          <p className="mt-2 text-sm text-white/50">
+            Screenshots and walkthrough recordings will be added here soon.
+          </p>
+        </div>
+      );
+    }
+
+    const ordered = hero ? [hero, ...readyRemaining] : readyItems;
 
     return (
-      <div className={clsx("grid gap-4 md:grid-cols-2", className)} data-testid="project-proof-detail">
-        {ordered.map((item, index) =>
-          renderMediaTile(
-            item,
-            index,
-            clsx(index === 0 && "md:col-span-2", "aspect-video"),
-            true,
-            handleLoadError
-          )
+      <div className={className} data-testid="project-proof-detail">
+        <div className={clsx("grid gap-4", ordered.length > 1 ? "md:grid-cols-2" : "")}>
+          {ordered.map((item, index) =>
+            renderTile(
+              item,
+              index,
+              clsx(index === 0 && ordered.length > 1 && "md:col-span-2", "aspect-video"),
+              true,
+              index === 0
+                ? "(min-width: 768px) 56rem, calc(100vw - 3rem)"
+                : "(min-width: 768px) 27rem, calc(100vw - 3rem)",
+              index === 0
+            )
+          )}
+        </div>
+        {hasPending && (
+          <p className="mt-3 text-xs text-amber-300/70">
+            Demo recording in progress — full walkthrough coming soon.
+          </p>
         )}
       </div>
     );
   }
 
-  const thumbSeed = [
-    ...remaining,
-    {
-      type: "image" as const,
-      src: "pending-thumb-1",
-      width: 640,
-      height: 360,
-      alt: "Additional demo media pending.",
-      status: "pending" as const,
-    },
-    {
-      type: "image" as const,
-      src: "pending-thumb-2",
-      width: 640,
-      height: 360,
-      alt: "Additional demo media pending.",
-      status: "pending" as const,
-    },
-  ];
-  const thumbs = thumbSeed.slice(0, 2);
+  // Card mode
+  if (!hero) {
+    return (
+      <section className={clsx("space-y-3", className)} data-testid="project-proof-card">
+        <article
+          data-testid="project-proof-pending"
+          className="flex aspect-video flex-col justify-center rounded-xl border border-dashed border-white/20 bg-white/[0.02] p-4"
+        >
+          <p className="text-xs font-medium uppercase tracking-[0.08em] text-amber-300">
+            Demo capture pending
+          </p>
+          <p className="mt-2 text-sm text-white/70">
+            Screenshots and walkthrough recordings will be added here soon.
+          </p>
+        </article>
+      </section>
+    );
+  }
+
+  const thumbs = readyRemaining.slice(0, 2);
 
   return (
     <section className={clsx("space-y-3", className)} data-testid="project-proof-card">
-      {hero && renderMediaTile(hero, 0, "aspect-video", false, handleLoadError)}
-      <div className="grid grid-cols-2 gap-3">
-        {thumbs.map((item, index) =>
-          renderMediaTile(item, index + 1, "aspect-video", false, handleLoadError)
-        )}
-      </div>
+      {renderTile(
+        hero,
+        0,
+        "aspect-video",
+        false,
+        "(min-width: 768px) 28rem, calc(100vw - 3rem)",
+        true
+      )}
+      {thumbs.length > 0 && (
+        <div className={clsx("grid gap-3", thumbs.length === 2 ? "grid-cols-2" : "grid-cols-1")}>
+          {thumbs.map((item, index) =>
+            renderTile(
+              item,
+              index + 1,
+              "aspect-video",
+              false,
+              "(min-width: 768px) 13rem, calc((100vw - 4rem) / 2)"
+            )
+          )}
+        </div>
+      )}
     </section>
   );
 }

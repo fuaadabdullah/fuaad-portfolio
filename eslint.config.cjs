@@ -3,7 +3,15 @@
  * This is the modern config (flat) supported by ESLint v9+.
  */
 module.exports = [
-  { ignores: ['.next/**', 'node_modules/**', '.venv/**', 'public/**'] },
+  {
+    ignores: [
+      '.next/**',
+      'node_modules/**',
+      '.venv/**',
+      'public/**',
+      'components/design-system/stories/**',
+    ],
+  },
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
     languageOptions: {
@@ -12,9 +20,14 @@ module.exports = [
         ecmaVersion: 2024,
         sourceType: 'module',
         ecmaFeatures: { jsx: true },
+        project: './tsconfig.eslint.json',
+        tsconfigRootDir: __dirname,
       },
     },
-    plugins: { '@typescript-eslint': require('@typescript-eslint/eslint-plugin') },
+    plugins: {
+      '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
+      'react-hooks': require('eslint-plugin-react-hooks'),
+    },
     rules: {
       'no-console': ['warn', { allow: ['warn', 'error', 'debug'] }],
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],

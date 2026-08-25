@@ -2,8 +2,8 @@
 
 ## Prerequisites
 
-- Node.js 18+
-- pnpm 9+
+- Node.js 20.20.0 through 25.x
+- pnpm 10.30.3 via Corepack
 
 ## Environment variables
 
@@ -13,27 +13,28 @@ Copy `.env.local.example` to `.env.local`.
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Yes | Canonical site URL for metadata and links |
 | `OLLAMA_API_URL` | Optional | Local/remote Ollama endpoint for assistant features |
+| `ADMIN_TOKEN` | Yes for admin/API operations | Bearer token for `/api/ai`, `/api/upload`, and contact retrieval |
 | `DATABASE_URL` | Yes | Supabase pooled Postgres URL for runtime queries |
 | `DIRECT_URL` | Yes | Supabase direct Postgres URL for Prisma migrations |
 
 ## Install
 
 ```bash
-pnpm install
+corepack pnpm install
 ```
 
 ## Run
 
 ```bash
-pnpm dev
+corepack pnpm dev
 ```
 
 ## Validate
 
 ```bash
-pnpm typecheck
-pnpm lint
-pnpm test:run
+corepack pnpm typecheck
+corepack pnpm lint
+corepack pnpm test
 ```
 
 ## External API docs
@@ -47,6 +48,7 @@ Quick local checks:
 
 ```bash
 curl -sS -X POST "http://localhost:3000/api/ai" \
+	-H "Authorization: Bearer $ADMIN_TOKEN" \
 	-H "Content-Type: application/json" \
 	-d '{"prompt":"Summarize this portfolio in one sentence."}'
 ```

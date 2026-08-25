@@ -11,8 +11,8 @@
 ### 1. Start the Dev Server
 ```bash
 # Terminal 1
-cd /Volumes/GOBLINOS\ 1/apps/fuaad-portfolio
-pnpm dev
+cd /Users/fuaadabdullah/fuaad-portfolio
+corepack pnpm dev
 # Wait for: "✓ Ready in XXXms"
 ```
 
@@ -146,7 +146,7 @@ curl -X POST http://localhost:3000/api/contact \
 ### ✅ Already Fixed (No Issues Expected)
 1. **Unauthenticated GET endpoint** → Returns 401
 2. **Email enumeration** → Parameter removed
-3. **Rate limit bypass** → Uses persistent Vercel KV
+3. **Rate limit bypass** → Contact submission limit enforced per runtime process
 4. **SQL injection** → Protected by Prisma + Zod validation
 5. **XSS attacks** → Sanitized by `sanitizeText()`
 
@@ -184,7 +184,7 @@ curl -X POST http://localhost:3000/api/contact \
 ### Command-line Alternative:
 ```bash
 # Automated test with our test suite
-ADMIN_TOKEN=your-token pnpm run test:contact
+ADMIN_TOKEN=your-token corepack pnpm test:contact
 
 # Or direct cURL with Burp history
 curl -H "Authorization: Bearer $ADMIN_TOKEN" \
@@ -211,10 +211,10 @@ curl -H "Authorization: Bearer $ADMIN_TOKEN" \
 - GET endpoint requires `Authorization: Bearer <token>`
 - Constant-time comparison prevents timing attacks
 
-✅ **Persistent Rate Limiting**
-- Uses Vercel KV for 24h rate limits
+✅ **Contact Rate Limiting**
+- Uses an in-memory 24h submission counter
 - 5 submissions per IP per 24 hours
-- Survives server restarts
+- Persistent cross-deployment rate limiting remains a hardening backlog item
 
 ✅ **Input Validation**
 - Zod schemas enforce type and length constraints
@@ -222,8 +222,8 @@ curl -H "Authorization: Bearer $ADMIN_TOKEN" \
 - Prisma parameterized queries prevent SQL injection
 
 ✅ **Email Enumeration Blocked**
-- Removed email query parameter from unauthenticated endpoint
-- Users can't probe for specific contacts
+- Exact email filtering is available only after admin authentication
+- Public users can't probe for specific contacts
 
 ---
 

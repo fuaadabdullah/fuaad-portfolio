@@ -12,17 +12,19 @@ Base URLs:
 ## Audience And Scope
 
 - Public integration endpoints:
-  - `POST /api/ai`
+  - `POST /api/mock-ai` (public portfolio assistant, local knowledge only)
   - `POST /api/contact`
 - Operational/admin endpoints:
+  - `POST /api/ai` (provider-backed assistant; admin token required)
   - `GET /api/ai` (monitoring)
   - `GET /api/contact` (admin token required)
+  - `/api/upload` (Blob upload/list/delete; admin token required)
 
 ## Assistant API
 
-### POST /api/ai
+### POST /api/mock-ai
 
-Generate a reply from the portfolio assistant.
+Generate a public portfolio-assistant reply from curated local knowledge. This is the endpoint used by the public chat UI.
 
 Request body:
 
@@ -53,20 +55,49 @@ Cached response example (`200`):
 
 Possible errors:
 - `400` with `{ "error": "Prompt is required" }`
-- `429` with `{ "error": "Rate limit exceeded. Please try again later." }`
+
+Notes:
+- This endpoint does not call paid/provider-backed AI services.
+
+### POST /api/ai (Admin)
+
+Generate a provider-backed assistant reply. This endpoint is admin-only.
+
+Auth:
+- Header: `Authorization: Bearer <ADMIN_TOKEN>`
+- Missing/invalid token returns `401` and `WWW-Authenticate: Bearer realm="admin"`
 
 Notes:
 - When `stale` is `true`, the response was served from stale cache and refreshed in the background.
 - If provider calls fail, a fallback reply can still be returned with HTTP `200`.
 
-### GET /api/ai
+### GET /api/ai (Admin)
 
 Operational status endpoint for assistant internals.
+
+Auth:
+- Header: `Authorization: Bearer <ADMIN_TOKEN>`
+- Missing/invalid token returns `401` and `WWW-Authenticate: Bearer realm="admin"`
 
 Includes:
 - circuit breaker states per provider
 - cache configuration (`ttl`, `staleWhileRevalidateTtl`, `redisAvailable`)
 - rate-limit configuration (`maxRequestsPerMinute`)
+
+## Upload API
+
+### /api/upload (Admin)
+
+Blob storage administration endpoints for upload, list, and delete operations.
+
+Auth:
+- Header: `Authorization: Bearer <ADMIN_TOKEN>`
+- Missing/invalid token returns `401` and `WWW-Authenticate: Bearer realm="admin"`
+
+Methods:
+- `POST /api/upload`: multipart form upload with a `file` field
+- `GET /api/upload`: list Blob files
+- `DELETE /api/upload?url=<blob-url>`: delete a Blob file
 
 ## Contact API
 
@@ -127,6 +158,7 @@ curl -H "Authorization: Bearer $ADMIN_TOKEN" \
 
 ```bash
 curl -sS -X POST "http://localhost:3000/api/ai" \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"prompt":"Summarize this portfolio in one sentence."}'
 ```

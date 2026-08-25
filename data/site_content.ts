@@ -28,10 +28,10 @@ export const blogContent: ContentEntry[] = [
   {
     slug: "building-rizzk",
     title: "Building RIZZK: A Disciplined Approach to Risk Management",
-    summary: "How I built a risk calculator for day traders, lessons learned from 500+ users, and the importance of solving real problems.",
+    summary: "How I built a risk calculator for day traders, lessons learned from using it in my own live trading sessions, and the importance of solving real problems.",
     keyPoints: [
       "Focused on one core problem: position sizing",
-      "Free tool reached 500+ users",
+      "Free tool used in my own daily trading workflow",
       "Distribution beats features",
       "Side projects teach full-stack skills",
       "Built with Python, Streamlit, and Azure"
@@ -89,16 +89,16 @@ export const projectContent: ContentEntry[] = [
       "Next.js frontend (React/TypeScript)",
       "Cloudflare edge + Vercel frontend",
       "Docker + Terraform infrastructure",
-      "Canonical repository: github.com/fuaadabdullah/goblinos-assistant"
+      "Canonical repository: github.com/fuaadabdullah/goblin-assistant"
     ]
   },
   {
     slug: "personal-portfolio-site",
     title: "Personal Portfolio & Services Site",
-    summary: "Modern portfolio website showcasing projects with excellent performance and accessibility scores.",
+    summary: "Modern portfolio website showcasing projects with publicly audited Lighthouse scores.",
     keyPoints: [
       "Next.js 16 with App Router",
-      "Lighthouse 100/100 accessibility",
+      "Lighthouse audit (Aug 2026): perf 89/100, a11y 95/100, SEO 100/100",
       "MDX-powered blog system",
       "Tailwind CSS styling",
       "Vercel deployment",

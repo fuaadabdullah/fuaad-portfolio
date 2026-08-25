@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAllSlugs, getPostBySlug, formatDate } from "@/lib/blog";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { useMDXComponents } from "@/mdx-components";
+import { useMDXComponents as getMDXComponents } from "@/mdx-components";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import { BlogCTA } from "@/components/BlogCTA";
@@ -50,7 +50,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     notFound();
   }
 
-  const components = useMDXComponents({});
+  const components = getMDXComponents({});
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-16">

@@ -22,10 +22,12 @@ vi.mock("next/image", () => ({
   default: ({
     src,
     alt,
+    unoptimized: _unoptimized,
     ...props
   }: {
     src: string;
     alt: string;
+    unoptimized?: boolean;
     [key: string]: unknown;
   }) => <img src={src} alt={alt} {...props} />,
 }));
@@ -34,9 +36,11 @@ describe("Portfolio route", () => {
   it("highlights outcomes and demos in page intro", () => {
     render(<PortfolioPage />);
     expect(
-      screen.getByText(/measurable outcomes and inline demos/i)
+      screen.getByText(/four projects worth your time/i)
     ).toBeInTheDocument();
     expect(screen.getByText(/Flagship Build/i)).toBeInTheDocument();
-    expect(screen.getByText(/GoblinOS Assistant/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "GoblinOS Assistant" })
+    ).toBeInTheDocument();
   });
 });

@@ -8,7 +8,7 @@ All titles and descriptions are natural, human-written, and keyword-rich:
 - **Home**: "Finance student at GSU building RIZZK, a risk calculator for day traders..."
 - **Portfolio**: "A few things I've shipped: RIZZK Calculator for day traders, web apps..."
 - **Services**: "Student-friendly consulting packages: UX/UI polish, RIZZK Calculator deployment..."
-- **Resume**: "Finance student at Georgia State University. Built RIZZK Calculator with 500+ users..."
+- **Resume**: "Finance student at Georgia State University. Built RIZZK Calculator, a risk tool I use in my own trading workflow..."
 
 ### Open Graph Tags
 - ✅ All pages have OG tags

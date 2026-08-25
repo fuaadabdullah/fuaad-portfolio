@@ -4,10 +4,11 @@ info:
   version: 1.0.0
   summary: External API contracts for assistant and contact endpoints
   description: |
-    Public and external-facing API contracts for integrations.
+    Public and admin API contracts for integrations.
 
     Notes:
-    - Assistant responses may be cached and can be served stale while a background refresh runs.
+    - Public chat uses `/api/mock-ai` with local portfolio knowledge.
+    - Provider-backed assistant responses require Bearer auth and may be cached.
     - Contact submission retrieval is admin-only and requires a Bearer token.
   license:
     name: MIT
@@ -22,17 +23,20 @@ tags:
     description: Portfolio assistant endpoints
   - name: contact
     description: Contact form endpoints
+  - name: upload
+    description: Admin Blob storage endpoints
 paths:
   /api/ai:
     post:
       tags:
         - assistant
       security:
-        - {}
+        - bearerAuth: []
       operationId: createAssistantReply
-      summary: Generate assistant reply
+      summary: Generate provider-backed assistant reply (admin)
       description: |
-        Accepts a prompt and returns an assistant reply.
+        Accepts a prompt and returns a provider-backed assistant reply.
+        Requires `Authorization: Bearer <ADMIN_TOKEN>`.
         Responses may be returned from cache and can indicate stale-while-revalidate behavior.
       requestBody:
         required: true
@@ -86,14 +90,18 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
               example:
                 error: Rate limit exceeded. Please try again later.
+        '401':
+          $ref: '#/components/responses/UnauthorizedAdmin'
     get:
       tags:
         - assistant
       security:
-        - {}
+        - bearerAuth: []
       operationId: getAssistantRuntimeStatus
-      summary: Get assistant runtime status
-      description: Returns monitoring metadata for circuit breakers, cache config, and rate-limit config.
+      summary: Get assistant runtime status (admin)
+      description: |
+        Returns monitoring metadata for circuit breakers, cache config, and rate-limit config.
+        Requires `Authorization: Bearer <ADMIN_TOKEN>`.
       responses:
         '200':
           description: Runtime status payload
@@ -101,6 +109,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AssistantRuntimeStatusResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedAdmin'
         '500':
           description: Unexpected runtime status retrieval error
           content:
@@ -221,19 +231,7 @@ paths:
                   - field: limit
                     message: Number must be less than or equal to 100
         '401':
-          description: Missing or invalid admin bearer token
-          headers:
-            WWW-Authenticate:
-              description: Bearer auth challenge for admin realm
-              schema:
-                type: string
-                example: Bearer realm="admin"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              example:
-                error: Unauthorized. Admin Bearer token required.
+          $ref: '#/components/responses/UnauthorizedAdmin'
         '500':
           description: Internal server error while fetching submissions
           content:
@@ -242,12 +240,131 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
               example:
                 error: Failed to fetch submissions
+  /api/upload:
+    post:
+      tags:
+        - upload
+      security:
+        - bearerAuth: []
+      operationId: uploadBlobFile
+      summary: Upload Blob file (admin)
+      description: |
+        Requires `Authorization: Bearer <ADMIN_TOKEN>`.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: File uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
+        '400':
+          description: Missing file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedAdmin'
+        '500':
+          description: Upload failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      tags:
+        - upload
+      security:
+        - bearerAuth: []
+      operationId: listBlobFiles
+      summary: List Blob files (admin)
+      description: |
+        Requires `Authorization: Bearer <ADMIN_TOKEN>`.
+      responses:
+        '200':
+          description: Blob file list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadListResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedAdmin'
+        '500':
+          description: List failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - upload
+      security:
+        - bearerAuth: []
+      operationId: deleteBlobFile
+      summary: Delete Blob file (admin)
+      description: |
+        Requires `Authorization: Bearer <ADMIN_TOKEN>`.
+      parameters:
+        - in: query
+          name: url
+          required: true
+          schema:
+            type: string
+            format: uri
+      responses:
+        '200':
+          description: File deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '400':
+          description: Missing URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedAdmin'
+        '500':
+          description: Delete failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: opaque token
+  responses:
+    UnauthorizedAdmin:
+      description: Missing or invalid admin bearer token
+      headers:
+        WWW-Authenticate:
+          description: Bearer auth challenge for admin realm
+          schema:
+            type: string
+            example: Bearer realm="admin"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error: Unauthorized. Admin Bearer token required.
   schemas:
     AssistantRequest:
       type: object
@@ -332,6 +449,57 @@ components:
           properties:
             maxRequestsPerMinute:
               type: integer
+    UploadResponse:
+      type: object
+      additionalProperties: true
+      required:
+        - success
+        - url
+      properties:
+        success:
+          type: boolean
+        url:
+          type: string
+          format: uri
+        pathname:
+          type: string
+        size:
+          type: integer
+        type:
+          type: string
+    UploadListResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - files
+      properties:
+        files:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              url:
+                type: string
+                format: uri
+              size:
+                type: integer
+              uploadedAt:
+                type: string
+                format: date-time
+              filename:
+                type: string
+    DeleteResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
     ContactSubmissionRequest:
       type: object
       additionalProperties: false

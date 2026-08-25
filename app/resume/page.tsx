@@ -3,7 +3,7 @@ import LinkedInBadge from "@/components/LinkedInBadge";
 import { resumeData, type AcademicDetail, type ResumeCard, type ResumeExperience, type ResumeProject } from "@/data/resume";
 import { cvData } from "@/data/cv";
 import Container from "@/components/layout/Container";
-import { getLatestGitActivity } from "@/lib/git-activity";
+import { nowActivity, type NowActivity } from "@/data/now";
 
 export const metadata = {
   title: "Resume – Fuaad Abdullah",
@@ -186,7 +186,7 @@ function ResumeHero({
   activity,
 }: {
   header: (typeof resumeData)["header"];
-  activity: ReturnType<typeof getLatestGitActivity>;
+  activity: NowActivity;
 }) {
   return (
     <section className="space-y-6">
@@ -213,15 +213,12 @@ function ResumeHero({
         ))}
       </div>
 
-      {activity ? (
-        <CardShell className="space-y-1 border-cyan-400/20 bg-cyan-500/10">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-cyan-100/70">Recently shipped</p>
-          <p className="text-sm font-medium text-cyan-50">{activity.subject}</p>
-          <p className="text-sm text-cyan-100/80">
-            Last commit {activity.relativeTime} on {activity.committedAt}.
-          </p>
-        </CardShell>
-      ) : null}
+      <CardShell className="space-y-1 border-cyan-400/20 bg-cyan-500/10">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-cyan-100/70">Building now</p>
+        <p className="text-sm font-medium text-cyan-50">{activity.building}</p>
+        {activity.detail && <p className="text-sm text-cyan-100/80">{activity.detail}</p>}
+        <p className="text-[10px] text-cyan-100/40">Updated {activity.updatedAt}</p>
+      </CardShell>
 
       <div className="flex flex-wrap gap-3 text-sm">
         <a
@@ -395,15 +392,13 @@ function ResumeContact({ contact }: { contact: (typeof resumeData)["contact"] })
 
 export default async function ResumePage() {
   const { header, summary, academic, experience, projects, skills, contact } = resumeData;
-  const activity = getLatestGitActivity();
-
   return (
     <section aria-labelledby="resume-heading">
       <h1 id="resume-heading" className="sr-only">
         Resume
       </h1>
       <Container className="space-y-10 py-12">
-        <ResumeHero header={header} activity={activity} />
+        <ResumeHero header={header} activity={nowActivity} />
         <ResumeSummary summary={summary} />
         <ResumeExperienceSection title={experience.title} entries={experience.entries} />
         <ProjectsSection title={projects.title} items={projects.items} />

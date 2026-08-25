@@ -44,10 +44,10 @@ export const resumeData = {
   header: {
     name: "Fuaad Abdullah",
     tagline:
-      "Finance student and developer building tools I use in my own trading.",
+      "Software engineer building trading tools, automation, and AI products I actually use.",
     subline:
-      "B.B.A., Finance at Georgia State University · Full-stack developer shipping fintech, automation, and AI products end to end.",
-    availability: "Open to fintech SWE roles, internships, and selective contract work",
+      "B.B.A., Finance at Georgia State University · Full-stack engineer shipping fintech, automation, and AI products end to end.",
+    availability: "Open to fintech engineering roles · select contract work",
     signals: [
       { label: "Primary stack", value: "Python · TypeScript · Next.js · FastAPI · PostgreSQL" },
       { label: "Flagship proof", value: "Trading tools, AI workflows, and client sites shipped to production" },
@@ -60,13 +60,13 @@ export const resumeData = {
     eyebrow: "Summary",
     title: "Finance x software delivery",
     paragraphs: [
-      "Finance student and full-stack developer building trading, automation, and AI tools from lived workflow experience, not classroom hypotheticals.",
+      "Full-stack engineer building trading, automation, and AI tools from lived workflow experience — not theoretical projects.",
       "I ship products across the stack, from trader-facing calculators and reporting workflows to production AI backends and client sites, with an emphasis on speed, reliability, and measurable outcomes.",
     ],
     highlights: [
       { label: "Finance edge", value: "Active trader building tools for real trading decisions" },
       { label: "Can ship", value: "Production apps delivered across Next.js, FastAPI, Python, Azure, Fly.io, and Vercel" },
-      { label: "What I want", value: "Fintech SWE roles, internships, and selective contract work" },
+      { label: "What I want", value: "Fintech engineering roles, product-minded teams, and select contract work" },
     ] as ResumeSignal[],
     sideCards: [
       {
@@ -77,7 +77,7 @@ export const resumeData = {
       {
         eyebrow: "Recruiter scan",
         body:
-          "• Finance major with real trading domain context\n• Full-stack builder shipping production tools\n• Strong fit for fintech, product, and automation teams",
+          "• Finance background with real trading domain context\n• Full-stack engineer shipping production tools\n• Strong fit for fintech, product, and automation teams",
       },
     ] as ResumeCard[],
   },
@@ -115,7 +115,7 @@ export const resumeData = {
         description:
           "Trade equities under strict risk controls while shipping tooling for live trading workflows, reporting, and client delivery.",
         bullets: [
-          "Shipped RIZZK, a production risk calculator that cut position-size mistakes by ~90% and made sizing decisions ~50% faster in live trading sessions.",
+          "Shipped RIZZK, a production risk calculator that cut position-size mistakes by ~90% and made sizing decisions ~50% faster in live trading sessions — self-reported estimates from my own sessions, not a controlled measurement.",
           "Built Streamlit trading dashboards, export tools, and spreadsheet automations used in daily workflows and freelance client reporting.",
           "Operate with weekly review loops, documented trade logs, and measurable execution discipline that carry directly into product work.",
         ],
@@ -160,7 +160,7 @@ export const resumeData = {
         ],
         links: {
           live: "https://goblin-assistant.vercel.app",
-          source: "https://github.com/fuaadabdullah/forgemono",
+          source: "https://github.com/fuaadabdullah/goblin-assistant",
         },
       },
       {
@@ -168,8 +168,8 @@ export const resumeData = {
         tagline: "Production position-sizing and risk management tool for active day traders.",
         tech: ["Python", "Streamlit", "Plotly", "Docker", "Azure"],
         metrics: [
-          { value: "~90%", label: "fewer position-size mistakes" },
-          { value: "~50%", label: "faster sizing decisions" },
+          { value: "~90%", label: "fewer position-size mistakes · self-reported" },
+          { value: "~50%", label: "faster sizing decisions · self-reported" },
           { value: "4 weeks", label: "build to production" },
         ],
         bullets: [
@@ -185,7 +185,7 @@ export const resumeData = {
         tagline: "AI grading assistant with rubric-based feedback and production-minded test coverage.",
         tech: ["Python", "Gradio", "Hugging Face", "pytest"],
         metrics: [
-          { value: "60-70%", label: "routine grading time reduced" },
+          { value: "60-70%", label: "routine grading time reduced · teacher feedback, informal" },
           { value: "285+", label: "tests in suite" },
           { value: "4", label: "document formats supported" },
         ],
@@ -202,8 +202,8 @@ export const resumeData = {
         tagline: "Recruiter-ready portfolio and case-study site built for performance, accessibility, and SEO.",
         tech: ["Next.js", "React", "TypeScript", "Tailwind", "MDX", "Vercel"],
         metrics: [
-          { value: "100/100", label: "Lighthouse score" },
-          { value: "<2s", label: "global load time" },
+          { value: "89/100", label: "Lighthouse perf · mobile audit Aug 2026" },
+          { value: "2.0s", label: "LCP homepage mobile · same audit" },
           { value: "2 weeks", label: "build + launch timeline" },
         ],
         bullets: [

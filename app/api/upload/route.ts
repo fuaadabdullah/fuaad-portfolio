@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { uploadFile, deleteFile, listFiles, validateFile } from '@/lib/blob';
+import { isRequestAuthorized } from '@/lib/auth';
+import { unauthorizedAdminResponse } from '@/lib/admin-response';
 
 export async function POST(request: NextRequest) {
+  if (!isRequestAuthorized(request.headers.get('authorization'))) {
+    return unauthorizedAdminResponse();
+  }
+
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File;
@@ -35,7 +41,11 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!isRequestAuthorized(request.headers.get('authorization'))) {
+    return unauthorizedAdminResponse();
+  }
+
   try {
     // List all files in the blob store
     const blobs = await listFiles();
@@ -58,6 +68,10 @@ export async function GET() {
 }
 
 export async function DELETE(request: NextRequest) {
+  if (!isRequestAuthorized(request.headers.get('authorization'))) {
+    return unauthorizedAdminResponse();
+  }
+
   try {
     const { searchParams } = new URL(request.url);
     const url = searchParams.get('url');

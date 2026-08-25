@@ -47,9 +47,7 @@ export function useChat(): UseChatReturn {
     setStatus('loading');
 
     try {
-      // Use mock AI in development for easier testing
-      const apiEndpoint = process.env.NODE_ENV === 'development' ? '/api/mock-ai' : '/api/ai';
-      const response = await fetch(apiEndpoint, {
+      const response = await fetch('/api/mock-ai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: userText })

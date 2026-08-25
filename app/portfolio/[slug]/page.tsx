@@ -6,6 +6,12 @@ import projects from "@/data/projects";
 import Badge from "@/components/Badge";
 import ProjectProofMedia from "@/components/ProjectProofMedia";
 import ProjectResultChips from "@/components/ProjectResultChips";
+import GoblinArchitectureDiagram from "@/components/case-study/GoblinArchitectureDiagram";
+import GoblinRoutingSequence from "@/components/case-study/GoblinRoutingSequence";
+import ProductionObservability from "@/components/case-study/ProductionObservability";
+import IncidentPostmortemCard from "@/components/case-study/IncidentPostmortemCard";
+import AtScalePlan from "@/components/case-study/AtScalePlan";
+import GoblinCaseStudy from "@/components/case-study/GoblinCaseStudy";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
@@ -52,6 +58,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   if (!project) {
     notFound();
+  }
+
+  if (project.slug === "goblin-assistant") {
+    return <GoblinCaseStudy project={project} />;
   }
 
   return (
@@ -215,6 +225,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <ProjectProofMedia media={project.proofMedia} mode="detail" />
       </section>
 
+      {project.observability && (
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-green-500">Production observability</h2>
+          <ProductionObservability observability={project.observability} />
+        </section>
+      )}
+
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4 text-green-500">Tech stack</h2>
         <div className="flex flex-wrap gap-2" aria-label="Technologies used">
@@ -247,6 +264,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {project.architectureDiagram && (
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-green-500">System architecture</h2>
+          <p className="mb-6 leading-relaxed text-white/80">{project.architectureDiagram}</p>
+          <GoblinArchitectureDiagram />
+        </section>
+      )}
+
+      {project.routingSequence && (
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-green-500">Provider routing sequence</h2>
+          <p className="mb-6 leading-relaxed text-white/80">{project.routingSequence}</p>
+          <GoblinRoutingSequence />
         </section>
       )}
 
@@ -322,6 +355,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {project.incidentPostmortem && (
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-green-500">One failure, fully postmortemed</h2>
+          <IncidentPostmortemCard postmortem={project.incidentPostmortem} />
+        </section>
+      )}
+
+      {project.atScale && (
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-green-500">What I'd change at 10× scale</h2>
+          <AtScalePlan atScale={project.atScale} />
         </section>
       )}
 
