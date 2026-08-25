@@ -5,7 +5,6 @@ import ProjectResultChips from "@/components/ProjectResultChips";
 import GoblinArchitectureDiagram from "@/components/case-study/GoblinArchitectureDiagram";
 import GoblinRoutingSequence from "@/components/case-study/GoblinRoutingSequence";
 import ProductionObservability from "@/components/case-study/ProductionObservability";
-import IncidentPostmortemCard from "@/components/case-study/IncidentPostmortemCard";
 import AtScalePlan from "@/components/case-study/AtScalePlan";
 import { Project } from "@/data/projects";
 
@@ -92,70 +91,7 @@ export default function GoblinCaseStudy({ project }: { project: Project }) {
       </section>
 
       {/* Architecture diagram */}
-      {project.architectureDiagram && (
-        <section className="mb-14">
-          <SectionLabel>How it&apos;s built</SectionLabel>
-          <SectionHeading>System architecture</SectionHeading>
-          <p className="mt-4 mb-6 leading-relaxed text-white/75">{project.architectureDiagram}</p>
-          <GoblinArchitectureDiagram />
-        </section>
-      )}
-
-      {/* Routing sequence */}
-      {project.routingSequence && (
-        <section className="mb-14">
-          <SectionLabel>Request lifecycle</SectionLabel>
-          <SectionHeading>Provider routing: the failover path</SectionHeading>
-          <p className="mt-4 mb-6 leading-relaxed text-white/75">{project.routingSequence}</p>
-          <GoblinRoutingSequence />
-        </section>
-      )}
-
-      {/* Observability */}
-      {project.observability && (
-        <section className="mb-14">
-          <SectionLabel>Proof it&apos;s real</SectionLabel>
-          <SectionHeading>Production observability</SectionHeading>
-          <div className="mt-4">
-            <ProductionObservability observability={project.observability} />
-          </div>
-        </section>
-      )}
-
-      {/* Hard production problem */}
-      {project.incidentPostmortem && (
-        <section className="mb-14">
-          <SectionLabel>One difficult production problem</SectionLabel>
-          <SectionHeading>Incident postmortem</SectionHeading>
-          <div className="mt-4">
-            <IncidentPostmortemCard postmortem={project.incidentPostmortem} />
-          </div>
-        </section>
-      )}
-
-      {/* Major architectural tradeoff */}
-      {project.tradeoffs && (
-        <section className="mb-14">
-          <SectionLabel>The biggest call</SectionLabel>
-          <SectionHeading>Major architectural tradeoff</SectionHeading>
-          <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-            <p className="leading-relaxed text-white/80">{project.tradeoffs}</p>
-          </div>
-        </section>
-      )}
-
-      {/* At scale */}
-      {project.atScale && (
-        <section className="mb-14">
-          <SectionLabel>Thinking ahead</SectionLabel>
-          <SectionHeading>What changes at 10× scale</SectionHeading>
-          <div className="mt-4">
-            <AtScalePlan atScale={project.atScale} />
-          </div>
-        </section>
-      )}
-
-      {/* Demo walkthrough */}
+      {/* Primary demo media (hero proof) */}
       {project.proofMedia && project.proofMedia.length > 0 && (
         <section className="mb-14">
           <SectionLabel>See it running</SectionLabel>
@@ -166,18 +102,18 @@ export default function GoblinCaseStudy({ project }: { project: Project }) {
         </section>
       )}
 
-      {/* Tech stack */}
-      <section className="mb-14">
-        <SectionLabel>Stack</SectionLabel>
-        <SectionHeading>Technologies</SectionHeading>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {project.tech.map((t) => (
-            <Badge key={t}>{t}</Badge>
-          ))}
-        </div>
-      </section>
+      {/* Observability UI / screenshots */}
+      {project.observability && (
+        <section className="mb-14">
+          <SectionLabel>Proof it&apos;s real</SectionLabel>
+          <SectionHeading>Observability</SectionHeading>
+          <div className="mt-4">
+            <ProductionObservability observability={project.observability} />
+          </div>
+        </section>
+      )}
 
-      {/* Problem / approach / impact */}
+      {/* Problem / approach */}
       <section className="mb-14 space-y-8">
         <div>
           <SectionLabel>Context</SectionLabel>
@@ -207,6 +143,59 @@ export default function GoblinCaseStudy({ project }: { project: Project }) {
             <p className="leading-relaxed text-white/70">{project.impact}</p>
           </div>
         )}
+      </section>
+
+      {/* Architecture */}
+      {project.architectureDiagram && (
+        <section className="mb-14">
+          <SectionLabel>How it&apos;s built</SectionLabel>
+          <SectionHeading>System architecture</SectionHeading>
+          <p className="mt-4 mb-6 leading-relaxed text-white/75">{project.architectureDiagram}</p>
+          <GoblinArchitectureDiagram />
+        </section>
+      )}
+
+      {/* Routing architecture / design */}
+      {project.routingSequence && (
+        <section className="mb-14">
+          <SectionLabel>Request lifecycle</SectionLabel>
+          <SectionHeading>Provider routing architecture</SectionHeading>
+          <p className="mt-4 mb-6 leading-relaxed text-white/75">{project.routingSequence}</p>
+          <GoblinRoutingSequence />
+        </section>
+      )}
+
+      {/* Major architectural tradeoff */}
+      {project.tradeoffs && (
+        <section className="mb-14">
+          <SectionLabel>The biggest call</SectionLabel>
+          <SectionHeading>Major architectural tradeoff</SectionHeading>
+          <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+            <p className="leading-relaxed text-white/80">{project.tradeoffs}</p>
+          </div>
+        </section>
+      )}
+
+      {/* At scale */}
+      {project.atScale && (
+        <section className="mb-14">
+          <SectionLabel>Thinking ahead</SectionLabel>
+          <SectionHeading>What changes at 10× scale</SectionHeading>
+          <div className="mt-4">
+            <AtScalePlan atScale={project.atScale} />
+          </div>
+        </section>
+      )}
+
+      {/* Tech stack */}
+      <section className="mb-14">
+        <SectionLabel>Stack</SectionLabel>
+        <SectionHeading>Technologies</SectionHeading>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {project.tech.map((t) => (
+            <Badge key={t}>{t}</Badge>
+          ))}
+        </div>
       </section>
 
       {/* Footer nav */}

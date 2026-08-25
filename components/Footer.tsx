@@ -13,6 +13,21 @@ export default function Footer(){
           </p>
           <div className="flex flex-col items-center gap-4 md:items-end">
             <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-white/70 md:justify-end">
+              <Link href="/portfolio" className="hover:text-white transition-colors">
+                Portfolio
+              </Link>
+              <Link href="/resume" className="hover:text-white transition-colors">
+                Résumé
+              </Link>
+              <Link href="/cv" className="hover:text-white transition-colors">
+                CV
+              </Link>
+              <Link href="/blog" className="hover:text-white transition-colors">
+                Blog
+              </Link>
+              <Link href="/about" className="hover:text-white transition-colors">
+                About
+              </Link>
               <Link href="/services" className="hover:text-white transition-colors">
                 Services
               </Link>

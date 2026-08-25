@@ -63,7 +63,7 @@ describe("Project detail route", () => {
       screen.getByRole("heading", { name: /System architecture/i })
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/two deployment layers/i)
+      screen.getByText(/PostgreSQL keeps durable records while Redis holds cache/i)
     ).toBeInTheDocument();
   });
 
@@ -75,16 +75,13 @@ describe("Project detail route", () => {
     render(page);
 
     expect(
-      screen.getByRole("heading", { name: /Production observability/i })
+      screen.getByRole("heading", { name: /Observability/i })
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: /System architecture/i })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /Provider routing: the failover path/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { name: /Incident postmortem/i })
+      screen.getByRole("heading", { name: /Provider routing architecture/i })
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: /What changes at 10× scale/i })
@@ -93,12 +90,6 @@ describe("Project detail route", () => {
     // Diagrams render with accessible names
     expect(screen.getByTestId("goblin-architecture-diagram")).toBeInTheDocument();
     expect(screen.getByTestId("goblin-routing-sequence")).toBeInTheDocument();
-
-    // Postmortem content renders
-    expect(
-      screen.getByText(/The failover stampede/i)
-    ).toBeInTheDocument();
-    expect(screen.getByText(/Split 429 handling from 5xx/i)).toBeInTheDocument();
 
     // 10x scale items render
     expect(screen.getAllByTestId("at-scale-item").length).toBe(6);

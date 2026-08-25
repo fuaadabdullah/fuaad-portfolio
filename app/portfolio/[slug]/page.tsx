@@ -9,7 +9,6 @@ import ProjectResultChips from "@/components/ProjectResultChips";
 import GoblinArchitectureDiagram from "@/components/case-study/GoblinArchitectureDiagram";
 import GoblinRoutingSequence from "@/components/case-study/GoblinRoutingSequence";
 import ProductionObservability from "@/components/case-study/ProductionObservability";
-import IncidentPostmortemCard from "@/components/case-study/IncidentPostmortemCard";
 import AtScalePlan from "@/components/case-study/AtScalePlan";
 import GoblinCaseStudy from "@/components/case-study/GoblinCaseStudy";
 
@@ -355,13 +354,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </li>
             ))}
           </ul>
-        </section>
-      )}
-
-      {project.incidentPostmortem && (
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4 text-green-500">One failure, fully postmortemed</h2>
-          <IncidentPostmortemCard postmortem={project.incidentPostmortem} />
         </section>
       )}
 

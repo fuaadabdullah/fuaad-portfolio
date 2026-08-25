@@ -96,7 +96,7 @@ export default async function HomePage() {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="font-medium text-zinc-100">Featured build: {goblinProject.title}</p>
             <span className="rounded-full bg-emerald-400/20 px-3 py-1 text-[11px] text-emerald-100">
-              FastAPI · Postgres · Redis · Docker · Fly.io
+              FastAPI · Postgres · Redis · Docker · Vercel
             </span>
           </div>
           <p className="mt-2 text-sm text-white/80">

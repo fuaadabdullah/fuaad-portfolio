@@ -4,7 +4,7 @@ export const personJsonLd = {
   "name": "Fuaad Abdullah",
   "url": "https://heyimfuaad.me",
   "email": "mailto:fuaadabdullah@gmail.com",
-  "jobTitle": "Finance Student • Builder",
+  "jobTitle": "Software Developer",
   "affiliation": {"@type":"Organization","name":"Georgia State University"},
   "sameAs": [
     "https://www.linkedin.com/in/fuaadabdullah",
