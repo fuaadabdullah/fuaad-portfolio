@@ -8,12 +8,13 @@ export default function GoblinRoutingSequence() {
   const requestText = "rgba(255,255,255,0.75)";
 
   const lifelines: { cx: number; label: string; sub?: string; boxW?: number }[] = [
-    { cx: 55, label: "User" },
-    { cx: 185, label: "Chat UI", sub: "Next.js" },
-    { cx: 330, label: "Proxy", sub: "Vercel handler" },
-    { cx: 480, label: "Router", sub: "FastAPI" },
-    { cx: 625, label: "State", sub: "Postgres + Redis" },
-    { cx: 785, label: "Provider pool", sub: "LLM backend", boxW: 130 },
+    { cx: 50, label: "User" },
+    { cx: 170, label: "Chat UI", sub: "Next.js" },
+    { cx: 300, label: "Proxy", sub: "Vercel handler" },
+    { cx: 430, label: "Router", sub: "FastAPI" },
+    { cx: 575, label: "Health monitor", sub: "Backend service", boxW: 132 },
+    { cx: 710, label: "Storage", sub: "Postgres + Redis", boxW: 130 },
+    { cx: 850, label: "Provider pool", sub: "LLM backend", boxW: 130 },
   ];
 
   return (
@@ -23,7 +24,7 @@ export default function GoblinRoutingSequence() {
     >
       <div className="overflow-x-auto">
       <svg
-        viewBox="0 0 960 820"
+        viewBox="0 0 1000 820"
         role="img"
         aria-labelledby="goblin-seq-title goblin-seq-desc"
         className="h-auto min-w-[720px] w-full"
@@ -31,8 +32,8 @@ export default function GoblinRoutingSequence() {
         <title id="goblin-seq-title">GoblinOS Assistant provider-selection sequence</title>
         <desc id="goblin-seq-desc">
           A chat turn flows from the user through the Chat UI and Vercel proxy to the FastAPI router.
-          The router evaluates routing strategy and provider-health signals, runs the
-          provider-scoring pipeline, calls the selected provider, persists usage/telemetry,
+          The router evaluates routing strategy with provider-health signals from the backend
+          health monitor, runs the provider-scoring pipeline, calls the selected provider, persists usage/telemetry,
           and returns a normalized response that updates the status panels. The retry-on-429 branch
           is labeled design behavior: it is not asserted from committed code.
         </desc>
@@ -59,49 +60,49 @@ export default function GoblinRoutingSequence() {
         ))}
 
         {/* 1 · user sends message */}
-        <text x={120} y={102} textAnchor="middle" fontSize="11" fill={requestText}>1 · send message</text>
-        <line x1={55} y1={110} x2={181} y2={110} stroke={requestStroke} strokeWidth="1.5" markerEnd="url(#goblin-seq-arrow)" />
+        <text x={110} y={102} textAnchor="middle" fontSize="11" fill={requestText}>1 · send message</text>
+        <line x1={50} y1={110} x2={166} y2={110} stroke={requestStroke} strokeWidth="1.5" markerEnd="url(#goblin-seq-arrow)" />
 
         {/* 2 · POST to proxy */}
-        <text x={257} y={147} textAnchor="middle" fontSize="11" fill={requestText}>2 · POST /api/chat</text>
-        <line x1={185} y1={155} x2={326} y2={155} stroke={requestStroke} strokeWidth="1.5" markerEnd="url(#goblin-seq-arrow)" />
+        <text x={235} y={147} textAnchor="middle" fontSize="11" fill={requestText}>2 · POST /api/chat</text>
+        <line x1={170} y1={155} x2={296} y2={155} stroke={requestStroke} strokeWidth="1.5" markerEnd="url(#goblin-seq-arrow)" />
 
         {/* 3 · proxy forwards to router */}
-        <text x={405} y={192} textAnchor="middle" fontSize="11" fill={requestText}>3 · forward typed contract</text>
-        <line x1={330} y1={200} x2={476} y2={200} stroke={requestStroke} strokeWidth="1.5" markerEnd="url(#goblin-seq-arrow)" />
+        <text x={365} y={192} textAnchor="middle" fontSize="11" fill={requestText}>3 · forward typed contract</text>
+        <line x1={300} y1={200} x2={426} y2={200} stroke={requestStroke} strokeWidth="1.5" markerEnd="url(#goblin-seq-arrow)" />
 
         {/* 4 · router evaluates strategy and health */}
-        <text x={552} y={237} textAnchor="middle" fontSize="11" fill={requestText}>4 · read strategy + health</text>
-        <line x1={480} y1={245} x2={621} y2={245} stroke={requestStroke} strokeWidth="1.5" markerEnd="url(#goblin-seq-arrow)" />
+        <text x={503} y={237} textAnchor="middle" fontSize="11" fill={requestText}>4 · request health signals</text>
+        <line x1={430} y1={245} x2={571} y2={245} stroke={requestStroke} strokeWidth="1.5" markerEnd="url(#goblin-seq-arrow)" />
 
         {/* snapshots + scores return */}
-        <text x={552} y={282} textAnchor="middle" fontSize="11" fill="#34d399">snapshots + scores</text>
-        <line x1={625} y1={290} x2={484} y2={290} stroke="#34d399" strokeWidth="1.5" strokeDasharray="5 4" markerEnd="url(#goblin-seq-arrow-teal)" />
+        <text x={503} y={282} textAnchor="middle" fontSize="11" fill="#34d399">health signals</text>
+        <line x1={575} y1={290} x2={434} y2={290} stroke="#34d399" strokeWidth="1.5" strokeDasharray="5 4" markerEnd="url(#goblin-seq-arrow-teal)" />
 
         {/* 5 · scoring pipeline */}
-        <rect x={652} y={316} width={264} height={44} rx={8} fill="rgba(251,191,36,0.08)" stroke="#fbbf24" strokeOpacity="0.6" />
-        <text x={784} y={335} textAnchor="middle" fontSize="11" fill="#fbbf24">5 · score providers</text>
-        <text x={784} y={351} textAnchor="middle" fontSize="10" fill={subFill}>Latency · Cost · Hybrid · tier</text>
+        <rect x={468} y={316} width={216} height={44} rx={8} fill="rgba(251,191,36,0.08)" stroke="#fbbf24" strokeOpacity="0.6" />
+        <text x={576} y={335} textAnchor="middle" fontSize="11" fill="#fbbf24">5 · score providers</text>
+        <text x={576} y={351} textAnchor="middle" fontSize="10" fill={subFill}>Latency · Cost · Hybrid · tier</text>
 
         {/* 6 · inference request to selected provider */}
-        <text x={630} y={402} textAnchor="middle" fontSize="11" fill={requestText}>6 · inference request</text>
-        <line x1={480} y1={410} x2={781} y2={410} stroke={requestStroke} strokeWidth="1.5" markerEnd="url(#goblin-seq-arrow)" />
+        <text x={640} y={402} textAnchor="middle" fontSize="11" fill={requestText}>6 · inference request</text>
+        <line x1={430} y1={410} x2={846} y2={410} stroke={requestStroke} strokeWidth="1.5" markerEnd="url(#goblin-seq-arrow)" />
 
         {/* 7 · provider response */}
-        <text x={630} y={457} textAnchor="middle" fontSize="11" fill="#34d399">7 · response + usage</text>
-        <line x1={785} y1={465} x2={484} y2={465} stroke="#34d399" strokeWidth="1.5" strokeDasharray="5 4" markerEnd="url(#goblin-seq-arrow-teal)" />
+        <text x={640} y={457} textAnchor="middle" fontSize="11" fill="#34d399">7 · response + usage</text>
+        <line x1={850} y1={465} x2={434} y2={465} stroke="#34d399" strokeWidth="1.5" strokeDasharray="5 4" markerEnd="url(#goblin-seq-arrow-teal)" />
 
         {/* 8 · persist telemetry */}
-        <text x={552} y={510} textAnchor="middle" fontSize="11" fill={requestText}>8 · persist usage + telemetry</text>
-        <line x1={480} y1={518} x2={621} y2={518} stroke={requestStroke} strokeWidth="1.5" markerEnd="url(#goblin-seq-arrow)" />
+        <text x={570} y={510} textAnchor="middle" fontSize="11" fill={requestText}>8 · persist usage + telemetry</text>
+        <line x1={430} y1={518} x2={706} y2={518} stroke={requestStroke} strokeWidth="1.5" markerEnd="url(#goblin-seq-arrow)" />
 
         {/* 9 · normalized response */}
-        <text x={405} y={563} textAnchor="middle" fontSize="11" fill="#34d399">9 · normalized response + telemetry</text>
-        <line x1={480} y1={571} x2={334} y2={571} stroke="#34d399" strokeWidth="1.5" strokeDasharray="5 4" markerEnd="url(#goblin-seq-arrow-teal)" />
+        <text x={365} y={563} textAnchor="middle" fontSize="11" fill="#34d399">9 · normalized response + telemetry</text>
+        <line x1={430} y1={571} x2={304} y2={571} stroke="#34d399" strokeWidth="1.5" strokeDasharray="5 4" markerEnd="url(#goblin-seq-arrow-teal)" />
 
         {/* 10 · render reply */}
-        <text x={257} y={616} textAnchor="middle" fontSize="11" fill="#34d399">10 · render reply</text>
-        <line x1={330} y1={624} x2={189} y2={624} stroke="#34d399" strokeWidth="1.5" strokeDasharray="5 4" markerEnd="url(#goblin-seq-arrow-teal)" />
+        <text x={235} y={616} textAnchor="middle" fontSize="11" fill="#34d399">10 · render reply</text>
+        <line x1={300} y1={624} x2={174} y2={624} stroke="#34d399" strokeWidth="1.5" strokeDasharray="5 4" markerEnd="url(#goblin-seq-arrow-teal)" />
 
         {/* Design-behavior annotation */}
         <rect x={200} y={662} width={612} height={62} rx={10} fill="rgba(248,113,113,0.08)" stroke="#f87171" strokeOpacity="0.6" strokeDasharray="5 4" />

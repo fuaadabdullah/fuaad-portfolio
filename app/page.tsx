@@ -100,7 +100,7 @@ export default async function HomePage() {
             </span>
           </div>
           <p className="mt-2 text-sm text-white/80">
-            Multi-provider AI assistant with observable routing, live provider health, and production-ready infra split across backend and frontend.
+            Multi-provider AI assistant with observable routing, provider-health surfaces, and a Dockerized FastAPI backend paired with a Vercel frontend.
           </p>
           <div className="mt-3 flex flex-wrap gap-2 text-xs">
             {goblinProject.results.map((result) => (

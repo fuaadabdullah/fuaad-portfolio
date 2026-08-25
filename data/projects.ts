@@ -88,7 +88,7 @@ const projects: Project[] = [
       "A multi-provider, privacy-first AI assistant with observable routing.",
     description: `GoblinOS Assistant is a multi-provider, privacy-first AI assistant with intelligent model routing.
 
-The interface pairs chat with live system status panels so you can see provider health, latency, and routing behavior at a glance. The backend is a Dockerized FastAPI (Python) service with a SQL data layer, while the frontend is built in Next.js (React/TypeScript) with Tailwind CSS. Deployment uses Vercel for the UI, and Docker keeps the backend runtime reproducible.`,
+The interface pairs chat with system status panels so you can see provider health, latency, and routing behavior at a glance. The Vercel-hosted frontend is paired with a Dockerized FastAPI (Python) backend with a SQL data layer. Docker keeps the backend runtime reproducible.`,
     tech: [
       "FastAPI",
       "Python",
@@ -112,7 +112,7 @@ The interface pairs chat with live system status panels so you can see provider 
       },
       {
         label: "system transparency",
-        value: "Live status panels",
+        value: "Status panels",
         sourceLabel: "provider health · latency · usage",
       },
       {
@@ -127,7 +127,7 @@ The interface pairs chat with live system status panels so you can see provider 
         src: "/projects/demos/goblin-assistant-demo.gif",
         width: 1280,
         height: 800,
-        alt: "GoblinOS live control panel — status board with live indicators, rotating 'Currently running' domain tag, live chat preview, and a health badge toggling between Degraded and OK",
+        alt: "GoblinOS control-panel demo — status board with status indicators, rotating 'Currently running' domain tag, chat preview, and a health badge toggling between Degraded and OK",
         status: "ready",
       },
       {
@@ -180,13 +180,13 @@ The interface pairs chat with live system status panels so you can see provider 
     timeline: "Ongoing",
     role: "Solo Developer",
     features: [
-      "Chat interface paired with live system status panels",
+      "Chat interface paired with system status panels",
       "Multi-provider routing with observable decision signals",
       "Workflow execution and orchestration tools",
       "Cost tracking and usage visibility by provider",
       "FastAPI backend with structured, typed API surface",
       "Next.js frontend in TypeScript with Tailwind CSS",
-"Dockerized backend deployment with a Vercel-hosted UI",
+"Vercel-hosted frontend paired with a Dockerized FastAPI backend",
     ],
     challenges: [
       "Keeping routing behavior explainable while supporting multiple providers",
@@ -212,7 +212,7 @@ The interface pairs chat with live system status panels so you can see provider 
     audienceAndStakes:
       "Developers and power users who want a controllable assistant with dependable routing and clear system status.",
     approach:
-      "Built a FastAPI backend with a Next.js UI, surfaced status panels alongside chat, and deployed with Vercel for the frontend and a Dockerized FastAPI backend. Docker keeps environments repeatable.",
+      "Built a FastAPI backend with a Next.js UI, surfaced status panels alongside chat, and paired a Vercel-hosted frontend with a Dockerized FastAPI backend. Docker keeps environments repeatable.",
     tradeoffs:
       "The most consequential call was adding a dedicated FastAPI routing gateway instead of calling providers directly from Next.js route handlers. A direct-call approach would have been simpler — one fewer service, one fewer network hop, no inter-service auth to maintain — and it would have shipped faster. The trade-off that justified it: the gateway is the single owner of routing strategy, provider health scoring, response normalization, and cost telemetry. Without it, that logic lives in Next.js serverless functions — stateless and short-lived, with no shared health monitor or routing state across requests. A central gateway keeps routing logic consistent, testable, and observable in one place.",
     impact:
@@ -237,7 +237,7 @@ The interface pairs chat with live system status panels so you can see provider 
           src: "/projects/goblin-live-chat.png",
           width: 1280,
           height: 800,
-          alt: "GoblinOS Assistant chat workspace with guest mode, saved threads, and live tools",
+          alt: "GoblinOS Assistant chat workspace with guest mode, saved threads, and tool panels",
           caption:
             "Chat workspace — the primary surface. Threads, tool routing across chat/search/sandbox/admin panels, and guest-mode access so the demo works without an account.",
         },
@@ -587,7 +587,7 @@ Built with Gradio for an intuitive web interface and deployed on HuggingFace Spa
     slug: "shopmind-ai",
     title: "ShopMindAI",
     tagline:
-      "Automotive diagnostic assistant with ranked repair guidance and production observability.",
+      "Automotive diagnostic assistant with ranked repair guidance and observability.",
     description: `ShopMindAI is an automotive diagnostic assistant built to help technicians and small shops move from symptom notes to structured, testable repair plans.
 
 The platform combines VIN and OBD-code intake, retrieval context, and LLM-supported reasoning to return ranked likely causes plus confirmatory tests. It includes production health and metrics endpoints and is deployed on Azure.`,
@@ -676,7 +676,7 @@ The platform combines VIN and OBD-code intake, retrieval context, and LLM-suppor
     challenges: [
       "Balancing strict validation with flexible real-world technician input",
       "Combining retrieval context with model reasoning into actionable outputs",
-      "Keeping production observability simple enough for small-team operations",
+      "Keeping observability simple enough for small-team operations",
     ],
     learnings: [
       "Structured response design makes AI outputs far easier to operationalize",

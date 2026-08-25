@@ -7,11 +7,11 @@ export type NowActivity = {
 };
 
 export const nowActivity: NowActivity = {
-  building: "GoblinOS case study — live agent panels, demo GIFs, and observability write-up",
+  building: "GoblinOS case study — agent workflow panels, demo GIFs, and observability write-up",
   detail:
     "Full architecture documentation and multi-provider routing deep-dive.",
   shipped: [
-    "GoblinOS Assistant — multi-provider AI agent with real-time provider health monitoring",
+    "GoblinOS Assistant — multi-provider AI agent with provider health monitoring",
     "GradeM8 — AI document grading pipeline with Llama 2 rubric-based feedback",
     "RIZZK Calculator — position sizing and risk/reward math tool",
   ],

@@ -40,7 +40,7 @@ export default function PortfolioPage() {
           </p>
           <ProjectResultChips className="mt-5" results={goblinProject.results} />
           <p className="mt-3 text-sm text-emerald-200/80">
-            Full case study: architecture diagram · provider-routing sequence · production
+            Full case study: architecture diagram · provider-routing sequence ·
             observability · routing architecture · 10×-scale plan.
           </p>
           <ProjectProofMedia className="mt-5" media={goblinProject.proofMedia} mode="card" />
