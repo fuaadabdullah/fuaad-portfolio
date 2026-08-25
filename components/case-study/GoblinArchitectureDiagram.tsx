@@ -10,20 +10,21 @@ export default function GoblinArchitectureDiagram() {
   return (
     <figure
       data-testid="goblin-architecture-diagram"
-      className="overflow-hidden rounded-xl border border-white/10 bg-black/20 p-2 md:p-4"
+      className="rounded-xl border border-white/10 bg-black/20 p-2 md:p-4"
     >
+      <div className="overflow-x-auto">
       <svg
         viewBox="0 0 960 720"
         role="img"
         aria-labelledby="goblin-arch-title goblin-arch-desc"
-        className="h-auto w-full"
+        className="h-auto min-w-[700px] w-full"
       >
         <title id="goblin-arch-title">GoblinOS Assistant deployment topology</title>
         <desc id="goblin-arch-desc">
-          Browser traffic enters through the Cloudflare edge, hits the Next.js app on Vercel whose
-          route-handler proxy forwards requests to the FastAPI gateway on Fly.io or Render. The
-          gateway reads routing strategy and provider health from Redis, persists durable records to
-          PostgreSQL, and calls the LLM provider pool. Telemetry flows back to the UI status panels.
+          Browser traffic enters the Next.js app on Vercel whose route-handler proxy forwards
+          requests to a Dockerized FastAPI gateway. The gateway owns routing strategy and provider
+          health scoring, persists durable records to PostgreSQL, and calls the LLM provider pool.
+          Telemetry flows back to the UI status panels.
         </desc>
         <defs>
           <marker
@@ -59,18 +60,7 @@ export default function GoblinArchitectureDiagram() {
           chat session
         </text>
 
-        <line x1="480" y1="78" x2="480" y2="116" stroke={arrowStroke} strokeWidth="1.5" markerEnd="url(#goblin-arch-arrow)" />
-
-        {/* Cloudflare */}
-        <rect x="370" y="118" width="220" height="54" rx="10" fill={boxFill} stroke={boxStroke} />
-        <text x="480" y="142" textAnchor="middle" fontSize="14" fontWeight="600" fill={titleFill}>
-          Cloudflare edge
-        </text>
-        <text x="480" y="160" textAnchor="middle" fontSize="11" fill={subFill}>
-          edge cache · rate control
-        </text>
-
-        <line x1="480" y1="172" x2="480" y2="210" stroke={arrowStroke} strokeWidth="1.5" markerEnd="url(#goblin-arch-arrow)" />
+        <line x1="480" y1="78" x2="480" y2="210" stroke={arrowStroke} strokeWidth="1.5" markerEnd="url(#goblin-arch-arrow)" />
 
         {/* Vercel / Next.js */}
         <rect x="250" y="212" width="460" height="104" rx="12" fill={boxFill} stroke={boxStroke} />
@@ -97,7 +87,7 @@ export default function GoblinArchitectureDiagram() {
         {/* FastAPI gateway */}
         <rect x="250" y="372" width="460" height="116" rx="12" fill={boxFill} stroke={boxStroke} />
         <text x="480" y="398" textAnchor="middle" fontSize="14" fontWeight="600" fill={titleFill}>
-          Fly.io / Render — FastAPI gateway
+          Dockerized FastAPI backend
         </text>
         <rect x="270" y="412" width="200" height="56" rx="8" fill={chipFill} stroke={chipStroke} strokeOpacity="0.5" />
         <text x="370" y="434" textAnchor="middle" fontSize="12" fontWeight="600" fill={titleFill}>
@@ -127,7 +117,7 @@ export default function GoblinArchitectureDiagram() {
           Redis
         </text>
         <text x="121" y="490" textAnchor="middle" fontSize="10" fill={subFill}>
-          cache · health state
+          cache · worker state
         </text>
         <line x1="250" y1="412" x2="210" y2="412" stroke={arrowStroke} strokeWidth="1.5" markerEnd="url(#goblin-arch-arrow)" />
         <line x1="250" y1="478" x2="210" y2="478" stroke={arrowStroke} strokeWidth="1.5" markerEnd="url(#goblin-arch-arrow)" />
@@ -145,14 +135,14 @@ export default function GoblinArchitectureDiagram() {
           OpenAI
         </text>
         <text x="180" y="612" textAnchor="middle" fontSize="10" fill={subFill}>
-          primary inference
+          routing candidate · config
         </text>
         <rect x="370" y="568" width="220" height="64" rx="10" fill={boxFill} stroke={boxStroke} />
         <text x="480" y="594" textAnchor="middle" fontSize="13" fontWeight="600" fill={titleFill}>
           Anthropic
         </text>
         <text x="480" y="612" textAnchor="middle" fontSize="10" fill={subFill}>
-          standby + specialized tasks
+          routing candidate · config
         </text>
         <rect x="670" y="568" width="220" height="64" rx="10" fill={boxFill} stroke={boxStroke} />
         <text x="780" y="594" textAnchor="middle" fontSize="13" fontWeight="600" fill={titleFill}>
@@ -184,9 +174,22 @@ export default function GoblinArchitectureDiagram() {
 
         {/* Footnote */}
         <text x="480" y="692" textAnchor="middle" fontSize="12" fill="rgba(255,255,255,0.45)">
-          Docker images + Terraform keep every layer reproducible across environments.
+          Docker keeps the backend runtime reproducible across environments.
         </text>
       </svg>
+      </div>
+
+      <p className="mb-2 mt-2 pl-2 text-[11px] text-white/50 md:hidden">← Swipe to explore the diagram →</p>
+
+      <figcaption className="mt-3 border-t border-white/10 pt-3 text-sm text-white/70">
+        <p className="font-medium text-white/85">How the system fits together</p>
+        <ul className="mt-2 list-inside list-disc space-y-1 text-sm leading-relaxed">
+          <li>Vercel hosts the Next.js UI, which proxies chat requests through route handlers.</li>
+          <li>A Dockerized FastAPI backend owns routing strategy, provider health scoring, and response normalization.</li>
+          <li>PostgreSQL keeps durable records; Redis backs cache, worker, and runtime coordination paths.</li>
+          <li>A config-driven pool of LLM providers supplies inference; telemetry flows back to the UI status panels.</li>
+        </ul>
+      </figcaption>
     </figure>
   );
 }

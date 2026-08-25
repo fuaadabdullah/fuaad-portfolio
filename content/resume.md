@@ -22,7 +22,7 @@ I ship products across the stack, from trader-facing calculators and reporting w
 
 **Data & Automation:** pandas · numpy · ETL pipelines · spreadsheet automation · reporting workflows · dashboard delivery
 
-**Infrastructure:** Docker · Linux · Git/GitHub · WebSockets · REST APIs · PostgreSQL · Redis · Vercel · Fly.io · Azure
+**Infrastructure:** Docker · Linux · Git/GitHub · WebSockets · REST APIs · PostgreSQL · Redis · Vercel · Azure
 
 **AI & ML Ops:** Model hosting · Hugging Face Spaces · inference pipelines · LLM provider routing · observability
 
@@ -73,12 +73,12 @@ Selected coursework: Financial Accounting · Business Technology · Marketing Pr
 
 ### Goblin Assistant
 
-Production multi-provider AI assistant with routing, observability, and privacy controls.
+Multi-provider AI assistant with routing, observability, and privacy controls.
 
-*FastAPI · Next.js · TypeScript · PostgreSQL · Redis · Docker · Fly.io · Vercel*
+*FastAPI · Next.js · TypeScript · PostgreSQL · Redis · Docker · Vercel*
 
-- Built a production AI system spanning frontend, backend, infra, and provider routing instead of a single demo surface.
-- Added live status, latency, and routing visibility across 4 observable workflow views and 3 deployment layers.
+- Built an AI system spanning frontend, backend, infra, and provider routing instead of a single demo surface.
+- Added status, latency, and routing visibility across the chat and operations surfaces.
 
 ### RIZZK Calculator
 

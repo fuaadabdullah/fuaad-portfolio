@@ -65,7 +65,7 @@ export const resumeData = {
     ],
     highlights: [
       { label: "Finance edge", value: "Active trader building tools for real trading decisions" },
-      { label: "Can ship", value: "Production apps delivered across Next.js, FastAPI, Python, Azure, Fly.io, and Vercel" },
+      { label: "Can ship", value: "Production apps delivered across Next.js, FastAPI, Python, Azure, and Vercel" },
       { label: "What I want", value: "Fintech engineering roles, product-minded teams, and select contract work" },
     ] as ResumeSignal[],
     sideCards: [
@@ -147,15 +147,15 @@ export const resumeData = {
     items: [
       {
         title: "Goblin Assistant",
-        tagline: "Production multi-provider AI assistant with routing, observability, and privacy controls.",
-        tech: ["FastAPI", "Next.js", "TypeScript", "PostgreSQL", "Redis", "Docker", "Fly.io", "Vercel"],
+        tagline: "Multi-provider AI assistant with routing, observability, and privacy controls.",
+        tech: ["FastAPI", "Next.js", "TypeScript", "PostgreSQL", "Redis", "Docker", "Vercel"],
         metrics: [
-          { value: "3", label: "deployment layers integrated" },
-          { value: "4", label: "observable workflow views" },
+          { value: "2", label: "app layers integrated" },
+          { value: "4", label: "visible workflow surfaces" },
           { value: "12", label: "core technologies shipped" },
         ],
         bullets: [
-          "Built a production AI system spanning frontend, backend, infra, and provider routing instead of a single demo surface.",
+          "Built an AI system spanning frontend, backend, infra, and provider routing instead of a single demo surface.",
           "Added live status, latency, and routing visibility so model behavior is explainable and operationally credible.",
         ],
         links: {
@@ -249,7 +249,7 @@ export const resumeData = {
       {
         eyebrow: "Infrastructure",
         body:
-          "Docker · Linux · Git/GitHub · WebSockets · REST APIs · PostgreSQL · Redis · Vercel · Fly.io · Azure",
+          "Docker · Linux · Git/GitHub · WebSockets · REST APIs · PostgreSQL · Redis · Vercel · Azure",
       },
       {
         eyebrow: "AI & ML Ops",

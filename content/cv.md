@@ -47,9 +47,9 @@ Production position-sizing and risk management tool for active day traders.
 
 ### Goblin Assistant
 
-Production multi-provider AI assistant with routing, observability, and privacy controls.
+Multi-provider AI assistant with routing, observability, and privacy controls.
 
-*FastAPI · Next.js · TypeScript · PostgreSQL · Redis · Docker · Fly.io · Vercel*
+*FastAPI · Next.js · TypeScript · PostgreSQL · Redis · Docker · Vercel*
 
 - **Problem / research question:** How can an AI assistant become more trustworthy when model choice, latency, and provider health are usually hidden from the user?
 - **Approach:** Designed a system where routing decisions and provider state remain visible, making infrastructure and interaction design part of the product itself.

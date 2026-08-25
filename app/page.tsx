@@ -62,7 +62,7 @@ export default async function HomePage() {
         </div>
         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
           <p className="text-xs uppercase tracking-[0.18em] text-white/45">Current stack</p>
-          <p className="mt-2 text-white/85">Next.js, React, TypeScript, Python, FastAPI, PostgreSQL, Redis, Docker, Azure, Fly.io.</p>
+          <p className="mt-2 text-white/85">Next.js, React, TypeScript, Python, FastAPI, PostgreSQL, Redis, Docker, Azure, Vercel.</p>
         </div>
       </div>
 
@@ -96,11 +96,11 @@ export default async function HomePage() {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="font-medium text-zinc-100">Featured build: {goblinProject.title}</p>
             <span className="rounded-full bg-emerald-400/20 px-3 py-1 text-[11px] text-emerald-100">
-              FastAPI · Postgres · Redis · Terraform · Fly.io
+              FastAPI · Postgres · Redis · Docker · Vercel
             </span>
           </div>
           <p className="mt-2 text-sm text-white/80">
-            Multi-provider AI assistant with observable routing, live provider health, and production-ready infra split across edge, backend, and frontend.
+            Multi-provider AI assistant with observable routing, provider-health surfaces, and a Dockerized FastAPI backend paired with a Vercel frontend.
           </p>
           <div className="mt-3 flex flex-wrap gap-2 text-xs">
             {goblinProject.results.map((result) => (

@@ -2,24 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 import clsx from "clsx";
 import Container from "@/components/layout/Container";
 import SocialIcon from "@/components/SocialIcon";
-import { bookingCta, bookingLink } from "@/data/contact";
 
 const links = [
-  { href: "/", label: "Home" },
   { href: "/portfolio", label: "Portfolio" },
+  { href: "/resume", label: "Résumé" },
   { href: "/contact", label: "Contact" },
-  { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About / Lore" },
-  { href: "/resume", label: "Resume" },
-  { href: "/cv", label: "CV" },
 ] as const;
 
-const cta = { href: bookingLink, label: bookingCta.shortLabel } as const;
 const socialLinks = [
   {
     href: "https://github.com/fuaadabdullah",
@@ -69,20 +63,6 @@ function DesktopLinks({ pathname }: { pathname: string }) {
             label={social.label}
           />
         ))}
-      </li>
-      <li className="ml-2">
-        <a
-          href={cta.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={clsx(
-            "inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-medium transition-colors",
-            "bg-[color:var(--color-accent)] text-black hover:bg-[color:var(--color-accent)]/90"
-          )}
-        >
-          {cta.label}
-          <ArrowUpRight size={16} aria-hidden="true" />
-        </a>
       </li>
     </ul>
   );
@@ -173,19 +153,6 @@ function MobileMenu({
                 label={social.label}
               />
             ))}
-          </div>
-
-          <div className="pt-2">
-            <a
-              href={cta.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={onClose}
-              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[color:var(--color-accent)] px-4 py-3 font-semibold text-black hover:bg-[color:var(--color-accent)]/90 transition-colors"
-            >
-              {cta.label}
-              <ArrowUpRight size={18} aria-hidden="true" />
-            </a>
           </div>
         </div>
       </div>

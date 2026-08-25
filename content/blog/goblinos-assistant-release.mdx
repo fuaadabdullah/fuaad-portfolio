@@ -10,7 +10,7 @@ tags: ["GoblinOS", "AI", "assistant", "FastAPI", "Next.js", "multi-provider"]
 
 I'm excited to announce the release of **GoblinOS Assistant**, a multi-provider, privacy-first AI assistant that intelligently routes requests across different AI providers based on cost, performance, and capabilities.
 
-This project represents a significant step forward in building production-ready AI applications with proper infrastructure, monitoring, and user experience.
+This project represents a significant step forward in building AI applications with real infrastructure, monitoring, and user experience concerns.
 
 ## 🎯 Key Features
 
@@ -21,14 +21,14 @@ This project represents a significant step forward in building production-ready 
 - **Performance Monitoring**: Tracks response times and success rates across providers
 
 ### Privacy-First Architecture
-- **No Data Persistence**: Conversations are not stored by default
+- **Privacy-aware persistence**: Durable records are handled deliberately instead of treated as an afterthought
 - **Local Processing**: Sensitive data can be processed locally when possible
 - **Provider Agnostic**: Works with any OpenAI-compatible API
 - **Transparent Logging**: Optional logging for debugging without compromising privacy
 
 ### Modern Chat Interface
 - **Real-time Updates**: Live response streaming with typing indicators
-- **System Status**: Dashboard showing provider health and performance metrics
+- **System Status**: Dashboard showing provider health and performance signals
 - **Rich Media Support**: Handles text, images, and structured data
 - **Mobile Responsive**: Works seamlessly across all devices
 
@@ -49,24 +49,24 @@ This project represents a significant step forward in building production-ready 
 - **Accessibility**: WCAG 2.2 AA compliant
 
 ### Infrastructure
-- **Backend**: Cloudflare Workers for edge deployment
+- **Backend**: Dockerized FastAPI service with reproducible container builds
 - **Frontend**: Vercel for optimal performance
-- **Database**: Optional Redis for caching and session management
+- **Data**: Redis for caching and session management
 - **Monitoring**: Custom metrics and health endpoints
 - **CI/CD**: GitHub Actions with automated testing
 
 ## 📊 Performance & Reliability
 
 ### Multi-Provider Benefits
-- **99.9% Uptime**: Multiple providers ensure high availability
+- **Resilience**: Multiple providers reduce single-vendor dependence
 - **Cost Efficiency**: Automatic selection of cheapest suitable provider
 - **Performance**: Intelligent routing based on response times
-- **Scalability**: Distributed load across multiple services
+- **Scalability**: Distributed load across services
 
 ### Monitoring & Observability
 - **Real-time Metrics**: Provider health, response times, error rates
 - **System Status**: Live dashboard showing current system state
-- **Alerting**: Automated notifications for service degradation
+- **Operational Hooks**: Health and metrics surfaces for investigating service degradation
 - **Analytics**: Usage patterns and performance insights
 
 ## 🔧 Getting Started
@@ -105,9 +105,9 @@ OLLAMA_BASE_URL=http://localhost:11434
 ```
 
 ### Deployment
-- **Backend**: Deploy to Cloudflare Workers
+- **Backend**: Deploy the Dockerized FastAPI service on any container host
 - **Frontend**: Deploy to Vercel
-- **Infrastructure**: Terraform for reproducible deployments
+- **Infrastructure**: Docker for reproducible runtime environments
 
 ## 🎨 User Experience
 
@@ -118,10 +118,10 @@ OLLAMA_BASE_URL=http://localhost:11434
 - **Keyboard Shortcuts**: Efficient navigation and interaction
 
 ### System Status Dashboard
-- **Provider Health**: Real-time status of all connected providers
+- **Provider Health**: Status visibility for configured providers
 - **Performance Metrics**: Response times and success rates
 - **Usage Analytics**: Insights into usage patterns
-- **Alerts**: Notifications for service issues
+- **Diagnostics**: Surfaces for service issues
 
 ## 🔮 Future Roadmap
 
@@ -162,7 +162,7 @@ Areas where help is especially welcome:
 ### Technical Skills Developed
 - **Full-stack development** with modern frameworks
 - **API design** and multi-provider architecture
-- **Infrastructure as Code** with Terraform
+- **Containerized deployments** with Docker
 - **Performance optimization** and monitoring
 - **Security best practices** for AI applications
 
@@ -175,7 +175,7 @@ Areas where help is especially welcome:
 
 ## 🎯 Conclusion
 
-GoblinOS Assistant represents a significant milestone in building production-ready AI applications. It demonstrates how to balance powerful features with privacy, performance, and user experience.
+GoblinOS Assistant represents a significant milestone in building AI applications with credible infrastructure. It demonstrates how to balance powerful features with privacy, performance, and user experience.
 
 The project serves as both a practical tool and a learning resource for developers interested in AI application development.
 
