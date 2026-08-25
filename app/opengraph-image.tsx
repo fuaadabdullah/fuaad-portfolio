@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
 export const alt = "Fuaad Abdullah - Finance x Software";
 export const size = {
   width: 1200,
@@ -94,7 +93,6 @@ export default function Image() {
         <div
           style={{
             position: "relative",
-            zIndex: 1,
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",

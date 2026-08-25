@@ -37,7 +37,7 @@ I ship products across the stack, from trader-facing calculators and reporting w
 *Self-employed* · Feb 2023 – Present
 
 - Trade equities under strict risk controls while shipping tooling for live trading workflows, reporting, and client delivery.
-- Shipped RIZZK, a production risk calculator that cut position-size mistakes by ~90% and made sizing decisions ~50% faster in live trading sessions.
+- Shipped RIZZK, a production risk calculator that cut position-size mistakes by ~90% and made sizing decisions ~50% faster in live trading sessions (self-reported estimates from my own sessions).
 - Built Streamlit dashboards, export tools, and spreadsheet automations used in daily workflows and freelance client reporting.
 - Operate with weekly review loops, documented trade logs, and measurable execution discipline that carry directly into product work.
 
@@ -86,7 +86,7 @@ Production position-sizing and risk management tool for active day traders.
 
 *Python · Streamlit · Plotly · Docker · Azure*
 
-- Cut position-size mistakes by ~90% and sped up sizing decisions by ~50% in live trading sessions.
+- Cut position-size mistakes by ~90% and sped up sizing decisions by ~50% in live trading sessions (self-reported estimates from my own sessions, not a controlled measurement).
 - Shipped to production in 4 weeks and built it around real-money trading workflows I use myself.
 
 ### GradeM8
@@ -95,7 +95,7 @@ AI grading assistant with rubric-based feedback and production-minded test cover
 
 *Python · Gradio · Hugging Face · pytest*
 
-- Reduced routine grading time by 60-70% while supporting 4 document formats.
+- Reduced routine grading time by 60-70% (informal teacher feedback) while supporting 4 document formats.
 - Backed the app with 285+ tests to keep document parsing and grading flows reliable.
 
 ### Portfolio
@@ -104,7 +104,7 @@ Recruiter-ready portfolio and case-study site built for performance, accessibili
 
 *Next.js · React · TypeScript · Tailwind · MDX · Vercel*
 
-- Achieved 100/100 Lighthouse scores and sub-2s global load times.
+- Latest Lighthouse mobile audit (Aug 25, 2026): 89/100 performance, 95/100 accessibility, 100/100 SEO & best-practices, 2.0s LCP — audit artifacts in /proofs.
 - Designed and shipped the site in 2 weeks with resume delivery, case studies, and SEO foundations built in.
 
 ### Elbey Projects

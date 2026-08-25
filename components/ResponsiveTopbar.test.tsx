@@ -24,7 +24,7 @@ describe("ResponsiveTopbar", () => {
     fireEvent.click(openBtn);
     expect(await screen.findByRole("dialog")).toBeInTheDocument();
 
-    const closeBtn = screen.getByRole("button", { name: /close menu/i });
+    const closeBtn = screen.getByRole("button", { name: /^close menu$/i });
     fireEvent.click(closeBtn);
 
     await waitFor(() => {
@@ -34,6 +34,6 @@ describe("ResponsiveTopbar", () => {
 
   it("contains the main navigation link with Homepage label", () => {
     render(<ResponsiveTopbar />);
-    expect(screen.getByRole("link", { name: /hey i'm fuaad/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /fuaad abdullah - home/i })).toBeInTheDocument();
   });
 });

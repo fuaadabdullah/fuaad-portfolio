@@ -5,7 +5,7 @@
 
 /**
  * Verify admin authentication token using constant-time comparison
- * Prevents timing attacks that could leak token information
+ * Prevents timing attacks that could leak token information.
  * 
  * @param token - The token to verify (from Authorization header)
  * @returns true if token matches ADMIN_TOKEN, false otherwise
@@ -15,7 +15,7 @@ export function verifyAdminToken(token: string): boolean {
   
   // If no admin token configured, deny access
   if (!adminToken) {
-    console.warn('ADMIN_TOKEN not configured. GET /api/contact is blocked.');
+    console.warn('ADMIN_TOKEN not configured. Admin endpoints are blocked.');
     return false;
   }
 

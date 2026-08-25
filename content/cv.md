@@ -43,7 +43,7 @@ Production position-sizing and risk management tool for active day traders.
 - **Problem / research question:** How can position sizing under time pressure become more consistent, less error-prone, and more behaviorally disciplined?
 - **Approach:** Built a calculator around the actual decisions traders make in live sessions, prioritizing speed, clarity, and risk visibility over unnecessary feature sprawl.
 - **Tradeoffs:** Streamlit accelerated iteration and deployment, while accepting some performance limits compared with a lower-level custom frontend.
-- **Outcome:** Reduced position-size mistakes by ~90% and sped up sizing decisions by ~50% in live trading sessions.
+- **Outcome:** Reduced position-size mistakes by ~90% and sped up sizing decisions by ~50% in live trading sessions — self-reported estimates from my own sessions and early traders, not a controlled measurement.
 
 ### Goblin Assistant
 
@@ -63,7 +63,7 @@ AI grading assistant with rubric-based feedback and production-minded test cover
 
 - **Problem / research question:** How can repetitive grading work be reduced without making the output too opaque or brittle to trust?
 - **Approach:** Combined document parsing, structured prompts, and strong test coverage so grading support could be evaluated as a workflow, not just a demo.
-- **Outcome:** Reduced routine grading time by 60-70% while maintaining reliability with 285+ tests.
+- **Outcome:** Reduced routine grading time by 60-70%, based on informal teacher feedback, while maintaining reliability with 285+ tests.
 
 ### Portfolio
 
@@ -73,7 +73,7 @@ Portfolio and case-study site designed as a public record of projects, reasoning
 
 - **Problem / research question:** How should technical work be presented so it communicates both execution quality and the thinking behind it?
 - **Approach:** Treated the portfolio as a product: high-performance delivery, structured content, and case studies that foreground decisions rather than only screenshots.
-- **Outcome:** Achieved 100/100 Lighthouse scores and sub-2s load times while supporting resume and CV delivery.
+- **Outcome:** Latest public Lighthouse mobile audit (Aug 25, 2026): performance 89/100, accessibility 95/100, SEO 100/100, best-practices 100/100, LCP 2.0s — full audit artifacts published in /proofs.
 
 ---
 

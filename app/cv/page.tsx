@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Container from "@/components/layout/Container";
 import { cvData } from "@/data/cv";
-import { getLatestGitActivity } from "@/lib/git-activity";
+import { nowActivity } from "@/data/now";
 
 export const metadata = {
   title: "CV – Fuaad Abdullah",
@@ -34,8 +34,6 @@ function KeyValue({ label, value }: { label: string; value: string }) {
 }
 
 export default function CvPage() {
-  const activity = getLatestGitActivity();
-
   return (
     <section aria-labelledby="cv-heading">
       <h1 id="cv-heading" className="sr-only">
@@ -57,15 +55,12 @@ export default function CvPage() {
             <KeyValue label="Current focus" value="Graduate programs, intellectually serious product work, and research-minded builders" />
           </div>
 
-          {activity ? (
-            <div className="rounded-2xl border border-cyan-400/20 bg-cyan-500/10 p-4 text-sm text-cyan-50">
-              <p className="text-[11px] uppercase tracking-[0.18em] text-cyan-100/70">Recently shipped</p>
-              <p className="mt-1 font-medium">{activity.subject}</p>
-              <p className="mt-1 text-cyan-100/80">
-                Last commit {activity.relativeTime} on {activity.committedAt}.
-              </p>
-            </div>
-          ) : null}
+          <div className="rounded-2xl border border-cyan-400/20 bg-cyan-500/10 p-4 text-sm text-cyan-50">
+            <p className="text-[11px] uppercase tracking-[0.18em] text-cyan-100/70">Building now</p>
+            <p className="mt-1 font-medium">{nowActivity.building}</p>
+            {nowActivity.detail && <p className="mt-0.5 text-cyan-100/80">{nowActivity.detail}</p>}
+            <p className="mt-2 text-[10px] text-cyan-100/40">Updated {nowActivity.updatedAt}</p>
+          </div>
 
           <div className="flex flex-wrap gap-3 text-sm">
             <a

@@ -5,7 +5,7 @@ This document covers security setup for authenticated endpoints and rate limitin
 
 ## Admin Token Setup
 
-The `GET /api/contact` endpoint requires authentication. Set the following environment variable:
+Admin endpoints require authentication. Set the following environment variable:
 
 ### Generate a secure token:
 ```bash
@@ -35,6 +35,11 @@ ADMIN_TOKEN="your-token-here"
 curl -H "Authorization: Bearer $ADMIN_TOKEN" \
   https://heyimfuaad.me/api/contact
 
+curl -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"prompt":"Summarize this portfolio."}' \
+  https://heyimfuaad.me/api/ai
+
 # With HTTPie
 http --auth-type bearer --auth $ADMIN_TOKEN \
   https://heyimfuaad.me/api/contact?limit=50
@@ -46,16 +51,15 @@ curl -H "Authorization: Bearer $ADMIN_TOKEN" \
 
 ## Rate Limiting
 
-Rate limiting uses Vercel KV (Redis) for persistence across deployments.
+Contact submission rate limiting is currently application-local in memory.
 
 **Limits:** 
 - 5 submissions per IP address per 24 hours
-- Graceful degradation if KV is unavailable (requests allowed)
+- The counter resets when the runtime restarts
 
-**Configuration:**
-- KV credentials are auto-managed by Vercel
-- No manual setup required if using Vercel deployments
-- For local development, rate limiting continues with in-memory fallback
+**Hardening backlog:**
+- Move contact rate limiting to a persistent shared store before treating it as abuse-resistant across deployments or multiple regions
+- Keep local fallback behavior for development and provider outages
 
 ## Endpoint Reference
 
@@ -123,12 +127,31 @@ Submit a new contact form.
 }
 ```
 
+### POST /api/ai and GET /api/ai (Authenticated)
+
+Provider-backed assistant generation and runtime-status inspection are admin-only.
+The public chat UI uses `/api/mock-ai`, which answers from local portfolio knowledge and does not call paid upstream providers.
+
+**Requirements:**
+- Authorization header with Bearer token
+- Token must match ADMIN_TOKEN environment variable
+
+### /api/upload (Authenticated)
+
+Blob upload, list, and delete operations are admin-only.
+
+**Requirements:**
+- Authorization header with Bearer token
+- Token must match ADMIN_TOKEN environment variable
+
 ## Deployment Checklist
 
 - [ ] Generate secure random `ADMIN_TOKEN`
 - [ ] Add `ADMIN_TOKEN` to Vercel Environment Variables (Settings > Environment Variables)
-- [ ] Verify Vercel KV is connected (if using Redis rate limiting)
+- [ ] Verify contact rate limiting behavior in the target deployment
 - [ ] Test authentication: `curl -H "Authorization: Bearer $TOKEN" https://yourdomain.com/api/contact`
+- [ ] Test AI auth: unauthenticated `POST /api/ai` returns 401; authenticated request returns 200
+- [ ] Test upload auth: unauthenticated `POST /api/upload`, `GET /api/upload`, and `DELETE /api/upload` return 401
 - [ ] Test rate limiting with multiple rapid requests
 - [ ] Monitor logs for auth failures: `Failed to fetch submissions`
 - [ ] Document token securely (password manager, not in code)
@@ -164,7 +187,5 @@ Submit a new contact form.
 - Check client IP isn't being shared (corporate proxy, VPN)
 
 **KV Connection Issues**
-- Rate limiting degrades gracefully
-- Check Vercel KV status in dashboard
-- Verify credentials are correctly configured
-- Local development continues with in-memory fallback
+- Contact rate limiting does not currently depend on KV
+- If persistent rate limiting is added later, document the required environment variables and fallback behavior here

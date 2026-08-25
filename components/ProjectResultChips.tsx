@@ -26,6 +26,19 @@ export default function ProjectResultChips({
           <p className="mt-2 text-[10px] uppercase tracking-[0.08em] text-white/50">
             {result.sourceLabel}
             {result.timeframe ? ` · ${result.timeframe}` : ""}
+            {result.proof ? (
+              <>
+                {" · "}
+                <a
+                  href={result.proof.href}
+                  target={result.proof.href.startsWith("/") ? undefined : "_blank"}
+                  rel="noopener noreferrer"
+                  className="underline decoration-white/30 underline-offset-2 hover:text-white"
+                >
+                  {result.proof.label}
+                </a>
+              </>
+            ) : null}
           </p>
         </article>
       ))}

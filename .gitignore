@@ -71,6 +71,9 @@ Thumbs.db
 ._*
 **/._*
 
+# GIF pipeline intermediates
+scripts/demo-frames/
+
 # portfolio build artifacts
 portfolio/*.pdf
 !public/*.pdf

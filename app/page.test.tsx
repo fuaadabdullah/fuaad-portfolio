@@ -27,8 +27,8 @@ describe("HomePage", () => {
     render(await HomePage());
 
     expect(rizzkProject).toBeDefined();
-    expect(screen.getByRole("heading", { name: /finance student shipping real trading tools/i })).toBeInTheDocument();
-    expect(screen.getByText(/fintech, automation, and ai products built end to end/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /i build software for markets, automation, and ai/i })).toBeInTheDocument();
+    expect(screen.getByText(/fintech and ai products built end to end/i)).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: rizzkProject!.title })
     ).toBeInTheDocument();

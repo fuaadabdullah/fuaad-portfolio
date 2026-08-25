@@ -9,7 +9,7 @@ export default function Footer(){
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <p className="text-sm text-white/60">
             © {new Date().getFullYear()} Fuaad Abdullah.
-            <span className="block text-xs text-white/60 mt-1">Lighthouse 95+ / WCAG AA accessibility — built for speed & standards.</span>
+            <span className="block text-xs text-white/60 mt-1">Lighthouse mobile audit Aug 2026: SEO & best-practices 100/100 · perf 89/100 — built for speed & standards.</span>
           </p>
           <div className="flex flex-col items-center gap-4 md:items-end">
             <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-white/70 md:justify-end">

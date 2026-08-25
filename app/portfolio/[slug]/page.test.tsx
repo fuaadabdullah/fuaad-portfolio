@@ -60,8 +60,74 @@ describe("Project detail route", () => {
 
     render(page);
     expect(
-      screen.getByRole("heading", { name: /Architecture highlights/i })
+      screen.getByRole("heading", { name: /System architecture/i })
     ).toBeInTheDocument();
-    expect(screen.getByText(/FastAPI backend with typed request\/response contracts/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/three deployment layers: a Cloudflare edge/i)
+    ).toBeInTheDocument();
+  });
+
+  it("renders the flagship systems sections for GoblinOS", async () => {
+    const page = await ProjectPage({
+      params: Promise.resolve({ slug: "goblin-assistant" }),
+    });
+
+    render(page);
+
+    expect(
+      screen.getByRole("heading", { name: /Production observability/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /System architecture/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Provider routing: the failover path/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Incident postmortem/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /What changes at 10× scale/i })
+    ).toBeInTheDocument();
+
+    // Diagrams render with accessible names
+    expect(screen.getByTestId("goblin-architecture-diagram")).toBeInTheDocument();
+    expect(screen.getByTestId("goblin-routing-sequence")).toBeInTheDocument();
+
+    // Postmortem content renders
+    expect(
+      screen.getByText(/The failover stampede/i)
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Split 429 handling from 5xx/i)).toBeInTheDocument();
+
+    // 10x scale items render
+    expect(screen.getAllByTestId("at-scale-item").length).toBe(6);
+
+    // Observability screenshots render with descriptive alt text
+    expect(
+      screen.getByAltText(/production control panel showing live status/i)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByAltText(/chat workspace with guest mode/i)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByAltText(/agent workflow execution page showing task intake/i)
+    ).toBeInTheDocument();
+  });
+
+  it("does not render flagship systems sections for other projects", async () => {
+    const page = await ProjectPage({
+      params: Promise.resolve({ slug: "rizzk-calculator" }),
+    });
+
+    render(page);
+
+    expect(
+      screen.queryByRole("heading", { name: /Production observability/i })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { name: /Incident postmortem/i })
+    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("goblin-architecture-diagram")).not.toBeInTheDocument();
   });
 });

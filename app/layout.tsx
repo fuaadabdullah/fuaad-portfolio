@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ChatBox } from "@/components/chat/ChatBox";
+import LazyChatBox from "@/components/chat/LazyChatBox";
 import JsonLd from '@/components/JsonLd';
 import { personJsonLd } from '@/lib/seo';
 
@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         <Footer />
         <JsonLd data={personJsonLd} />
-        <ChatBox />
+        <LazyChatBox />
         <Analytics />
       </body>
     </html>

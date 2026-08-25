@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { ContactFormSchema, sanitizeText } from '@/lib/validation';
 import { isRequestAuthorized } from '@/lib/auth';
+import { unauthorizedAdminResponse } from '@/lib/admin-response';
 import { z } from 'zod';
 
 // Rate limiting state (in-memory fallback when Vercel KV is unavailable)
@@ -11,6 +12,7 @@ const ContactSubmissionsQuerySchema = z.object({
   sortBy: z.enum(['createdAt', 'email', 'name']).default('createdAt'),
   sortOrder: z.enum(['asc', 'desc']).default('desc'),
   limit: z.coerce.number().int().min(1).max(100).default(100),
+  email: z.string().trim().email().toLowerCase().optional(),
 });
 
 /**
@@ -140,6 +142,7 @@ export async function POST(request: NextRequest) {
  * - sortBy: 'createdAt' | 'email' | 'name' (default: 'createdAt')
  * - sortOrder: 'asc' | 'desc' (default: 'desc')
  * - limit: number 1-100 (default: 100)
+ * - email: validated exact email filter
  */
 export async function GET(request: NextRequest) {
   try {
@@ -147,15 +150,7 @@ export async function GET(request: NextRequest) {
     const authHeader = request.headers.get('authorization');
     
     if (!isRequestAuthorized(authHeader)) {
-      return NextResponse.json(
-        { error: 'Unauthorized. Admin Bearer token required.' },
-        { 
-          status: 401,
-          headers: {
-            'WWW-Authenticate': 'Bearer realm="admin"'
-          }
-        }
-      );
+      return unauthorizedAdminResponse();
     }
 
     const { searchParams } = new URL(request.url);
@@ -163,9 +158,11 @@ export async function GET(request: NextRequest) {
       sortBy: searchParams.get('sortBy') ?? undefined,
       sortOrder: searchParams.get('sortOrder') ?? undefined,
       limit: searchParams.get('limit') ?? undefined,
+      email: searchParams.get('email') ?? undefined,
     });
 
     const submissions = await prisma.contactSubmission.findMany({
+      where: parsedQuery.email ? { email: parsedQuery.email } : undefined,
       orderBy: { [parsedQuery.sortBy]: parsedQuery.sortOrder },
       take: parsedQuery.limit,
     });
@@ -178,6 +175,7 @@ export async function GET(request: NextRequest) {
           sortBy: parsedQuery.sortBy,
           sortOrder: parsedQuery.sortOrder,
           limit: parsedQuery.limit,
+          email: parsedQuery.email,
         }
       },
       { status: 200 }

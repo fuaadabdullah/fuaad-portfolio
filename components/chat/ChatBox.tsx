@@ -30,8 +30,12 @@ function TypingIndicator() {
   );
 }
 
-export function ChatBox() {
-  const [open, setOpen] = useState(false);
+interface ChatBoxProps {
+  initialOpen?: boolean;
+}
+
+export function ChatBox({ initialOpen = false }: ChatBoxProps) {
+  const [open, setOpen] = useState(initialOpen);
   const { messages, input, setInput, sendMessage, status } = useChat();
   const dialogId = useId();
   const titleId = useId();
@@ -110,7 +114,7 @@ export function ChatBox() {
           "inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-white shadow-lg transition",
           "hover:bg-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--color-ink)]"
         )}
-        aria-label={open ? "Close chat" : "Open chat"}
+        aria-label={open ? "Minimize chat" : "Open chat"}
         aria-controls={dialogId}
         aria-expanded={open}
         aria-haspopup="dialog"
@@ -123,7 +127,7 @@ export function ChatBox() {
           <button
             type="button"
             className="fixed inset-0 z-[120] bg-black/55 backdrop-blur-[1px]"
-            aria-label="Close chat overlay"
+            aria-label="Dismiss overlay"
             onClick={handleClose}
           />
 

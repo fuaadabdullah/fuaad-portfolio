@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const createMock = vi.fn();
 const findManyMock = vi.fn();
+const adminToken = "test-admin-token";
 
 vi.mock("@/lib/db", () => ({
   prisma: {
@@ -25,11 +26,21 @@ function makeRequest(body: unknown, ip = "203.0.113.10") {
 
 describe("Contact API route", () => {
   beforeEach(() => {
+    process.env.ADMIN_TOKEN = adminToken;
     createMock.mockReset();
     findManyMock.mockReset();
     createMock.mockResolvedValue({ id: "test-id" });
     findManyMock.mockResolvedValue([]);
   });
+
+  function makeAdminRequest(url: string) {
+    return new Request(url, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${adminToken}`,
+      },
+    });
+  }
 
   it("rejects invalid payloads with field errors", async () => {
     const { POST } = await import("./route");
@@ -115,9 +126,8 @@ describe("Contact API route", () => {
   it("rejects invalid ORDER BY values in GET query params", async () => {
     const { GET } = await import("./route");
 
-    const request = new Request(
-      "http://localhost/api/contact?sortBy=createdAt;DROP TABLE ContactSubmission--&sortOrder=desc",
-      { method: "GET" }
+    const request = makeAdminRequest(
+      "http://localhost/api/contact?sortBy=createdAt;DROP TABLE ContactSubmission--&sortOrder=desc"
     );
 
     const response = await GET(request as any);
@@ -131,9 +141,8 @@ describe("Contact API route", () => {
   it("rejects invalid WHERE email filters in GET query params", async () => {
     const { GET } = await import("./route");
 
-    const request = new Request(
-      "http://localhost/api/contact?email=foo@example.com' OR 1=1 --",
-      { method: "GET" }
+    const request = makeAdminRequest(
+      "http://localhost/api/contact?email=foo@example.com' OR 1=1 --"
     );
 
     const response = await GET(request as any);
@@ -145,9 +154,8 @@ describe("Contact API route", () => {
   it("uses allowlisted sort and validated where values in GET query params", async () => {
     const { GET } = await import("./route");
 
-    const request = new Request(
-      "http://localhost/api/contact?sortBy=email&sortOrder=asc&limit=25&email=JANE@EXAMPLE.COM",
-      { method: "GET" }
+    const request = makeAdminRequest(
+      "http://localhost/api/contact?sortBy=email&sortOrder=asc&limit=25&email=JANE@EXAMPLE.COM"
     );
 
     const response = await GET(request as any);
