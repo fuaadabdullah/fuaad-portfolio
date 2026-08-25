@@ -22,8 +22,8 @@ export default function GoblinArchitectureDiagram() {
         <title id="goblin-arch-title">GoblinOS Assistant deployment topology</title>
         <desc id="goblin-arch-desc">
           Browser traffic enters the Next.js app on Vercel whose route-handler proxy forwards
-          requests to a Dockerized FastAPI gateway. The gateway reads routing strategy and provider
-          health from Redis, persists durable records to PostgreSQL, and calls the LLM provider pool.
+          requests to a Dockerized FastAPI gateway. The gateway owns routing strategy and provider
+          health scoring, persists durable records to PostgreSQL, and calls the LLM provider pool.
           Telemetry flows back to the UI status panels.
         </desc>
         <defs>
@@ -117,7 +117,7 @@ export default function GoblinArchitectureDiagram() {
           Redis
         </text>
         <text x="121" y="490" textAnchor="middle" fontSize="10" fill={subFill}>
-          cache · health state
+          cache · worker state
         </text>
         <line x1="250" y1="412" x2="210" y2="412" stroke={arrowStroke} strokeWidth="1.5" markerEnd="url(#goblin-arch-arrow)" />
         <line x1="250" y1="478" x2="210" y2="478" stroke={arrowStroke} strokeWidth="1.5" markerEnd="url(#goblin-arch-arrow)" />
@@ -186,7 +186,7 @@ export default function GoblinArchitectureDiagram() {
         <ul className="mt-2 list-inside list-disc space-y-1 text-sm leading-relaxed">
           <li>Vercel hosts the Next.js UI, which proxies chat requests through route handlers.</li>
           <li>A Dockerized FastAPI backend owns routing strategy, provider health scoring, and response normalization.</li>
-          <li>PostgreSQL keeps durable records; Redis holds cache, session, and provider-health state.</li>
+          <li>PostgreSQL keeps durable records; Redis backs cache, worker, and runtime coordination paths.</li>
           <li>A config-driven pool of LLM providers supplies inference; telemetry flows back to the UI status panels.</li>
         </ul>
       </figcaption>

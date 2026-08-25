@@ -118,7 +118,7 @@ The interface pairs chat with live system status panels so you can see provider 
       {
         label: "backend proof",
         value: "Dockerized FastAPI service",
-        sourceLabel: "PostgreSQL + Redis state · Vercel UI",
+        sourceLabel: "PostgreSQL records · Redis runtime cache · Vercel UI",
       },
     ],
     proofMedia: [
@@ -143,7 +143,7 @@ The interface pairs chat with live system status panels so you can see provider 
         src: "/projects/goblin-live-control-panel.png",
         width: 1280,
         height: 800,
-        alt: "GoblinOS production control panel with live component status",
+        alt: "GoblinOS control panel with component status",
         status: "ready",
       },
       {
@@ -202,7 +202,7 @@ The interface pairs chat with live system status panels so you can see provider 
     ],
     architectureHighlights: [
       "FastAPI backend with typed request/response contracts and modular provider routing.",
-      "PostgreSQL for durable records plus Redis for fast cache and transient state.",
+      "PostgreSQL for durable records plus Redis for runtime cache and worker coordination.",
       "Observable status panels surface routing decisions, provider health, and latency.",
       "Docker keeps runtime changes reproducible across environments.",
       "Vercel-hosted Next.js UI with a Dockerized FastAPI backend.",
@@ -214,24 +214,24 @@ The interface pairs chat with live system status panels so you can see provider 
     approach:
       "Built a FastAPI backend with a Next.js UI, surfaced status panels alongside chat, and deployed with Vercel for the frontend and a Dockerized FastAPI backend. Docker keeps environments repeatable.",
     tradeoffs:
-      "The most consequential call was adding a dedicated FastAPI routing gateway instead of calling providers directly from Next.js route handlers. A direct-call approach would have been simpler — one fewer service, one fewer network hop, no inter-service auth to maintain — and it would have shipped faster. The gateway adds 15–30ms per request under normal conditions. The trade-off that justified it: the gateway is the single owner of routing strategy, provider health scoring, response normalization, and cost telemetry. Without it, that logic lives in Next.js serverless functions — stateless and short-lived, with no shared state for routing strategy or provider health across requests. The latency cost is real and measurable; a central gateway keeps routing logic consistent, testable, and observable in one place.",
+      "The most consequential call was adding a dedicated FastAPI routing gateway instead of calling providers directly from Next.js route handlers. A direct-call approach would have been simpler — one fewer service, one fewer network hop, no inter-service auth to maintain — and it would have shipped faster. The trade-off that justified it: the gateway is the single owner of routing strategy, provider health scoring, response normalization, and cost telemetry. Without it, that logic lives in Next.js serverless functions — stateless and short-lived, with no shared health monitor or routing state across requests. A central gateway keeps routing logic consistent, testable, and observable in one place.",
     impact:
-      "A production-ready foundation for a provider-agnostic assistant with transparent routing and cost visibility.",
+      "A provider-agnostic assistant foundation with transparent routing and cost visibility.",
     architectureDiagram:
-      "The Vercel-hosted Next.js client proxies chat requests to a Dockerized FastAPI backend. The gateway owns routing strategy, provider health scoring, and response normalization; PostgreSQL keeps durable records while Redis holds cache, session, and provider-health state.",
+      "The Vercel-hosted Next.js client proxies chat requests to a Dockerized FastAPI backend. The gateway owns provider selection, health scoring, and response normalization; PostgreSQL keeps durable records while Redis backs cache, worker, and runtime coordination paths.",
     routingSequence:
       "Every chat turn follows the same path: a typed contract from the UI, an internal-key-authenticated hop to the gateway, strategy and health evaluation, the provider call, and a normalized response that carries telemetry back to the status panels. The committed code implements the scoring and provider-selection mechanics; the 429-triggered failover branch is design behavior, noted as such in the diagram.",
     observability: {
       intro:
-        "Routing logic you can't see is routing logic you can't trust. The deployed app leads with a live control panel — component health, routing status, and audit logs with a freshness timestamp — captured here from production. These are captures of the real system, not mockups.",
+        "Routing logic you can't see is routing logic you can't trust. The app includes a control panel for component health, routing status, and audit logs with a freshness timestamp. These captures show the implemented product surface, not mockups.",
       shots: [
         {
           src: "/projects/goblin-live-control-panel.png",
           width: 1280,
           height: 800,
-          alt: "GoblinOS Assistant production control panel showing live status for models, routing, and sandbox components",
+          alt: "GoblinOS Assistant control panel showing status for models, routing, and sandbox components",
           caption:
-            "Production control panel — live component health reported in-product: Models ok, Routing ok, Sandbox degraded, with a refresh action and audit-log surface. This capture is from the deployed system at a moment when a component was actually degraded — which is exactly what this panel is for.",
+            "Control panel — component health reported in-product: Models ok, Routing ok, Sandbox degraded, with a refresh action and audit-log surface. This capture demonstrates the status surface without asserting a production incident.",
         },
         {
           src: "/projects/goblin-live-chat.png",

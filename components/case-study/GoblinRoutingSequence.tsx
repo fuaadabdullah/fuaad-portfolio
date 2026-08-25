@@ -12,7 +12,7 @@ export default function GoblinRoutingSequence() {
     { cx: 185, label: "Chat UI", sub: "Next.js" },
     { cx: 330, label: "Proxy", sub: "Vercel handler" },
     { cx: 480, label: "Router", sub: "FastAPI" },
-    { cx: 625, label: "Redis", sub: "health + usage" },
+    { cx: 625, label: "State", sub: "Postgres + Redis" },
     { cx: 785, label: "Provider pool", sub: "LLM backend", boxW: 130 },
   ];
 
@@ -31,8 +31,8 @@ export default function GoblinRoutingSequence() {
         <title id="goblin-seq-title">GoblinOS Assistant provider-selection sequence</title>
         <desc id="goblin-seq-desc">
           A chat turn flows from the user through the Chat UI and Vercel proxy to the FastAPI router.
-          The router reads routing strategy and provider-health snapshots from Redis, runs the
-          provider-scoring pipeline, calls the selected provider, persists usage/telemetry to Redis,
+          The router evaluates routing strategy and provider-health signals, runs the
+          provider-scoring pipeline, calls the selected provider, persists usage/telemetry,
           and returns a normalized response that updates the status panels. The retry-on-429 branch
           is labeled design behavior: it is not asserted from committed code.
         </desc>
@@ -70,7 +70,7 @@ export default function GoblinRoutingSequence() {
         <text x={405} y={192} textAnchor="middle" fontSize="11" fill={requestText}>3 · forward typed contract</text>
         <line x1={330} y1={200} x2={476} y2={200} stroke={requestStroke} strokeWidth="1.5" markerEnd="url(#goblin-seq-arrow)" />
 
-        {/* 4 · router reads strategy from Redis */}
+        {/* 4 · router evaluates strategy and health */}
         <text x={552} y={237} textAnchor="middle" fontSize="11" fill={requestText}>4 · read strategy + health</text>
         <line x1={480} y1={245} x2={621} y2={245} stroke={requestStroke} strokeWidth="1.5" markerEnd="url(#goblin-seq-arrow)" />
 
@@ -133,7 +133,7 @@ export default function GoblinRoutingSequence() {
         <ul className="mt-2 list-inside list-disc space-y-1 text-sm leading-relaxed">
           <li>The chat UI sends a typed contract that the proxy forwards to the FastAPI router.</li>
           <li>The router applies the committed scoring pipeline (latency, cost, hybrid, and tier policies) to select a provider.</li>
-          <li>Provider health and usage state come from Redis; durable records live in PostgreSQL.</li>
+          <li>Provider health is evaluated by the backend health monitor; durable records live in PostgreSQL and Redis backs runtime cache/worker paths.</li>
           <li>The normalized response returns to the UI, where the status panels surface health, latency, and usage.</li>
           <li>The retry-on-429 branch is labeled design behavior above; only the steps above it are asserted from committed code.</li>
         </ul>

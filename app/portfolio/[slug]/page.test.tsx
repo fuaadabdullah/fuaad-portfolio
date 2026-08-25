@@ -63,7 +63,7 @@ describe("Project detail route", () => {
       screen.getByRole("heading", { name: /System architecture/i })
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/PostgreSQL keeps durable records while Redis holds cache/i)
+      screen.getByText(/PostgreSQL keeps durable records; Redis backs cache/i)
     ).toBeInTheDocument();
   });
 
@@ -96,7 +96,7 @@ describe("Project detail route", () => {
 
     // Observability screenshots render with descriptive alt text
     expect(
-      screen.getByAltText(/production control panel showing live status/i)
+      screen.getByAltText(/control panel showing status/i)
     ).toBeInTheDocument();
     expect(
       screen.getByAltText(/chat workspace with guest mode/i)

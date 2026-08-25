@@ -77,7 +77,7 @@ export const faq: FaqEntry[] = [
   },
   {
     trigger: ["tech stack", "built with", "tech"],
-    answer: "The stack depends on the project. Recent work across the portfolio uses Next.js, TypeScript, Tailwind CSS, FastAPI, Python, PostgreSQL, Redis, Docker, Azure, Fly.io, Vercel, and Hugging Face Spaces."
+    answer: "The stack depends on the project. Recent work across the portfolio uses Next.js, TypeScript, Tailwind CSS, FastAPI, Python, PostgreSQL, Redis, Docker, Azure, Vercel, and Hugging Face Spaces."
   },
   {
     trigger: ["contact", "reach you", "email"],

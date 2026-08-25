@@ -62,7 +62,7 @@ export default async function HomePage() {
         </div>
         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
           <p className="text-xs uppercase tracking-[0.18em] text-white/45">Current stack</p>
-          <p className="mt-2 text-white/85">Next.js, React, TypeScript, Python, FastAPI, PostgreSQL, Redis, Docker, Azure, Fly.io.</p>
+          <p className="mt-2 text-white/85">Next.js, React, TypeScript, Python, FastAPI, PostgreSQL, Redis, Docker, Azure, Vercel.</p>
         </div>
       </div>
 
