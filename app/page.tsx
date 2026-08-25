@@ -96,11 +96,11 @@ export default async function HomePage() {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="font-medium text-zinc-100">Featured build: {goblinProject.title}</p>
             <span className="rounded-full bg-emerald-400/20 px-3 py-1 text-[11px] text-emerald-100">
-              FastAPI · Postgres · Redis · Terraform · Fly.io
+              FastAPI · Postgres · Redis · Docker · Fly.io
             </span>
           </div>
           <p className="mt-2 text-sm text-white/80">
-            Multi-provider AI assistant with observable routing, live provider health, and production-ready infra split across edge, backend, and frontend.
+            Multi-provider AI assistant with observable routing, live provider health, and production-ready infra split across backend and frontend.
           </p>
           <div className="mt-3 flex flex-wrap gap-2 text-xs">
             {goblinProject.results.map((result) => (

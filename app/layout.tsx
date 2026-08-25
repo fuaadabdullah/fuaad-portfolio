@@ -7,7 +7,7 @@ import LazyChatBox from "@/components/chat/LazyChatBox";
 import JsonLd from '@/components/JsonLd';
 import { personJsonLd } from '@/lib/seo';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://heyimfuaad.me";
 
 export const metadata: Metadata = {
   title: "Fuaad Abdullah - Finance Student & Developer",
