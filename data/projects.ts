@@ -9,6 +9,8 @@ export interface Project {
   tech: string[];
   links?: { live?: string; source?: string };
   proofMedia?: ProofMediaItem[];
+  /** When true, no interactive demo was captured — shown honestly, never fabricated. */
+  missingDemoEvidence?: boolean;
   image?: {
     src: string;
     width: number;
@@ -139,7 +141,7 @@ The interface pairs chat with live system status panels so you can see provider 
         src: "/projects/demos/goblin-assistant-demo.gif",
         width: 1280,
         height: 800,
-        alt: "GoblinOS — navigating chat, provider health, workflow execution, and cost metrics tabs",
+        alt: "GoblinOS live control panel — status board with live indicators, rotating 'Currently running' domain tag, live chat preview, and a health badge toggling between Degraded and OK",
         status: "ready",
       },
       {
@@ -355,7 +357,7 @@ The tool removes the manual calculation step from pre-trade sizing decisions. It
         src: "/projects/demos/rizzk-calculator-demo.gif",
         width: 1280,
         height: 800,
-        alt: "RIZZK Calculator — filling inputs and watching position size and chart update in real time",
+        alt: "RIZZK Calculator — adjusting account size (25000→10000), entry and stop-loss prices, and risk mode, then viewing the calculated position risk of $100.00",
         status: "ready",
       },
       {
@@ -456,6 +458,7 @@ Delivered a complete multi-page site (About, Services, Gallery, Contact/booking,
         sourceLabel: "ux scope",
       },
     ],
+    missingDemoEvidence: true,
     proofMedia: [
       {
         type: "image",
@@ -564,7 +567,7 @@ Built with Gradio for an intuitive web interface and deployed on HuggingFace Spa
         src: "/projects/demos/gradem8-demo.gif",
         width: 1280,
         height: 800,
-        alt: "GradeM8 HuggingFace Space — document upload, rubric input, and AI grading interface",
+        alt: "GradeM8 HuggingFace Space — document upload and rubric input setup (no grading result captured in demo)",
         status: "ready",
       },
       {
