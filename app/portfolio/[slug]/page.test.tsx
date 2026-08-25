@@ -63,7 +63,7 @@ describe("Project detail route", () => {
       screen.getByRole("heading", { name: /System architecture/i })
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/three deployment layers: a Cloudflare edge/i)
+      screen.getByText(/two deployment layers/i)
     ).toBeInTheDocument();
   });
 

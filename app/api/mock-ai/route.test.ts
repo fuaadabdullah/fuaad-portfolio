@@ -40,7 +40,7 @@ describe("Mock AI API Route", () => {
       expect(response.status).toBe(200);
       expect(data.reply).toContain("FastAPI backend");
       expect(data.reply).toContain("PostgreSQL");
-      expect(data.reply).toContain("Terraform");
+      expect(data.reply).toContain("Docker");
     });
 
     it("answers ShopMindAI stack questions with project-specific details", async () => {
