@@ -86,7 +86,7 @@ export default function GoblinArchitectureDiagram() {
         {/* FastAPI gateway */}
         <rect x="250" y="372" width="460" height="116" rx="12" fill={boxFill} stroke={boxStroke} />
         <text x="480" y="398" textAnchor="middle" fontSize="14" fontWeight="600" fill={titleFill}>
-          Fly.io / Render — FastAPI gateway
+          Fly.io — FastAPI gateway
         </text>
         <rect x="270" y="412" width="200" height="56" rx="8" fill={chipFill} stroke={chipStroke} strokeOpacity="0.5" />
         <text x="370" y="434" textAnchor="middle" fontSize="12" fontWeight="600" fill={titleFill}>

@@ -28,13 +28,13 @@ export default function GoblinRoutingSequence() {
         aria-labelledby="goblin-seq-title goblin-seq-desc"
         className="h-auto w-full"
       >
-        <title id="goblin-seq-title">GoblinOS Assistant provider-routing sequence with failover</title>
+        <title id="goblin-seq-title">GoblinOS Assistant provider-routing sequence — designed failover branch</title>
         <desc id="goblin-seq-desc">
-          A chat turn flows from the user through the Chat UI and Vercel proxy to the FastAPI router.
-          The router reads strategy and health snapshots from Redis, calls the primary provider,
-          receives a 429 rate limit, opens the circuit, retries on the standby provider, persists
-          usage and telemetry to Redis, and returns a normalized response with telemetry that
-          updates the status panels.
+          This is the intended flow: a chat turn moves from the user through the Chat UI and Vercel
+          proxy to the FastAPI router. The router reads strategy and health snapshots from Redis,
+          calls the primary provider, and on a 429 rate limit is designed to open the circuit, retry
+          on the standby provider, persist usage and telemetry to Redis, and return a normalized
+          response with telemetry that updates the status panels.
         </desc>
         <defs>
           <marker
