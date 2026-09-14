@@ -98,6 +98,8 @@ cat > /etc/caddy/Caddyfile <<'EOF'
 	handle @chat {
 		reverse_proxy 127.0.0.1:11434 {
 			header_up -Authorization
+			# Ollama rejects non-localhost Host headers (DNS rebinding protection)
+			header_up Host 127.0.0.1:11434
 			# Stream tokens to the site as soon as Ollama produces them
 			flush_interval -1
 		}

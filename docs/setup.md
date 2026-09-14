@@ -66,7 +66,11 @@ Vercel can't reach `localhost`, so run Ollama on a separate host and set `OLLAMA
           header Authorization "Bearer {$OLLAMA_API_KEY}"
       }
       handle @chat {
-          reverse_proxy 127.0.0.1:11434
+          reverse_proxy 127.0.0.1:11434 {
+              header_up -Authorization
+              # Ollama returns 403 for non-localhost Host headers
+              header_up Host 127.0.0.1:11434
+          }
       }
       respond 404
   }
