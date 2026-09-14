@@ -9,6 +9,15 @@ interface ChatMessageProps {
   };
 }
 
+// Replies come from a language model that can invent or be steered into external URLs,
+// so only site-relative paths and mailto links become clickable.
+function getSafeHref(url: string): string | null {
+  const href = url.trim();
+  if (/^\/(?![/\\])/.test(href)) return href;
+  if (/^mailto:/i.test(href)) return href;
+  return null;
+}
+
 // Simple function to convert markdown-style links to HTML links
 function parseMarkdownLinks(text: string): React.ReactNode {
   const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
@@ -22,19 +31,23 @@ function parseMarkdownLinks(text: string): React.ReactNode {
       parts.push(text.slice(lastIndex, match.index));
     }
 
-    // Add the link
+    // Add the link, or just its text when the target isn't safe
     const linkText = match[1];
-    const linkUrl = match[2];
+    const linkUrl = getSafeHref(match[2]);
     parts.push(
-      <a
-        key={match.index}
-        href={linkUrl}
-        className="text-emerald-400 hover:text-emerald-300 underline"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {linkText}
-      </a>
+      linkUrl ? (
+        <a
+          key={match.index}
+          href={linkUrl}
+          className="text-emerald-400 hover:text-emerald-300 underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {linkText}
+        </a>
+      ) : (
+        linkText
+      )
     );
 
     lastIndex = match.index + match[0].length;

@@ -48,6 +48,10 @@ export const faq: FaqEntry[] = [
     answer: "ShopMindAI is an automotive diagnostic assistant that turns VIN, OBD code, and symptom input into ranked likely causes and confirmatory tests. It is built with FastAPI, exposes health and metrics endpoints for observability, and is deployed on Azure."
   },
   {
+    trigger: ["view projects", "projects", "what has fuaad built", "what have you built"],
+    answer: "Fuaad's projects include RIZZK Calculator (risk management for day traders), GoblinOS Assistant (a multi-provider, privacy-first AI assistant), ShopMindAI (automotive diagnostics), Elbey Projects (a marketing site for a mobile mechanic business), GradeM8 (a grading workflow demo on Hugging Face Spaces), and this portfolio site. Browse them on the [projects page](/portfolio)."
+  },
+  {
     trigger: ["portfolio site", "personal portfolio", "this site", "your portfolio"],
     answer: "The personal portfolio site showcases projects, services, blog content, and professional background in one place. It is a Next.js App Router site with MDX blogging, strong SEO foundations, and reusable data-backed project pages."
   },

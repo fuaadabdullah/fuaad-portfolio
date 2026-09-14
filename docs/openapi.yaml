@@ -7,7 +7,7 @@ info:
     Public and admin API contracts for integrations.
 
     Notes:
-    - Public chat uses `/api/mock-ai` with local portfolio knowledge.
+    - Public chat uses `/api/chat`: curated portfolio knowledge plus streamed TinyLlama replies.
     - Provider-backed assistant responses require Bearer auth and may be cached.
     - Contact submission retrieval is admin-only and requires a Bearer token.
   license:
@@ -26,6 +26,88 @@ tags:
   - name: upload
     description: Admin Blob storage endpoints
 paths:
+  /api/chat:
+    post:
+      tags:
+        - assistant
+      security:
+        - {}
+      operationId: createChatReply
+      summary: Public portfolio chat reply (streamed)
+      description: |
+        Returns curated knowledge for documented topics, otherwise a TinyLlama reply streamed as plain text.
+        Requires a same-origin `Origin` header. Never calls paid providers.
+      parameters:
+        - in: header
+          name: Origin
+          required: true
+          schema:
+            type: string
+            example: https://heyimfuaad.me
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+            examples:
+              followUp:
+                value:
+                  messages:
+                    - role: user
+                      content: What is ShopMindAI?
+                    - role: assistant
+                      content: ShopMindAI is an automotive diagnostic assistant.
+                    - role: user
+                      content: Who is it built for?
+      responses:
+        '200':
+          description: Reply text, streamed as it is generated
+          headers:
+            X-Chat-Source:
+              description: Where the reply came from
+              schema:
+                type: string
+                enum: [curated, cache, tinyllama, fallback]
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Invalid JSON or request shape
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Missing or cross-site Origin header
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '413':
+          description: Request body too large
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '415':
+          description: Content-Type is not application/json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded for client IP
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                example: 60
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /api/ai:
     post:
       tags:
@@ -366,6 +448,32 @@ components:
           example:
             error: Unauthorized. Admin Bearer token required.
   schemas:
+    ChatRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - messages
+      properties:
+        messages:
+          type: array
+          minItems: 1
+          maxItems: 5
+          description: Conversation so far; the last message must have role `user`
+          items:
+            type: object
+            additionalProperties: false
+            required:
+              - role
+              - content
+            properties:
+              role:
+                type: string
+                enum: [user, assistant]
+              content:
+                type: string
+                minLength: 1
+                maxLength: 1220
+                description: User messages are limited to 500 characters
     AssistantRequest:
       type: object
       additionalProperties: false

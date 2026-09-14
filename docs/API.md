@@ -12,7 +12,8 @@ Base URLs:
 ## Audience And Scope
 
 - Public integration endpoints:
-  - `POST /api/mock-ai` (public portfolio assistant, local knowledge only)
+  - `POST /api/chat` (public chat box: curated answers + streamed TinyLlama replies)
+  - `POST /api/mock-ai` (portfolio assistant, local knowledge only)
   - `POST /api/contact`
 - Operational/admin endpoints:
   - `POST /api/ai` (provider-backed assistant; admin token required)
@@ -22,9 +23,47 @@ Base URLs:
 
 ## Assistant API
 
+### POST /api/chat
+
+The endpoint used by the public chat UI. It returns a `text/plain` body that streams as it is generated.
+
+Request body:
+
+```json
+{
+  "messages": [
+    { "role": "user", "content": "What is ShopMindAI?" },
+    { "role": "assistant", "content": "ShopMindAI is an automotive diagnostic assistant..." },
+    { "role": "user", "content": "Who is it built for?" }
+  ]
+}
+```
+
+Rules:
+- 1–5 messages; the last one must have `role: "user"`
+- `role` is `user` or `assistant` only (client-supplied `system` messages are rejected)
+- user messages: max 500 chars; assistant messages: max 1220 chars; body: max 16,000 chars
+- `Origin` header must match the site, and `Content-Type` must be `application/json`
+
+Reply routing, reported in the `X-Chat-Source` response header:
+- `curated`: the question matched reviewed portfolio knowledge, so the model is not called
+- `cache`: an identical standalone question was answered by TinyLlama recently
+- `tinyllama`: streamed from the model
+- `fallback`: the model is unconfigured, busy, or unreachable, so a curated default reply is used
+
+Possible errors:
+- `400` invalid JSON or request shape
+- `403` missing or foreign `Origin`
+- `413` request too large
+- `415` wrong content type
+- `429` more than 10 requests per minute from the client IP (`Retry-After: 60`)
+
+Notes:
+- Never calls paid providers. The Ollama URL and token stay server-side.
+
 ### POST /api/mock-ai
 
-Generate a public portfolio-assistant reply from curated local knowledge. This is the endpoint used by the public chat UI.
+Generate a portfolio-assistant reply from curated local knowledge only.
 
 Request body:
 

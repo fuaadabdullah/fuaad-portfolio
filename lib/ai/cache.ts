@@ -3,6 +3,7 @@ import { createClient } from 'redis';
 
 const CACHE_TTL = 3600; // 1 hour in seconds for Redis
 const STALE_WHILE_REVALIDATE_TTL = 300; // 5 minutes for stale-while-revalidate
+const MAX_MEMORY_ENTRIES = 500; // public chat input feeds this cache, so bound it
 
 // In-memory cache fallback for when Redis is not available
 const memoryCache = new Map<string, { data: string; timestamp: number; ttl: number }>();
@@ -107,7 +108,11 @@ export async function setCachedResponse(cacheKey: string, data: string): Promise
     }
   }
 
-  // Fallback to in-memory cache
+  // Fallback to in-memory cache, evicting the oldest entry when full
+  if (!memoryCache.has(cacheKey) && memoryCache.size >= MAX_MEMORY_ENTRIES) {
+    const oldestKey = memoryCache.keys().next().value;
+    if (oldestKey !== undefined) memoryCache.delete(oldestKey);
+  }
   memoryCache.set(cacheKey, {
     data,
     timestamp: Date.now(),

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { ChatBox } from './ChatBox';
 import { useChat } from './useChat';
 
@@ -81,7 +81,7 @@ describe('ChatBox Component', () => {
     expect(screen.queryByText('Try asking:')).not.toBeInTheDocument();
   });
 
-  it('should call setInput and sendMessage when suggestion is clicked', async () => {
+  it('should send the suggestion text when a suggestion is clicked', () => {
     render(<ChatBox />);
 
     const toggleButton = screen.getByRole('button', { name: /open chat/i });
@@ -90,10 +90,7 @@ describe('ChatBox Component', () => {
     const suggestion = screen.getByText('Discuss services');
     fireEvent.click(suggestion);
 
-    expect(mockReturnValue.setInput).toHaveBeenCalledWith('Discuss services');
-    await waitFor(() => {
-      expect(mockReturnValue.sendMessage).toHaveBeenCalled();
-    });
+    expect(mockReturnValue.sendMessage).toHaveBeenCalledWith('Discuss services');
   });
 
   it('should render input field and send button', () => {
@@ -170,6 +167,20 @@ describe('ChatBox Component', () => {
     fireEvent.click(toggleButton);
 
     expect(screen.getByText(/AI is thinking/)).toBeInTheDocument();
+  });
+
+  it('should hide typing indicator once streamed text arrives', () => {
+    mockReturnValue.status = 'loading';
+    mockReturnValue.messages = [
+      { id: '1', from: 'user', text: 'Hello', timestamp: new Date() },
+      { id: '2', from: 'bot', text: 'Fuaad builds', timestamp: new Date() },
+    ];
+
+    render(<ChatBox />);
+    fireEvent.click(screen.getByRole('button', { name: /open chat/i }));
+
+    expect(screen.getByText('Fuaad builds')).toBeInTheDocument();
+    expect(screen.queryByText(/AI is thinking/)).not.toBeInTheDocument();
   });
 
   it('should render messages when they exist', () => {

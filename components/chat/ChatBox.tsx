@@ -4,7 +4,7 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import { Bot, MessageSquareMore, SendHorizonal, X } from "lucide-react";
 import clsx from "clsx";
-import { useChat } from "./useChat";
+import { MAX_INPUT_CHARS, useChat } from "./useChat";
 import { ChatMessage } from "./ChatMessage";
 
 // Typing indicator component
@@ -84,11 +84,9 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
     "Contact Fuaad"
   ];
 
-  const handleSuggestionClick = async (suggestion: string) => {
-    setInput(suggestion);
-    // Small delay to show the text in input before sending
-    await new Promise(resolve => setTimeout(resolve, 100));
-    sendMessage();
+  // Pass the text directly: reading `input` after setInput would see the stale value
+  const handleSuggestionClick = (suggestion: string) => {
+    sendMessage(suggestion);
   };
 
   const handleClose = () => {
@@ -98,9 +96,14 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && status !== "loading") {
+      // Prevent the form's implicit submit from sending the message a second time
+      e.preventDefault();
       sendMessage();
     }
   };
+
+  const lastMessage = messages[messages.length - 1];
+  const awaitingFirstToken = status === "loading" && !lastMessage?.text;
 
   return (
     <>
@@ -176,13 +179,15 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
               aria-live="polite"
               aria-relevant="additions text"
             >
-              {messages.map((msg) => (
-                <ChatMessage
-                  key={msg.id}
-                  message={msg}
-                />
-              ))}
-              {status === "loading" && (
+              {messages
+                .filter((msg) => msg.from === "user" || msg.text)
+                .map((msg) => (
+                  <ChatMessage
+                    key={msg.id}
+                    message={msg}
+                  />
+                ))}
+              {awaitingFirstToken && (
                 <TypingIndicator />
               )}
               <div ref={messagesEndRef} />
@@ -225,6 +230,7 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Type a question…"
+                  maxLength={MAX_INPUT_CHARS}
                   className="min-h-11 flex-1 rounded-2xl border border-white/10 bg-zinc-900 px-3 py-2 text-white placeholder:text-zinc-500 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
                   disabled={status === "loading"}
                   aria-label="Chat input"

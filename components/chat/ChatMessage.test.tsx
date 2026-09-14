@@ -140,6 +140,22 @@ describe('ChatMessage Component', () => {
     expect(messageElement).toHaveTextContent('Check out his featured projects or learn more about his background.');
   });
 
+  it('should not render unsafe link targets from model output', () => {
+    const unsafeMessage = {
+      id: '8',
+      from: 'bot' as const,
+      text: 'See [script](javascript:void0), [data](data:text/html,hi), [proto](//evil.example), [site](https://fake.example), and [contact](/contact).',
+      timestamp: new Date(),
+    };
+
+    render(<ChatMessage message={unsafeMessage} />);
+
+    const links = screen.getAllByRole('link');
+    expect(links).toHaveLength(1);
+    expect(links[0]).toHaveAttribute('href', '/contact');
+    expect(screen.getByTestId('message-text')).toHaveTextContent('See script, data, proto, site, and contact.');
+  });
+
   it('should handle messages without links', () => {
     const noLinkMessage = {
       id: '7',
