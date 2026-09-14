@@ -32,21 +32,17 @@ export function findFaqEntry(prompt: string) {
   return bestMatch?.answer;
 }
 
-export function getKnowledgeReply(prompt: string) {
+/** Curated answer for greetings and known topics, or null when nothing matches. */
+export function getCuratedReply(prompt: string) {
   const normalizedPrompt = normalizePrompt(prompt);
-
-  if (!normalizedPrompt) {
-    return defaultReply;
-  }
 
   if (/\b(hello|hi|hey)\b/.test(normalizedPrompt)) {
     return greetingReply;
   }
 
-  const faqAnswer = findFaqEntry(normalizedPrompt);
-  if (faqAnswer) {
-    return faqAnswer;
-  }
+  return findFaqEntry(normalizedPrompt) ?? null;
+}
 
-  return defaultReply;
+export function getKnowledgeReply(prompt: string) {
+  return getCuratedReply(prompt) ?? defaultReply;
 }

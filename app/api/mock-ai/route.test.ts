@@ -52,6 +52,15 @@ describe("Mock AI API Route", () => {
       expect(data.reply).toContain("health and metrics endpoints");
     });
 
+    it("lists all projects for the quick-question button", async () => {
+      const { data } = await postPrompt("View projects");
+
+      for (const project of ["RIZZK Calculator", "GoblinOS Assistant", "ShopMindAI", "Elbey Projects", "GradeM8"]) {
+        expect(data.reply).toContain(project);
+      }
+      expect(data.reply).toContain("[projects page](/portfolio)");
+    });
+
     it("covers the remaining portfolio projects", async () => {
       const elbey = await postPrompt("tell me about Elbey Projects");
       expect(elbey.data.reply).toContain("mobile mechanic business");

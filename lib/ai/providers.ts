@@ -3,8 +3,8 @@ import { callLocalLLM, callGeminiAPI, callHuggingFaceAPI } from './providers/ind
 
 // Main provider selection logic
 export async function tryProvidersWithCircuitBreaker(prompt: string): Promise<string> {
-  // Skip local LLM in production (Vercel) since Ollama isn't available
-  if (process.env.VERCEL) {
+  // On Vercel, localhost Ollama doesn't exist; only try it when a remote host is configured
+  if (process.env.VERCEL && !process.env.OLLAMA_BASE_URL) {
     console.log('Production: trying Gemini first, Hugging Face as fallback');
     try {
       return await callGeminiAPI(prompt);

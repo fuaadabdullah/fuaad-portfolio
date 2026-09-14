@@ -10,7 +10,8 @@ This file is the current security audit summary. Operational setup and endpoint 
 | Area | Status | Evidence |
 |---|---|---|
 | `/api/contact` admin reads | Fixed | `GET /api/contact` requires `Authorization: Bearer <ADMIN_TOKEN>` and returns `401` with `WWW-Authenticate: Bearer realm="admin"` for missing or invalid tokens. |
-| `/api/ai` provider-backed assistant | Fixed | `GET` and `POST` are admin-only. The public chat UI uses `/api/mock-ai`. |
+| `/api/ai` provider-backed assistant | Fixed | `GET` and `POST` are admin-only. The public chat UI uses `/api/chat`. |
+| `/api/chat` public TinyLlama chat | Hardened | Same-origin check, per-IP rate limit, strict Zod body schema (no client system prompts), concurrency cap, timeouts, circuit breaker, curated-first answers, and link allowlisting in the UI. Covered by `app/api/chat/route.test.ts`. |
 | `/api/upload` Blob operations | Fixed | `POST`, `GET`, and `DELETE` require the admin Bearer token before Blob operations run. |
 | Proof media | Fixed | Project proof media is covered by asset existence tests and cannot include `pending` entries. |
 | Error and loading states | Fixed | Custom `loading`, `error`, and `not-found` app states are covered by tests. |
@@ -18,6 +19,8 @@ This file is the current security audit summary. Operational setup and endpoint 
 ## Remaining Risk
 
 Contact form submission rate limiting is still application-local unless backed by the deployed platform configuration. Keep it in the security checklist and verify production behavior during release checks.
+
+The `/api/chat` rate limit and concurrency cap are also per instance. TinyLlama (1.1B) can still invent details or follow "ignore your rules" prompts on questions outside curated knowledge. The impact is limited to the requester's own session: there are no secrets in the prompt, no tools, and no clickable external links.
 
 ## Verification Commands
 

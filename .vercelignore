@@ -2,6 +2,7 @@
 .next
 .vercel
 .vscode
+deploy
 Volumes
 docs
 output

@@ -3,6 +3,7 @@ import { callProviderWithCircuitBreaker } from '../circuit-breaker';
 import { AI_CONFIG } from '../config';
 import { SYSTEM_PROMPT, fetchWithTimeout } from '../prompts';
 import { getMockResponse } from '../fallback';
+import { getOllamaHeaders } from '../tinyllama';
 
 export async function callLocalLLM(prompt: string): Promise<string> {
   return callProviderWithCircuitBreaker(
@@ -11,7 +12,7 @@ export async function callLocalLLM(prompt: string): Promise<string> {
       console.log('Attempting local LLM...');
       const response = await fetchWithTimeout(AI_CONFIG.LOCAL_LLM.URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getOllamaHeaders(),
         body: JSON.stringify({
           model: AI_CONFIG.LOCAL_LLM.MODEL,
           messages: [

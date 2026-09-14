@@ -12,7 +12,9 @@ Copy `.env.local.example` to `.env.local`.
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Yes | Canonical site URL for metadata and links |
-| `OLLAMA_API_URL` | Optional | Local/remote Ollama endpoint for assistant features |
+| `OLLAMA_BASE_URL` | Optional | Ollama host for the TinyLlama chat (defaults to `http://localhost:11434` in development) |
+| `OLLAMA_API_KEY` | With a remote host | Bearer token the reverse proxy in front of Ollama requires |
+| `OLLAMA_MODEL` | Optional | Model name, default `tinyllama:1.1b` |
 | `ADMIN_TOKEN` | Yes for admin/API operations | Bearer token for `/api/ai`, `/api/upload`, and contact retrieval |
 | `DATABASE_URL` | Yes | Supabase pooled Postgres URL for runtime queries |
 | `DIRECT_URL` | Yes | Supabase direct Postgres URL for Prisma migrations |
@@ -36,6 +38,46 @@ corepack pnpm typecheck
 corepack pnpm lint
 corepack pnpm test
 ```
+
+## TinyLlama chat
+
+The chat box calls `POST /api/chat`, which streams TinyLlama replies from Ollama. Questions that match curated portfolio knowledge are answered from that copy without calling the model, and the chat falls back to curated answers whenever Ollama is unavailable.
+
+### Local
+
+```bash
+ollama pull tinyllama:1.1b
+ollama serve            # binds to 127.0.0.1:11434 by default
+corepack pnpm dev
+```
+
+### Production
+
+Vercel can't reach `localhost`, so run Ollama on a separate host and set `OLLAMA_BASE_URL` and `OLLAMA_API_KEY` in Vercel. The production host runs on Oracle Cloud; follow [deploy/oracle-ollama/README.md](../deploy/oracle-ollama/README.md), which scripts everything below.
+
+- Never expose port `11434` publicly. Ollama has no authentication, and anyone who can reach it can pull, delete, or run models.
+- Keep Ollama bound to `127.0.0.1` and put a TLS reverse proxy in front of it that only allows `POST /api/chat` with the bearer token. Caddy example:
+
+  ```caddyfile
+  ollama.your-domain.example {
+      @chat {
+          method POST
+          path /api/chat
+          header Authorization "Bearer {$OLLAMA_API_KEY}"
+      }
+      handle @chat {
+          reverse_proxy 127.0.0.1:11434 {
+              header_up -Authorization
+              # Ollama returns 403 for non-localhost Host headers
+              header_up Host 127.0.0.1:11434
+          }
+      }
+      respond 404
+  }
+  ```
+
+- Set `OLLAMA_KEEP_ALIVE=24h` (or `-1`) on the host so the model stays loaded. A cold load can exceed the chat's 15-second first-token timeout, and those requests get curated fallback answers.
+- `OLLAMA_NUM_PARALLEL=2` and `OLLAMA_MAX_QUEUE=10` match the route's concurrency cap and keep a small host from running out of memory.
 
 ## External API docs
 

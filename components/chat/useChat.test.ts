@@ -89,11 +89,7 @@ describe('useChat Hook', () => {
   it('should send message and handle successful response', async () => {
     vi.useRealTimers();
 
-    const mockResponse = { reply: 'Hello from AI!' };
-    fetchMock.mockResolvedValueOnce({
-      ok: true,
-      json: () => Promise.resolve(mockResponse),
-    });
+    fetchMock.mockResolvedValueOnce(new Response('Hello from AI!'));
 
     const { result } = renderHook(() => useChat());
 
@@ -128,9 +124,106 @@ describe('useChat Hook', () => {
       text: 'Hello from AI!',
     });
     expect(fetchMock).toHaveBeenCalledWith(
-      '/api/mock-ai',
+      '/api/chat',
       expect.objectContaining({ method: 'POST' })
     );
+    expect(JSON.parse(fetchMock.mock.calls[0][1].body)).toEqual({
+      messages: [{ role: 'user', content: 'Hello' }],
+    });
+
+    vi.useFakeTimers();
+  });
+
+  it('should render streamed tokens progressively', async () => {
+    vi.useRealTimers();
+
+    const encoder = new TextEncoder();
+    let streamController!: ReadableStreamDefaultController<Uint8Array>;
+    const body = new ReadableStream<Uint8Array>({
+      start(controller) {
+        streamController = controller;
+      },
+    });
+    fetchMock.mockResolvedValueOnce(new Response(body));
+
+    const { result } = renderHook(() => useChat());
+
+    act(() => {
+      result.current.sendMessage('Tell me about RIZZK');
+    });
+
+    act(() => {
+      streamController.enqueue(encoder.encode('RIZZK is '));
+    });
+
+    await waitFor(() => {
+      expect(result.current.messages[1].text).toBe('RIZZK is ');
+    });
+    expect(result.current.status).toBe('loading');
+
+    act(() => {
+      streamController.enqueue(encoder.encode('a risk tool.'));
+      streamController.close();
+    });
+
+    await waitFor(() => {
+      expect(result.current.status).toBe('idle');
+    });
+    expect(result.current.messages[1].text).toBe('RIZZK is a risk tool.');
+
+    vi.useFakeTimers();
+  });
+
+  it('should send explicit text and recent history for follow-ups', async () => {
+    vi.useRealTimers();
+
+    fetchMock.mockImplementation(() => Promise.resolve(new Response('ShopMindAI is a diagnostic assistant.')));
+
+    const { result } = renderHook(() => useChat());
+
+    act(() => {
+      result.current.sendMessage('What is ShopMindAI?');
+    });
+
+    await waitFor(() => {
+      expect(result.current.status).toBe('idle');
+    });
+
+    act(() => {
+      result.current.sendMessage('Where is it deployed?');
+    });
+
+    await waitFor(() => {
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+    });
+
+    expect(JSON.parse(fetchMock.mock.calls[1][1].body)).toEqual({
+      messages: [
+        { role: 'user', content: 'What is ShopMindAI?' },
+        { role: 'assistant', content: 'ShopMindAI is a diagnostic assistant.' },
+        { role: 'user', content: 'Where is it deployed?' },
+      ],
+    });
+
+    vi.useFakeTimers();
+  });
+
+  it('should show a friendly message when rate limited', async () => {
+    vi.useRealTimers();
+
+    fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ error: 'Rate limit exceeded' }), { status: 429 }));
+
+    const { result } = renderHook(() => useChat());
+
+    act(() => {
+      result.current.sendMessage('Hello');
+    });
+
+    await waitFor(() => {
+      expect(result.current.status).toBe('idle');
+    });
+
+    expect(result.current.messages[1].text).toContain('wait a minute');
 
     vi.useFakeTimers();
   });
@@ -213,11 +306,7 @@ describe('useChat Hook', () => {
   it('should generate unique IDs for messages', async () => {
     vi.useRealTimers();
 
-    const mockResponse = { reply: 'Response' };
-    fetchMock.mockResolvedValue({
-      ok: true,
-      json: () => Promise.resolve(mockResponse),
-    });
+    fetchMock.mockImplementation(() => Promise.resolve(new Response('Response')));
 
     const { result } = renderHook(() => useChat());
 
@@ -229,9 +318,10 @@ describe('useChat Hook', () => {
       result.current.sendMessage();
     });
 
-    // Wait for first message to be sent
+    // Wait for first exchange to finish
     await waitFor(() => {
       expect(result.current.messages).toHaveLength(2);
+      expect(result.current.status).toBe('idle');
     });
 
     const firstMessageId = result.current.messages[0].id;
