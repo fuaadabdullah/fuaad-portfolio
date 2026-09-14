@@ -63,6 +63,8 @@ function parseMarkdownLinks(text: string): React.ReactNode {
 
 export function ChatMessage({ message }: ChatMessageProps) {
   const isUser = message.from === 'user';
+  // TinyLlama often mangles the name's casing ("FuaaD")
+  const text = isUser ? message.text : (message.text || '').replace(/\bfuaad\b/gi, 'Fuaad');
 
   return (
     <div
@@ -82,7 +84,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
             : 'bg-zinc-700 text-gray-100'
         }`}
       >
-        {parseMarkdownLinks(message.text || '')}
+        {parseMarkdownLinks(text || '')}
       </div>
       {isUser && (
         <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center">

@@ -156,6 +156,19 @@ describe('ChatMessage Component', () => {
     expect(screen.getByTestId('message-text')).toHaveTextContent('See script, data, proto, site, and contact.');
   });
 
+  it('should normalize the casing of Fuaad in bot replies', () => {
+    const message = {
+      id: '9',
+      from: 'bot' as const,
+      text: "You can ask FuaaD directly. FUAAD's projects are listed.",
+      timestamp: new Date(),
+    };
+
+    render(<ChatMessage message={message} />);
+
+    expect(screen.getByTestId('message-text')).toHaveTextContent("You can ask Fuaad directly. Fuaad's projects are listed.");
+  });
+
   it('should handle messages without links', () => {
     const noLinkMessage = {
       id: '7',

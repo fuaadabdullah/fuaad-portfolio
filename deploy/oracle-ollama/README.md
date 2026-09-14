@@ -10,6 +10,13 @@ Visitor -> Vercel /api/chat --HTTPS + bearer token--> Caddy (443) -> Ollama (127
 - The model stays loaded (`OLLAMA_KEEP_ALIVE=-1`), so there are no cold starts.
 - If this host is down, the site automatically serves curated answers.
 
+**Current production host:** VM `tinyllama` (Ashburn AD-1, `VM.Standard.A1.Flex` 2 OCPU / 12 GB) at `https://157-151-241-88.sslip.io`. That hostname comes from [sslip.io](https://sslip.io), which resolves it to the IP without any DNS setup. To move to `ollama.heyimfuaad.me`, add the Namecheap A record (step 3), re-run step 4 with the new `DOMAIN`, and update `OLLAMA_BASE_URL` in Vercel.
+
+Measured on that VM:
+
+- About 20 tokens/s generation.
+- After restarts, the first request per slot takes about 13s to process the prompt. Later requests reuse Ollama's prompt cache, so replies start in about 0.5s.
+
 ## 1. Create the VM
 
 OCI Console → **Compute → Instances → Create instance**
