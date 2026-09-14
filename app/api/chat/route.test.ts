@@ -128,6 +128,20 @@ describe("POST /api/chat", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it("answers skill questions from documented technologies instead of the model", async () => {
+    const post = await loadRoute();
+
+    const undocumented = await post(makeRequest({ messages: [{ role: "user", content: "Does Fuaad know Scala?" }] }));
+    expect(undocumented.headers.get("X-Chat-Source")).toBe("curated");
+    expect(await undocumented.text()).toContain("isn't covered on this site");
+
+    const documented = await post(makeRequest({ messages: [{ role: "user", content: "Has he used FastAPI?" }] }));
+    expect(documented.headers.get("X-Chat-Source")).toBe("curated");
+    expect(await documented.text()).toContain("FastAPI");
+
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it("streams TinyLlama tokens using server-side credentials and a grounded prompt", async () => {
     // Split a JSON line across chunks to exercise NDJSON buffering
     const [first, second, done] = tokenLines(["Start with ", "the projects page."]);

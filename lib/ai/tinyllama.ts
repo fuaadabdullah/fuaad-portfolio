@@ -4,6 +4,7 @@ import { siteFacts } from '@/data/portfolio_knowledge';
 import { projectContent } from '@/data/site_content';
 import { canExecute, recordFailure, recordSuccess } from './circuit-breaker';
 import { AI_CONFIG } from './config';
+import { notCoveredReply as NOT_COVERED_REPLY } from './knowledge';
 
 export interface ChatTurn {
   role: 'user' | 'assistant';
@@ -30,9 +31,6 @@ const PROJECT_FACTS = projectContent
     return `${name}: ${summary.trim()}`;
   })
   .join(' ');
-
-const NOT_COVERED_REPLY =
-  "That isn't covered on this site. You can ask Fuaad directly via the [contact page](/contact).";
 
 // TinyLlama copies demonstrated behavior far more reliably than it follows written rules,
 // so show it both a grounded answer and the refusal for off-topic or undocumented questions.
