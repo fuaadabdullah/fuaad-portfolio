@@ -32,6 +32,16 @@ export function findFaqEntry(prompt: string) {
   return bestMatch?.answer;
 }
 
+export const notCoveredReply =
+  "That isn't covered on this site. You can ask Fuaad directly via the [contact page](/contact).";
+
+// Skill questions ("does he know X?") are where the model invents claims in both directions,
+// so they are answered only from technologies the portfolio actually documents.
+const personReference = /\b(fuaad|he|him|his|you|your)\b/;
+const skillVerb = /\b(know|knows|use|used|uses|using|familiar|experience|experienced|skilled|proficient|worked|good at|good with|expert)\b/;
+const documentedTech =
+  /\b(next\.?js|react|typescript|tailwind|fastapi|python|postgres(ql)?|redis|docker|azure|vercel|hugging ?face|streamlit|plotly|mdx)\b/;
+
 /** Curated answer for greetings and known topics, or null when nothing matches. */
 export function getCuratedReply(prompt: string) {
   const normalizedPrompt = normalizePrompt(prompt);
@@ -40,7 +50,18 @@ export function getCuratedReply(prompt: string) {
     return greetingReply;
   }
 
-  return findFaqEntry(normalizedPrompt) ?? null;
+  const faqAnswer = findFaqEntry(normalizedPrompt);
+  if (faqAnswer) {
+    return faqAnswer;
+  }
+
+  if (personReference.test(normalizedPrompt) && skillVerb.test(normalizedPrompt)) {
+    return documentedTech.test(normalizedPrompt)
+      ? findFaqEntry("tech stack") ?? notCoveredReply
+      : notCoveredReply;
+  }
+
+  return null;
 }
 
 export function getKnowledgeReply(prompt: string) {
