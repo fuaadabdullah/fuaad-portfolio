@@ -147,6 +147,7 @@ function ProjectCard({ project }: { project: ResumeProject }) {
               target="_blank"
               rel="noopener noreferrer"
               className="button button-secondary"
+              aria-label={`${project.title} live site (opens in a new tab)`}
             >
               Live
             </a>
@@ -196,6 +197,7 @@ function ProjectCard({ project }: { project: ResumeProject }) {
             target="_blank"
             rel="noopener noreferrer"
             className="text-[var(--color-accent)] hover:underline"
+            aria-label={`${project.title} source code (opens in a new tab)`}
           >
             Source
           </a>
@@ -238,13 +240,19 @@ function ResumeHero({
       </div>
 
       <div className="flex flex-wrap gap-3 text-sm">
+        {/*
+          The "opens in a new tab" hint is hidden text rather than an aria-label so
+          the visible label stays inside the accessible name (WCAG 2.5.3). The
+          trailing space keeps the two text runs from collapsing together.
+        */}
         <a
           href={header.pdfHref}
           target="_blank"
           rel="noopener noreferrer"
           className="button button-primary"
         >
-          Resume (1 page)
+          {"Resume (1 page) "}
+          <span className="sr-only">PDF (opens in a new tab)</span>
         </a>
         <a
           href={cvData.header.pdfHref}
@@ -252,13 +260,15 @@ function ResumeHero({
           rel="noopener noreferrer"
           className="button button-secondary"
         >
-          CV (full)
+          {"CV (full) "}
+          <span className="sr-only">PDF (opens in a new tab)</span>
         </a>
         <a
           href={header.linkedInHref}
           target="_blank"
           rel="noopener noreferrer"
           className="button button-secondary"
+          aria-label="View LinkedIn profile (opens in a new tab)"
         >
           View LinkedIn
         </a>

@@ -20,7 +20,7 @@ for (const width of [375, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     for (const route of routes) {
       await page.goto(route);
-      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+      await expect(page.getByRole("heading", { level: 1 }), route).toBeVisible();
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,
@@ -111,11 +111,19 @@ test("chat opens on mobile and recovers from a failed request", async ({
     .fill("Tell me about your projects");
   await dialog.getByRole("button", { name: "Send message" }).click();
   await expect(
-    dialog.getByRole("button", { name: "Send message" }),
-  ).toBeEnabled({ timeout: 15000 });
+    dialog.getByRole("button", { name: "Retry response" }),
+  ).toBeVisible({ timeout: 15000 });
   await expect(dialog.getByRole("log")).toContainText(
     /sorry|error|trouble|try again|unable/i,
   );
+  await page.route("**/api/chat", (route) => route.fulfill({
+    status: 200, contentType: "text/plain", body: "Fuaad builds web applications.",
+  }));
+  await dialog.getByRole("button", { name: "Retry response" }).click();
+  await expect(dialog.getByRole("log")).toContainText("Fuaad builds web applications.");
+  await expect(dialog.getByText("Tell me about your projects", { exact: true })).toHaveCount(1);
+  await dialog.getByRole("button", { name: "New chat" }).click();
+  await expect(dialog.getByText("Quick questions")).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
     375,
   );
@@ -176,4 +184,17 @@ test("motion draws the hero trace and reveals sections as they enter view", asyn
   await expect(section).toHaveCSS("opacity", "1");
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(page.locator(".reveal-ready")).toHaveCount(0);
+});
+
+test("page content remains visible with JavaScript disabled", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  const section = page.locator('section[aria-labelledby="approach-heading"]');
+  await expect(section).toHaveCSS("opacity", "1");
+  await expect(page.locator(".reveal-ready")).toHaveCount(0);
+  await context.close();
 });

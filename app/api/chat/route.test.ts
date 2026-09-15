@@ -57,7 +57,8 @@ describe("POST /api/chat", () => {
 
   beforeEach(() => {
     vi.resetModules();
-    vi.stubEnv("OLLAMA_BASE_URL", OLLAMA_BASE_URL);
+    vi.stubEnv("OLLAMA_BASE_URL", "");
+    vi.stubEnv("VERCEL_ENV", "preview");
     vi.stubEnv("OLLAMA_API_KEY", OLLAMA_API_KEY);
     vi.stubGlobal("fetch", fetchMock);
     fetchMock.mockReset();
@@ -193,20 +194,28 @@ describe("POST /api/chat", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("never calls the model on Vercel production, even with the experiment flag set", async () => {
-    vi.stubEnv("CHAT_TINYLLAMA_EXPERIMENT", "true");
+  it("uses the real provider in production for documented questions too", async () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("OLLAMA_BASE_URL", OLLAMA_BASE_URL);
+    fetchMock.mockResolvedValueOnce(ollamaStream(tokenLines(["A real generated answer."])));
+    const post = await loadRoute();
+    const response = await post(makeRequest({ messages: [{ role: "user", content: "Tell me about GoblinOS" }] }));
+    expect(response.headers.get("X-Chat-Source")).toBe("tinyllama");
+    expect(await response.text()).toBe("A real generated answer.");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("reports missing production configuration without pretending to generate an answer", async () => {
     vi.stubEnv("VERCEL_ENV", "production");
     const post = await loadRoute();
-
-    const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
-
-    expect(response.headers.get("X-Chat-Source")).toBe("abstain");
+    const response = await post(makeRequest({ messages: [{ role: "user", content: "Hello" }] }));
+    expect(response.status).toBe(503);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  describe("TinyLlama experiment (never in production)", () => {
+  describe("configured model", () => {
     beforeEach(() => {
-      vi.stubEnv("CHAT_TINYLLAMA_EXPERIMENT", "true");
+      vi.stubEnv("OLLAMA_BASE_URL", OLLAMA_BASE_URL);
     });
 
     it("streams TinyLlama tokens using server-side credentials and a grounded prompt", async () => {
@@ -235,6 +244,15 @@ describe("POST /api/chat", () => {
       expect(upstreamBody.messages.at(-1)).toEqual({ role: "user", content: "What makes his approach different?" });
     });
   
+    it("rejects truncated provider streams instead of caching incomplete replies", async () => {
+      fetchMock.mockResolvedValueOnce(ollamaStream([
+        JSON.stringify({ message: { content: "Partial answer" }, done: false }) + "\n",
+      ]));
+      const post = await loadRoute();
+      const response = await post(makeRequest({ messages: [{ role: "user", content: "Explain a project" }] }));
+      await expect(response.text()).rejects.toThrow('before completion');
+    });
+
     it("marks replies cut off by the token limit", async () => {
       fetchMock.mockResolvedValueOnce(
         ollamaStream([
@@ -249,15 +267,26 @@ describe("POST /api/chat", () => {
       expect(await response.text()).toBe("Fuaad built…");
     });
   
+    it("never falls back to a local Ollama when the Oracle host isn't configured", async () => {
+      vi.stubEnv("OLLAMA_BASE_URL", "");
+      vi.stubEnv("VERCEL_ENV", "production");
+      const post = await loadRoute();
+
+      const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
+
+      expect(response.status).toBe(503);
+      expect((await response.json()).error).toContain("unavailable");
+      expect(fetchMock).not.toHaveBeenCalled();
+    });
+
     it("abstains when TinyLlama is unreachable", async () => {
       fetchMock.mockRejectedValueOnce(new Error("connect ECONNREFUSED"));
       const post = await loadRoute();
   
       const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
   
-      expect(response.status).toBe(200);
-      expect(response.headers.get("X-Chat-Source")).toBe("fallback");
-      expect(await response.text()).toBe(abstainReply);
+      expect(response.status).toBe(503);
+      expect((await response.json()).error).toContain("unavailable");
     });
   
     it("falls back when Ollama reports an error instead of tokens", async () => {
@@ -266,7 +295,7 @@ describe("POST /api/chat", () => {
   
       const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
   
-      expect(response.headers.get("X-Chat-Source")).toBe("fallback");
+      expect(response.status).toBe(503);
     });
   
     it("serves repeated standalone questions from cache without calling the model", async () => {

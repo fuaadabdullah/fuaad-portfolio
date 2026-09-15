@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useEffect, useId, useRef, useState } from "react";
-import { Bot, LoaderCircle, MessageSquareMore, SendHorizonal, X } from "lucide-react";
+import { Bot, MessageSquareMore, SendHorizonal, X } from "lucide-react";
 import clsx from "clsx";
 import { MAX_INPUT_CHARS, useChat } from "./useChat";
 import { ChatMessage } from "./ChatMessage";
@@ -36,7 +36,8 @@ interface ChatBoxProps {
 
 export function ChatBox({ initialOpen = false }: ChatBoxProps) {
   const [open, setOpen] = useState(initialOpen);
-  const { messages, input, setInput, sendMessage, status } = useChat();
+  const { messages, input, setInput, sendMessage, status, clearMessages, stopMessage, retryMessage } = useChat();
+  const dialogRef = useRef<HTMLElement>(null);
   const dialogId = useId();
   const titleId = useId();
   const descriptionId = useId();
@@ -61,6 +62,16 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
     if (!open) return;
 
     function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Tab") {
+        const controls = dialogRef.current?.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), a[href]');
+        const first = controls?.[0];
+        const last = controls?.[controls.length - 1];
+        if (e.shiftKey && (document.activeElement === first || !dialogRef.current?.contains(document.activeElement))) {
+          e.preventDefault(); last?.focus();
+        } else if (!e.shiftKey && (document.activeElement === last || !dialogRef.current?.contains(document.activeElement))) {
+          e.preventDefault(); first?.focus();
+        }
+      }
       if (e.key === "Escape") {
         setOpen(false);
         requestAnimationFrame(() => toggleButtonRef.current?.focus());
@@ -136,6 +147,7 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
           />
 
           <section
+            ref={dialogRef}
             id={dialogId}
             role="dialog"
             aria-modal="true"
@@ -181,6 +193,9 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
               aria-relevant="additions text"
               aria-busy={status === "loading"}
             >
+              {messages.length === 0 && (
+                <p className="text-sm text-zinc-300">Hi! Ask about Fuaad&rsquo;s projects and experience, or find the right way to get in touch.</p>
+              )}
               {messages
                 .filter((msg) => msg.from === "user" || msg.text)
                 .map((msg) => (
@@ -194,6 +209,15 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
               )}
               <div ref={messagesEndRef} />
             </div>
+
+            {messages.length > 0 && (
+              <div className="flex flex-wrap items-center gap-3 border-t border-white/10 px-4 py-2 text-sm">
+                {status === "loading" && <button type="button" onClick={stopMessage} className="min-h-10">Stop response</button>}
+                {status === "idle" && lastMessage?.failed && <button type="button" onClick={() => retryMessage()} className="min-h-10">Retry response</button>}
+                <button type="button" onClick={() => { clearMessages(); inputRef.current?.focus(); }} className="min-h-10">New chat</button>
+                <a href="/contact" className="min-h-10 inline-flex items-center text-[var(--color-accent)]">Contact Fuaad</a>
+              </div>
+            )}
 
           {/* Suggestions */}
             {messages.length === 0 && (
@@ -239,15 +263,21 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
                 />
                 <button
                   type="submit"
-                  disabled={status === "loading"}
+                  disabled={status === "loading" || !input.trim()}
                   className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--color-accent)] text-[var(--color-ink)] transition hover:bg-[var(--color-sand)] disabled:cursor-not-allowed disabled:opacity-50"
-                  aria-label="Send message"
+                  aria-label={
+                    status === "loading"
+                      ? "Generating response, please wait"
+                      : "Send message"
+                  }
                 >
                   {status === "loading" ? (
-                    <>
-                      <LoaderCircle size={18} className="animate-spin motion-reduce:animate-none" aria-hidden="true" />
-                      <span className="sr-only">Generating response, please wait</span>
-                    </>
+                    <span
+                      className="text-sm font-semibold tracking-widest"
+                      aria-hidden="true"
+                    >
+                      …
+                    </span>
                   ) : (
                     <SendHorizonal size={18} aria-hidden="true" />
                   )}

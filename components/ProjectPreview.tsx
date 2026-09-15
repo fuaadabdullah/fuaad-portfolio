@@ -28,8 +28,9 @@ export default function ProjectPreview({
     return (
       <div
         className="flex aspect-[16/10] items-center justify-center p-8 text-sm text-[var(--color-muted)]"
-        role="img"
-        aria-label="Project preview coming soon"
+        {...(decorative
+          ? { "aria-hidden": true }
+          : { role: "img", "aria-label": "Project preview coming soon" })}
       >
         Preview coming soon
       </div>

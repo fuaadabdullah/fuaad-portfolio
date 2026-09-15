@@ -76,12 +76,13 @@ export default function LinkedInBadge() {
           )}
 
           {/* The LinkedIn script will enhance this link into a badge when possible */}
-          <a className="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/fuaadabdullah?trk=profile-badge" target="_blank" rel="noopener noreferrer" aria-label="Open Fuaad Abdullah on LinkedIn (opens in new tab)">
-            View profile
+          <a className="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/fuaadabdullah?trk=profile-badge" target="_blank" rel="noopener noreferrer">
+            View profile{" "}
+            <span className="sr-only">on LinkedIn (opens in a new tab)</span>
           </a>
 
           {failed && (
-            <p className="badge-fallback">Could not load LinkedIn badge — <a href="https://www.linkedin.com/in/fuaadabdullah" target="_blank" rel="noopener noreferrer" aria-label="Open Fuaad Abdullah on LinkedIn (opens in a new tab)">open profile</a></p>
+            <p className="badge-fallback">Could not load LinkedIn badge — <a href="https://www.linkedin.com/in/fuaadabdullah" target="_blank" rel="noopener noreferrer">open profile{" "}<span className="sr-only">on LinkedIn (opens in a new tab)</span></a></p>
           )}
         </div>
       </div>

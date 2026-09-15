@@ -18,7 +18,7 @@ interface StreamOptions {
   onComplete?: (reply: string) => void;
 }
 
-const PROVIDER = 'local-llm';
+const PROVIDER = 'ollama';
 const FIRST_TOKEN_TIMEOUT_MS = 15_000; // allows a cold model load on a small CPU host
 const TOTAL_TIMEOUT_MS = 45_000;
 const MAX_CONCURRENT_GENERATIONS = 2; // TinyLlama hosts are usually 1-2 vCPU boxes
@@ -51,15 +51,15 @@ let activeGenerations = 0;
 
 export function getOllamaHeaders(): Record<string, string> {
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-  if (AI_CONFIG.LOCAL_LLM.API_KEY) {
-    headers.Authorization = `Bearer ${AI_CONFIG.LOCAL_LLM.API_KEY}`;
+  if (AI_CONFIG.OLLAMA.API_KEY) {
+    headers.Authorization = `Bearer ${AI_CONFIG.OLLAMA.API_KEY}`;
   }
   return headers;
 }
 
 function isConfigured(): boolean {
-  // localhost is only meaningful in development; deployed servers need an explicit host
-  return Boolean(process.env.OLLAMA_BASE_URL) || process.env.NODE_ENV !== 'production';
+  // TinyLlama runs only on the Oracle host; there is no local Ollama to fall back to
+  return Boolean(AI_CONFIG.OLLAMA.URL);
 }
 
 // Small models follow short, concrete instructions far better than long ones.
@@ -106,9 +106,11 @@ async function* readTokens(body: ReadableStream<Uint8Array>): AsyncGenerator<str
 
     const tail = (buffer + decoder.decode()).trim();
     if (tail) {
-      const { token } = parseLine(tail);
+      const { token, done } = parseLine(tail);
       if (token) yield token;
+      if (done) return;
     }
+    throw new Error('Ollama stream ended before completion');
   } finally {
     // Closing the connection early makes Ollama stop generating
     await reader.cancel().catch(() => {});
@@ -166,13 +168,13 @@ export async function streamTinyLlama(
   let firstToken: string;
 
   try {
-    const response = await fetch(AI_CONFIG.LOCAL_LLM.URL, {
+    const response = await fetch(AI_CONFIG.OLLAMA.URL, {
       method: 'POST',
       headers: getOllamaHeaders(),
       cache: 'no-store',
       signal: upstream.signal,
       body: JSON.stringify({
-        model: AI_CONFIG.LOCAL_LLM.MODEL,
+        model: AI_CONFIG.OLLAMA.MODEL,
         messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...FEW_SHOT_EXAMPLES, ...turns],
         stream: true,
         // No per-request keep_alive: the host's OLLAMA_KEEP_ALIVE decides how long the model stays warm
@@ -225,10 +227,7 @@ export async function streamTinyLlama(
         controller.enqueue(encoder.encode(text));
       } catch (error) {
         fail(error);
-        if (clientGone) return;
-        // Headers are already sent, so end the partial reply gracefully
-        controller.enqueue(encoder.encode(' …'));
-        controller.close();
+        controller.error(error);
       }
     },
     cancel() {

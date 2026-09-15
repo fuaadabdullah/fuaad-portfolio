@@ -34,8 +34,9 @@ This document outlines the accessibility features implemented to meet **WCAG 2.2
 - ✅ `aria-required` on required form fields
 - ✅ `aria-labelledby` for section headings
 - ✅ Required field indicators with accessible labels
-- ✅ `aria-label` suffix `(opens in a new tab)` on shared social, project, and action links
+- ✅ `aria-label` suffix `(opens in a new tab)` on every external anchor
 - ✅ `aria-busy` on the chat message log and contact submit button while loading
+- ✅ Chat send button swaps its `aria-label` to "Generating response, please wait" while a reply is streaming (icon-only buttons can't rely on inner text, since `aria-label` wins)
 - ✅ `aria-live="polite"` on the LinkedIn badge loading text
 - ✅ `role="status"` on the contact success message and `role="alert"` on the 404 page
 
@@ -115,10 +116,11 @@ Tested against WCAG AA (4.5:1 for normal text, 3:1 for large):
   - `app/page.test.tsx` (home)
   - `app/about/page.test.tsx` (about)
   - `app/cv/page.test.tsx` (CV)
+  - `app/resume/page.test.tsx` (resume — also asserts every `target="_blank"` link announces the new tab)
   - `components/Footer.test.tsx` (footer landmarks + external link labels)
   - `components/ExternalLink.test.tsx` (external link accessible name)
   - `components/design-system/base/Button.test.tsx` (design system button)
-- ✅ `color-contrast` is disabled in jsdom runs (the engine can't compute computed styles reliably); browser contrast checks are required separately.
+- ✅ `color-contrast` is disabled in jsdom runs (the engine can't compute computed styles reliably); contrast is verified manually with WebAIM.
 
 ### Browser Testing
 

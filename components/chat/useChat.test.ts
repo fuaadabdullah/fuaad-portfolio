@@ -347,4 +347,46 @@ describe('useChat Hook', () => {
 
     vi.useFakeTimers();
   });
+
+  it('retries a failed turn without duplicating the question', async () => {
+    vi.useRealTimers();
+    fetchMock.mockResolvedValueOnce(new Response('', { status: 503 }));
+    const { result } = renderHook(() => useChat());
+    await act(async () => { await result.current.sendMessage('Hello'); });
+    expect(result.current.messages[1].failed).toBe(true);
+    fetchMock.mockResolvedValueOnce(new Response('A real reply'));
+    await act(async () => { await result.current.retryMessage(); });
+    expect(result.current.messages).toHaveLength(2);
+    expect(result.current.messages[1].text).toBe('A real reply');
+    expect(JSON.parse(fetchMock.mock.calls[1][1].body).messages).toEqual([{ role: 'user', content: 'Hello' }]);
+  });
+
+  it('clears an active request and ignores its late completion during a new request', async () => {
+    vi.useRealTimers();
+    let resolveOld!: (response: Response) => void;
+    let resolveNew!: (response: Response) => void;
+    fetchMock.mockImplementationOnce(() => new Promise(resolve => { resolveOld = resolve; }));
+    fetchMock.mockImplementationOnce(() => new Promise(resolve => { resolveNew = resolve; }));
+    const { result } = renderHook(() => useChat());
+    act(() => { void result.current.sendMessage('Old question'); });
+    const oldSignal = fetchMock.mock.calls[0][1].signal;
+    act(() => { result.current.clearMessages(); });
+    expect(oldSignal.aborted).toBe(true);
+    expect(result.current.messages).toEqual([]);
+    act(() => { void result.current.sendMessage('New question'); });
+    await act(async () => { resolveOld(new Response('Old reply')); });
+    expect(result.current.status).toBe('loading');
+    expect(result.current.messages[0].text).toBe('New question');
+    await act(async () => { resolveNew(new Response('New reply')); });
+    expect(result.current.messages[1].text).toBe('New reply');
+    expect(result.current.status).toBe('idle');
+  });
+
+  it('marks empty responses as failures instead of inventing an answer', async () => {
+    vi.useRealTimers();
+    fetchMock.mockResolvedValueOnce(new Response(''));
+    const { result } = renderHook(() => useChat());
+    await act(async () => { await result.current.sendMessage('Hello'); });
+    expect(result.current.messages[1].failed).toBe(true);
+  });
 });

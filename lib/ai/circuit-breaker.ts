@@ -19,7 +19,7 @@ const CIRCUIT_BREAKER_CONFIG: CircuitBreakerConfig = {
 };
 
 const circuitBreakers: Record<string, CircuitBreakerState> = {
-  'local-llm': {
+  'ollama': {
     state: 'CLOSED',
     failures: 0,
     lastFailureTime: 0,

@@ -1,12 +1,14 @@
 // AI provider configuration
-const OLLAMA_BASE_URL = (process.env.OLLAMA_BASE_URL || 'http://localhost:11434').replace(/\/+$/, '');
+// TinyLlama runs only on the Oracle Cloud Ollama host (deploy/oracle-ollama). With OLLAMA_BASE_URL
+// unset there is no model at all; nothing falls back to a localhost Ollama.
+const OLLAMA_BASE_URL = (process.env.OLLAMA_BASE_URL ?? '').trim().replace(/\/+$/, '');
 
 export const AI_CONFIG = {
-  LOCAL_LLM: {
+  OLLAMA: {
     // Server-side only. Never expose this URL or key to the browser.
     BASE_URL: OLLAMA_BASE_URL,
-    URL: `${OLLAMA_BASE_URL}/api/chat`,
-    // Optional bearer token for an auth-enforcing reverse proxy in front of Ollama
+    URL: OLLAMA_BASE_URL ? `${OLLAMA_BASE_URL}/api/chat` : '',
+    // Bearer token checked by the Caddy proxy on the Oracle host
     API_KEY: process.env.OLLAMA_API_KEY,
     TIMEOUT: 8000,
     MODEL: process.env.OLLAMA_MODEL || 'tinyllama:1.1b'

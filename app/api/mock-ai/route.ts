@@ -3,6 +3,9 @@ import { NextResponse } from "next/server";
 import { getKnowledgeReply } from "@/lib/ai/knowledge";
 
 export async function POST(request: Request) {
+  if (process.env.NODE_ENV === "production" || process.env.VERCEL_ENV === "production") {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
   const body = await request.json().catch(() => null);
   const prompt: unknown = body?.prompt;
 
