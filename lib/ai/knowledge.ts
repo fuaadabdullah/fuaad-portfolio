@@ -48,6 +48,8 @@ export const notCoveredReply =
 // so they are answered only from technologies the portfolio actually documents.
 const personReference = /\b(fuaad|he|him|his|you|your)\b/;
 const skillVerb = /\b(know|knows|use|used|uses|using|familiar|experience|experienced|skilled|proficient|worked|good at|good with|expert)\b/;
+const offTopicRequest = /\b(jokes?|weather|poems?|songs?|lyrics|recipes?|riddles?)\b/;
+const undocumentedWorkStatus = /\b(visa|sponsor(ship)?|authori[sz]ed|citizen(ship)?|relocat(e|ion)|remote(ly)?|salary|compensation)\b/;
 const documentedTech =
   /\b(next\.?js|react|typescript|tailwind|fastapi|python|postgres(ql)?|redis|docker|azure|vercel|hugging ?face|streamlit|plotly|mdx)\b/;
 
@@ -64,6 +66,11 @@ export function getCuratedReply(prompt: string) {
     return documentedTech.test(normalizedPrompt)
       ? findFaqEntry("tech stack") ?? notCoveredReply
       : notCoveredReply;
+  }
+
+  // The model plays along with off-topic requests, and would guess at work status the site never states
+  if (offTopicRequest.test(normalizedPrompt) || undocumentedWorkStatus.test(normalizedPrompt)) {
+    return notCoveredReply;
   }
 
   // Checked last so "Hi, what's his tech stack?" gets the answer rather than the greeting
