@@ -8,7 +8,18 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./test/setup.ts'],
-    exclude: ['node_modules/**', 'dist/**', 'e2e/**'],
+    exclude: [
+      'node_modules/**',
+      'dist/**',
+      'e2e/**',
+      // Generated artifacts (design/merge review snapshots, coverage, reports)
+      // must never be collected as test files.
+      'output/**',
+      '.next/**',
+      'coverage/**',
+      'playwright-report/**',
+      'test-results/**',
+    ],
   },
   resolve: {
     alias: {

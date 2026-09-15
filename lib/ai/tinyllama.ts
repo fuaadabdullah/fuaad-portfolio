@@ -106,9 +106,11 @@ async function* readTokens(body: ReadableStream<Uint8Array>): AsyncGenerator<str
 
     const tail = (buffer + decoder.decode()).trim();
     if (tail) {
-      const { token } = parseLine(tail);
+      const { token, done } = parseLine(tail);
       if (token) yield token;
+      if (done) return;
     }
+    throw new Error('Ollama stream ended before completion');
   } finally {
     // Closing the connection early makes Ollama stop generating
     await reader.cancel().catch(() => {});
@@ -225,10 +227,7 @@ export async function streamTinyLlama(
         controller.enqueue(encoder.encode(text));
       } catch (error) {
         fail(error);
-        if (clientGone) return;
-        // Headers are already sent, so end the partial reply gracefully
-        controller.enqueue(encoder.encode(' …'));
-        controller.close();
+        controller.error(error);
       }
     },
     cancel() {

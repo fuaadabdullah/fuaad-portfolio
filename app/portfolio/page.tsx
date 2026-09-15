@@ -44,9 +44,9 @@ export default function PortfolioPage() {
             <Link
               href={`/portfolio/${flagship.slug}`}
               className="project-preview"
-              aria-label="Explore GoblinOS Assistant"
+              aria-label={`Explore ${flagship.title}`}
             >
-              <ProjectPreview project={flagship} priority />
+              <ProjectPreview project={flagship} priority decorative />
             </Link>
             <div>
               <h2 className="section-title">{flagship.title}</h2>
@@ -69,6 +69,7 @@ export default function PortfolioPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="button button-secondary"
+                    aria-label={`${flagship.title} live demo (opens in a new tab)`}
                   >
                     Live demo
                   </a>
@@ -80,6 +81,7 @@ export default function PortfolioPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-link mt-4 text-sm"
+                  aria-label={`${flagship.title} source code (opens in a new tab)`}
                 >
                   Source code <ArrowUpRight size={14} aria-hidden="true" />
                 </a>

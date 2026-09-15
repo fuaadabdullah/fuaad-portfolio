@@ -123,13 +123,17 @@ describe('ChatMessage Component', () => {
     render(<ChatMessage message={linkMessage} />);
 
     // Check that the link elements are rendered
-    const portfolioLink = screen.getByRole('link', { name: 'featured projects' });
+    const portfolioLink = screen.getByRole('link', {
+      name: /featured projects\s*\(opens in a new tab\)/i,
+    });
     expect(portfolioLink).toHaveAttribute('href', '/portfolio');
     expect(portfolioLink).toHaveAttribute('target', '_blank');
     expect(portfolioLink).toHaveAttribute('rel', 'noopener noreferrer');
     expect(portfolioLink).toHaveClass('text-[var(--color-accent)]', 'hover:text-[var(--color-sand)]', 'underline');
 
-    const aboutLink = screen.getByRole('link', { name: 'learn more about his background' });
+    const aboutLink = screen.getByRole('link', {
+      name: /learn more about his background\s*\(opens in a new tab\)/i,
+    });
     expect(aboutLink).toHaveAttribute('href', '/about');
     expect(aboutLink).toHaveAttribute('target', '_blank');
     expect(aboutLink).toHaveAttribute('rel', 'noopener noreferrer');
@@ -137,7 +141,9 @@ describe('ChatMessage Component', () => {
 
     // Check that the message container contains the expected text content
     const messageElement = screen.getByTestId('message-text');
-    expect(messageElement).toHaveTextContent('Check out his featured projects or learn more about his background.');
+    expect(messageElement).toHaveTextContent(
+      'Check out his featured projects (opens in a new tab) or learn more about his background (opens in a new tab).'
+    );
   });
 
   it('should not render unsafe link targets from model output', () => {
@@ -153,7 +159,9 @@ describe('ChatMessage Component', () => {
     const links = screen.getAllByRole('link');
     expect(links).toHaveLength(1);
     expect(links[0]).toHaveAttribute('href', '/contact');
-    expect(screen.getByTestId('message-text')).toHaveTextContent('See script, data, proto, site, and contact.');
+    expect(screen.getByTestId('message-text')).toHaveTextContent(
+      'See script, data, proto, site, and contact (opens in a new tab).'
+    );
   });
 
   it('should normalize the casing of Fuaad in bot replies', () => {

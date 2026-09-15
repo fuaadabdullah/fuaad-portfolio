@@ -83,6 +83,7 @@ export default function ContactForm() {
           type="text"
           required
           aria-required="true"
+          autoComplete="name"
           maxLength={100}
           className="w-full rounded-lg border border-white/20 bg-white/10 p-3 text-white placeholder:text-white/50 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent)]"
           placeholder="Your name"
@@ -97,8 +98,10 @@ export default function ContactForm() {
           id="email"
           name="email"
           type="email"
+          inputMode="email"
           required
           aria-required="true"
+          autoComplete="email"
           className="w-full rounded-lg border border-white/20 bg-white/10 p-3 text-white placeholder:text-white/50 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent)]"
           placeholder="you@example.com"
         />
@@ -113,6 +116,7 @@ export default function ContactForm() {
           required
           aria-required="true"
           rows={5}
+          maxLength={2000}
           className="w-full resize-none rounded-lg border border-white/20 bg-white/10 p-3 text-white placeholder:text-white/50 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent)]"
           placeholder="What do you need help with?"
         />
@@ -120,7 +124,10 @@ export default function ContactForm() {
 
       <div className="space-y-3" aria-live="polite">
         {submitSuccess ? (
-          <p className="rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
+          <p
+            role="status"
+            className="rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200"
+          >
             {submitSuccess}
           </p>
         ) : null}
@@ -138,9 +145,10 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
+        aria-busy={isSubmitting}
         className="rounded-lg bg-[color:var(--color-accent)] px-6 py-3 font-medium text-black transition-colors hover:bg-[color:var(--color-accent)]/90 focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent)] focus:ring-offset-2 focus:ring-offset-[color:var(--color-ink)] disabled:cursor-not-allowed disabled:opacity-70"
       >
-        {isSubmitting ? "Sending..." : "Send Message"}
+        {isSubmitting ? "Sending…" : "Send Message"}
       </button>
     </form>
   );

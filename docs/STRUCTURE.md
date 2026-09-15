@@ -256,9 +256,14 @@ Build-time scripts run automatically:
 
 - `page.tsx` - Route entry point
 - `layout.tsx` - Layout for route segment
-- `loading.tsx` - Loading UI
 - `error.tsx` - Error UI
 - `not-found.tsx` - 404 UI
+
+There is deliberately **no root `loading.tsx`**. A root loading boundary makes Next
+emit the loading fallback as the static shell and deliver the real page inside a
+hidden template that only client JavaScript swaps in, so visitors without JS (and
+crawlers) saw nothing but "Loading". Every route here is static, so the fallback
+added no value. `e2e/design.spec.ts` guards the behaviour with a JS-disabled test.
 
 ### Components
 

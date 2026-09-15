@@ -6,12 +6,7 @@ import { abstainReply, getCuratedReply } from '@/lib/ai/knowledge';
 import { checkRateLimit } from '@/lib/ai/rate-limit';
 import { MAX_REPLY_CHARS, streamTinyLlama } from '@/lib/ai/tinyllama';
 
-// Public portfolio chat. Contract: anything it says about Fuaad comes from site data.
-// Documented topics get curated answers; everything else gets a fixed abstention.
-// TinyLlama invented facts when it answered visitors (a college Fuaad never attended,
-// "no blog posts", dog training), so it only runs as an opt-in experiment outside production.
-// Deliberately never calls paid providers (Gemini/Hugging Face stay behind /api/ai).
-
+// Public chat uses the server-configured Ollama model, including in production.
 export const maxDuration = 60;
 
 const MAX_BODY_CHARS = 16_000;
@@ -51,12 +46,6 @@ function textResponse(
       'X-Chat-Source': source,
     },
   });
-}
-
-// Model replies are for preview experiments against the Oracle TinyLlama host only. Vercel production
-// ignores the flag, so no environment setting can put generated claims in front of visitors.
-function isModelExperimentEnabled(): boolean {
-  return process.env.CHAT_TINYLLAMA_EXPERIMENT === 'true' && process.env.VERCEL_ENV !== 'production';
 }
 
 // Stops other sites from using this endpoint as a free LLM API from visitors' browsers.
@@ -124,17 +113,18 @@ export async function POST(request: NextRequest) {
   }));
   const question = messages[messages.length - 1].content;
 
-  const curated = getCuratedReply(question);
-  if (curated) {
-    return textResponse(curated, 'curated');
+  if (!process.env.OLLAMA_BASE_URL?.trim()) {
+    if (process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production') {
+      return jsonError('Chat is temporarily unavailable. Please contact Fuaad directly.', 503);
+    }
+    const curated = getCuratedReply(question);
+    return textResponse(curated ?? abstainReply, curated ? 'curated' : 'abstain');
   }
 
-  if (!isModelExperimentEnabled()) {
-    return textResponse(abstainReply, 'abstain');
-  }
-
-  // Experiment only. Standalone questions are cacheable; follow-ups depend on the conversation
-  const cacheKey = messages.length === 1 ? `chat:tinyllama:${question.toLowerCase()}` : null;
+  // Include model identity in cache keys; follow-ups always use the conversation.
+  const cacheKey = messages.length === 1
+    ? `chat:v2:${process.env.OLLAMA_BASE_URL}:${process.env.OLLAMA_MODEL ?? 'tinyllama:1.1b'}:${question}`
+    : null;
 
   if (cacheKey) {
     const { data } = await getCachedResponse(cacheKey);
@@ -154,5 +144,5 @@ export async function POST(request: NextRequest) {
     return textResponse(stream, 'tinyllama');
   }
 
-  return textResponse(abstainReply, 'fallback');
+  return jsonError('Chat is temporarily unavailable. Please try again or contact Fuaad directly.', 503);
 }

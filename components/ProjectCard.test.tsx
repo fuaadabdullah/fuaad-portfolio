@@ -87,9 +87,13 @@ describe("ProjectCard", () => {
   });
 
   it("uses a static screenshot instead of an animated demo in the listing", () => {
-    render(<ProjectCard project={baseProject} />);
+    const { container } = render(<ProjectCard project={baseProject} />);
 
-    expect(screen.getByRole("img")).toHaveAttribute("src", "/projects/test-project-1.png");
+    // The preview image is decorative (alt="") because the card's heading and
+    // links already provide an accessible name, so query by <img> directly.
+    const img = container.querySelector('img[src="/projects/test-project-1.png"]');
+    expect(img).not.toBeNull();
+    expect(img).toHaveAttribute("alt", "");
     expect(screen.getByRole("link", { name: "Explore Test Project" })).toHaveAttribute("href", "/portfolio/test-project");
   });
 

@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import type { ReactNode } from "react";
-import Loading from "./loading";
 import Error from "./error";
 import NotFound from "./not-found";
 
@@ -21,13 +20,6 @@ vi.mock("next/link", () => ({
 }));
 
 describe("app shell states", () => {
-  it("renders a branded loading state", () => {
-    render(<Loading />);
-
-    expect(screen.getByLabelText(/loading page/i)).toBeInTheDocument();
-    expect(screen.getByText(/loading/i)).toBeInTheDocument();
-  });
-
   it("renders a recoverable error state", () => {
     const reset = vi.fn();
     render(<Error error={new Error("boom")} reset={reset} />);

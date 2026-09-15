@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { abstainReply } from "@/lib/ai/knowledge";
 
 async function postPrompt(prompt: string) {
@@ -136,3 +136,11 @@ describe("Mock AI API Route", () => {
     });
   });
 });
+
+ it('disables mocks in production', async () => {
+   vi.stubEnv('NODE_ENV', 'production');
+   try {
+     const { response } = await postPrompt('hello');
+     expect(response.status).toBe(404);
+   } finally { vi.unstubAllEnvs(); }
+ });

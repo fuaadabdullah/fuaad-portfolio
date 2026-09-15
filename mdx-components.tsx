@@ -40,6 +40,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             className="text-[color:var(--color-accent)] underline decoration-[var(--color-accent)]/50 hover:decoration-current transition-colors"
           >
             {children}
+            <span className="sr-only">{" (opens in a new tab)"}</span>
           </a>
         );
       }

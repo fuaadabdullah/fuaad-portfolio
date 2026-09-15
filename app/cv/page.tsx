@@ -64,6 +64,7 @@ export default function CvPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="button button-primary"
+              aria-label="Download CV PDF (opens in a new tab)"
             >
               Download CV PDF
             </a>
@@ -78,6 +79,7 @@ export default function CvPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="button button-secondary"
+              aria-label="GitHub profile (opens in a new tab)"
             >
               GitHub
             </a>
@@ -86,6 +88,7 @@ export default function CvPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="button button-secondary"
+              aria-label="LinkedIn profile (opens in a new tab)"
             >
               LinkedIn
             </a>
@@ -273,6 +276,7 @@ export default function CvPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[var(--color-accent)] hover:underline"
+                      aria-label={`${project.title} live site (opens in a new tab)`}
                     >
                       Live
                     </a>
@@ -283,6 +287,7 @@ export default function CvPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[var(--color-accent)] hover:underline"
+                      aria-label={`${project.title} source code (opens in a new tab)`}
                     >
                       Source
                     </a>

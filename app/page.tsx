@@ -8,6 +8,7 @@ import { resumeData } from "@/data/resume";
 import { nowActivity } from "@/data/now";
 import ProjectPreview from "@/components/ProjectPreview";
 import ProjectCard from "@/components/ProjectCard";
+import HeroSignal from "@/components/HeroSignal";
 
 export default function HomePage() {
   const flagship = projects.find(
@@ -49,14 +50,15 @@ export default function HomePage() {
           </p>
         </div>
         {flagship && (
-          <div className="hero-preview">
+          <div className="hero-preview hero-preview-animated">
+            <HeroSignal />
             <p className="eyebrow mb-5">Featured build / 01</p>
             <Link
               href={`/portfolio/${flagship.slug}`}
               className="project-preview shadow-2xl"
-              aria-label="Explore flagship case study"
+              aria-label={`Explore ${flagship.title} case study`}
             >
-              <ProjectPreview project={flagship} priority />
+              <ProjectPreview project={flagship} priority decorative />
             </Link>
             <div className="mt-5 flex items-center justify-between gap-3 pr-8">
               <div>
@@ -133,7 +135,10 @@ export default function HomePage() {
             </div>
           ))}
         </div>
-        <aside className="surface mt-12 grid gap-4 p-6 md:grid-cols-[160px_1fr]">
+        <aside
+          className="surface mt-12 grid gap-4 p-6 md:grid-cols-[160px_1fr]"
+          aria-label="What I'm building right now"
+        >
           <div>
             <p className="availability">Building now</p>
             <p className="mt-2 text-xs text-[var(--color-muted)]">
@@ -218,6 +223,7 @@ export default function HomePage() {
               target="_blank"
               rel="noopener noreferrer"
               className="text-link"
+              aria-label={`${bookingCta.label} (opens in a new tab)`}
             >
               {bookingCta.label} <ArrowUpRight size={16} aria-hidden="true" />
             </a>

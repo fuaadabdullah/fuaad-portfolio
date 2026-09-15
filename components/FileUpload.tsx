@@ -92,6 +92,7 @@ export function FileUpload({
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:no-underline"
+            aria-label={`${uploadedFile.filename} (opens in a new tab)`}
           >
             {uploadedFile.filename}
           </a>

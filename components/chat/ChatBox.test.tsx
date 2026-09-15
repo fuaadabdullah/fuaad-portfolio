@@ -17,6 +17,8 @@ describe('ChatBox Component', () => {
       setInput: vi.fn(),
       sendMessage: vi.fn(),
       clearMessages: vi.fn(),
+      stopMessage: vi.fn(),
+      retryMessage: vi.fn(),
     };
 
     vi.mocked(useChat).mockReturnValue(mockReturnValue);
@@ -140,6 +142,7 @@ describe('ChatBox Component', () => {
   });
 
   it('should call sendMessage when send button is clicked', () => {
+    mockReturnValue.input = 'Hello';
     render(<ChatBox />);
 
     const toggleButton = screen.getByRole('button', { name: /open chat/i });
@@ -160,11 +163,13 @@ describe('ChatBox Component', () => {
     fireEvent.click(toggleButton);
 
     const input = screen.getByLabelText('Chat input');
-    const sendButton = screen.getByRole('button', { name: /send message/i });
+    const sendButton = screen.getByRole('button', {
+      name: /generating response, please wait/i,
+    });
 
     expect(input).toBeDisabled();
     expect(sendButton).toBeDisabled();
-    expect(sendButton).toHaveTextContent('...');
+    expect(sendButton).toHaveAttribute('aria-label', expect.stringMatching(/generating response, please wait/i));
   });
 
   it('should show typing indicator when loading', () => {
@@ -216,4 +221,14 @@ describe('ChatBox Component', () => {
     expect(screen.getByLabelText('Chat input')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /send message/i })).toBeInTheDocument();
   });
+
+  it('keeps keyboard focus inside the chat dialog', () => {
+    Element.prototype.scrollIntoView = vi.fn();
+    render(<ChatBox initialOpen />);
+    const input = screen.getByLabelText('Chat input');
+    input.focus();
+    fireEvent.keyDown(input, { key: 'Tab' });
+    expect(screen.getByRole('button', { name: 'Close chat' })).toHaveFocus();
+  });
+
 });

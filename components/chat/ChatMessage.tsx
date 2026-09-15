@@ -44,6 +44,7 @@ function parseMarkdownLinks(text: string): React.ReactNode {
           rel="noopener noreferrer"
         >
           {linkText}
+          <span className="sr-only">{" (opens in a new tab)"}</span>
         </a>
       ) : (
         linkText
@@ -78,7 +79,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
       )}
       <div
         data-testid="message-text"
-        className={`inline-block min-w-0 p-3 rounded-lg text-sm max-w-xs break-words ${
+        className={`inline-block min-w-0 p-3 rounded-lg text-sm max-w-xs break-words whitespace-pre-wrap ${
           isUser
             ? 'bg-[var(--color-accent-soft)] text-[var(--color-sand)]'
             : 'bg-[var(--color-coal)] text-[var(--color-sand)]'
