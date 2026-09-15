@@ -129,7 +129,9 @@ test("chat answers through the real API route", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Open chat" }).click();
   const dialog = page.getByRole("dialog", { name: "Ask Me Anything" });
-  const reply = page.waitForResponse((response) => response.url().endsWith("/api/chat"));
+  const reply = page.waitForResponse((response) =>
+    response.url().endsWith("/api/chat"),
+  );
   await dialog.getByRole("button", { name: "View projects" }).click();
   expect((await reply).status()).toBe(200);
   await expect(dialog.getByRole("log")).toContainText("RIZZK Calculator");
@@ -149,4 +151,29 @@ test("reduced motion keeps the hero visible and disables entrance animation", as
       .locator(".entrance")
       .evaluate((el) => getComputedStyle(el).animationName),
   ).toBe("none");
+  expect(
+    await page
+      .locator(".signal-trace")
+      .evaluate((el) => getComputedStyle(el).animationName),
+  ).toBe("none");
+  await expect(page.locator(".reveal-ready")).toHaveCount(0);
+});
+
+test("motion draws the hero trace and reveals sections as they enter view", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  expect(
+    await page
+      .locator(".signal-trace")
+      .evaluate((el) => getComputedStyle(el).animationName),
+  ).toBe("trace-draw");
+  const section = page.locator('section[aria-labelledby="approach-heading"]');
+  await expect(section).toHaveClass(/reveal-ready/);
+  await section.scrollIntoViewIfNeeded();
+  await expect(section).toHaveClass(/is-revealed/);
+  await expect(section).toHaveCSS("opacity", "1");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(page.locator(".reveal-ready")).toHaveCount(0);
 });

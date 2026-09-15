@@ -46,6 +46,7 @@ export default function ServicesPage() {
           target="_blank"
           rel="noopener noreferrer"
           className="button button-primary"
+          aria-label={`${bookingCta.shortLabel} (opens in a new tab)`}
         >
           {bookingCta.shortLabel}
         </a>
@@ -205,6 +206,7 @@ export default function ServicesPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="button button-primary"
+                        aria-label={`${service.caseStudy.title} live site (opens in a new tab)`}
                       >
                         View live site
                       </a>
@@ -265,6 +267,7 @@ export default function ServicesPage() {
             target="_blank"
             rel="noopener noreferrer"
             className="button button-primary"
+            aria-label={`${bookingCta.shortLabel} (opens in a new tab)`}
           >
             {bookingCta.shortLabel}
           </a>

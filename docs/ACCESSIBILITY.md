@@ -30,10 +30,14 @@ This document outlines the accessibility features implemented to meet **WCAG 2.2
 
 - ✅ `aria-label` on navigation
 - ✅ `aria-current="page"` for current nav item
-- ✅ `aria-hidden="true"` on decorative icons
+- ✅ `aria-hidden="true"` on decorative icons (including inline SVGs in case studies)
 - ✅ `aria-required` on required form fields
 - ✅ `aria-labelledby` for section headings
 - ✅ Required field indicators with accessible labels
+- ✅ `aria-label` suffix `(opens in a new tab)` on shared social, project, and action links
+- ✅ `aria-busy` on the chat message log and contact submit button while loading
+- ✅ `aria-live="polite"` on the LinkedIn badge loading text
+- ✅ `role="status"` on the contact success message and `role="alert"` on the 404 page
 
 ### 5. **Images & Alt Text**
 
@@ -60,6 +64,10 @@ Tested against WCAG AA (4.5:1 for normal text, 3:1 for large):
 - ✅ Focus states on all inputs
 - ✅ Semantic `type` attributes (email, textarea)
 - ✅ Form has accessible name via `aria-label`
+- ✅ `autoComplete="name"` / `autoComplete="email"` for autofill support
+- ✅ `inputMode="email"` on the email field for better mobile keyboards
+- ✅ `maxLength` parity (name 100, message 5000)
+- ✅ `aria-busy` on the submit button while sending
 
 ### 8. **Links & Buttons**
 
@@ -67,6 +75,8 @@ Tested against WCAG AA (4.5:1 for normal text, 3:1 for large):
 - ✅ External links open in new tab with `rel="noopener noreferrer"`
 - ✅ Hover and focus states on all interactive elements
 - ✅ Transition effects for visual feedback
+- ✅ `ExternalLink` component (`components/ExternalLink.tsx`) appends "(opens in a new tab)" to the accessible name so screen-reader users are warned
+- ✅ Duplicate accessible names avoided: when a project preview image is wrapped by an aria-labeled link, the image renders with `alt=""` via the `decorative` prop on `ProjectPreview`
 
 ### 9. **Reduced Motion Support**
 
@@ -76,9 +86,10 @@ Tested against WCAG AA (4.5:1 for normal text, 3:1 for large):
 
 ### 10. **Language & Document Structure**
 
-- ✅ `lang="en"` attribute on `<html>`
+- ✅ `lang="en"` and `dir="ltr"` attributes on `<html>`
 - ✅ Proper document structure with metadata
 - ✅ Consistent navigation across pages
+- ✅ Footer exposes a `contentinfo` landmark with an accessible name (`Site footer`) and two `navigation` landmarks (`Footer navigation`, `Social links`) with heading labels
 
 ## 🧪 Testing Checklist
 
@@ -97,6 +108,17 @@ Tested against WCAG AA (4.5:1 for normal text, 3:1 for large):
 - [ ] **WAVE** (Web Accessibility Evaluation Tool)
 - [ ] **Lighthouse** accessibility audit (aim for 100)
 - [ ] **Pa11y** for CI/CD integration
+
+### Automated Tests in This Repo
+
+- ✅ `jest-axe` smoke tests assert no violations on rendered pages:
+  - `app/page.test.tsx` (home)
+  - `app/about/page.test.tsx` (about)
+  - `app/cv/page.test.tsx` (CV)
+  - `components/Footer.test.tsx` (footer landmarks + external link labels)
+  - `components/ExternalLink.test.tsx` (external link accessible name)
+  - `components/design-system/base/Button.test.tsx` (design system button)
+- ✅ `color-contrast` is disabled in jsdom runs (the engine can't compute computed styles reliably); browser contrast checks are required separately.
 
 ### Browser Testing
 

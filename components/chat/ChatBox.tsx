@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useEffect, useId, useRef, useState } from "react";
-import { Bot, MessageSquareMore, SendHorizonal, X } from "lucide-react";
+import { Bot, LoaderCircle, MessageSquareMore, SendHorizonal, X } from "lucide-react";
 import clsx from "clsx";
 import { MAX_INPUT_CHARS, useChat } from "./useChat";
 import { ChatMessage } from "./ChatMessage";
@@ -179,6 +179,7 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
               role="log"
               aria-live="polite"
               aria-relevant="additions text"
+              aria-busy={status === "loading"}
             >
               {messages
                 .filter((msg) => msg.from === "user" || msg.text)
@@ -242,7 +243,14 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
                   className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--color-accent)] text-[var(--color-ink)] transition hover:bg-[var(--color-sand)] disabled:cursor-not-allowed disabled:opacity-50"
                   aria-label="Send message"
                 >
-                  {status === "loading" ? "..." : <SendHorizonal size={18} aria-hidden="true" />}
+                  {status === "loading" ? (
+                    <>
+                      <LoaderCircle size={18} className="animate-spin motion-reduce:animate-none" aria-hidden="true" />
+                      <span className="sr-only">Generating response, please wait</span>
+                    </>
+                  ) : (
+                    <SendHorizonal size={18} aria-hidden="true" />
+                  )}
                 </button>
               </div>
             </form>

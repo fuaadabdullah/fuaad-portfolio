@@ -24,7 +24,7 @@ export default function ProjectCard({
           className="project-preview mb-6"
           aria-label={`Explore ${project.title}`}
         >
-          <ProjectPreview project={project} />
+          <ProjectPreview project={project} decorative />
         </Link>
       )}
       <h2>
@@ -53,6 +53,7 @@ export default function ProjectCard({
                 href={project.links.live}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${project.title} live demo (opens in a new tab)`}
               >
                 Live demo
               </a>
@@ -63,6 +64,7 @@ export default function ProjectCard({
                 href={project.links.source}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${project.title} source code (opens in a new tab)`}
               >
                 Source code
               </a>
