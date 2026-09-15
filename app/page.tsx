@@ -21,13 +21,14 @@ export default function HomePage() {
     .slice(0, 2);
   const testimonial = testimonials[0];
   return (
-    <div className="page-shell">
+    <div className="page-shell home-page">
       <section className="hero-grid entrance" aria-labelledby="home-heading">
-        <div>
+        <div className="hero-copy">
+          <p className="eyebrow mb-5">Fuaad Abdullah / Finance × Engineering</p>
           <p className="availability mb-7">{resumeData.header.availability}</p>
           <h1 id="home-heading" className="hero-title">
             I build software for{" "}
-            <span className="text-[var(--color-accent)]">
+            <span className="hero-title-accent">
               markets, automation, and AI.
             </span>
           </h1>
@@ -52,28 +53,32 @@ export default function HomePage() {
         {flagship && (
           <div className="hero-preview hero-preview-animated">
             <HeroSignal />
-            <p className="eyebrow mb-5">Featured build / 01</p>
+            <div className="hero-preview-heading">
+              <p className="eyebrow">Featured build / 01</p>
+              <span className="text-sm text-[var(--color-muted)]">AI / Full stack</span>
+            </div>
             <Link
               href={`/portfolio/${flagship.slug}`}
-              className="project-preview shadow-2xl"
+              className="project-preview"
               aria-label={`Explore ${flagship.title} case study`}
             >
               <ProjectPreview project={flagship} priority decorative />
             </Link>
-            <div className="mt-5 flex items-center justify-between gap-3 pr-8">
+            <div className="hero-preview-caption">
               <div>
-                <p className="font-display text-lg font-semibold">
+                <p className="font-display text-2xl font-semibold">
                   {flagship.title}
                 </p>
                 <p className="mt-1 text-sm text-[var(--color-muted)]">
                   Multi-provider AI. Observable by design.
                 </p>
               </div>
-              <ArrowUpRight
-                size={22}
-                className="text-[var(--color-accent)]"
-                aria-hidden="true"
-              />
+              <Link href={`/portfolio/${flagship.slug}`} className="project-open" aria-label={`Read the ${flagship.title} case study`}>
+                <ArrowUpRight size={22} aria-hidden="true" />
+              </Link>
+            </div>
+            <div className="hero-preview-stack" aria-label="Featured project technologies">
+              {flagship.tech.slice(0, 4).map((tech) => <span key={tech}>{tech}</span>)}
             </div>
           </div>
         )}
@@ -91,7 +96,7 @@ export default function HomePage() {
             All projects <ArrowRight size={17} aria-hidden="true" />
           </Link>
         </div>
-        <div className="grid gap-12 md:grid-cols-2">
+        <div className="grid gap-7 md:grid-cols-2">
           {selected.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}
@@ -124,7 +129,7 @@ export default function HomePage() {
               "Live products, source code, architecture decisions, and clearly attributed outcomes. Follow the evidence in each case study.",
             ],
           ].map(([number, title, body]) => (
-            <div key={number}>
+            <div key={number} className="approach-card">
               <span className="text-sm text-[var(--color-accent)]">
                 {number}
               </span>
@@ -157,7 +162,7 @@ export default function HomePage() {
       </section>
 
       <section
-        className="section-space grid items-center gap-10 md:grid-cols-[240px_1fr]"
+        className="section-space home-about grid items-center gap-10 md:grid-cols-[240px_1fr]"
         aria-labelledby="about-preview-heading"
       >
         <Image
@@ -185,7 +190,7 @@ export default function HomePage() {
       </section>
 
       <section
-        className="section-space border-y border-[var(--color-border)] py-12 md:py-16"
+        className="section-space home-contact"
         aria-labelledby="contact-heading"
       >
         <p className="eyebrow mb-4">What comes next</p>
