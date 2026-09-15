@@ -62,7 +62,7 @@ export const faq: FaqEntry[] = [
     answer: "The personal portfolio site showcases projects, services, blog content, and professional background in one place. It is a Next.js App Router site with MDX blogging, strong SEO foundations, and reusable data-backed project pages."
   },
   {
-    trigger: ["elbey", "elbey projects", "mobile mechanic website"],
+    trigger: ["elbey", "elbey projects", "mobile mechanic"],
     answer: "Elbey Projects is a customer-facing marketing site for a mobile mechanic business. It ships a multi-page Next.js site with services, gallery, FAQ, blog, and booking-oriented conversion paths, and the currently listed live URL is the current public Vercel preview deployment."
   },
   {

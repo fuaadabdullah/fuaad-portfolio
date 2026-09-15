@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { abstainReply } from "@/lib/ai/knowledge";
 
 async function postPrompt(prompt: string) {
   const { POST } = await import("../mock-ai/route");
@@ -122,9 +123,7 @@ describe("Mock AI API Route", () => {
       const { response, data } = await postPrompt("unknown topic xyz");
 
       expect(response.status).toBe(200);
-      expect(data.reply).toBe(
-        "I'm here to help you learn about Fuaad's portfolio. Ask about a project, the tech stack, services, or how to get in touch."
-      );
+      expect(data.reply).toBe(abstainReply);
     });
 
     it("returns valid JSON responses", async () => {

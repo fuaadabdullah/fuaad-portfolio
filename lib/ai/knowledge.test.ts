@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { getCuratedReply, notCoveredReply } from "./knowledge";
+import { abstainReply, getCuratedReply, getKnowledgeReply, notCoveredReply } from "./knowledge";
 
-// Every case below reached TinyLlama before, which answered with invented facts
+// Many of these reached TinyLlama before, which answered with invented facts
 // (a made-up college, "no blog posts", generic prices) or a wrong curated topic.
 describe("getCuratedReply", () => {
   it.each([
@@ -46,8 +46,28 @@ describe("getCuratedReply", () => {
     expect(getCuratedReply(question)).toContain(expected);
   });
 
-  it("leaves open-ended questions without documented answers to the model", () => {
-    expect(getCuratedReply("What makes his approach different?")).toBeNull();
-    expect(getCuratedReply("How is his portfolio allocation?")).toBeNull();
+  it.each([
+    ["Which project uses Plotly?", "Plotly is part of the RIZZK Calculator stack"],
+    ["Does he know Gradio?", "Gradio is part of the GradeM8 stack"],
+    ["What runs on Azure?", "Azure shows up in RIZZK Calculator and ShopMindAI"],
+    ["Has he used FastAPI?", "FastAPI shows up in GoblinOS Assistant and ShopMindAI"],
+    ["Is he good with React?", "React is part of the Personal Portfolio & Services Site stack"],
+    ["Which project uses FAISS?", "FAISS is part of the ShopMindAI stack"],
+    ["Does he use Postgres?", "PostgreSQL is part of the GoblinOS Assistant stack"],
+  ])("answers %j from the projects' tech lists", (question, expected) => {
+    expect(getCuratedReply(question)).toContain(expected);
+  });
+
+  it("does not treat everyday words as technology names", () => {
+    expect(getCuratedReply("How would he react to feedback?")).toBeNull();
+  });
+
+  it.each([
+    "What makes his approach different?",
+    "How is his portfolio allocation?",
+    "How long has he been coding?",
+  ])("abstains on %j because no site data answers it", (question) => {
+    expect(getCuratedReply(question)).toBeNull();
+    expect(getKnowledgeReply(question)).toBe(abstainReply);
   });
 });

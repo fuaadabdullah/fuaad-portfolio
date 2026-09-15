@@ -132,15 +132,15 @@ Submit a new contact form.
 Provider-backed assistant generation and runtime-status inspection are admin-only.
 The public chat UI uses `/api/chat`, which does not call paid upstream providers.
 
-### POST /api/chat (Public, TinyLlama)
+### POST /api/chat (Public, site data only)
 
 Controls:
 - Same-origin only: requests without a matching `Origin` header get `403`
 - 10 requests per minute per client IP (in memory, per instance)
 - Zod-validated body: at most 5 messages, `user`/`assistant` roles only, length caps, 16 KB body limit
-- The system prompt is built server-side; clients can't send one
-- Documented topics return reviewed copy, so the model can't misstate them
-- Ollama calls: at most 2 concurrent per instance, 15 s first-token and 45 s total timeouts, 150-token output cap, circuit breaker, and upstream cancellation when the visitor disconnects
+- Replies come only from site data; questions it doesn't answer get a fixed abstention
+- No model runs in production: the TinyLlama experiment flag is ignored when `VERCEL_ENV=production`
+- Experiment only: the system prompt is built server-side (clients can't send one), and Ollama calls are capped at 2 concurrent per instance, 15 s first-token and 45 s total timeouts, 150-token output cap, circuit breaker, and upstream cancellation when the visitor disconnects
 - Chat UI only renders site-relative and `mailto:` links from replies, so made-up or injected URLs aren't clickable
 - `OLLAMA_API_KEY` is sent only from the server to the reverse proxy; Ollama itself must never be publicly reachable
 
@@ -163,7 +163,7 @@ Blob upload, list, and delete operations are admin-only.
 - [ ] Verify contact rate limiting behavior in the target deployment
 - [ ] Test authentication: `curl -H "Authorization: Bearer $TOKEN" https://yourdomain.com/api/contact`
 - [ ] Test AI auth: unauthenticated `POST /api/ai` returns 401; authenticated request returns 200
-- [ ] Test chat: `POST /api/chat` with a foreign `Origin` returns 403; the Ollama host returns 401/404 without the bearer token and 404 for any path other than `POST /api/chat`
+- [ ] Test chat: `POST /api/chat` with a foreign `Origin` returns 403, and an undocumented question returns `X-Chat-Source: abstain`
 - [ ] Test upload auth: unauthenticated `POST /api/upload`, `GET /api/upload`, and `DELETE /api/upload` return 401
 - [ ] Test rate limiting with multiple rapid requests
 - [ ] Monitor logs for auth failures: `Failed to fetch submissions`
