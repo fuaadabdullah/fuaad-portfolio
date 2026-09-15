@@ -12,7 +12,7 @@ export default function GoblinArchitectureDiagram() {
       data-testid="goblin-architecture-diagram"
       className="rounded-xl border border-white/10 bg-black/20 p-2 md:p-4"
     >
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="System architecture diagram">
       <svg
         viewBox="0 0 960 720"
         role="img"

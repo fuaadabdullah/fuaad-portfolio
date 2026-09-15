@@ -1,208 +1,239 @@
 import Link from "next/link";
-import { ArrowRight, Download } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import projects from "@/data/projects";
 import { servicesSummaryCard } from "@/data/services";
 import { bookingCta, bookingLink, testimonials } from "@/data/contact";
 import { resumeData } from "@/data/resume";
-import { cvData } from "@/data/cv";
 import { nowActivity } from "@/data/now";
+import ProjectPreview from "@/components/ProjectPreview";
+import ProjectCard from "@/components/ProjectCard";
 
-function SignalChip({ children, tone = "default" }: { children: React.ReactNode; tone?: "default" | "accent" }) {
-  const classes =
-    tone === "accent"
-      ? "rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1.5"
-      : "rounded-full border border-white/10 bg-white/5 px-3 py-1.5";
-
-  return <span className={classes}>{children}</span>;
-}
-
-export default async function HomePage() {
-  const goblinProject = projects.find((project) => project.slug === "goblin-assistant");
-  const rizzkProject = projects.find((project) => project.slug === "rizzk-calculator");
+export default function HomePage() {
+  const flagship = projects.find(
+    (project) => project.slug === "goblin-assistant",
+  );
+  const selected = projects
+    .filter(
+      (project) => project.featured && project.slug !== "goblin-assistant",
+    )
+    .slice(0, 2);
   const testimonial = testimonials[0];
   return (
-    <section className="mx-auto max-w-5xl px-6 py-16">
-      <section className="max-w-3xl space-y-6">
-        <SignalChip tone="accent">{resumeData.header.availability}</SignalChip>
-
-        <div className="space-y-4">
-          <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">
-            I build software for markets, automation, and AI.
+    <div className="page-shell">
+      <section className="hero-grid entrance" aria-labelledby="home-heading">
+        <div>
+          <p className="availability mb-7">{resumeData.header.availability}</p>
+          <h1 id="home-heading" className="hero-title">
+            I build software for{" "}
+            <span className="text-[var(--color-accent)]">
+              markets, automation, and AI.
+            </span>
           </h1>
-
-          <p className="max-w-xl text-lg leading-relaxed text-white/75">
-            Fintech and AI products built end to end — from trader-facing tools to production backends — deployed in actual market workflows.
+          <p className="intro-text mt-6">
+            Fintech and AI products built end to end — from trader-facing tools
+            to production backends.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/portfolio" className="button button-primary">
+              See the work <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+            <Link href="/resume" className="button button-secondary">
+              View résumé
+            </Link>
+          </div>
+          <p className="mt-7 text-sm text-[var(--color-muted)]">
+            Atlanta, GA{" "}
+            <span className="mx-3 text-[var(--color-border)]">/</span> Finance ×
+            software engineering
           </p>
         </div>
+        {flagship && (
+          <div className="hero-preview">
+            <p className="eyebrow mb-5">Featured build / 01</p>
+            <Link
+              href={`/portfolio/${flagship.slug}`}
+              className="project-preview shadow-2xl"
+              aria-label="Explore flagship case study"
+            >
+              <ProjectPreview project={flagship} priority />
+            </Link>
+            <div className="mt-5 flex items-center justify-between gap-3 pr-8">
+              <div>
+                <p className="font-display text-lg font-semibold">
+                  {flagship.title}
+                </p>
+                <p className="mt-1 text-sm text-[var(--color-muted)]">
+                  Multi-provider AI. Observable by design.
+                </p>
+              </div>
+              <ArrowUpRight
+                size={22}
+                className="text-[var(--color-accent)]"
+                aria-hidden="true"
+              />
+            </div>
+          </div>
+        )}
+      </section>
 
-        <div className="flex flex-wrap gap-3 pt-1">
-          <Link
-            href="/portfolio"
-            className="rounded-xl bg-white px-5 py-2.5 text-sm font-medium text-zinc-900 transition-colors hover:bg-white/90"
-          >
-            See the work
+      <section className="section-space" aria-labelledby="selected-heading">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-5 border-t border-[var(--color-border)] pt-8">
+          <div>
+            <p className="eyebrow mb-3">Selected work / 02</p>
+            <h2 id="selected-heading" className="section-title">
+              Built for real workflows.
+            </h2>
+          </div>
+          <Link href="/portfolio" className="text-link">
+            All projects <ArrowRight size={17} aria-hidden="true" />
           </Link>
-          <Link
-            href="/resume"
-            className="rounded-xl border border-white/15 px-5 py-2.5 text-sm font-medium text-white/80 transition-colors hover:border-white/30 hover:text-white"
-          >
-            View résumé
+        </div>
+        <div className="grid gap-12 md:grid-cols-2">
+          {selected.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
+        </div>
+      </section>
+
+      <section
+        className="section-space border-t border-[var(--color-border)] pt-8"
+        aria-labelledby="approach-heading"
+      >
+        <p className="eyebrow mb-3">How I work / 03</p>
+        <h2 id="approach-heading" className="section-title">
+          Market context. Engineering discipline.
+        </h2>
+        <div className="mt-10 grid gap-8 md:grid-cols-3">
+          {[
+            [
+              "01",
+              "Start with the workflow",
+              "I trade, review risk, and build around decisions I understand firsthand. The problem comes before the stack.",
+            ],
+            [
+              "02",
+              "Own the whole system",
+              "From a React interface to a Python backend, data storage, and deployment — I connect the pieces and ship.",
+            ],
+            [
+              "03",
+              "Make the work inspectable",
+              "Live products, source code, architecture decisions, and clearly attributed outcomes. Follow the evidence in each case study.",
+            ],
+          ].map(([number, title, body]) => (
+            <div key={number}>
+              <span className="text-sm text-[var(--color-accent)]">
+                {number}
+              </span>
+              <h3 className="mt-4 text-xl font-semibold">{title}</h3>
+              <p className="mt-3 leading-relaxed text-[var(--color-muted)]">
+                {body}
+              </p>
+            </div>
+          ))}
+        </div>
+        <aside className="surface mt-12 grid gap-4 p-6 md:grid-cols-[160px_1fr]">
+          <div>
+            <p className="availability">Building now</p>
+            <p className="mt-2 text-xs text-[var(--color-muted)]">
+              Updated {nowActivity.updatedAt}
+            </p>
+          </div>
+          <div>
+            <p className="font-medium">{nowActivity.building}</p>
+            {nowActivity.detail && (
+              <p className="mt-1 text-[var(--color-muted)]">
+                {nowActivity.detail}
+              </p>
+            )}
+          </div>
+        </aside>
+      </section>
+
+      <section
+        className="section-space grid items-center gap-10 md:grid-cols-[240px_1fr]"
+        aria-labelledby="about-preview-heading"
+      >
+        <Image
+          src="/fuaad-headshot.png"
+          alt="Fuaad Abdullah"
+          width={480}
+          height={480}
+          sizes="(min-width: 768px) 240px, 180px"
+          className="aspect-square w-44 rounded-xl object-cover md:w-full"
+        />
+        <div>
+          <p className="eyebrow mb-3">A little context</p>
+          <h2 id="about-preview-heading" className="section-title">
+            Finance student. Trader. Builder.
+          </h2>
+          <p className="intro-text mt-4">
+            Saudi raised, Atlanta based. I connect what I learn in finance with
+            what I build in software — making risk clearer and everyday work
+            simpler.
+          </p>
+          <Link href="/about" className="text-link mt-5">
+            More about me <ArrowRight size={17} aria-hidden="true" />
           </Link>
         </div>
       </section>
 
-      <div className="mt-12 grid gap-3 text-sm sm:grid-cols-3">
-        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs uppercase tracking-[0.18em] text-white/45">Finance edge</p>
-          <p className="mt-2 text-white/85">Active trader building products around real market workflows.</p>
-        </div>
-        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs uppercase tracking-[0.18em] text-white/45">Shipping proof</p>
-          <p className="mt-2 text-white/85">~90% fewer sizing mistakes and 60-70% grading time saved (self-reported), 7-page client site shipped in 1 week.</p>
-        </div>
-        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs uppercase tracking-[0.18em] text-white/45">Current stack</p>
-          <p className="mt-2 text-white/85">Next.js, React, TypeScript, Python, FastAPI, PostgreSQL, Redis, Docker, Azure, Vercel.</p>
-        </div>
-      </div>
-
-      <div className="mt-6 rounded-2xl border border-cyan-400/20 bg-cyan-500/10 p-4 text-sm text-cyan-50">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-cyan-100/70">Building now</p>
-        <p className="mt-1 font-medium">{nowActivity.building}</p>
-        {nowActivity.detail && <p className="mt-0.5 text-cyan-100/80">{nowActivity.detail}</p>}
-        {nowActivity.shipped.length > 0 && (
-          <div className="mt-3 border-t border-cyan-400/15 pt-3">
-            <p className="mb-1.5 text-[10px] uppercase tracking-[0.18em] text-cyan-100/50">
-              Recently shipped
+      <section
+        className="section-space border-y border-[var(--color-border)] py-12 md:py-16"
+        aria-labelledby="contact-heading"
+      >
+        <p className="eyebrow mb-4">What comes next</p>
+        <div className="flex flex-wrap items-end justify-between gap-8">
+          <div>
+            <h2 id="contact-heading" className="section-title">
+              Let’s build something useful.
+            </h2>
+            <p className="intro-text mt-4">
+              Hiring for a software engineering role or internship? Let’s talk.
             </p>
-            <ul className="space-y-0.5 text-cyan-100/75">
-              {nowActivity.shipped.map((item) => (
-                <li key={item}>· {item}</li>
-              ))}
-            </ul>
           </div>
-        )}
-        {nowActivity.next && (
-          <p className="mt-3 text-cyan-100/70">
-            <span className="text-[10px] uppercase tracking-widest text-cyan-100/40">Next up </span>
-            {nowActivity.next}
+          <Link href="/contact" className="button button-primary">
+            Get in touch <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        </div>
+      </section>
+
+      <section
+        className="mt-12 grid gap-10 md:grid-cols-2"
+        aria-label="Client work"
+      >
+        <div>
+          <p className="eyebrow mb-3">Selective contract work</p>
+          <h2 className="text-xl font-semibold">{servicesSummaryCard.title}</h2>
+          <p className="mt-3 text-[var(--color-muted)]">
+            {servicesSummaryCard.description}
           </p>
-        )}
-        <p className="mt-2 text-[10px] text-cyan-100/40">Updated {nowActivity.updatedAt}</p>
-      </div>
-
-      {goblinProject && (
-        <article className="mt-6 rounded-2xl border border-emerald-400/30 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 p-5 md:p-6">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="font-medium text-zinc-100">Featured build: {goblinProject.title}</p>
-            <span className="rounded-full bg-emerald-400/20 px-3 py-1 text-[11px] text-emerald-100">
-              FastAPI · Postgres · Redis · Docker · Vercel
-            </span>
-          </div>
-          <p className="mt-2 text-sm text-white/80">
-            Multi-provider AI assistant with observable routing, provider-health surfaces, and a Dockerized FastAPI backend paired with a Vercel frontend.
-          </p>
-          <div className="mt-3 flex flex-wrap gap-2 text-xs">
-            {goblinProject.results.map((result) => (
-              <span key={result.label} className="rounded-full bg-white/10 px-2.5 py-1 text-white/90">
-                {result.value} {result.label}
-              </span>
-            ))}
-          </div>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <Link
-              href={`/portfolio/${goblinProject.slug}`}
-              className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-400"
-            >
-              Explore flagship case study
+          <div className="mt-4 flex flex-wrap gap-5">
+            <Link href="/services" className="text-link">
+              Explore services
             </Link>
-            <Link
-              href="/resume"
-              className="rounded-lg bg-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/15"
-            >
-              View web resume
-            </Link>
-            <Link
-              href="/cv"
-              className="rounded-lg bg-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/15"
-            >
-              View academic CV
-            </Link>
-          </div>
-        </article>
-      )}
-
-      {testimonial ? (
-        <figure className="mt-8 max-w-2xl rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-          <blockquote className="text-lg font-medium text-white">
-            "{testimonial.quote}"
-          </blockquote>
-          <figcaption className="mt-3 text-sm text-white/65">
-            {testimonial.client} · {testimonial.context}
-          </figcaption>
-        </figure>
-      ) : null}
-
-      <div className="mt-16 grid gap-6 md:grid-cols-2">
-        {rizzkProject && (
-          <article className="rounded-2xl border border-white/10 p-6">
-            <p className="text-xs uppercase tracking-[0.18em] text-white/45">Trading proof</p>
-            <h2 className="mt-2 text-xl font-semibold">{rizzkProject.title}</h2>
-            <p className="mt-2 text-white/80">{rizzkProject.tagline}</p>
-            <div className="mt-4 flex flex-wrap gap-2 text-xs">
-              {rizzkProject.results.map((result) => (
-                <span key={result.label} className="rounded-full bg-white/10 px-2.5 py-1 text-white/90">
-                  {result.value} {result.label}
-                </span>
-              ))}
-            </div>
-            <div className="mt-4 flex gap-3">
-              {rizzkProject.links?.live && (
-                <a
-                  className="rounded-lg bg-white/10 px-4 py-2 transition-colors hover:bg-white/15"
-                  href={rizzkProject.links.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Live demo
-                </a>
-              )}
-              {rizzkProject.links?.source && (
-                <a
-                  className="rounded-lg bg-white/10 px-4 py-2 transition-colors hover:bg-white/15"
-                  href={rizzkProject.links.source}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Source
-                </a>
-              )}
-            </div>
-          </article>
-        )}
-
-        <article className="rounded-2xl border border-white/10 p-6">
-          <p className="text-xs uppercase tracking-[0.18em] text-white/45">Selective contract work</p>
-          <h2 className="mt-2 text-xl font-semibold">{servicesSummaryCard.title}</h2>
-          <p className="mt-2 text-white/80">{servicesSummaryCard.description}</p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <a
-              className="inline-flex items-center gap-2 rounded-lg bg-[color:var(--color-accent)] px-4 py-2 text-white transition-colors hover:bg-[color:var(--color-accent)]/90"
-              href={servicesSummaryCard.href}
-            >
-              {servicesSummaryCard.ctaLabel}
-            </a>
             <a
               href={bookingLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 transition-colors hover:bg-white/15"
+              className="text-link"
             >
-              {bookingCta.label} <ArrowRight size={16} aria-hidden="true" />
+              {bookingCta.label} <ArrowUpRight size={16} aria-hidden="true" />
             </a>
           </div>
-        </article>
-      </div>
-    </section>
+        </div>
+        {testimonial && (
+          <figure className="border-l border-[var(--color-border)] pl-6">
+            <blockquote className="font-display text-xl leading-relaxed">
+              “{testimonial.quote}”
+            </blockquote>
+            <figcaption className="mt-4 text-sm text-[var(--color-muted)]">
+              {testimonial.client} · {testimonial.context}
+            </figcaption>
+          </figure>
+        )}
+      </section>
+    </div>
   );
 }

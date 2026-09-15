@@ -14,9 +14,10 @@ export async function POST(request: NextRequest) {
     return unauthorizedAdminResponse();
   }
 
-  const { prompt } = await request.json();
+  const body = await request.json().catch(() => null);
+  const prompt: unknown = body?.prompt;
 
-  if (!prompt?.trim()) {
+  if (typeof prompt !== 'string' || !prompt.trim()) {
     return NextResponse.json(
       { error: 'Prompt is required' },
       { status: 400 }

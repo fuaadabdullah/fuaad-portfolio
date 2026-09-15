@@ -1,6 +1,5 @@
 import React from "react";
 import { clsx } from "@/lib/utils";
-import { colors } from "../tokens";
 import * as LucideIcons from "lucide-react";
 
 export type IconName = keyof typeof LucideIcons;
@@ -31,7 +30,7 @@ export const Icon: React.FC<IconProps> = ({ name, size = "md", className }) => {
       data-testid={`${name.toLowerCase()}-icon`}
       className={clsx(
         sizeClasses[size],
-        `text-[${colors.secondary}]`,
+        `text-[var(--color-sand)]`,
         className
       )}
     />

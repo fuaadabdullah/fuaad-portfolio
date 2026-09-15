@@ -14,6 +14,8 @@ vi.mock("next/navigation", () => ({
   usePathname: () => "/",
 }));
 
+vi.stubGlobal("matchMedia", vi.fn(() => ({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() })));
+
 describe("ResponsiveTopbar", () => {
   it("renders the navbar and opens/closes mobile menu", async () => {
     render(<ResponsiveTopbar />);

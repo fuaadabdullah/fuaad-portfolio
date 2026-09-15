@@ -1,6 +1,6 @@
 import React from "react";
 import { clsx } from "@/lib/utils";
-import { fontSizes, fontWeights, colors } from "../tokens";
+import { fontWeights } from "../tokens";
 
 export type TextSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type TextVariant = "body" | "muted" | "accent";
@@ -15,11 +15,11 @@ export interface TextProps {
 }
 
 const sizeClasses: Record<TextSize, string> = {
-  xs: `text-[${fontSizes.xs}]`,
-  sm: `text-[${fontSizes.sm}]`,
-  md: `text-[${fontSizes.md}]`,
-  lg: `text-[${fontSizes.lg}]`,
-  xl: `text-[${fontSizes.xl}]`,
+  xs: `text-[0.75rem]`,
+  sm: `text-[0.875rem]`,
+  md: `text-[1rem]`,
+  lg: `text-[1.125rem]`,
+  xl: `text-[1.25rem]`,
 };
 
 const weightClasses: Record<keyof typeof fontWeights, string> = {
@@ -30,9 +30,9 @@ const weightClasses: Record<keyof typeof fontWeights, string> = {
 };
 
 const variantClasses: Record<TextVariant, string> = {
-  body: `text-[${colors.secondary}]`,
-  muted: `text-[${colors.muted}]`,
-  accent: `text-[${colors.primary}]`,
+  body: `text-[var(--color-sand)]`,
+  muted: `text-[var(--color-muted)]`,
+  accent: `text-[var(--color-accent)]`,
 };
 
 export const Text: React.FC<TextProps> = ({

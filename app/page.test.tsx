@@ -38,6 +38,6 @@ describe("HomePage", () => {
     expect(screen.getByRole("link", { name: /view résumé/i })).toHaveAttribute("href", "/resume");
     expect(screen.getByRole("link", { name: /start a project/i })).toHaveAttribute("href", bookingLink);
     expect(screen.getByText(/Fuaad built our site in a week, clean and fast\./i)).toBeInTheDocument();
-    expect(screen.getByText(/Featured build: /i)).toBeInTheDocument();
+    expect(screen.getByText(/Featured build/i)).toBeInTheDocument();
   });
 });

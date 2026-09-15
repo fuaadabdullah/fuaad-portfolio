@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Bot } from "lucide-react";
 
 type ChatBoxComponent = typeof import("./ChatBox")["ChatBox"];
 
@@ -24,11 +25,11 @@ export default function LazyChatBox() {
     <button
       type="button"
       onClick={loadChat}
-      className="fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] right-4 z-[140] inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-sm font-semibold text-white shadow-lg transition hover:bg-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--color-ink)] sm:right-6"
+      className="fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] right-4 z-[140] inline-flex h-14 w-14 items-center justify-center rounded-full bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-ink)] shadow-lg transition hover:bg-[var(--color-sand)] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] sm:right-6"
       aria-label={isLoading ? "Loading chat" : "Open chat"}
       aria-busy={isLoading}
     >
-      AI
+      <Bot size={22} aria-hidden="true" />
     </button>
   );
 }

@@ -2,11 +2,11 @@
 
 export const colors = {
   primary: 'var(--color-accent)',
-  secondary: '#ffffff',
-  background: '#000000',
-  text: '#ffffff',
-  muted: '#ffffff80', // 50% opacity
-  border: '#ffffff20', // 20% opacity
+  secondary: 'var(--color-sand)',
+  background: 'var(--color-ink)',
+  text: 'var(--color-sand)',
+  muted: 'var(--color-muted)',
+  border: 'var(--color-border)',
 } as const;
 
 export const spacing = {

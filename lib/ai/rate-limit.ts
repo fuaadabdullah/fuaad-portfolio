@@ -1,12 +1,24 @@
 // Rate limiting implementation
 const userRateLimit = new Map<string, { count: number; resetTime: number }>();
 const MAX_REQUESTS_PER_MINUTE = 10;
+const MAX_TRACKED_IPS = 10_000; // public chat traffic feeds this map, so bound it
 
 export function checkRateLimit(ip: string): { allowed: boolean; error?: string } {
   const now = Date.now();
+
+  if (!userRateLimit.has(ip) && userRateLimit.size >= MAX_TRACKED_IPS) {
+    for (const [key, entry] of userRateLimit) {
+      if (entry.resetTime <= now) userRateLimit.delete(key);
+    }
+    // Keep active counters intact; evicting them would let existing clients bypass their limit.
+    if (userRateLimit.size >= MAX_TRACKED_IPS) {
+      return { allowed: false, error: 'Rate limit exceeded. Please try again later.' };
+    }
+  }
+
   const userLimit = userRateLimit.get(ip) || { count: 0, resetTime: now + 60000 };
 
-  if (userLimit.resetTime < now) {
+  if (userLimit.resetTime <= now) {
     // Reset the counter
     userRateLimit.set(ip, { count: 1, resetTime: now + 60000 });
     return { allowed: true };

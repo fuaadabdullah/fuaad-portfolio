@@ -39,12 +39,12 @@ const justifyClasses: Record<StackJustify, string> = {
 };
 
 const gapClasses: Record<StackGap, string> = {
-  xs: `gap-[${spacing.xs}]`,
-  sm: `gap-[${spacing.sm}]`,
-  md: `gap-[${spacing.md}]`,
-  lg: `gap-[${spacing.lg}]`,
-  xl: `gap-[${spacing.xl}]`,
-  "2xl": `gap-[${spacing["2xl"]}]`,
+  xs: `gap-[0.25rem]`,
+  sm: `gap-[0.5rem]`,
+  md: `gap-[1rem]`,
+  lg: `gap-[1.5rem]`,
+  xl: `gap-[2rem]`,
+  "2xl": `gap-[3rem]`,
 };
 
 export const Stack: React.FC<StackProps> = ({

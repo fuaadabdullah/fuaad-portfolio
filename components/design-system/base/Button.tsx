@@ -1,6 +1,5 @@
 import React from "react";
 import { clsx } from "@/lib/utils";
-import { colors } from "../tokens";
 
 export type ButtonVariant = "primary" | "secondary" | "ghost";
 export type ButtonSize = "sm" | "md" | "lg";
@@ -10,12 +9,12 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   size?: ButtonSize;
 }
 
-const baseClasses = `inline-flex items-center gap-2 rounded-2xl transition-colors disabled:opacity-60 disabled:cursor-not-allowed`;
+const baseClasses = `inline-flex items-center gap-2 rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed`;
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: `bg-[${colors.primary}] text-[${colors.secondary}] hover:bg-[${colors.primary}]/90`,
-  secondary: `bg-[${colors.secondary}]/10 text-[${colors.secondary}] hover:bg-[${colors.secondary}]/15`,
-  ghost: `bg-transparent text-[${colors.secondary}] hover:bg-[${colors.secondary}]/10 border border-[${colors.border}]`,
+  primary: `bg-[var(--color-accent)] text-[var(--color-ink)] hover:bg-[var(--color-accent)]/90`,
+  secondary: `bg-[var(--color-sand)]/10 text-[var(--color-sand)] hover:bg-[var(--color-sand)]/15`,
+  ghost: `bg-transparent text-[var(--color-sand)] hover:bg-[var(--color-sand)]/10 border border-[var(--color-border)]`,
 };
 
 const sizeClasses: Record<ButtonSize, string> = {

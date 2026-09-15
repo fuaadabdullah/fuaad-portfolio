@@ -19,11 +19,11 @@ export default function ProjectResultChips({
         <article
           key={`${result.label}-${index}`}
           data-testid="project-result-chip"
-          className="rounded-xl border border-white/10 bg-white/[0.03] p-3"
+          className="min-w-0 py-2 pr-3"
         >
-          <p className="text-base font-semibold text-green-400">{result.value}</p>
+          <p className="text-lg font-semibold text-[var(--color-accent)]">{result.value}</p>
           <p className="mt-1 text-xs text-white/80">{result.label}</p>
-          <p className="mt-2 text-[10px] uppercase tracking-[0.08em] text-white/50">
+          <p className="mt-2 text-xs leading-relaxed text-[var(--color-muted)]">
             {result.sourceLabel}
             {result.timeframe ? ` · ${result.timeframe}` : ""}
             {result.proof ? (

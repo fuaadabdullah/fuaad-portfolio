@@ -15,7 +15,7 @@ export default function Error({
       <p className="text-xs font-medium uppercase tracking-[0.18em] text-red-300">
         Something broke
       </p>
-      <h1 className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-5xl">
+      <h1 className="mt-3 page-heading">
         This page failed to load.
       </h1>
       <p className="mt-4 max-w-xl text-white/70">
@@ -24,7 +24,7 @@ export default function Error({
       <button
         type="button"
         onClick={reset}
-        className="mt-6 w-fit rounded-xl bg-white px-5 py-2.5 text-sm font-medium text-zinc-900 transition-colors hover:bg-white/90"
+        className="mt-6 w-fit button button-primary"
       >
         Try again
       </button>

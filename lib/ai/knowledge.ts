@@ -10,13 +10,22 @@ function normalizePrompt(prompt: string) {
   return prompt.toLowerCase().trim();
 }
 
+// Triggers must start at a word boundary so "location" doesn't fire inside "allocation"
+const faqMatchers = faq.map((entry) => ({
+  answer: entry.answer,
+  triggers: entry.trigger.map((trigger) => ({
+    length: trigger.length,
+    pattern: new RegExp(`\\b${trigger.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`),
+  })),
+}));
+
 export function findFaqEntry(prompt: string) {
   const normalizedPrompt = normalizePrompt(prompt);
   let bestMatch: { triggerLength: number; answer: string } | null = null;
 
-  for (const entry of faq) {
-    for (const trigger of entry.trigger) {
-      if (!normalizedPrompt.includes(trigger)) {
+  for (const entry of faqMatchers) {
+    for (const trigger of entry.triggers) {
+      if (!trigger.pattern.test(normalizedPrompt)) {
         continue;
       }
 
@@ -46,10 +55,6 @@ const documentedTech =
 export function getCuratedReply(prompt: string) {
   const normalizedPrompt = normalizePrompt(prompt);
 
-  if (/\b(hello|hi|hey)\b/.test(normalizedPrompt)) {
-    return greetingReply;
-  }
-
   const faqAnswer = findFaqEntry(normalizedPrompt);
   if (faqAnswer) {
     return faqAnswer;
@@ -59,6 +64,11 @@ export function getCuratedReply(prompt: string) {
     return documentedTech.test(normalizedPrompt)
       ? findFaqEntry("tech stack") ?? notCoveredReply
       : notCoveredReply;
+  }
+
+  // Checked last so "Hi, what's his tech stack?" gets the answer rather than the greeting
+  if (/\b(hello|hi|hey)\b/.test(normalizedPrompt)) {
+    return greetingReply;
   }
 
   return null;

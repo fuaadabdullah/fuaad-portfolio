@@ -1,5 +1,6 @@
 "use client";
 
+import Script from "next/script";
 import { useEffect, useState } from "react";
 
 /**
@@ -40,6 +41,12 @@ export default function LinkedInBadge() {
 
   return (
     <div className="linkedin-card-container" aria-live="polite">
+      {/* Renders the badge iframe into .LI-profile-badge; without it the badge never loads */}
+      <Script
+        src="https://platform.linkedin.com/badges/js/profile.js"
+        strategy="lazyOnload"
+        onError={() => setFailed(true)}
+      />
       <div className="linkedin-card" role="region" aria-label="LinkedIn profile badge">
         <div className="badge-header">
           <svg

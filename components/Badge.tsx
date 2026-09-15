@@ -6,9 +6,9 @@ function clsx(...classes: Array<string | false | null | undefined>) {
 
 type Variant = "default" | "success" | "outline";
 
-const base = "inline-flex items-center rounded-full text-xs px-2 py-1";
+const base = "inline-flex items-center rounded-md text-xs px-2 py-1";
 const variants: Record<Variant, string> = {
-  default: "bg-white/10 text-white",
+  default: "bg-[var(--color-coal)] text-[var(--color-muted)]",
   success: "bg-[color:var(--color-accent)]/20 text-[color:var(--color-accent)]",
   outline: "border border-white/20 text-white",
 };

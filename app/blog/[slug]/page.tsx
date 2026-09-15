@@ -8,9 +8,9 @@ import rehypeHighlight from "rehype-highlight";
 import { BlogCTA } from "@/components/BlogCTA";
 
 const categoryColors = {
-  essay: "bg-purple-500/20 text-purple-300 border-purple-500/30",
-  "release-note": "bg-blue-500/20 text-blue-300 border-blue-500/30",
-  tutorial: "bg-green-500/20 text-green-300 border-green-500/30",
+  essay: "bg-[var(--color-accent-soft)] text-[var(--color-accent)] border-[var(--color-border)]",
+  "release-note": "bg-[var(--color-accent-soft)] text-[var(--color-accent)] border-[var(--color-border)]",
+  tutorial: "bg-[var(--color-accent-soft)] text-[var(--color-accent)] border-[var(--color-border)]",
 };
 
 export async function generateStaticParams() {
@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const components = getMDXComponents({});
 
   return (
-    <article className="mx-auto max-w-3xl px-6 py-16">
+    <article className="page-shell !max-w-3xl">
       <Link
         href="/blog"
         className="inline-flex items-center gap-1 text-white/60 hover:text-[color:var(--color-accent)] transition-colors mb-8"
@@ -69,7 +69,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <time className="text-sm text-white/60">{formatDate(post.date)}</time>
         </div>
 
-        <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+        <h1 className="page-heading mb-6">
           {post.title}
         </h1>
 
@@ -90,7 +90,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         )}
       </header>
 
-      <div className="prose prose-invert max-w-none">
+      <div className="article-body">
         <MDXRemote
           source={post.content}
           components={components}

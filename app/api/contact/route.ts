@@ -69,8 +69,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Parse JSON body
-    const body = await request.json();
+    // Parse JSON body; malformed JSON is a client error, not a server failure
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+    }
 
     // Validate input with Zod schema
     // This prevents invalid data from reaching the database

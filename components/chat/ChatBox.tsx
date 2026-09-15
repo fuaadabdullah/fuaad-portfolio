@@ -95,7 +95,8 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && status !== "loading") {
+    // Enter while composing (Japanese, Chinese, Korean input) confirms a character, not the message
+    if (e.key === "Enter" && !e.nativeEvent.isComposing && status !== "loading") {
       // Prevent the form's implicit submit from sending the message a second time
       e.preventDefault();
       sendMessage();
@@ -114,8 +115,8 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
         onClick={() => setOpen((current) => !current)}
         className={clsx(
           "fixed z-[140] bottom-[calc(env(safe-area-inset-bottom)+1rem)] right-4 sm:right-6",
-          "inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-white shadow-lg transition",
-          "hover:bg-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--color-ink)]"
+          "inline-flex h-14 w-14 items-center justify-center rounded-full bg-[var(--color-accent)] text-[var(--color-ink)] shadow-lg transition",
+          "hover:bg-[var(--color-sand)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--color-ink)]"
         )}
         aria-label={open ? "Minimize chat" : "Open chat"}
         aria-controls={dialogId}
@@ -142,14 +143,14 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
             aria-describedby={descriptionId}
             className={clsx(
               "fixed z-[130] inset-x-3 top-20 bottom-[calc(env(safe-area-inset-bottom)+5rem)]",
-              "flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-zinc-950/95 text-white shadow-2xl",
+              "flex flex-col overflow-hidden rounded-xl border border-white/10 bg-[var(--color-ink)] text-white shadow-2xl",
               "sm:inset-x-auto sm:top-auto sm:right-6 sm:bottom-24 sm:w-[24rem] sm:h-[min(36rem,70vh)]"
             )}
           >
           {/* Header */}
-            <div className="flex items-start justify-between gap-3 border-b border-white/10 bg-zinc-900/80 px-4 py-4">
+            <div className="flex items-start justify-between gap-3 border-b border-white/10 bg-[var(--color-coal)] px-4 py-4">
               <div className="flex items-start gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500/15 text-emerald-300">
+                <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
                   <MessageSquareMore size={20} aria-hidden="true" />
                 </div>
                 <div>
@@ -174,7 +175,7 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
 
           {/* Messages */}
             <div
-              className="flex-1 space-y-3 overflow-y-auto px-4 py-4"
+              className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-4"
               role="log"
               aria-live="polite"
               aria-relevant="additions text"
@@ -231,14 +232,14 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
                   onKeyDown={handleKeyDown}
                   placeholder="Type a question…"
                   maxLength={MAX_INPUT_CHARS}
-                  className="min-h-11 flex-1 rounded-2xl border border-white/10 bg-zinc-900 px-3 py-2 text-white placeholder:text-zinc-500 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+                  className="min-h-11 min-w-0 flex-1 rounded-lg border border-white/10 bg-[var(--color-coal)] px-3 py-2 text-white placeholder:text-zinc-500 focus:border-[var(--color-accent)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/30"
                   disabled={status === "loading"}
                   aria-label="Chat input"
                 />
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500 text-white transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--color-accent)] text-[var(--color-ink)] transition hover:bg-[var(--color-sand)] disabled:cursor-not-allowed disabled:opacity-50"
                   aria-label="Send message"
                 >
                   {status === "loading" ? "..." : <SendHorizonal size={18} aria-hidden="true" />}

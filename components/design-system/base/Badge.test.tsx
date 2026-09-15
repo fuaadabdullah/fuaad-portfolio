@@ -7,7 +7,7 @@ describe('Badge', () => {
     render(<Badge>Default</Badge>);
     const badge = screen.getByText('Default');
     expect(badge).toBeInTheDocument();
-    expect(badge).toHaveClass('inline-flex', 'items-center', 'rounded-full', 'text-xs');
+    expect(badge).toHaveClass('inline-flex', 'items-center', 'rounded-md', 'text-xs');
   });
 
   it('applies variant classes correctly', () => {

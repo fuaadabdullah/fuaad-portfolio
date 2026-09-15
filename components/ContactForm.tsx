@@ -70,7 +70,7 @@ export default function ContactForm() {
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className="max-w-xl space-y-4"
+      className="contact-panel max-w-xl space-y-5"
       aria-label="Contact form"
     >
       <div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
 import { getAllPosts, formatDate, type BlogPostMetadata } from "@/lib/blog";
 
 export const metadata = {
@@ -12,14 +13,14 @@ export const metadata = {
 };
 
 const categoryColors = {
-  essay: "bg-purple-500/20 text-purple-300 border-purple-500/30",
-  "release-note": "bg-blue-500/20 text-blue-300 border-blue-500/30",
-  tutorial: "bg-green-500/20 text-green-300 border-green-500/30",
+  essay: "bg-[var(--color-accent-soft)] text-[var(--color-accent)] border-[var(--color-border)]",
+  "release-note": "bg-[var(--color-accent-soft)] text-[var(--color-accent)] border-[var(--color-border)]",
+  tutorial: "bg-[var(--color-accent-soft)] text-[var(--color-accent)] border-[var(--color-border)]",
 };
 
 function BlogPostCard({ post }: { post: BlogPostMetadata }) {
   return (
-  <article className="border border-white/10 rounded-lg p-6 hover:border-[color:var(--color-accent)]/50 transition-colors">
+  <article className="border-t border-[var(--color-border)] py-8 transition-colors">
       <div className="flex items-center gap-3 mb-3">
         <span className={`text-xs font-medium px-2 py-1 rounded border ${categoryColors[post.category]}`}>
           {post.category === "release-note" ? "Release Note" : post.category.charAt(0).toUpperCase() + post.category.slice(1)}
@@ -47,7 +48,7 @@ function BlogPostCard({ post }: { post: BlogPostMetadata }) {
       
       <Link
         href={`/blog/${post.slug}`}
-        className="inline-flex items-center gap-1 mt-4 text-emerald-200 hover:underline text-sm font-medium"
+        className="inline-flex items-center gap-1 mt-4 text-[var(--color-accent)] hover:underline text-sm font-medium"
       >
         Read more →
       </Link>
@@ -59,11 +60,8 @@ export default function BlogPage() {
   const posts = getAllPosts();
 
   return (
-    <section className="mx-auto max-w-4xl px-6 py-16">
-      <h1 className="text-3xl md:text-5xl font-semibold tracking-tight">Blog</h1>
-      <p className="text-white/80 mt-3 mb-8">
-        Essays, release notes, and tutorials on building disciplined tools.
-      </p>
+    <section className="page-shell">
+      <PageHeader label="Notes from the work" title="Thinking out loud."><p>Essays, release notes, and tutorials on building disciplined tools.</p></PageHeader>
 
       {posts.length === 0 ? (
         <div className="border border-white/10 rounded-lg p-12 text-center">
@@ -73,7 +71,7 @@ export default function BlogPage() {
           </Link>
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="max-w-3xl">
           {posts.map(post => (
             <BlogPostCard key={post.slug} post={post} />
           ))}

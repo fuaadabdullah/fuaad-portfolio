@@ -18,7 +18,7 @@ export default function Card({
   return (
     <article
       className={clsx(
-        "rounded-2xl border border-white/10 p-6 transition-shadow",
+        "surface p-6 transition-shadow",
         variant === "compact" && "p-3 text-sm",
         variant === "featured" && "shadow-2xl border-white/20 bg-white/5",
         className
