@@ -58,7 +58,13 @@ function isAllowedOrigin(request: NextRequest): boolean {
 
   try {
     const originHost = new URL(origin).host;
+    // Next builds request.url from its bind address ("localhost"), not the host the browser used,
+    // so a same-origin visit to 127.0.0.1 was rejected. Browsers can't forge the Host header.
     const allowedHosts = [new URL(request.url).host];
+    const hostHeader = request.headers.get('host');
+    if (hostHeader) {
+      allowedHosts.push(hostHeader);
+    }
     if (process.env.NEXT_PUBLIC_SITE_URL) {
       allowedHosts.push(new URL(process.env.NEXT_PUBLIC_SITE_URL).host);
     }

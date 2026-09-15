@@ -81,6 +81,34 @@ describe("POST /api/chat", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it("accepts same-origin visits whose host differs from Next's internal request URL", async () => {
+    // next start builds request.url as localhost even when the browser opened 127.0.0.1
+    const post = await loadRoute();
+
+    const response = await post(
+      makeRequest(
+        { messages: [{ role: "user", content: "Tell me about GoblinOS" }] },
+        { origin: "http://127.0.0.1:3000", headers: { Host: "127.0.0.1:3000" } }
+      )
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get("X-Chat-Source")).toBe("curated");
+  });
+
+  it("still rejects foreign origins when a Host header is present", async () => {
+    const post = await loadRoute();
+
+    const response = await post(
+      makeRequest(
+        { messages: [{ role: "user", content: "hi" }] },
+        { origin: "https://evil.example", headers: { Host: "127.0.0.1:3000" } }
+      )
+    );
+
+    expect(response.status).toBe(403);
+  });
+
   it("rejects requests without an Origin header", async () => {
     const post = await loadRoute();
 
@@ -142,13 +170,25 @@ describe("POST /api/chat", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it("answers deployment questions from documented hosting facts instead of the model", async () => {
+    const post = await loadRoute();
+
+    for (const content of ["Where is it deployed?", "Where is RIZZK hosted?"]) {
+      const response = await post(makeRequest({ messages: [{ role: "user", content }] }));
+      expect(response.headers.get("X-Chat-Source")).toBe("curated");
+      expect(await response.text()).toContain("live at heyimfuaad.me on Vercel");
+    }
+
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it("streams TinyLlama tokens using server-side credentials and a grounded prompt", async () => {
     // Split a JSON line across chunks to exercise NDJSON buffering
     const [first, second, done] = tokenLines(["Start with ", "the projects page."]);
     fetchMock.mockResolvedValueOnce(ollamaStream([first + second.slice(0, 10), second.slice(10) + done]));
     const post = await loadRoute();
 
-    const response = await post(makeRequest({ messages: [{ role: "user", content: "What should a recruiter look at first?" }] }));
+    const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
 
     expect(response.status).toBe(200);
     expect(response.headers.get("X-Chat-Source")).toBe("tinyllama");
@@ -165,7 +205,7 @@ describe("POST /api/chat", () => {
     expect(upstreamBody.options.num_predict).toBeGreaterThan(0);
     expect(upstreamBody.messages[0].role).toBe("system");
     expect(upstreamBody.messages[0].content).toContain("RIZZK Calculator: Risk management tool for day traders");
-    expect(upstreamBody.messages.at(-1)).toEqual({ role: "user", content: "What should a recruiter look at first?" });
+    expect(upstreamBody.messages.at(-1)).toEqual({ role: "user", content: "What makes his approach different?" });
   });
 
   it("marks replies cut off by the token limit", async () => {
@@ -177,7 +217,7 @@ describe("POST /api/chat", () => {
     );
     const post = await loadRoute();
 
-    const response = await post(makeRequest({ messages: [{ role: "user", content: "What should a recruiter look at first?" }] }));
+    const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
 
     expect(await response.text()).toBe("Fuaad built…");
   });
@@ -186,18 +226,18 @@ describe("POST /api/chat", () => {
     fetchMock.mockRejectedValueOnce(new Error("connect ECONNREFUSED"));
     const post = await loadRoute();
 
-    const response = await post(makeRequest({ messages: [{ role: "user", content: "What should a recruiter look at first?" }] }));
+    const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
 
     expect(response.status).toBe(200);
     expect(response.headers.get("X-Chat-Source")).toBe("fallback");
-    expect(await response.text()).toBe(getKnowledgeReply("What should a recruiter look at first?"));
+    expect(await response.text()).toBe(getKnowledgeReply("What makes his approach different?"));
   });
 
   it("falls back when Ollama reports an error instead of tokens", async () => {
     fetchMock.mockResolvedValueOnce(ollamaStream([JSON.stringify({ error: "model not found" }) + "\n"]));
     const post = await loadRoute();
 
-    const response = await post(makeRequest({ messages: [{ role: "user", content: "What should a recruiter look at first?" }] }));
+    const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
 
     expect(response.headers.get("X-Chat-Source")).toBe("fallback");
   });
@@ -205,7 +245,7 @@ describe("POST /api/chat", () => {
   it("serves repeated standalone questions from cache without calling the model", async () => {
     fetchMock.mockImplementation(() => Promise.resolve(ollamaStream(tokenLines(["Start with RIZZK Calculator."]))));
     const post = await loadRoute();
-    const body = { messages: [{ role: "user", content: "Which project should I look at first?" }] };
+    const body = { messages: [{ role: "user", content: "How does he approach new problems?" }] };
 
     const first = await post(makeRequest(body));
     expect(await first.text()).toBe("Start with RIZZK Calculator.");
@@ -218,7 +258,7 @@ describe("POST /api/chat", () => {
   });
 
   it("forwards short conversation history for follow-up questions", async () => {
-    fetchMock.mockResolvedValueOnce(ollamaStream(tokenLines(["It runs on Azure."])));
+    fetchMock.mockResolvedValueOnce(ollamaStream(tokenLines(["It ranks likely causes."])));
     const post = await loadRoute();
 
     const response = await post(
@@ -226,17 +266,17 @@ describe("POST /api/chat", () => {
         messages: [
           { role: "user", content: "What is ShopMindAI?" },
           { role: "assistant", content: "ShopMindAI is an automotive diagnostic assistant." },
-          { role: "user", content: "Where is it deployed?" },
+          { role: "user", content: "What does it return to mechanics?" },
         ],
       })
     );
 
-    expect(await response.text()).toBe("It runs on Azure.");
+    expect(await response.text()).toBe("It ranks likely causes.");
     const upstreamBody = JSON.parse(fetchMock.mock.calls[0][1].body);
     expect(upstreamBody.messages.slice(-3)).toEqual([
       { role: "user", content: "What is ShopMindAI?" },
       { role: "assistant", content: "ShopMindAI is an automotive diagnostic assistant." },
-      { role: "user", content: "Where is it deployed?" },
+      { role: "user", content: "What does it return to mechanics?" },
     ]);
   });
 

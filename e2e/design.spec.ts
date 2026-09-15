@@ -124,6 +124,20 @@ test("chat opens on mobile and recovers from a failed request", async ({
   await expect(page.getByRole("button", { name: "Open chat" })).toBeFocused();
 });
 
+test("chat answers through the real API route", async ({ page }) => {
+  // Unmocked: the origin check once rejected same-origin requests on 127.0.0.1 with 403
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open chat" }).click();
+  const dialog = page.getByRole("dialog", { name: "Ask Me Anything" });
+  const reply = page.waitForResponse((response) => response.url().endsWith("/api/chat"));
+  await dialog.getByRole("button", { name: "View projects" }).click();
+  expect((await reply).status()).toBe(200);
+  await expect(dialog.getByRole("log")).toContainText("RIZZK Calculator");
+  await expect(
+    dialog.getByRole("link", { name: "projects page" }),
+  ).toHaveAttribute("href", "/portfolio");
+});
+
 test("reduced motion keeps the hero visible and disables entrance animation", async ({
   page,
 }) => {
