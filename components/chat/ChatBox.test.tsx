@@ -164,7 +164,7 @@ describe('ChatBox Component', () => {
 
     expect(input).toBeDisabled();
     expect(sendButton).toBeDisabled();
-    expect(sendButton).toHaveTextContent('...');
+    expect(sendButton).toHaveTextContent(/generating response, please wait/i);
   });
 
   it('should show typing indicator when loading', () => {

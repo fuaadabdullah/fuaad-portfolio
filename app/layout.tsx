@@ -4,6 +4,7 @@ import { Manrope, Source_Sans_3 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScrollReveals from "@/components/ScrollReveals";
 import LazyChatBox from "@/components/chat/LazyChatBox";
 import JsonLd from '@/components/JsonLd';
 import { personJsonLd } from '@/lib/seo';
@@ -34,9 +35,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" dir="ltr">
       <body className={`${headingFont.variable} ${bodyFont.variable} antialiased`}>
-        <a href="#main-content" className="skip-to-main">
+        <a
+          href="#main-content"
+          className="skip-to-main"
+          aria-label="Skip to main content"
+        >
           Skip to main content
         </a>
         <Navbar />
@@ -44,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
+        <ScrollReveals />
         <JsonLd data={personJsonLd} />
         <LazyChatBox />
         <Analytics />

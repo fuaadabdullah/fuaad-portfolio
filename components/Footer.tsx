@@ -1,9 +1,16 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import ExternalLink from "./ExternalLink";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[var(--color-border)]">
+    <footer
+      className="border-t border-[var(--color-border)]"
+      aria-labelledby="footer-heading"
+    >
+      <h2 id="footer-heading" className="sr-only">
+        Site footer
+      </h2>
       <div className="site-container pb-28 pt-12">
         <div className="grid gap-10 md:grid-cols-[2fr_1fr_1fr]">
           <div>
@@ -17,8 +24,8 @@ export default function Footer() {
               Built with intention in Atlanta.
             </p>
           </div>
-          <div>
-            <p className="eyebrow mb-4">Explore</p>
+          <nav aria-label="Footer navigation">
+            <h2 className="eyebrow mb-4">Explore</h2>
             <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
               {[
                 ["/portfolio", "Portfolio"],
@@ -38,28 +45,27 @@ export default function Footer() {
                 </Link>
               ))}
             </div>
-          </div>
-          <div>
-            <p className="eyebrow mb-4">Elsewhere</p>
+          </nav>
+          <nav aria-label="Social links">
+            <h2 className="eyebrow mb-4">Elsewhere</h2>
             <div className="flex flex-col items-start gap-3 text-sm">
               {[
                 ["https://github.com/fuaadabdullah", "GitHub"],
                 ["https://www.linkedin.com/in/fuaadabdullah", "LinkedIn"],
                 ["https://instagram.com/fuaadabdullah", "Instagram"],
               ].map(([href, label]) => (
-                <a
+                <ExternalLink
                   key={href}
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  accessibleName={label}
                   className="text-link"
                 >
                   {label}
                   <ArrowUpRight size={14} aria-hidden="true" />
-                </a>
+                </ExternalLink>
               ))}
             </div>
-          </div>
+          </nav>
         </div>
         <p className="mt-12 border-t border-[var(--color-border)] pt-6 text-xs text-[var(--color-muted)]">
           © {new Date().getFullYear()} Fuaad Abdullah.

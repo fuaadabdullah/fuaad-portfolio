@@ -47,6 +47,7 @@ export default function ContactPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="button button-primary"
+              aria-label={`${bookingCta.shortLabel} (opens in a new tab)`}
             >
               {bookingCta.shortLabel}
             </a>

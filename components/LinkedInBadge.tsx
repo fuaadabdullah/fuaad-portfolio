@@ -69,9 +69,9 @@ export default function LinkedInBadge() {
 
         <div className="badge-base LI-profile-badge" data-locale="en_US" data-size="large" data-theme="dark" data-type="VERTICAL" data-vanity="fuaadabdullah" data-version="v1">
           {(!loaded && !failed) && (
-            <div className="badge-loading" aria-hidden>
+            <div className="badge-loading">
               <span className="spinner" aria-hidden="true"></span>
-              <span className="loading-text">Loading badge…</span>
+              <span className="loading-text" aria-live="polite">Loading LinkedIn profile badge…</span>
             </div>
           )}
 
@@ -81,7 +81,7 @@ export default function LinkedInBadge() {
           </a>
 
           {failed && (
-            <p className="badge-fallback">Could not load LinkedIn badge — <a href="https://www.linkedin.com/in/fuaadabdullah" target="_blank" rel="noopener noreferrer">open profile</a></p>
+            <p className="badge-fallback">Could not load LinkedIn badge — <a href="https://www.linkedin.com/in/fuaadabdullah" target="_blank" rel="noopener noreferrer" aria-label="Open Fuaad Abdullah on LinkedIn (opens in a new tab)">open profile</a></p>
           )}
         </div>
       </div>

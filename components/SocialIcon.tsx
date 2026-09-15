@@ -20,14 +20,14 @@ interface SocialIconProps {
 
 export default function SocialIcon({ type, href, label }: SocialIconProps) {
   return (
-    <a 
+    <a
       href={href}
-      target="_blank" 
+      target="_blank"
       rel="noopener noreferrer"
       className="text-white/60 hover:text-white transition-colors"
-      aria-label={label}
+      aria-label={`${label} (opens in a new tab)`}
     >
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         {socialIcons[type]}
       </svg>
     </a>

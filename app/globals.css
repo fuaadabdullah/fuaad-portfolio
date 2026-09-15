@@ -68,6 +68,18 @@
   }
 }
 @layer components {
+  .sr-only {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
   .site-container {
     width: 100%;
     max-width: 1152px;
@@ -288,9 +300,14 @@
     background: var(--color-accent);
     color: var(--color-ink);
     border-radius: 6px;
+    font-weight: 600;
+    transition: top 0.15s ease-in-out;
   }
-  .skip-to-main:focus {
+  .skip-to-main:focus,
+  .skip-to-main:focus-visible {
     top: 16px;
+    outline: 2px solid var(--color-sand);
+    outline-offset: 2px;
   }
 }
 @keyframes enter {
@@ -303,6 +320,53 @@
     transform: translateY(0);
   }
 }
+/* Motion finishes on its own; nothing loops indefinitely or hides content without JS. */
+@layer components {
+  .hero-preview-animated { isolation: isolate; }
+  .hero-preview > .hero-signal {
+    position: absolute;
+    inset: -24px 0 0;
+    width: 100%;
+    height: calc(100% + 24px);
+    z-index: -1;
+    color: var(--color-accent);
+    pointer-events: none;
+    mask-image: linear-gradient(to bottom, black, #0008 80%, transparent);
+  }
+  .hero-preview-animated::before { background: linear-gradient(145deg, #202d23d9, #101613a0); }
+  .hero-preview-animated > .project-preview { animation: preview-settle 1.4s cubic-bezier(.16,1,.3,1); }
+  .signal-trace { stroke-dasharray: 1; animation: trace-draw 2.6s cubic-bezier(.16,1,.3,1) both; }
+  .signal-ring { transform-box: fill-box; transform-origin: center; animation: signal-pulse 2s ease-out 2; opacity: .25; }
+  .signal-node { animation: node-arrive 2.6s ease-out both; }
+  .reveal-ready { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s cubic-bezier(.16,1,.3,1); }
+  .reveal-ready.is-revealed, .reveal-ready:focus-within { opacity: 1; transform: none; }
+  .project-preview { position: relative; }
+  .project-preview::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 30%, #f3f1e810 48%, transparent 66%);
+    transform: translateX(-120%);
+    transition: transform .8s cubic-bezier(.16,1,.3,1);
+  }
+  .project-entry h2 svg, .text-link svg, .button svg { flex-shrink: 0; transition: transform .25s ease; }
+  .project-entry:focus-within h2 svg, .text-link:focus-visible svg { transform: translate(3px,-3px); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .project-entry:hover .project-preview { border-color: var(--color-accent); }
+  .project-preview:hover::after { transform: translateX(120%); }
+  .project-entry:hover h2 svg, .text-link:hover svg { transform: translate(3px,-3px); }
+  .button:hover svg { transform: translateX(3px); }
+  .hero-preview-animated > .project-preview:hover { transform: perspective(900px) rotateY(-3deg) rotateX(2deg); }
+}
+@keyframes preview-settle {
+  from { transform: perspective(900px) rotateY(-9deg) rotateX(4deg) translateY(18px); }
+  to { transform: none; }
+}
+@keyframes trace-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes signal-pulse { from { transform: scale(.4); opacity: .7; } to { transform: scale(1.9); opacity: 0; } }
+@keyframes node-arrive { 0%, 50% { opacity: 0; } 100% { opacity: 1; } }
 @media (max-width: 767px) {
   .page-shell {
     padding-block: 48px;
@@ -322,6 +386,8 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .reveal-ready { opacity: 1; transform: none; }
+  .hero-preview-animated > .project-preview:hover, .project-preview:hover img { transform: none; }
   *,
   *::before,
   *::after {
@@ -348,4 +414,9 @@
     color: black !important;
     background: transparent !important;
   }
+}
+
+@media print {
+  .reveal-ready { opacity: 1 !important; transform: none !important; }
+  .hero-signal { display: none; }
 }
