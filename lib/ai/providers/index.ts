@@ -1,4 +1,4 @@
 // Provider exports
-export { callLocalLLM } from './local-llm';
+export { callOllama } from './ollama';
 export { callGeminiAPI } from './gemini';
 export { callHuggingFaceAPI } from './huggingface';

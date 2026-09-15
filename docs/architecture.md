@@ -24,5 +24,5 @@ This portfolio is a content-driven Next.js application with static and server-re
 
 - Frontend and API routes deploy on Vercel as a single Next.js project.
 - Static assets (screenshots, PDF) are served from the same deployment.
-- The public chat needs no model host. Ollama (`OLLAMA_BASE_URL`, `OLLAMA_API_KEY`) is used only by the admin `/api/ai` route and the TinyLlama experiment; see [setup.md](setup.md#tinyllama-experiment).
+- The public chat needs no model host. TinyLlama runs only on the Oracle Cloud Ollama host (`OLLAMA_BASE_URL`, `OLLAMA_API_KEY`), used by the admin `/api/ai` route and the preview chat experiment; see [setup.md](setup.md#tinyllama-experiment).
 - Optional paid LLM route integrations point to configured upstream providers and require `ADMIN_TOKEN`.

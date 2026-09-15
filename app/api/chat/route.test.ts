@@ -249,6 +249,17 @@ describe("POST /api/chat", () => {
       expect(await response.text()).toBe("Fuaad built…");
     });
   
+    it("never falls back to a local Ollama when the Oracle host isn't configured", async () => {
+      vi.stubEnv("OLLAMA_BASE_URL", "");
+      const post = await loadRoute();
+
+      const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
+
+      expect(response.headers.get("X-Chat-Source")).toBe("fallback");
+      expect(await response.text()).toBe(abstainReply);
+      expect(fetchMock).not.toHaveBeenCalled();
+    });
+
     it("abstains when TinyLlama is unreachable", async () => {
       fetchMock.mockRejectedValueOnce(new Error("connect ECONNREFUSED"));
       const post = await loadRoute();
