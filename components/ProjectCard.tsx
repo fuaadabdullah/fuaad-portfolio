@@ -17,7 +17,7 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   const compact = variant === "compact";
   return (
-    <article className="project-entry">
+    <article className={`project-entry${compact ? " project-entry-compact" : ""}`}>
       {!compact && (
         <Link
           href={`/portfolio/${project.slug}`}

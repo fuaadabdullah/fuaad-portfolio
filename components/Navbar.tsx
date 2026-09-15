@@ -152,7 +152,7 @@ export default function Navbar() {
   }, []);
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-ink)]/95 backdrop-blur-md">
+      <header className="site-header sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-ink)]/95 backdrop-blur-md">
         <nav
           aria-label="Main navigation"
           className="site-container flex h-20 items-center justify-between gap-6"
@@ -163,7 +163,7 @@ export default function Navbar() {
             aria-label="Fuaad Abdullah - Home"
           >
             <span
-              className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--color-border)] text-sm text-[var(--color-accent)]"
+              className="brand-mark flex h-10 w-10 items-center justify-center text-base"
               aria-hidden="true"
             >
               fa.
@@ -179,8 +179,8 @@ export default function Navbar() {
                   pathname.startsWith(link.href) ? "page" : undefined
                 }
                 className={
-                  link.href === "/resume"
-                    ? "button button-secondary !min-h-10 !px-4 !py-2"
+                  link.href === "/contact"
+                    ? "button button-primary !min-h-10 !px-4 !py-2"
                     : `text-sm transition-colors hover:text-[var(--color-accent)] ${pathname.startsWith(link.href) ? "text-[var(--color-accent)]" : "text-[var(--color-muted)]"}`
                 }
               >

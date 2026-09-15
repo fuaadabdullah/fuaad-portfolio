@@ -22,7 +22,7 @@ export default function ProjectResultChips({
           className="min-w-0 py-2 pr-3"
         >
           <p className="text-lg font-semibold text-[var(--color-accent)]">{result.value}</p>
-          <p className="mt-1 text-xs text-white/80">{result.label}</p>
+          <p className="mt-1 text-sm text-white/90">{result.label}</p>
           <p className="mt-2 text-xs leading-relaxed text-[var(--color-muted)]">
             {result.sourceLabel}
             {result.timeframe ? ` · ${result.timeframe}` : ""}
