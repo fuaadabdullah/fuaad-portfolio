@@ -12,7 +12,7 @@ export default function AtScalePlan({ atScale }: { atScale: AtScaleSection }) {
             data-testid="at-scale-item"
           >
             <p className="flex items-start gap-3 text-sm font-medium text-white">
-              <span className="mt-0.5 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-emerald-400/15 text-xs font-semibold text-emerald-300">
+              <span className="mt-0.5 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[var(--color-accent-soft)] text-xs font-semibold text-[var(--color-accent)]">
                 {idx + 1}
               </span>
               {item.change}

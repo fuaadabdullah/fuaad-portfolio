@@ -1,121 +1,138 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import PageHeader from "@/components/PageHeader";
 import ProjectCard from "@/components/ProjectCard";
-import ProjectProofMedia from "@/components/ProjectProofMedia";
+import ProjectPreview from "@/components/ProjectPreview";
 import ProjectResultChips from "@/components/ProjectResultChips";
 import projects from "@/data/projects";
 
 export const metadata = {
   title: "Portfolio — Fuaad Abdullah",
-  description: "A few things I've shipped: GoblinOS Assistant, RIZZK Calculator, client sites, and AI tools — focused on real-world utility and measurable outcomes.",
+  description:
+    "Selected engineering work in markets, automation, and AI. Shipped products, source code, and the decisions behind them.",
   openGraph: {
     title: "Portfolio — Fuaad Abdullah",
-    description: "Selected projects including GoblinOS Assistant, RIZZK Calculator, and client work built with Next.js, FastAPI, and Python.",
-    images: ["/og-default.png"]
-  }
+    description:
+      "Selected projects including GoblinOS Assistant, RIZZK Calculator, and client work.",
+    images: ["/og-default.png"],
+  },
 };
 
 export default function PortfolioPage() {
-  const goblinProject = projects.find((p) => p.slug === "goblin-assistant");
-  const featuredRest = projects.filter(
-    (p) => p.featured && p.slug !== "goblin-assistant"
+  const flagship = projects.find((p) => p.slug === "goblin-assistant");
+  const selected = projects.filter(
+    (p) => p.featured && p.slug !== "goblin-assistant",
   );
   const experiments = projects.filter((p) => !p.featured);
-
   return (
-    <section className="mx-auto max-w-5xl px-6 py-16">
-      <h1 className="text-3xl md:text-5xl font-semibold tracking-tight">Portfolio</h1>
-      <p className="text-white/80 mt-3">Four projects worth your time. Everything else is below.</p>
-
-      {goblinProject && (
-        <article className="mt-8 rounded-3xl border border-emerald-400/30 bg-gradient-to-br from-emerald-500/10 via-white/[0.03] to-cyan-500/10 p-6 md:p-8">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-xs uppercase tracking-[0.15em] text-emerald-300">Flagship Build</p>
-            <span className="rounded-full bg-emerald-400/20 px-3 py-1 text-xs text-emerald-200">
-              Deepest stack in portfolio
-            </span>
+    <div className="page-shell">
+      <PageHeader label="Selected engineering work" title="Ideas, shipped.">
+        <p>
+          Four projects worth your time. Real workflows, inspectable systems,
+          and the decisions behind the build.
+        </p>
+      </PageHeader>
+      {flagship && (
+        <article className="surface p-5 md:p-8">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+            <p className="eyebrow">Flagship build</p>
+            <p className="text-xs text-[var(--color-muted)]">
+              01 / Markets, automation & AI
+            </p>
           </div>
-          <h2 className="mt-3 text-2xl md:text-3xl font-semibold">{goblinProject.title}</h2>
-          <p className="mt-3 max-w-3xl text-white/80">
-            {goblinProject.description.split("\n\n")[0]}
-          </p>
-          <ProjectResultChips className="mt-5" results={goblinProject.results} />
-          <p className="mt-3 text-sm text-emerald-200/80">
-            Full case study: architecture diagram · provider-routing sequence ·
-            observability · routing architecture · 10×-scale plan.
-          </p>
-          <ProjectProofMedia className="mt-5" media={goblinProject.proofMedia} mode="card" />
-          <p className="mt-5 text-sm text-white/70">
-            Stack depth: {goblinProject.tech.slice(0, 7).join(" · ")} · +{Math.max(goblinProject.tech.length - 7, 0)} more.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_1fr]">
             <Link
-              href={`/portfolio/${goblinProject.slug}`}
-              className="rounded-lg bg-emerald-500 px-4 py-2 font-medium text-white hover:bg-emerald-400 transition-colors"
+              href={`/portfolio/${flagship.slug}`}
+              className="project-preview"
+              aria-label="Explore GoblinOS Assistant"
             >
-              Read full case study
+              <ProjectPreview project={flagship} priority />
             </Link>
-            {goblinProject.links?.live && (
-              <a
-                href={goblinProject.links.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg bg-white/10 px-4 py-2 hover:bg-white/15 transition-colors"
-              >
-                Live demo
-              </a>
-            )}
-            {goblinProject.links?.source && (
-              <a
-                href={goblinProject.links.source}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg bg-white/10 px-4 py-2 hover:bg-white/15 transition-colors"
-              >
-                Source code
-              </a>
-            )}
+            <div>
+              <h2 className="section-title">{flagship.title}</h2>
+              <p className="intro-text mt-4">{flagship.tagline}</p>
+              <p className="mt-4 leading-relaxed text-[var(--color-muted)]">
+                Explore the architecture, provider routing, observability, and
+                the plan for scaling the system.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href={`/portfolio/${flagship.slug}`}
+                  className="button button-primary"
+                >
+                  Read full case study{" "}
+                  <ArrowUpRight size={16} aria-hidden="true" />
+                </Link>
+                {flagship.links?.live && (
+                  <a
+                    href={flagship.links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="button button-secondary"
+                  >
+                    Live demo
+                  </a>
+                )}
+              </div>
+              {flagship.links?.source && (
+                <a
+                  href={flagship.links.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-link mt-4 text-sm"
+                >
+                  Source code <ArrowUpRight size={14} aria-hidden="true" />
+                </a>
+              )}
+            </div>
           </div>
+          <ProjectResultChips
+            className="mt-8 border-t border-[var(--color-border)] pt-6"
+            results={flagship.results}
+          />
+          <p className="mt-5 text-sm text-[var(--color-muted)]">
+            {flagship.tech.join(" · ")}
+          </p>
         </article>
       )}
-
-      <div className="mt-8 grid gap-6 md:grid-cols-2">
-        {featuredRest.map((p) => (
-          <ProjectCard key={p.slug} project={p} />
+      <div className="mt-16 grid gap-x-10 gap-y-16 md:grid-cols-2">
+        {selected.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
-
       {experiments.length > 0 && (
-        <div className="mt-14">
-          <h2 className="text-xs uppercase tracking-[0.15em] text-white/40">Other experiments</h2>
-          <ul className="mt-4 divide-y divide-white/10">
-            {experiments.map((p) => (
-              <li key={p.slug} className="py-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                <div>
+        <section className="section-space">
+          <p className="eyebrow mb-3">The workshop</p>
+          <h2 className="section-title">Other experiments</h2>
+          <ul className="mt-8 divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
+            {experiments.map((project) => (
+              <li
+                key={project.slug}
+                className="flex flex-wrap items-center justify-between gap-4 py-6"
+              >
+                <div className="max-w-2xl">
                   <Link
-                    href={`/portfolio/${p.slug}`}
-                    className="font-medium text-white/80 hover:text-white transition-colors"
+                    href={`/portfolio/${project.slug}`}
+                    className="font-display text-xl font-medium hover:text-[var(--color-accent)]"
                   >
-                    {p.title}
+                    {project.title}
                   </Link>
-                  <span className="ml-3 text-sm text-white/40">{p.tagline}</span>
+                  <p className="mt-2 text-[var(--color-muted)]">
+                    {project.tagline}
+                  </p>
                 </div>
-                <div className="flex gap-3 text-xs text-white/40">
-                  {p.links?.live && (
-                    <a href={p.links.live} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors">
-                      Live
-                    </a>
-                  )}
-                  {p.links?.source && (
-                    <a href={p.links.source} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors">
-                      Source
-                    </a>
-                  )}
-                </div>
+                <Link
+                  href={`/portfolio/${project.slug}`}
+                  className="text-link text-sm"
+                  aria-label={`View ${project.title}`}
+                >
+                  View project <ArrowUpRight size={16} aria-hidden="true" />
+                </Link>
               </li>
             ))}
           </ul>
-        </div>
+        </section>
       )}
-    </section>
+    </div>
   );
 }

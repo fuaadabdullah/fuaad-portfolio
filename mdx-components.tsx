@@ -5,9 +5,9 @@ import Image from "next/image";
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children }) => (
-      <h1 className="text-3xl md:text-4xl font-bold tracking-tight mt-8 mb-4 first:mt-0">
+      <h2 className="text-3xl md:text-4xl font-bold tracking-tight mt-8 mb-4 first:mt-0">
         {children}
-      </h1>
+      </h2>
     ),
     h2: ({ children }) => (
       <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mt-8 mb-4">
@@ -37,14 +37,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[color:var(--color-accent)] hover:underline transition-colors"
+            className="text-[color:var(--color-accent)] underline decoration-[var(--color-accent)]/50 hover:decoration-current transition-colors"
           >
             {children}
           </a>
         );
       }
       return (
-        <Link href={href || "#"} className="text-[color:var(--color-accent)] hover:underline transition-colors">
+        <Link href={href || "#"} className="text-[color:var(--color-accent)] underline decoration-[var(--color-accent)]/50 hover:decoration-current transition-colors">
           {children}
         </Link>
       );

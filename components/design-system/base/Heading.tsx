@@ -1,6 +1,6 @@
 import React from "react";
 import { clsx } from "@/lib/utils";
-import { fontSizes, fontWeights, colors } from "../tokens";
+import { fontWeights } from "../tokens";
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 export type HeadingSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
@@ -14,13 +14,13 @@ export interface HeadingProps {
 }
 
 const sizeClasses: Record<HeadingSize, string> = {
-  xs: `text-[${fontSizes.xs}]`,
-  sm: `text-[${fontSizes.sm}]`,
-  md: `text-[${fontSizes.md}]`,
-  lg: `text-[${fontSizes.lg}]`,
-  xl: `text-[${fontSizes.xl}]`,
-  '2xl': `text-[${fontSizes['2xl']}]`,
-  '3xl': `text-[${fontSizes['3xl']}]`,
+  xs: `text-[0.75rem]`,
+  sm: `text-[0.875rem]`,
+  md: `text-[1rem]`,
+  lg: `text-[1.125rem]`,
+  xl: `text-[1.25rem]`,
+  '2xl': `text-[1.5rem]`,
+  '3xl': `text-[2rem]`,
 };
 
 const weightClasses: Record<keyof typeof fontWeights, string> = {
@@ -41,7 +41,7 @@ export const Heading: React.FC<HeadingProps> = ({
   return (
     <Component
       className={clsx(
-        `text-[${colors.secondary}]`,
+        `text-[var(--color-sand)]`,
         sizeClasses[size],
         weightClasses[weight],
         className

@@ -18,7 +18,7 @@ describe("ContactPage", () => {
   it("renders direct contact details and the shared contact form", () => {
     render(<ContactPage />);
 
-    expect(screen.getByRole("heading", { name: /ask a quick question or book the call/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /good work starts with a conversation/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /book a call/i })).toHaveAttribute(
       "href",
       "https://calendly.com/fuaadabdullah/30min"

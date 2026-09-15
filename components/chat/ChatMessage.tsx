@@ -39,7 +39,7 @@ function parseMarkdownLinks(text: string): React.ReactNode {
         <a
           key={match.index}
           href={linkUrl}
-          className="text-emerald-400 hover:text-emerald-300 underline"
+          className="text-[var(--color-accent)] hover:text-[var(--color-sand)] underline"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -72,22 +72,22 @@ export function ChatMessage({ message }: ChatMessageProps) {
       className={`flex items-start gap-2 mb-2 ${isUser ? 'text-right justify-end' : 'text-left'}`}
     >
       {!isUser && (
-        <div className="w-6 h-6 rounded-full bg-zinc-600 flex items-center justify-center">
+        <div className="w-6 h-6 shrink-0 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)] flex items-center justify-center">
           <span className="text-xs">AI</span>
         </div>
       )}
       <div
         data-testid="message-text"
-        className={`inline-block p-2 rounded text-sm max-w-xs break-words ${
+        className={`inline-block min-w-0 p-3 rounded-lg text-sm max-w-xs break-words ${
           isUser
-            ? 'bg-emerald-600 text-white'
-            : 'bg-zinc-700 text-gray-100'
+            ? 'bg-[var(--color-accent-soft)] text-[var(--color-sand)]'
+            : 'bg-[var(--color-coal)] text-[var(--color-sand)]'
         }`}
       >
         {parseMarkdownLinks(text || '')}
       </div>
       {isUser && (
-        <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center">
+        <div className="w-6 h-6 shrink-0 rounded-full bg-[var(--color-accent)] text-[var(--color-ink)] flex items-center justify-center">
           <span className="text-xs">U</span>
         </div>
       )}

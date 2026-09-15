@@ -4,9 +4,9 @@ import { clsx } from "@/lib/utils";
 type Variant = "primary" | "secondary" | "ghost";
 type Size = "sm" | "md" | "lg";
 
-const base = "inline-flex items-center gap-2 rounded-2xl transition-colors disabled:opacity-60 disabled:cursor-not-allowed";
+const base = "inline-flex items-center gap-2 rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed";
 const variants: Record<Variant, string> = {
-  primary: "bg-[color:var(--color-accent)] text-white hover:bg-[color:var(--color-accent)]/90",
+  primary: "bg-[color:var(--color-accent)] text-[var(--color-ink)] hover:bg-[color:var(--color-accent)]/90",
   secondary: "bg-white/10 text-white hover:bg-white/15",
   ghost: "bg-transparent text-white hover:bg-white/10 border border-white/10",
 };

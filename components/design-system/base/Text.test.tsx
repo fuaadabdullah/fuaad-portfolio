@@ -25,6 +25,6 @@ describe('Text', () => {
   it('applies variant classes correctly', () => {
     render(<Text variant="muted">Muted text</Text>);
     const text = screen.getByText('Muted text');
-    expect(text).toHaveClass('text-[#ffffff80]');
+    expect(text).toHaveClass('text-[var(--color-muted)]');
   });
 });

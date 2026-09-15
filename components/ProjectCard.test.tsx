@@ -86,12 +86,11 @@ describe("ProjectCard", () => {
     expect(screen.getByText("delivery scope")).toBeInTheDocument();
   });
 
-  it("renders hero plus two thumbnail media tiles when media exists", () => {
+  it("uses a static screenshot instead of an animated demo in the listing", () => {
     render(<ProjectCard project={baseProject} />);
 
-    const mediaContainer = screen.getByTestId("project-proof-card");
-    const tiles = within(mediaContainer).getAllByTestId("project-proof-tile");
-    expect(tiles).toHaveLength(3);
+    expect(screen.getByRole("img")).toHaveAttribute("src", "/projects/test-project-1.png");
+    expect(screen.getByRole("link", { name: "Explore Test Project" })).toHaveAttribute("href", "/portfolio/test-project");
   });
 
   it("renders pending fallback tile when media is unavailable", () => {
@@ -110,7 +109,7 @@ describe("ProjectCard", () => {
     };
 
     render(<ProjectCard project={pendingProject} />);
-    expect(screen.getByText(/Demo capture pending/i)).toBeInTheDocument();
+    expect(screen.getByText(/Preview coming soon/i)).toBeInTheDocument();
   });
 
   it("keeps tech row below outcomes in visual hierarchy", () => {

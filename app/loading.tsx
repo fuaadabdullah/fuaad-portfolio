@@ -2,10 +2,11 @@ export default function Loading() {
   return (
     <section
       aria-label="Loading page"
+      role="status"
       className="mx-auto flex min-h-[60vh] max-w-5xl flex-col justify-center px-6 py-16"
     >
       <div className="max-w-2xl space-y-5">
-        <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/45">
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-[var(--color-muted)]">
           Loading
         </p>
         <div className="h-10 w-3/4 animate-pulse rounded-lg bg-white/10" />

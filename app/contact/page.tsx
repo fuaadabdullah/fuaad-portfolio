@@ -1,13 +1,21 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
-import { bookingCta, bookingLink, contactEmail, contactEmailHref, testimonials } from "@/data/contact";
+import {
+  bookingCta,
+  bookingLink,
+  contactEmail,
+  contactEmailHref,
+  testimonials,
+} from "@/data/contact";
 
 export const metadata: Metadata = {
   title: "Contact - Fuaad Abdullah",
-  description: "Ask a quick question, request a quote, or book a call to start your project.",
+  description:
+    "Get in touch about software engineering roles, internships, or a project.",
   openGraph: {
     title: "Contact - Fuaad Abdullah",
-    description: "Ask a quick question, request a quote, or book a call to start your project.",
+    description:
+      "Get in touch about software engineering roles, internships, or a project.",
     images: ["/og-default.png"],
   },
 };
@@ -16,16 +24,20 @@ export default function ContactPage() {
   const testimonial = testimonials[0];
 
   return (
-    <section className="mx-auto max-w-5xl px-6 py-16">
+    <section className="page-shell">
       <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="space-y-6">
           <div className="space-y-3">
-            <p className="text-sm uppercase tracking-[0.2em] text-white/50">Contact</p>
-            <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">
-              Ask a quick question or book the call.
+            <p className="text-sm uppercase tracking-[0.2em] text-white/50">
+              Contact
+            </p>
+            <h1 className="page-heading">
+              Good work starts with a conversation.
             </h1>
             <p className="max-w-2xl text-white/80">
-              If you already know you want to build, book the call. If you need to ask about scope, price, or timing first, send a message here.
+              Hiring for an engineering role or internship? I?d love to hear
+              about your team. For a project inquiry, tell me what you?re
+              building and where you need a hand.
             </p>
           </div>
 
@@ -34,14 +46,11 @@ export default function ContactPage() {
               href={bookingLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-2xl bg-[color:var(--color-accent)] px-5 py-3 font-semibold text-black transition-colors hover:bg-[color:var(--color-accent)]/90"
+              className="button button-primary"
             >
               {bookingCta.shortLabel}
             </a>
-            <a
-              href={contactEmailHref}
-              className="inline-flex items-center rounded-2xl bg-white/10 px-5 py-3 text-white transition-colors hover:bg-white/15"
-            >
+            <a href={contactEmailHref} className="button button-secondary">
               {contactEmail}
             </a>
           </div>
@@ -58,10 +67,13 @@ export default function ContactPage() {
           ) : null}
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-          <h2 className="text-2xl font-semibold tracking-tight">Get in touch</h2>
+        <div className="surface contact-panel h-fit p-6 md:p-8">
+          <h2 className="text-2xl font-semibold tracking-tight">
+            Get in touch
+          </h2>
           <p className="mt-2 text-white/75">
-            Send the basics and I&apos;ll reply with next steps, scope feedback, or a quote.
+            Share the role, team, or project you have in mind. I?ll reply with
+            next steps.
           </p>
           <div className="mt-6">
             <ContactForm />

@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Manrope, Source_Sans_3 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,6 +9,8 @@ import JsonLd from '@/components/JsonLd';
 import { personJsonLd } from '@/lib/seo';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://heyimfuaad.me";
+const headingFont = Manrope({ subsets: ["latin"], variable: "--font-heading", display: "swap" });
+const bodyFont = Source_Sans_3({ subsets: ["latin"], variable: "--font-body", display: "swap" });
 
 export const metadata: Metadata = {
   title: "Fuaad Abdullah — Software for Markets, Automation & AI",
@@ -32,7 +35,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className={`${headingFont.variable} ${bodyFont.variable} antialiased`}>
         <a href="#main-content" className="skip-to-main">
           Skip to main content
         </a>

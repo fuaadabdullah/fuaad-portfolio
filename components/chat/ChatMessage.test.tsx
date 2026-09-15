@@ -17,7 +17,7 @@ describe('ChatMessage Component', () => {
     expect(container).toHaveClass('text-right', 'justify-end', 'flex', 'items-start', 'gap-2', 'mb-2');
 
     const messageElement = screen.getByTestId('message-text');
-    expect(messageElement).toHaveClass('inline-block', 'p-2', 'rounded', 'bg-emerald-600', 'text-white');
+    expect(messageElement).toHaveClass('inline-block', 'p-3', 'rounded-lg', 'bg-[var(--color-accent-soft)]', 'text-[var(--color-sand)]');
     expect(messageElement).toHaveTextContent('Hello from user');
   });
 
@@ -35,7 +35,7 @@ describe('ChatMessage Component', () => {
     expect(container).toHaveClass('text-left', 'flex', 'items-start', 'gap-2', 'mb-2');
 
     const messageElement = screen.getByTestId('message-text');
-    expect(messageElement).toHaveClass('inline-block', 'p-2', 'rounded', 'bg-zinc-700', 'text-gray-100');
+    expect(messageElement).toHaveClass('inline-block', 'p-3', 'rounded-lg', 'bg-[var(--color-coal)]', 'text-[var(--color-sand)]');
     expect(messageElement).toHaveTextContent('Hello from bot');
   });
 
@@ -56,11 +56,11 @@ describe('ChatMessage Component', () => {
 
     const { rerender } = render(<ChatMessage message={userMessage} />);
     let messageDiv = screen.getByText('User message').closest('div');
-    expect(messageDiv).toHaveClass('bg-emerald-600');
+    expect(messageDiv).toHaveClass('bg-[var(--color-accent-soft)]');
 
     rerender(<ChatMessage message={botMessage} />);
     messageDiv = screen.getByText('Bot message').closest('div');
-    expect(messageDiv).toHaveClass('bg-zinc-700');
+    expect(messageDiv).toHaveClass('bg-[var(--color-coal)]');
   });
 
   it('should render long messages with proper styling', () => {
@@ -127,13 +127,13 @@ describe('ChatMessage Component', () => {
     expect(portfolioLink).toHaveAttribute('href', '/portfolio');
     expect(portfolioLink).toHaveAttribute('target', '_blank');
     expect(portfolioLink).toHaveAttribute('rel', 'noopener noreferrer');
-    expect(portfolioLink).toHaveClass('text-emerald-400', 'hover:text-emerald-300', 'underline');
+    expect(portfolioLink).toHaveClass('text-[var(--color-accent)]', 'hover:text-[var(--color-sand)]', 'underline');
 
     const aboutLink = screen.getByRole('link', { name: 'learn more about his background' });
     expect(aboutLink).toHaveAttribute('href', '/about');
     expect(aboutLink).toHaveAttribute('target', '_blank');
     expect(aboutLink).toHaveAttribute('rel', 'noopener noreferrer');
-    expect(aboutLink).toHaveClass('text-emerald-400', 'hover:text-emerald-300', 'underline');
+    expect(aboutLink).toHaveClass('text-[var(--color-accent)]', 'hover:text-[var(--color-sand)]', 'underline');
 
     // Check that the message container contains the expected text content
     const messageElement = screen.getByTestId('message-text');

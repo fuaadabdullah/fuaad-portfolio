@@ -9,10 +9,7 @@ interface ProjectProofMediaProps {
 }
 
 function selectHeroMedia(ready: ProofMediaItem[]): ProofMediaItem | undefined {
-  return (
-    ready.find((item) => item.type === "gif") ??
-    ready[0]
-  );
+  return ready.find((item) => item.type === "gif") ?? ready[0];
 }
 
 function renderTile(
@@ -21,13 +18,16 @@ function renderTile(
   className?: string,
   showCaption?: boolean,
   sizes?: string,
-  priority?: boolean
+  priority?: boolean,
 ) {
   return (
     <figure
       key={`${item.src}-${index}`}
       data-testid="project-proof-tile"
-      className={clsx("overflow-hidden rounded-xl border border-white/10 bg-black/20", className)}
+      className={clsx(
+        "overflow-hidden rounded-xl border border-white/10 bg-black/20",
+        className,
+      )}
     >
       <Image
         src={item.src}
@@ -38,9 +38,13 @@ function renderTile(
         priority={priority}
         loading={priority ? "eager" : undefined}
         unoptimized={item.type === "gif" ? true : undefined}
-        className="h-full w-full object-cover"
+        className="aspect-video h-auto w-full object-contain"
       />
-      {showCaption && <figcaption className="p-2 text-xs text-white/70">{item.alt}</figcaption>}
+      {showCaption && (
+        <figcaption className="p-2 text-xs text-white/70">
+          {item.alt}
+        </figcaption>
+      )}
     </figure>
   );
 }
@@ -63,7 +67,7 @@ export default function ProjectProofMedia({
           data-testid="project-proof-detail"
           className={clsx(
             "flex min-h-[160px] flex-col justify-center rounded-xl border border-dashed border-white/20 bg-white/[0.02] p-6 text-center",
-            className
+            className,
           )}
         >
           <p
@@ -83,18 +87,23 @@ export default function ProjectProofMedia({
 
     return (
       <div className={className} data-testid="project-proof-detail">
-        <div className={clsx("grid gap-4", ordered.length > 1 ? "md:grid-cols-2" : "")}>
+        <div
+          className={clsx(
+            "grid gap-4",
+            ordered.length > 1 ? "md:grid-cols-2" : "",
+          )}
+        >
           {ordered.map((item, index) =>
             renderTile(
               item,
               index,
-              clsx(index === 0 && ordered.length > 1 && "md:col-span-2", "aspect-video"),
+              clsx(index === 0 && ordered.length > 1 && "md:col-span-2"),
               true,
               index === 0
-                ? "(min-width: 768px) 56rem, calc(100vw - 3rem)"
-                : "(min-width: 768px) 27rem, calc(100vw - 3rem)",
-              index === 0
-            )
+                ? "(min-width: 1152px) 1104px, calc(100vw - 3rem)"
+                : "(min-width: 1152px) 540px, (min-width: 768px) 50vw, calc(100vw - 3rem)",
+              false,
+            ),
           )}
         </div>
         {hasPending && (
@@ -109,7 +118,10 @@ export default function ProjectProofMedia({
   // Card mode
   if (!hero) {
     return (
-      <section className={clsx("space-y-3", className)} data-testid="project-proof-card">
+      <section
+        className={clsx("space-y-3", className)}
+        data-testid="project-proof-card"
+      >
         <article
           data-testid="project-proof-pending"
           className="flex aspect-video flex-col justify-center rounded-xl border border-dashed border-white/20 bg-white/[0.02] p-4"
@@ -128,25 +140,33 @@ export default function ProjectProofMedia({
   const thumbs = readyRemaining.slice(0, 2);
 
   return (
-    <section className={clsx("space-y-3", className)} data-testid="project-proof-card">
+    <section
+      className={clsx("space-y-3", className)}
+      data-testid="project-proof-card"
+    >
       {renderTile(
         hero,
         0,
         "aspect-video",
         false,
         "(min-width: 768px) 28rem, calc(100vw - 3rem)",
-        true
+        true,
       )}
       {thumbs.length > 0 && (
-        <div className={clsx("grid gap-3", thumbs.length === 2 ? "grid-cols-2" : "grid-cols-1")}>
+        <div
+          className={clsx(
+            "grid gap-3",
+            thumbs.length === 2 ? "grid-cols-2" : "grid-cols-1",
+          )}
+        >
           {thumbs.map((item, index) =>
             renderTile(
               item,
               index + 1,
               "aspect-video",
               false,
-              "(min-width: 768px) 13rem, calc((100vw - 4rem) / 2)"
-            )
+              "(min-width: 768px) 13rem, calc((100vw - 4rem) / 2)",
+            ),
           )}
         </div>
       )}

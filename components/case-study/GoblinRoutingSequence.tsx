@@ -22,7 +22,7 @@ export default function GoblinRoutingSequence() {
       data-testid="goblin-routing-sequence"
       className="rounded-xl border border-white/10 bg-black/20 p-2 md:p-4"
     >
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Provider routing sequence diagram">
       <svg
         viewBox="0 0 1000 820"
         role="img"
