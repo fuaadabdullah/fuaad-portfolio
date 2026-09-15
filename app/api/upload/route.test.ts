@@ -1,3 +1,5 @@
+// @vitest-environment node
+// jsdom's File/FormData are not recognized by Node's Request body parser.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const adminToken = "test-admin-token";

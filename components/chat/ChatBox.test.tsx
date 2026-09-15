@@ -130,6 +130,15 @@ describe('ChatBox Component', () => {
     expect(mockReturnValue.sendMessage).toHaveBeenCalled();
   });
 
+  it('should not send when Enter confirms an IME composition', () => {
+    render(<ChatBox />);
+
+    fireEvent.click(screen.getByRole('button', { name: /open chat/i }));
+    fireEvent.keyDown(screen.getByLabelText('Chat input'), { key: 'Enter', isComposing: true });
+
+    expect(mockReturnValue.sendMessage).not.toHaveBeenCalled();
+  });
+
   it('should call sendMessage when send button is clicked', () => {
     render(<ChatBox />);
 

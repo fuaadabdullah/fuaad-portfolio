@@ -8,18 +8,40 @@ const MAX_MEMORY_ENTRIES = 500; // public chat input feeds this cache, so bound 
 // In-memory cache fallback for when Redis is not available
 const memoryCache = new Map<string, { data: string; timestamp: number; ttl: number }>();
 
+const REDIS_RETRY_COOLDOWN_MS = 30_000;
+
 // Redis client
-let redisClient: any = null;
+let redisClient: ReturnType<typeof createClient> | null = null;
+let redisRetryAfter = 0;
 
 async function getRedisClient() {
-  if (!redisClient) {
+  // A client that exhausted its reconnect attempts is closed for good; replace it
+  if (redisClient && !redisClient.isOpen) {
+    redisClient = null;
+  }
+
+  if (!redisClient && Date.now() >= redisRetryAfter) {
+    const client = createClient({
+      url: process.env.REDIS_URL,
+      socket: {
+        // The default strategy retries forever, which would hang requests while Redis is down
+        reconnectStrategy: (retries) => (retries < 2 ? 200 : false),
+      },
+    });
+    // node-redis rethrows 'error' events that have no listener, crashing the server on a dropped connection
+    client.on('error', (error) => {
+      console.warn('Redis client error:', error instanceof Error ? error.message : String(error));
+    });
+
+    redisClient = client;
     try {
-      redisClient = createClient({ url: process.env.REDIS_URL });
-      await redisClient.connect();
+      await client.connect();
       console.log('✅ Redis client connected');
     } catch (error) {
       console.log('❌ Redis connection failed, using memory cache:', error);
-      redisClient = null;
+      if (client.isOpen) client.destroy();
+      if (redisClient === client) redisClient = null;
+      redisRetryAfter = Date.now() + REDIS_RETRY_COOLDOWN_MS;
     }
   }
   return redisClient;
@@ -47,18 +69,27 @@ export interface CachedResponse {
   isStale: boolean;
 }
 
+function getMemoryCachedResponse(cacheKey: string): CachedResponse {
+  const cached = memoryCache.get(cacheKey);
+  if (!cached) {
+    return { data: null, isStale: false };
+  }
+
+  const age = Date.now() - cached.timestamp;
+  // Match Redis's setEx expiry instead of serving entries forever
+  if (age > cached.ttl * 1000) {
+    memoryCache.delete(cacheKey);
+    return { data: null, isStale: false };
+  }
+
+  return { data: cached.data, isStale: age > STALE_WHILE_REVALIDATE_TTL * 1000 };
+}
+
 export async function getCachedResponse(cacheKey: string): Promise<CachedResponse> {
   const redisAvailable = await isRedisAvailable();
 
   if (!redisAvailable) {
-    // Use in-memory cache
-    const cached = memoryCache.get(cacheKey);
-    if (!cached) {
-      return { data: null, isStale: false };
-    }
-
-    const isStale = (Date.now() - cached.timestamp) > (STALE_WHILE_REVALIDATE_TTL * 1000);
-    return { data: cached.data, isStale };
+    return getMemoryCachedResponse(cacheKey);
   }
 
   try {
@@ -81,14 +112,7 @@ export async function getCachedResponse(cacheKey: string): Promise<CachedRespons
     return { data: cached, isStale };
   } catch (error) {
     console.log('Redis read error, falling back to memory cache:', error);
-    // Fallback to memory cache
-    const cached = memoryCache.get(cacheKey);
-    if (!cached) {
-      return { data: null, isStale: false };
-    }
-
-    const isStale = (Date.now() - cached.timestamp) > (STALE_WHILE_REVALIDATE_TTL * 1000);
-    return { data: cached.data, isStale };
+    return getMemoryCachedResponse(cacheKey);
   }
 }
 

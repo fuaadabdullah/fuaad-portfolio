@@ -90,6 +90,34 @@ describe("Mock AI API Route", () => {
       expect(availability.data.reply).toContain("open to software engineering roles");
     });
 
+    it("answers questions that open with a greeting instead of only greeting back", async () => {
+      const { data } = await postPrompt("Hi, what's your tech stack for goblinos?");
+
+      expect(data.reply).toContain("FastAPI backend");
+    });
+
+    it("only matches topic triggers at the start of a word", async () => {
+      // "location" inside "allocation" used to return the Atlanta answer
+      const { data } = await postPrompt("how do you think about asset allocation?");
+
+      expect(data.reply).not.toContain("Atlanta");
+    });
+
+    it("rejects malformed bodies and missing prompts with 400", async () => {
+      const { POST } = await import("../mock-ai/route");
+
+      for (const body of ["{not json", JSON.stringify({}), JSON.stringify({ prompt: 42 })]) {
+        const response = await POST(
+          new Request("http://localhost/api/mock-ai", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body,
+          })
+        );
+        expect(response.status).toBe(400);
+      }
+    });
+
     it("falls back cleanly for unknown prompts", async () => {
       const { response, data } = await postPrompt("unknown topic xyz");
 

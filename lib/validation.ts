@@ -5,25 +5,28 @@ import { z } from 'zod';
  * Enforces safe input constraints to prevent injection and abuse
  */
 export const ContactFormSchema = z.object({
+  // Checks run in order, so trim first or whitespace-only values pass min(1)
   name: z
     .string()
+    .trim()
     .min(1, 'Name is required')
     .max(100, 'Name must be less than 100 characters')
-    .regex(/^[a-zA-Z\s'-]*$/, 'Name can only contain letters, spaces, hyphens, and apostrophes')
-    .trim(),
-  
+    // Any script's letters (José, Zoë) and the curly apostrophe iOS inserts (O’Brien)
+    .regex(/^[\p{L}\p{M}\s'’-]+$/u, 'Name can only contain letters, spaces, hyphens, and apostrophes'),
+
   email: z
     .string()
+    .trim()
     .min(1, 'Email is required')
     .max(255, 'Email must be less than 255 characters')
     .email('Invalid email format')
     .toLowerCase(),
-  
+
   message: z
     .string()
+    .trim()
     .min(1, 'Message is required')
-    .max(5000, 'Message must be less than 5000 characters')
-    .trim(),
+    .max(5000, 'Message must be less than 5000 characters'),
 });
 
 export type ContactFormInput = z.infer<typeof ContactFormSchema>;

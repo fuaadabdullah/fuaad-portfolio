@@ -57,16 +57,18 @@ export async function getFileInfo(url: string) {
  * Generate a unique filename
  */
 function generateFilename(originalName: string, addRandomSuffix: boolean = true): string {
-  const extension = originalName.split('.').pop() || '';
-  const baseName = originalName.replace(/\.[^/.]+$/, '');
+  // Names without an extension ("photo") would otherwise become "photo-123.photo"
+  const dotIndex = originalName.lastIndexOf('.');
+  const extension = dotIndex > 0 ? originalName.slice(dotIndex) : '';
+  const baseName = dotIndex > 0 ? originalName.slice(0, dotIndex) : originalName;
 
   if (addRandomSuffix) {
     const timestamp = Date.now();
     const random = Math.random().toString(36).substring(2, 8);
-    return `${baseName}-${timestamp}-${random}.${extension}`;
+    return `${baseName}-${timestamp}-${random}${extension}`;
   }
 
-  return `${baseName}-${Date.now()}.${extension}`;
+  return `${baseName}-${Date.now()}${extension}`;
 }
 
 /**

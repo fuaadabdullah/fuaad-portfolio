@@ -57,6 +57,50 @@ describe("Contact API route", () => {
     expect(createMock).not.toHaveBeenCalled();
   });
 
+  it("returns 400 for malformed JSON instead of a server error", async () => {
+    const { POST } = await import("./route");
+
+    const request = new Request("http://localhost/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-forwarded-for": "198.51.100.4" },
+      body: "{not json",
+    });
+    const response = await POST(request as any);
+
+    expect(response.status).toBe(400);
+    expect(createMock).not.toHaveBeenCalled();
+  });
+
+  it("rejects whitespace-only names and messages", async () => {
+    const { POST } = await import("./route");
+
+    const response = await POST(
+      makeRequest({ name: "   ", email: "jane@example.com", message: " \n\t " }, "198.51.100.5") as any
+    );
+    const data = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(data.details).toHaveProperty("name");
+    expect(data.details).toHaveProperty("message");
+    expect(createMock).not.toHaveBeenCalled();
+  });
+
+  it("accepts accented names and typographic apostrophes", async () => {
+    const { POST } = await import("./route");
+
+    for (const [i, name] of ["José Álvarez", "Zoë Müller", "Conan O’Brien"].entries()) {
+      const response = await POST(
+        makeRequest({ name, email: "visitor@example.com", message: "Hello" }, `198.51.100.${20 + i}`) as any
+      );
+      expect(response.status).toBe(201);
+    }
+    expect(createMock.mock.calls.map(([arg]) => arg.data.name)).toEqual([
+      "José Álvarez",
+      "Zoë Müller",
+      "Conan O’Brien",
+    ]);
+  });
+
   it("sanitizes user input before persisting", async () => {
     const { POST } = await import("./route");
 

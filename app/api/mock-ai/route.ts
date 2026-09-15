@@ -3,7 +3,12 @@ import { NextResponse } from "next/server";
 import { getKnowledgeReply } from "@/lib/ai/knowledge";
 
 export async function POST(request: Request) {
-  const { prompt } = await request.json();
+  const body = await request.json().catch(() => null);
+  const prompt: unknown = body?.prompt;
+
+  if (typeof prompt !== "string" || !prompt.trim()) {
+    return NextResponse.json({ error: "Prompt is required" }, { status: 400 });
+  }
 
   console.debug("MOCK API - PROMPT RECEIVED:", prompt);
 

@@ -79,7 +79,9 @@ export function recordFailure(provider: string): void {
   breaker.failures++;
   breaker.lastFailureTime = now;
 
-  if (breaker.failures >= CIRCUIT_BREAKER_CONFIG.failureThreshold) {
+  // A failed trial request in HALF_OPEN means the provider is still down; reopen right away.
+  // Otherwise failures reset by the monitoring window would leave it effectively closed.
+  if (breaker.state === 'HALF_OPEN' || breaker.failures >= CIRCUIT_BREAKER_CONFIG.failureThreshold) {
     breaker.state = 'OPEN';
     breaker.nextAttemptTime = now + CIRCUIT_BREAKER_CONFIG.recoveryTimeout;
     console.log(`🚫 Circuit breaker for ${provider} opened due to ${breaker.failures} failures`);

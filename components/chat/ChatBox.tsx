@@ -95,7 +95,8 @@ export function ChatBox({ initialOpen = false }: ChatBoxProps) {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && status !== "loading") {
+    // Enter while composing (Japanese, Chinese, Korean input) confirms a character, not the message
+    if (e.key === "Enter" && !e.nativeEvent.isComposing && status !== "loading") {
       // Prevent the form's implicit submit from sending the message a second time
       e.preventDefault();
       sendMessage();

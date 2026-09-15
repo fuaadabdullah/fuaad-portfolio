@@ -105,9 +105,11 @@ export function getAllSlugs(): string[] {
 
 export function formatDate(dateString: string): string {
   const date = new Date(dateString);
+  // Date-only strings parse as UTC midnight; formatting in local time shows the previous day in US timezones
   return date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: "UTC",
   });
 }
