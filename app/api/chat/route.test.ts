@@ -1,5 +1,5 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import { getKnowledgeReply } from "@/lib/ai/knowledge";
+import { abstainReply, getKnowledgeReply } from "@/lib/ai/knowledge";
 
 const OLLAMA_BASE_URL = "http://ollama.internal:11434";
 const OLLAMA_API_KEY = "server-only-ollama-key";
@@ -182,102 +182,130 @@ describe("POST /api/chat", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("streams TinyLlama tokens using server-side credentials and a grounded prompt", async () => {
-    // Split a JSON line across chunks to exercise NDJSON buffering
-    const [first, second, done] = tokenLines(["Start with ", "the projects page."]);
-    fetchMock.mockResolvedValueOnce(ollamaStream([first + second.slice(0, 10), second.slice(10) + done]));
+  it("abstains without calling the model when site data doesn't answer the question", async () => {
     const post = await loadRoute();
 
     const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
 
     expect(response.status).toBe(200);
-    expect(response.headers.get("X-Chat-Source")).toBe("tinyllama");
-    expect(response.headers.get("Cache-Control")).toBe("no-store");
-    expect(await response.text()).toBe("Start with the projects page.");
-
-    const [url, init] = fetchMock.mock.calls[0];
-    expect(url).toBe(`${OLLAMA_BASE_URL}/api/chat`);
-    expect(init.headers.Authorization).toBe(`Bearer ${OLLAMA_API_KEY}`);
-
-    const upstreamBody = JSON.parse(init.body);
-    expect(upstreamBody.model).toBe("tinyllama:1.1b");
-    expect(upstreamBody.stream).toBe(true);
-    expect(upstreamBody.options.num_predict).toBeGreaterThan(0);
-    expect(upstreamBody.messages[0].role).toBe("system");
-    expect(upstreamBody.messages[0].content).toContain("RIZZK Calculator: Risk management tool for day traders");
-    expect(upstreamBody.messages.at(-1)).toEqual({ role: "user", content: "What makes his approach different?" });
+    expect(response.headers.get("X-Chat-Source")).toBe("abstain");
+    expect(await response.text()).toBe(abstainReply);
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("marks replies cut off by the token limit", async () => {
-    fetchMock.mockResolvedValueOnce(
-      ollamaStream([
-        JSON.stringify({ message: { content: "Fuaad built" }, done: false }) + "\n",
-        JSON.stringify({ message: { content: "" }, done: true, done_reason: "length" }) + "\n",
-      ])
-    );
+  it("never calls the model on Vercel production, even with the experiment flag set", async () => {
+    vi.stubEnv("CHAT_TINYLLAMA_EXPERIMENT", "true");
+    vi.stubEnv("VERCEL_ENV", "production");
     const post = await loadRoute();
 
     const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
 
-    expect(await response.text()).toBe("Fuaad built…");
+    expect(response.headers.get("X-Chat-Source")).toBe("abstain");
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("falls back to knowledge replies when TinyLlama is unreachable", async () => {
-    fetchMock.mockRejectedValueOnce(new Error("connect ECONNREFUSED"));
-    const post = await loadRoute();
+  describe("TinyLlama experiment (never in production)", () => {
+    beforeEach(() => {
+      vi.stubEnv("CHAT_TINYLLAMA_EXPERIMENT", "true");
+    });
 
-    const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
-
-    expect(response.status).toBe(200);
-    expect(response.headers.get("X-Chat-Source")).toBe("fallback");
-    expect(await response.text()).toBe(getKnowledgeReply("What makes his approach different?"));
-  });
-
-  it("falls back when Ollama reports an error instead of tokens", async () => {
-    fetchMock.mockResolvedValueOnce(ollamaStream([JSON.stringify({ error: "model not found" }) + "\n"]));
-    const post = await loadRoute();
-
-    const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
-
-    expect(response.headers.get("X-Chat-Source")).toBe("fallback");
-  });
-
-  it("serves repeated standalone questions from cache without calling the model", async () => {
-    fetchMock.mockImplementation(() => Promise.resolve(ollamaStream(tokenLines(["Start with RIZZK Calculator."]))));
-    const post = await loadRoute();
-    const body = { messages: [{ role: "user", content: "How does he approach new problems?" }] };
-
-    const first = await post(makeRequest(body));
-    expect(await first.text()).toBe("Start with RIZZK Calculator.");
-    await new Promise((resolve) => setTimeout(resolve, 0));
-
-    const second = await post(makeRequest(body));
-    expect(second.headers.get("X-Chat-Source")).toBe("cache");
-    expect(await second.text()).toBe("Start with RIZZK Calculator.");
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-  });
-
-  it("forwards short conversation history for follow-up questions", async () => {
-    fetchMock.mockResolvedValueOnce(ollamaStream(tokenLines(["It ranks likely causes."])));
-    const post = await loadRoute();
-
-    const response = await post(
-      makeRequest({
-        messages: [
-          { role: "user", content: "What is ShopMindAI?" },
-          { role: "assistant", content: "ShopMindAI is an automotive diagnostic assistant." },
-          { role: "user", content: "What does it return to mechanics?" },
-        ],
-      })
-    );
-
-    expect(await response.text()).toBe("It ranks likely causes.");
-    const upstreamBody = JSON.parse(fetchMock.mock.calls[0][1].body);
-    expect(upstreamBody.messages.slice(-3)).toEqual([
-      { role: "user", content: "What is ShopMindAI?" },
-      { role: "assistant", content: "ShopMindAI is an automotive diagnostic assistant." },
-      { role: "user", content: "What does it return to mechanics?" },
-    ]);
+    it("streams TinyLlama tokens using server-side credentials and a grounded prompt", async () => {
+      // Split a JSON line across chunks to exercise NDJSON buffering
+      const [first, second, done] = tokenLines(["Start with ", "the projects page."]);
+      fetchMock.mockResolvedValueOnce(ollamaStream([first + second.slice(0, 10), second.slice(10) + done]));
+      const post = await loadRoute();
+  
+      const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
+  
+      expect(response.status).toBe(200);
+      expect(response.headers.get("X-Chat-Source")).toBe("tinyllama");
+      expect(response.headers.get("Cache-Control")).toBe("no-store");
+      expect(await response.text()).toBe("Start with the projects page.");
+  
+      const [url, init] = fetchMock.mock.calls[0];
+      expect(url).toBe(`${OLLAMA_BASE_URL}/api/chat`);
+      expect(init.headers.Authorization).toBe(`Bearer ${OLLAMA_API_KEY}`);
+  
+      const upstreamBody = JSON.parse(init.body);
+      expect(upstreamBody.model).toBe("tinyllama:1.1b");
+      expect(upstreamBody.stream).toBe(true);
+      expect(upstreamBody.options.num_predict).toBeGreaterThan(0);
+      expect(upstreamBody.messages[0].role).toBe("system");
+      expect(upstreamBody.messages[0].content).toContain("RIZZK Calculator: Risk management tool for day traders");
+      expect(upstreamBody.messages.at(-1)).toEqual({ role: "user", content: "What makes his approach different?" });
+    });
+  
+    it("marks replies cut off by the token limit", async () => {
+      fetchMock.mockResolvedValueOnce(
+        ollamaStream([
+          JSON.stringify({ message: { content: "Fuaad built" }, done: false }) + "\n",
+          JSON.stringify({ message: { content: "" }, done: true, done_reason: "length" }) + "\n",
+        ])
+      );
+      const post = await loadRoute();
+  
+      const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
+  
+      expect(await response.text()).toBe("Fuaad built…");
+    });
+  
+    it("abstains when TinyLlama is unreachable", async () => {
+      fetchMock.mockRejectedValueOnce(new Error("connect ECONNREFUSED"));
+      const post = await loadRoute();
+  
+      const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
+  
+      expect(response.status).toBe(200);
+      expect(response.headers.get("X-Chat-Source")).toBe("fallback");
+      expect(await response.text()).toBe(abstainReply);
+    });
+  
+    it("falls back when Ollama reports an error instead of tokens", async () => {
+      fetchMock.mockResolvedValueOnce(ollamaStream([JSON.stringify({ error: "model not found" }) + "\n"]));
+      const post = await loadRoute();
+  
+      const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
+  
+      expect(response.headers.get("X-Chat-Source")).toBe("fallback");
+    });
+  
+    it("serves repeated standalone questions from cache without calling the model", async () => {
+      fetchMock.mockImplementation(() => Promise.resolve(ollamaStream(tokenLines(["Start with RIZZK Calculator."]))));
+      const post = await loadRoute();
+      const body = { messages: [{ role: "user", content: "How does he approach new problems?" }] };
+  
+      const first = await post(makeRequest(body));
+      expect(await first.text()).toBe("Start with RIZZK Calculator.");
+      await new Promise((resolve) => setTimeout(resolve, 0));
+  
+      const second = await post(makeRequest(body));
+      expect(second.headers.get("X-Chat-Source")).toBe("cache");
+      expect(await second.text()).toBe("Start with RIZZK Calculator.");
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+    });
+  
+    it("forwards short conversation history for follow-up questions", async () => {
+      fetchMock.mockResolvedValueOnce(ollamaStream(tokenLines(["It ranks likely causes."])));
+      const post = await loadRoute();
+  
+      const response = await post(
+        makeRequest({
+          messages: [
+            { role: "user", content: "What is ShopMindAI?" },
+            { role: "assistant", content: "ShopMindAI is an automotive diagnostic assistant." },
+            { role: "user", content: "What does it return to mechanics?" },
+          ],
+        })
+      );
+  
+      expect(await response.text()).toBe("It ranks likely causes.");
+      const upstreamBody = JSON.parse(fetchMock.mock.calls[0][1].body);
+      expect(upstreamBody.messages.slice(-3)).toEqual([
+        { role: "user", content: "What is ShopMindAI?" },
+        { role: "assistant", content: "ShopMindAI is an automotive diagnostic assistant." },
+        { role: "user", content: "What does it return to mechanics?" },
+      ]);
+    });
   });
 
   it("rate limits repeated requests from the same IP", async () => {

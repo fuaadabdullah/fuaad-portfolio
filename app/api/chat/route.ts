@@ -2,12 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getCachedResponse, setCachedResponse } from '@/lib/ai/cache';
 import { getClientIP } from '@/lib/ai/ip-detection';
-import { getCuratedReply, getKnowledgeReply } from '@/lib/ai/knowledge';
+import { abstainReply, getCuratedReply } from '@/lib/ai/knowledge';
 import { checkRateLimit } from '@/lib/ai/rate-limit';
 import { MAX_REPLY_CHARS, streamTinyLlama } from '@/lib/ai/tinyllama';
 
-// Public portfolio chat. Known topics get curated answers instantly; TinyLlama handles
-// everything else, with curated knowledge as the fallback when the model is unavailable.
+// Public portfolio chat. Contract: anything it says about Fuaad comes from site data.
+// Documented topics get curated answers; everything else gets a fixed abstention.
+// TinyLlama invented facts when it answered visitors (a college Fuaad never attended,
+// "no blog posts", dog training), so it only runs as an opt-in experiment outside production.
 // Deliberately never calls paid providers (Gemini/Hugging Face stay behind /api/ai).
 
 export const maxDuration = 60;
@@ -38,7 +40,7 @@ function jsonError(error: string, status: number, headers?: HeadersInit) {
 
 function textResponse(
   body: string | ReadableStream<Uint8Array>,
-  source: 'curated' | 'cache' | 'tinyllama' | 'fallback'
+  source: 'curated' | 'abstain' | 'cache' | 'tinyllama' | 'fallback'
 ) {
   return new Response(body, {
     headers: {
@@ -49,6 +51,12 @@ function textResponse(
       'X-Chat-Source': source,
     },
   });
+}
+
+// Model replies are for local demos and preview experiments only. Vercel production ignores the
+// flag, so no environment setting can put generated claims in front of visitors.
+function isModelExperimentEnabled(): boolean {
+  return process.env.CHAT_TINYLLAMA_EXPERIMENT === 'true' && process.env.VERCEL_ENV !== 'production';
 }
 
 // Stops other sites from using this endpoint as a free LLM API from visitors' browsers.
@@ -116,13 +124,16 @@ export async function POST(request: NextRequest) {
   }));
   const question = messages[messages.length - 1].content;
 
-  // A 1.1B model invents details, so documented topics always get the reviewed answer
   const curated = getCuratedReply(question);
   if (curated) {
     return textResponse(curated, 'curated');
   }
 
-  // Only standalone questions are cacheable; follow-ups depend on the conversation
+  if (!isModelExperimentEnabled()) {
+    return textResponse(abstainReply, 'abstain');
+  }
+
+  // Experiment only. Standalone questions are cacheable; follow-ups depend on the conversation
   const cacheKey = messages.length === 1 ? `chat:tinyllama:${question.toLowerCase()}` : null;
 
   if (cacheKey) {
@@ -143,5 +154,5 @@ export async function POST(request: NextRequest) {
     return textResponse(stream, 'tinyllama');
   }
 
-  return textResponse(getKnowledgeReply(question), 'fallback');
+  return textResponse(abstainReply, 'fallback');
 }

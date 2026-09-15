@@ -20,7 +20,7 @@ This file is the current security audit summary. Operational setup and endpoint 
 
 Contact form submission rate limiting is still application-local unless backed by the deployed platform configuration. Keep it in the security checklist and verify production behavior during release checks.
 
-The `/api/chat` rate limit and concurrency cap are also per instance. TinyLlama (1.1B) can still invent details or follow "ignore your rules" prompts on questions outside curated knowledge. The impact is limited to the requester's own session: there are no secrets in the prompt, no tools, and no clickable external links.
+The `/api/chat` rate limit is also per instance. The public chat no longer calls a model in production, so it can't invent details about Fuaad or follow prompt-injection instructions. The TinyLlama experiment still can when enabled outside production.
 
 ## Verification Commands
 

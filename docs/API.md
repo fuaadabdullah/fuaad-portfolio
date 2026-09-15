@@ -12,7 +12,7 @@ Base URLs:
 ## Audience And Scope
 
 - Public integration endpoints:
-  - `POST /api/chat` (public chat box: curated answers + streamed TinyLlama replies)
+  - `POST /api/chat` (public chat box: answers only from site data)
   - `POST /api/mock-ai` (portfolio assistant, local knowledge only)
   - `POST /api/contact`
 - Operational/admin endpoints:
@@ -25,7 +25,7 @@ Base URLs:
 
 ### POST /api/chat
 
-The endpoint used by the public chat UI. It returns a `text/plain` body that streams as it is generated.
+The endpoint used by the public chat UI. It returns a `text/plain` body. Anything it says about Fuaad comes from site data: curated answers, or project tech lists for technology questions. Questions without enough documented evidence get a fixed reply pointing to the projects, résumé, and contact pages.
 
 Request body:
 
@@ -46,10 +46,13 @@ Rules:
 - `Origin` header must match the site, and `Content-Type` must be `application/json`
 
 Reply routing, reported in the `X-Chat-Source` response header:
-- `curated`: the question matched reviewed portfolio knowledge, so the model is not called
-- `cache`: an identical standalone question was answered by TinyLlama recently
+- `curated`: answered from reviewed portfolio knowledge or project data
+- `abstain`: no site data answers the question, so the fixed "I don't have enough information" reply is returned
+
+With the TinyLlama experiment enabled (`CHAT_TINYLLAMA_EXPERIMENT=true`, ignored on Vercel production), unanswered questions can also return:
 - `tinyllama`: streamed from the model
-- `fallback`: the model is unconfigured, busy, or unreachable, so a curated default reply is used
+- `cache`: an identical standalone question was answered by the model recently
+- `fallback`: the model is busy or unreachable, so the abstention reply is used
 
 Possible errors:
 - `400` invalid JSON or request shape
@@ -59,7 +62,7 @@ Possible errors:
 - `429` more than 10 requests per minute from the client IP (`Retry-After: 60`)
 
 Notes:
-- Never calls paid providers. The Ollama URL and token stay server-side.
+- Never calls paid providers, and never calls a model in production. The Ollama URL and token stay server-side.
 
 ### POST /api/mock-ai
 

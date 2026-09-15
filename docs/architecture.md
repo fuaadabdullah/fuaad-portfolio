@@ -17,12 +17,12 @@ This portfolio is a content-driven Next.js application with static and server-re
 
 1. Structured content from `data/*.ts` is imported into page routes.
 2. Pages render server-side metadata and static content for SEO.
-3. Public chat uses `/api/chat`: curated local knowledge for documented topics, streamed TinyLlama (Ollama) replies for everything else, and curated fallback replies when the model is unavailable. Provider-backed `/api/ai` is admin-only.
+3. Public chat uses `/api/chat`, which answers only from site data: curated knowledge for documented topics, project tech lists for technology questions, and a fixed abstention for anything else. TinyLlama is available only as an opt-in experiment outside production. Provider-backed `/api/ai` is admin-only.
 4. Resume route and script flow publish `public/Fuaad_Abdullah_Resume.pdf`.
 
 ## Deployment topology
 
 - Frontend and API routes deploy on Vercel as a single Next.js project.
 - Static assets (screenshots, PDF) are served from the same deployment.
-- TinyLlama runs on a separate Ollama host behind an authenticated reverse proxy (`OLLAMA_BASE_URL`, `OLLAMA_API_KEY`); see [setup.md](setup.md#tinyllama-chat).
+- The public chat needs no model host. Ollama (`OLLAMA_BASE_URL`, `OLLAMA_API_KEY`) is used only by the admin `/api/ai` route and the TinyLlama experiment; see [setup.md](setup.md#tinyllama-experiment).
 - Optional paid LLM route integrations point to configured upstream providers and require `ADMIN_TOKEN`.
