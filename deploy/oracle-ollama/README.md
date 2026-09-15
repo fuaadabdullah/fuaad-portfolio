@@ -1,14 +1,16 @@
 # TinyLlama host on Oracle Cloud
 
-Runs Ollama with `tinyllama:1.1b` on an Always Free Ampere VM for the portfolio chat (`/api/chat`).
+Runs Ollama with `tinyllama:1.1b` on an Always Free Ampere VM. This is the only place TinyLlama runs; there is no local Ollama setup.
+
+The public chat answers only from site data and never calls this host in production. The admin `/api/ai` route and preview deployments with `CHAT_TINYLLAMA_EXPERIMENT=true` do.
 
 ```text
-Visitor -> Vercel /api/chat --HTTPS + bearer token--> Caddy (443) -> Ollama (127.0.0.1:11434)
+Vercel (/api/ai, preview chat experiment) --HTTPS + bearer token--> Caddy (443) -> Ollama (127.0.0.1:11434)
 ```
 
 - Ollama is never reachable from the internet. Caddy only forwards `POST /api/chat` with the correct token and returns `404` for everything else.
 - The model stays loaded (`OLLAMA_KEEP_ALIVE=-1`), so there are no cold starts.
-- If this host is down, the site automatically serves curated answers.
+- If this host is down, `/api/ai` falls back to Gemini and the chat experiment returns the abstention reply.
 
 **Current production host:** VM `tinyllama` (Ashburn AD-1, `VM.Standard.A1.Flex` 2 OCPU / 12 GB) at `https://157-151-241-88.sslip.io`. That hostname comes from [sslip.io](https://sslip.io), which resolves it to the IP without any DNS setup. To move to `ollama.heyimfuaad.me`, add the Namecheap A record (step 3), re-run step 4 with the new `DOMAIN`, and update `OLLAMA_BASE_URL` in Vercel.
 

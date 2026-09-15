@@ -53,8 +53,8 @@ function textResponse(
   });
 }
 
-// Model replies are for local demos and preview experiments only. Vercel production ignores the
-// flag, so no environment setting can put generated claims in front of visitors.
+// Model replies are for preview experiments against the Oracle TinyLlama host only. Vercel production
+// ignores the flag, so no environment setting can put generated claims in front of visitors.
 function isModelExperimentEnabled(): boolean {
   return process.env.CHAT_TINYLLAMA_EXPERIMENT === 'true' && process.env.VERCEL_ENV !== 'production';
 }
