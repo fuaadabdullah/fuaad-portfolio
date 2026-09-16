@@ -6,7 +6,10 @@ import { abstainReply, getCuratedReply } from '@/lib/ai/knowledge';
 import { checkRateLimit } from '@/lib/ai/rate-limit';
 import { MAX_REPLY_CHARS, streamTinyLlama } from '@/lib/ai/tinyllama';
 
-// Public chat uses the server-configured Ollama model, including in production.
+// Public portfolio chat. Contract: anything it says about Fuaad comes from site data.
+// Documented topics get curated answers; the server-configured Ollama model handles
+// only what the site doesn't document, and never a topic curated copy already covers.
+// Deliberately never calls paid providers (Gemini/Hugging Face stay behind /api/ai).
 export const maxDuration = 60;
 
 const MAX_BODY_CHARS = 16_000;
@@ -113,12 +116,20 @@ export async function POST(request: NextRequest) {
   }));
   const question = messages[messages.length - 1].content;
 
+  // Topics the site documents answer from reviewed copy, in every environment.
+  // TinyLlama composes from the raw fact list and conflates projects: asked about
+  // GoblinOS in production it returned Elbey Projects' mobile-mechanic pitch. The
+  // model never sees a question the site already answers.
+  const curated = getCuratedReply(question);
+  if (curated) {
+    return textResponse(curated, 'curated');
+  }
+
   if (!process.env.OLLAMA_BASE_URL?.trim()) {
     if (process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production') {
       return jsonError('Chat is temporarily unavailable. Please contact Fuaad directly.', 503);
     }
-    const curated = getCuratedReply(question);
-    return textResponse(curated ?? abstainReply, curated ? 'curated' : 'abstain');
+    return textResponse(abstainReply, 'abstain');
   }
 
   // Include model identity in cache keys; follow-ups always use the conversation.

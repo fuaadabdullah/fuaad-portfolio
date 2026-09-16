@@ -194,22 +194,48 @@ describe("POST /api/chat", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("uses the real provider in production for documented questions too", async () => {
+  // The model composes from the raw fact list and mixes projects up: in production it
+  // answered this exact question with Elbey Projects' mobile-mechanic copy.
+  it("answers documented questions from curated copy in production, not the model", async () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("OLLAMA_BASE_URL", OLLAMA_BASE_URL);
+    const post = await loadRoute();
+    const response = await post(makeRequest({ messages: [{ role: "user", content: "Tell me about GoblinOS" }] }));
+    expect(response.headers.get("X-Chat-Source")).toBe("curated");
+    const body = await response.text();
+    expect(body).toBe(getKnowledgeReply("Tell me about GoblinOS"));
+    expect(body).toContain("GoblinOS Assistant");
+    expect(body).not.toContain("mobile mechanic");
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("still uses the model in production for questions the site doesn't document", async () => {
     vi.stubEnv("VERCEL_ENV", "production");
     vi.stubEnv("OLLAMA_BASE_URL", OLLAMA_BASE_URL);
     fetchMock.mockResolvedValueOnce(ollamaStream(tokenLines(["A real generated answer."])));
     const post = await loadRoute();
-    const response = await post(makeRequest({ messages: [{ role: "user", content: "Tell me about GoblinOS" }] }));
+    const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
     expect(response.headers.get("X-Chat-Source")).toBe("tinyllama");
     expect(await response.text()).toBe("A real generated answer.");
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
+  // Uses an undocumented question on purpose: a documented one is served from
+  // curated copy and never reaches the missing-model check.
   it("reports missing production configuration without pretending to generate an answer", async () => {
     vi.stubEnv("VERCEL_ENV", "production");
     const post = await loadRoute();
-    const response = await post(makeRequest({ messages: [{ role: "user", content: "Hello" }] }));
+    const response = await post(makeRequest({ messages: [{ role: "user", content: "What makes his approach different?" }] }));
     expect(response.status).toBe(503);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("still answers documented topics in production when the model is unconfigured", async () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    const post = await loadRoute();
+    const response = await post(makeRequest({ messages: [{ role: "user", content: "Hello" }] }));
+    expect(response.status).toBe(200);
+    expect(response.headers.get("X-Chat-Source")).toBe("curated");
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
