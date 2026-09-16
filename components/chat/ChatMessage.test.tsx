@@ -177,6 +177,63 @@ describe('ChatMessage Component', () => {
     expect(screen.getByTestId('message-text')).toHaveTextContent("You can ask Fuaad directly. Fuaad's projects are listed.");
   });
 
+  it('should restore project names the model garbles', () => {
+    const message = {
+      id: '10',
+      from: 'bot' as const,
+      text: 'He built GobleinOS Assistant, the rizk calculator, shopmindai, grade m8, and tiny lama runs the chat.',
+      timestamp: new Date(),
+    };
+
+    render(<ChatMessage message={message} />);
+
+    expect(screen.getByTestId('message-text')).toHaveTextContent(
+      'He built GoblinOS Assistant, the RIZZK calculator, ShopMindAI, GradeM8, and TinyLlama runs the chat.',
+    );
+  });
+
+  it('should leave ordinary words that look like project names alone', () => {
+    const message = {
+      id: '11',
+      from: 'bot' as const,
+      text: 'RIZZK is a risk management tool, so it handles risk math.',
+      timestamp: new Date(),
+    };
+
+    render(<ChatMessage message={message} />);
+
+    expect(screen.getByTestId('message-text')).toHaveTextContent(
+      'RIZZK is a risk management tool, so it handles risk math.',
+    );
+  });
+
+  it('should not rewrite link targets when normalizing names', () => {
+    const message = {
+      id: '12',
+      from: 'bot' as const,
+      text: 'See the [rizk calculator](/portfolio/rizzk-calculator).',
+      timestamp: new Date(),
+    };
+
+    render(<ChatMessage message={message} />);
+
+    const link = screen.getByRole('link', { name: /RIZZK calculator/ });
+    expect(link).toHaveAttribute('href', '/portfolio/rizzk-calculator');
+  });
+
+  it('should not normalize the visitor own wording', () => {
+    const message = {
+      id: '13',
+      from: 'user' as const,
+      text: 'does he know rizk?',
+      timestamp: new Date(),
+    };
+
+    render(<ChatMessage message={message} />);
+
+    expect(screen.getByTestId('message-text')).toHaveTextContent('does he know rizk?');
+  });
+
   it('should handle messages without links', () => {
     const noLinkMessage = {
       id: '7',

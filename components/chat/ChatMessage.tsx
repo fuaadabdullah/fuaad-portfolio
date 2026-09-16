@@ -18,8 +18,34 @@ function getSafeHref(url: string): string | null {
   return null;
 }
 
-// Simple function to convert markdown-style links to HTML links
-function parseMarkdownLinks(text: string): React.ReactNode {
+// TinyLlama is a 1.1b model and garbles proper nouns it was handed verbatim
+// ("GobleinOS"), so restore the spellings the site data uses. Each pattern has
+// to stay narrow enough not to rewrite ordinary words: RIZZK requires the z, so
+// the word "risk" in "RIZZK is a risk tool" survives.
+const PROPER_NOUNS: ReadonlyArray<readonly [RegExp, string]> = [
+  [/\bfuaad\b/gi, "Fuaad"],
+  [/\bgobl[a-z]{0,3}n\s*os\b/gi, "GoblinOS"],
+  [/\briz+k\b/gi, "RIZZK"],
+  [/\bshop\s*mind\s*ai\b/gi, "ShopMindAI"],
+  [/\bgrade\s*m\s*-?\s*8\b/gi, "GradeM8"],
+  [/\belb[ae]y\b/gi, "Elbey"],
+  [/\btiny\s*l+ama\b/gi, "TinyLlama"],
+];
+
+function normalizeProperNouns(text: string): string {
+  return PROPER_NOUNS.reduce(
+    (result, [pattern, canonical]) => result.replace(pattern, canonical),
+    text,
+  );
+}
+
+// Simple function to convert markdown-style links to HTML links. `normalize` is
+// applied to visible text only — never to a link target, since rewriting
+// "/portfolio/rizzk-calculator" would break the href.
+function parseMarkdownLinks(
+  text: string,
+  normalize: (value: string) => string = (value) => value,
+): React.ReactNode {
   const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
   const parts = [];
   let lastIndex = 0;
@@ -28,11 +54,11 @@ function parseMarkdownLinks(text: string): React.ReactNode {
   while ((match = linkRegex.exec(text)) !== null) {
     // Add text before the link
     if (match.index > lastIndex) {
-      parts.push(text.slice(lastIndex, match.index));
+      parts.push(normalize(text.slice(lastIndex, match.index)));
     }
 
     // Add the link, or just its text when the target isn't safe
-    const linkText = match[1];
+    const linkText = normalize(match[1]);
     const linkUrl = getSafeHref(match[2]);
     parts.push(
       linkUrl ? (
@@ -56,16 +82,16 @@ function parseMarkdownLinks(text: string): React.ReactNode {
 
   // Add remaining text
   if (lastIndex < text.length) {
-    parts.push(text.slice(lastIndex));
+    parts.push(normalize(text.slice(lastIndex)));
   }
 
-  return parts.length > 0 ? parts : text;
+  return parts.length > 0 ? parts : normalize(text);
 }
 
 export function ChatMessage({ message }: ChatMessageProps) {
   const isUser = message.from === 'user';
-  // TinyLlama often mangles the name's casing ("FuaaD")
-  const text = isUser ? message.text : (message.text || '').replace(/\bfuaad\b/gi, 'Fuaad');
+  // Visitors' own wording is left alone; only model output is normalized.
+  const text = message.text || '';
 
   return (
     <div
@@ -85,7 +111,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
             : 'bg-[var(--color-coal)] text-[var(--color-sand)]'
         }`}
       >
-        {parseMarkdownLinks(text || '')}
+        {parseMarkdownLinks(text, isUser ? undefined : normalizeProperNouns)}
       </div>
       {isUser && (
         <div className="w-6 h-6 shrink-0 rounded-full bg-[var(--color-accent)] text-[var(--color-ink)] flex items-center justify-center">
