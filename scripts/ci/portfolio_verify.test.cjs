@@ -100,6 +100,7 @@ test("quality lane preserves install, typecheck, lint, unit test and production 
     assert.deepEqual(f.commands(), [
       "pnpm --version",
       "pnpm install --frozen-lockfile",
+      "pnpm run ci:node-tests",
       "pnpm exec tsc --noEmit",
       "pnpm lint",
       "pnpm test",
