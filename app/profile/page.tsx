@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "Fuaad Abdullah | Professional Profile",
     description:
       "One introduction for customers, employers, and academic contacts, with selected software projects and clear next steps.",
-    images: ["/og-default.png"],
+    images: ["/opengraph-image"],
   },
 };
 
