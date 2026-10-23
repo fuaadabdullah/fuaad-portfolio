@@ -4,7 +4,7 @@ Curriculum Vitae
 
 Finance student and developer exploring trading systems, applied decision-making, and production software as a form of real-world problem solving.
 
-[fuaadabdullah@gmail.com](mailto:fuaadabdullah@gmail.com) · [heyimfuaad.me](https://heyimfuaad.me) · [LinkedIn](https://www.linkedin.com/in/fuaadabdullah) · [GitHub](https://github.com/fuaadabdullah)
+[Contact](https://heyimfuaad.me/contact) · [heyimfuaad.me](https://heyimfuaad.me) · [LinkedIn](https://www.linkedin.com/in/fuaadabdullah) · [GitHub](https://github.com/fuaadabdullah)
 
 ---
 
@@ -18,7 +18,7 @@ I am especially interested in environments that reward intellectual curiosity pl
 
 ## Education
 
-**Georgia State University** · B.B.A., Finance · 2020 – 2025
+**Georgia State University** · Undergraduate studies (in progress)
 
 Selected coursework: Financial Accounting · Business Technology · Marketing Principles
 

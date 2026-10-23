@@ -273,7 +273,7 @@ function ResumeHero({
           View LinkedIn
         </a>
         <a href={header.emailHref} className="button button-secondary">
-          Email
+          Contact
         </a>
         <Link href="/portfolio" className="button button-secondary">
           View portfolio
@@ -453,7 +453,7 @@ function ResumeContact({
           </p>
         ))}
         <p className="text-sm text-zinc-300">
-          <span className="text-zinc-100">Email:</span>{" "}
+          <span className="text-zinc-100">Contact:</span>{" "}
           <a href={contact.emailHref} className="underline underline-offset-2">
             {contact.emailLabel}
           </a>

@@ -5,9 +5,6 @@ export const bookingCta = {
   shortLabel: "Book a call",
 };
 
-export const contactEmail = "fuaadabdullah@gmail.com";
-export const contactEmailHref = `mailto:${contactEmail}`;
-
 export interface Testimonial {
   quote: string;
   client: string;

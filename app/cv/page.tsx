@@ -102,7 +102,7 @@ export default function CvPage() {
             />
             <KeyValue
               label="Current focus"
-              value="Graduate programs, intellectually serious product work, and research-minded builders"
+              value="Engineering opportunities, applied problem-solving, and research-minded builders"
             />
           </div>
 

@@ -46,7 +46,7 @@ export const resumeData = {
     tagline:
       "Software engineer building trading tools, automation, and AI products I actually use.",
     subline:
-      "B.B.A., Finance at Georgia State University · Full-stack engineer shipping fintech, automation, and AI products end to end.",
+      "Georgia State University student · Full-stack engineer shipping fintech, automation, and AI products end to end.",
     availability: "Open to fintech engineering roles · select contract work",
     signals: [
       { label: "Primary stack", value: "Python · TypeScript · Next.js · FastAPI · PostgreSQL" },
@@ -54,7 +54,7 @@ export const resumeData = {
     ] as ResumeSignal[],
     pdfHref: "/Fuaad_Abdullah_Resume.pdf",
     linkedInHref: "https://www.linkedin.com/in/fuaadabdullah",
-    emailHref: "mailto:fuaadabdullah@gmail.com",
+    emailHref: "/contact",
   },
   summary: {
     eyebrow: "Summary",
@@ -72,7 +72,7 @@ export const resumeData = {
       {
         eyebrow: "Contact",
         body:
-          "• fuaadabdullah@gmail.com\n• (404) 494-6262\n• heyimfuaad.me\n• Atlanta, GA",
+          "• Professional inquiries: heyimfuaad.me/contact\n• LinkedIn: linkedin.com/in/fuaadabdullah\n• Atlanta, GA",
       },
       {
         eyebrow: "Recruiter scan",
@@ -85,18 +85,18 @@ export const resumeData = {
     title: "Education",
     details: {
       institution: "Georgia State University",
-      degree: "B.B.A., Finance",
-      years: "2020 – 2025",
+      degree: "Undergraduate studies (in progress)",
+      years: "Currently enrolled",
       coursework: ["Financial Accounting", "Business Technology", "Marketing Principles"],
       notes:
-        "Academic detail is intentionally concise here; the full CV expands the coursework and project framing for graduate-school applications.",
+        "Academic details are intentionally limited to relevant coursework and current enrollment.",
     } as AcademicDetail,
     cards: [
       {
         eyebrow: "University",
-        title: "Georgia State University · B.B.A., Finance",
+        title: "Georgia State University · Undergraduate studies (in progress)",
         body:
-          "2020 – 2025 · Financial Accounting, Business Technology, Marketing Principles",
+          "Currently enrolled · Financial Accounting, Business Technology, Marketing Principles",
       },
       {
         eyebrow: "Relevant focus",
@@ -269,7 +269,7 @@ export const resumeData = {
       "Rare finance-plus-engineering profile: I understand markets and trading workflows, then build the software around them myself.",
       "Strong fit for teams that want an intern or early-career engineer who can ship user-facing product work, APIs, automation, and operational tooling without needing every task over-scoped first.",
     ],
-    emailLabel: "fuaadabdullah@gmail.com",
-    emailHref: "mailto:fuaadabdullah@gmail.com",
+    emailLabel: "Open contact form",
+    emailHref: "/contact",
   },
 };

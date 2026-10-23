@@ -2,13 +2,13 @@
 
 Finance student and developer building tools I use in my own trading.
 
-[fuaadabdullah@gmail.com](mailto:fuaadabdullah@gmail.com) · (404) 494-6262 · [heyimfuaad.me](https://heyimfuaad.me) · Atlanta, GA
+[Contact](https://heyimfuaad.me/contact) · [LinkedIn](https://www.linkedin.com/in/fuaadabdullah) · Atlanta, GA
 
 ---
 
 ## Summary
 
-Finance student and full-stack developer building trading, automation, and AI tools from lived workflow experience, not classroom hypotheticals.
+University student and full-stack developer building trading, automation, and AI tools from lived workflow experience, not classroom hypotheticals.
 
 I ship products across the stack, from trader-facing calculators and reporting workflows to production AI backends and client sites, with an emphasis on speed, reliability, and measurable outcomes.
 
@@ -61,11 +61,11 @@ I ship products across the stack, from trader-facing calculators and reporting w
 
 ## Education
 
-**Georgia State University** · B.B.A., Finance · 2020 – 2025
+**Georgia State University** · Undergraduate studies (in progress)
 
 Selected coursework: Financial Accounting · Business Technology · Marketing Principles
 
-**North Springs Charter School** · High School Diploma · 2017 – 2019 · GPA 3.7
+
 
 ---
 

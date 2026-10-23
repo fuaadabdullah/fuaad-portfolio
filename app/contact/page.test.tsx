@@ -15,7 +15,7 @@ vi.mock("@/components/ContactForm", () => ({
 }));
 
 describe("ContactPage", () => {
-  it("renders direct contact details and the shared contact form", () => {
+  it("renders professional contact routes and the shared contact form", () => {
     render(<ContactPage />);
 
     expect(screen.getByRole("heading", { name: /good work starts with a conversation/i })).toBeInTheDocument();
@@ -23,9 +23,9 @@ describe("ContactPage", () => {
       "href",
       "https://calendly.com/fuaadabdullah/30min"
     );
-    expect(screen.getByRole("link", { name: /fuaadabdullah@gmail.com/i })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /connect on linkedin/i })).toHaveAttribute(
       "href",
-      "mailto:fuaadabdullah@gmail.com"
+      "https://www.linkedin.com/in/fuaadabdullah"
     );
     expect(screen.getByRole("form", { name: /contact form/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /send message/i })).toBeInTheDocument();

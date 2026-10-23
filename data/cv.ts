@@ -51,7 +51,6 @@ export const cvData = {
       "Finance student and developer exploring trading systems, applied decision-making, and production software as a form of real-world problem solving.",
     pdfHref: "/Fuaad_Abdullah_CV.pdf",
     resumeHref: "/resume",
-    emailHref: "mailto:fuaadabdullah@gmail.com",
     linkedInHref: "https://www.linkedin.com/in/fuaadabdullah",
     githubHref: "https://github.com/fuaadabdullah",
   },
@@ -64,13 +63,13 @@ export const cvData = {
   },
   education: {
     institution: "Georgia State University",
-    degree: "B.B.A., Finance",
-    years: "2020 – 2025",
+    degree: "Undergraduate studies (in progress)",
+    years: "Currently enrolled",
     coursework: ["Financial Accounting", "Business Technology", "Marketing Principles"],
     honors: [] as string[],
     gpa: undefined as string | undefined,
     notes: [
-      "Academic record fields are structured to support graduate-school applications and can be expanded with GPA, honors, and additional coursework when finalized.",
+      "Academic enrollment is ongoing. Only relevant, verified academic information is included.",
     ],
   },
   sections: [
