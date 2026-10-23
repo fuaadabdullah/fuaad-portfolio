@@ -29,6 +29,12 @@ corepack pnpm install
 corepack pnpm dev
 ```
 
+## Octopus CI migration (isolated)
+
+An Octopus Cloud verification project is **prepared, not yet activated**. It targets the portfolio-only `Fuaad Portfolio CI` project and `Portfolio-CI` environment, not AyahOS's `Development` environment. Both TypeScript/lint/Vitest/build and Chromium Playwright E2E remain required. New Node-native isolation tests run separately via `pnpm ci:node-tests`.
+
+Read [the Octopus rollout and rollback runbook](docs/ci/octopus-portfolio.md). GitHub-hosted Actions are **not retired** until a real exact-commit Octopus task proves both gates green and the dedicated webhook bridge posts `octopus/portfolio-ci=success`. The old GitHub Actions failures are currently an account-level runner billing lock, not failed application assertions.
+
 ## Quality checks
 
 ```bash
