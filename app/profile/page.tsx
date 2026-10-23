@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, BriefcaseBusiness, GraduationCap, Layers3 } from "lucide-react";
+import { professionalEmail, professionalEmailHref } from "@/data/contact";
 
 export const metadata: Metadata = {
   title: "Professional Profile | Fuaad Abdullah",
@@ -163,7 +164,10 @@ export default function ProfilePage() {
           <h2 id="next-step-heading" className="text-2xl font-semibold">Have a project, role, or academic opportunity in mind?</h2>
           <p className="text-[var(--color-muted)]">Use the professional contact page. No personal phone or private inbox is published here.</p>
         </div>
-        <Link href="/contact" className="button button-primary shrink-0">Get in touch <ArrowUpRight size={17} aria-hidden="true" /></Link>
+        <div className="flex shrink-0 flex-wrap gap-3">
+          <Link href="/contact" className="button button-primary">Get in touch <ArrowUpRight size={17} aria-hidden="true" /></Link>
+          <a href={professionalEmailHref} aria-label="Email AyahOS professional account" className="button button-secondary">{professionalEmail}</a>
+        </div>
       </section>
     </div>
   );
