@@ -2,7 +2,7 @@ import type { FaqEntry } from "@/types/assistant";
 import { blogContent } from "@/data/site_content";
 
 export const siteFacts = `
-This is the portfolio of Fuaad Abdullah — a B.B.A. finance graduate, full-stack developer, and builder focused on practical tools, automations, and MVPs.
+This is the portfolio of Fuaad Abdullah — a Georgia State University student, full-stack developer, and builder focused on practical tools, automations, and MVPs.
 Built with Next.js 16, App Router, TypeScript, Tailwind CSS, and MDX blogs.
 Projects include RIZZK Calculator, GoblinOS Assistant, personal portfolio site, Elbey Projects customer website, GradeM8 Hugging Face Space demo, and ShopMindAI.
 
@@ -13,7 +13,7 @@ He offers services:
 
 Background and contact:
 – Based in Atlanta, Georgia
-– Georgia State University finance graduate
+– Georgia State University student
 – Open to software engineering roles, internships, contract work, and client projects
 – Contact via the site contact form
 
@@ -85,7 +85,7 @@ export const faq: FaqEntry[] = [
   },
   {
     trigger: ["background", "resume", "résumé", "experience", "who is fuaad", "who is he", "about fuaad", "about him", "his story", "fuaad's story", "your story"],
-    answer: "Fuaad is a Georgia State University finance graduate who builds full-stack web apps, automation tooling, and AI-backed products. His background combines finance, independent product development, and client delivery."
+    answer: "Fuaad is a Georgia State University student who builds full-stack web apps, automation tooling, and AI-backed products. His background combines finance, independent product development, and client delivery."
   },
   {
     trigger: ["trader", "day trad", "trade stocks", "does he trade", "stocks"],
@@ -93,7 +93,7 @@ export const faq: FaqEntry[] = [
   },
   {
     trigger: ["education", "school", "university", "college", "degree", "graduate", "studied", "did he study", "georgia state"],
-    answer: "Fuaad is a B.B.A. finance graduate of Georgia State University in Atlanta. His [résumé](/resume) has the details."
+    answer: "Fuaad is a current student at Georgia State University in Atlanta. His [résumé](/resume) has the details."
   },
   {
     trigger: ["location", "where are you based", "atlanta", "he based", "fuaad based", "you based", "based in", "where is he from", "where are you from", "grew up", "raised", "saudi"],
