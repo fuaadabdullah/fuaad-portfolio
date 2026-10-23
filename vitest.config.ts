@@ -12,6 +12,9 @@ export default defineConfig({
       'node_modules/**',
       'dist/**',
       'e2e/**',
+      // Node-native bridge and shell-contract tests run in ci:node-tests.
+      'scripts/ci/**/*.test.cjs',
+      'deploy/octopus-portfolio-bridge/test/**',
       // Generated artifacts (design/merge review snapshots, coverage, reports)
       // must never be collected as test files.
       'output/**',
