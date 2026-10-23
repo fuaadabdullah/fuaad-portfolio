@@ -54,7 +54,7 @@ export const resumeData = {
     ] as ResumeSignal[],
     pdfHref: "/Fuaad_Abdullah_Resume.pdf",
     linkedInHref: "https://www.linkedin.com/in/fuaadabdullah",
-    emailHref: "mailto:fuaadabdullah@gmail.com",
+    emailHref: "/contact",
   },
   summary: {
     eyebrow: "Summary",
@@ -72,7 +72,7 @@ export const resumeData = {
       {
         eyebrow: "Contact",
         body:
-          "• fuaadabdullah@gmail.com\n• (404) 494-6262\n• heyimfuaad.me\n• Atlanta, GA",
+          "• Open contact form\n• heyimfuaad.me\n• Atlanta, GA",
       },
       {
         eyebrow: "Recruiter scan",
@@ -269,7 +269,7 @@ export const resumeData = {
       "Rare finance-plus-engineering profile: I understand markets and trading workflows, then build the software around them myself.",
       "Strong fit for teams that want an intern or early-career engineer who can ship user-facing product work, APIs, automation, and operational tooling without needing every task over-scoped first.",
     ],
-    emailLabel: "fuaadabdullah@gmail.com",
-    emailHref: "mailto:fuaadabdullah@gmail.com",
+    emailLabel: "Open contact form",
+    emailHref: "/contact",
   },
 };
