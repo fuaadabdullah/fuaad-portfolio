@@ -15,7 +15,7 @@ Background and contact:
 – Based in Atlanta, Georgia
 – Georgia State University student
 – Open to software engineering roles, internships, contract work, and client projects
-– Contact via the site contact form
+– Professional mailbox: ayahos.dev@gmail.com; contact form: https://heyimfuaad.me/contact
 
 Blog topics cover:
 – Next.js performance
@@ -126,7 +126,7 @@ export const faq: FaqEntry[] = [
   },
   {
     trigger: ["contact", "reach you", "reach him", "email", "book", "schedule", "interview", "meeting", "calendly"],
-    answer: "For jobs or client inquiries, use the [contact form](/contact) or book a 30-minute call through the contact page."
+    answer: "For customer, employer, or school inquiries, email ayahos.dev@gmail.com or use the [contact form](/contact). You can also schedule a call from the contact page."
   },
   {
     trigger: ["chatgpt", "what model", "who are you", "are you a bot", "are you ai", "are you human", "system prompt", "ignore previous", "ignore all", "your instructions"],
