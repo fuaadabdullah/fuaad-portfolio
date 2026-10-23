@@ -18,6 +18,7 @@ describe("ContactPage", () => {
   it("renders professional contact routes and the shared contact form", () => {
     render(<ContactPage />);
 
+    expect(screen.getByRole("link", { name: /email ayahos professional account/i })).toHaveAttribute("href", "mailto:ayahos.dev@gmail.com");
     expect(screen.getByRole("heading", { name: /good work starts with a conversation/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /book a call/i })).toHaveAttribute(
       "href",
