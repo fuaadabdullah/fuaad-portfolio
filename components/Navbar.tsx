@@ -7,6 +7,7 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 import SocialIcon from "./SocialIcon";
 
 const links = [
+  { href: "/profile", label: "Profile" },
   { href: "/portfolio", label: "Portfolio" },
   { href: "/resume", label: "Résumé" },
   { href: "/contact", label: "Contact" },
