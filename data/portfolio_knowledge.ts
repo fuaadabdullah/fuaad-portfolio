@@ -126,7 +126,7 @@ export const faq: FaqEntry[] = [
   },
   {
     trigger: ["contact", "reach you", "reach him", "email", "book", "schedule", "interview", "meeting", "calendly"],
-    answer: "You can contact Fuaad through the site contact form, use the contact form, or book a 30-minute call from the [contact page](/contact)."
+    answer: "For jobs or client inquiries, use the [contact form](/contact) or book a 30-minute call through the contact page."
   },
   {
     trigger: ["chatgpt", "what model", "who are you", "are you a bot", "are you ai", "are you human", "system prompt", "ignore previous", "ignore all", "your instructions"],
