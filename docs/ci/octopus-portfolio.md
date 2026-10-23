@@ -28,7 +28,7 @@ The GitHub webhook is validated by HMAC-SHA256 before a branch SHA can become an
 4. Confirm the deployment process has exactly two **required** worker steps: `quality` and `e2e`, each using `scripts/ci/portfolio_verify.sh` from **this project's Git revision** and the pinned Ubuntu execution container. The project must allow deployments with no deployment targets.
 5. Do not configure project production secrets, database credentials, or personal account tokens. Test workers execute code from PR branches; they must be isolated and unprivileged. Bridge API keys and GitHub status tokens must remain **only in the Cloudflare Worker**. The script fails if bridge secrets are visible in its environment.
 
-The `quality` lane performs frozen pnpm install, TypeScript typecheck, ESLint, all Vitest tests and a Next.js production build. The `e2e` lane installs Chromium and browser dependencies and runs the full Playwright suite on localhost with one worker, without touching the live site. These match the existing GitHub-hosted CI/E2E gates; no tests are disabled or silently skipped.
+The `quality` lane performs frozen pnpm install, the standalone Node-native CI/bridge isolation regression tests, TypeScript typecheck, ESLint, all Vitest tests and a Next.js production build. The Node-native tests are explicitly excluded from Vitest collection to prevent double execution and preserve the existing application test suite. The `e2e` lane installs Chromium and browser dependencies and runs the full Playwright suite on localhost with one worker, without touching the live site. These match the existing GitHub-hosted CI/E2E gates; no tests are disabled or silently skipped.
 
 ## Independent webhook/status bridge
 
