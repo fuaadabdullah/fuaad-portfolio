@@ -3,6 +3,8 @@ import ContactForm from "@/components/ContactForm";
 import {
   bookingCta,
   bookingLink,
+  professionalEmail,
+  professionalEmailHref,
   testimonials,
 } from "@/data/contact";
 
@@ -39,6 +41,7 @@ export default function ContactPage() {
           </div>
 
           <div className="flex flex-wrap gap-3">
+            <a href={professionalEmailHref} className="button button-secondary" aria-label="Email AyahOS professional account">{professionalEmail}</a>
             <a
               href={bookingLink}
               target="_blank"
