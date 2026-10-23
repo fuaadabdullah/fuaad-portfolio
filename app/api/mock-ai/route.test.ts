@@ -82,7 +82,7 @@ describe("Mock AI API Route", () => {
       expect(services.data.reply).toContain("MVP bootstrap");
 
       const background = await postPrompt("tell me about your background");
-      expect(background.data.reply).toContain("Georgia State University finance graduate");
+      expect(background.data.reply).toContain("Georgia State University student");
 
       const location = await postPrompt("where are you based?");
       expect(location.data.reply).toContain("Atlanta, Georgia");
