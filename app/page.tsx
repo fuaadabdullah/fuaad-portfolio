@@ -166,7 +166,7 @@ export default function HomePage() {
         aria-labelledby="about-preview-heading"
       >
         <Image
-          src="/fuaad-headshot.png"
+          src="/fuaad-professional-portrait.jpg"
           alt="Fuaad Abdullah"
           width={480}
           height={480}

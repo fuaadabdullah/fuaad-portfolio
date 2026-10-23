@@ -51,7 +51,7 @@ export default function ProfilePage() {
         </div>
         <div className="relative mx-auto w-full max-w-[300px] overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-coal)]">
           <Image
-            src="/fuaad-headshot.png"
+            src="/fuaad-professional-portrait.jpg"
             alt="Professional portrait of Fuaad Abdullah"
             width={600}
             height={600}
