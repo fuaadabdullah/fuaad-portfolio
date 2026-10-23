@@ -48,7 +48,15 @@ if [[ -d .git ]]; then
 fi
 
 command -v node >/dev/null 2>&1 || fail "Node.js unavailable"
-command -v corepack >/dev/null 2>&1 || fail "Corepack unavailable"
+# Octopus Worker Tools pins Node but may omit Corepack. Install a pinned
+# user-space copy if absent, never requiring root or changing the host image.
+if ! command -v corepack >/dev/null 2>&1; then
+  command -v npm >/dev/null 2>&1 || fail "npm unavailable for Corepack bootstrap"
+  corepack_dir="$(mktemp -d "${TMPDIR:-/tmp}/fuaad-corepack.XXXXXXXX")"
+  npm install --ignore-scripts --no-audit --no-fund --prefix "$corepack_dir" corepack@0.34.5
+  export PATH="$corepack_dir/node_modules/.bin:$PATH"
+fi
+command -v corepack >/dev/null 2>&1 || fail "Corepack unavailable after bootstrap"
 node -e 'const p=require("./package.json");if(p.name!=="fuaad-portfolio"||p.packageManager!=="pnpm@10.30.3")process.exit(2)' ||
   fail "unexpected package identity or pnpm version"
 pnpm_version="$(corepack pnpm --version)"
