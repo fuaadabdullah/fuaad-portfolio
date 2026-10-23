@@ -2,7 +2,7 @@
 
 Finance student and developer building tools I use in my own trading.
 
-[fuaadabdullah@gmail.com](mailto:fuaadabdullah@gmail.com) · (404) 494-6262 · [heyimfuaad.me](https://heyimfuaad.me) · Atlanta, GA
+[Contact](https://heyimfuaad.me/contact) · [LinkedIn](https://www.linkedin.com/in/fuaadabdullah) · Atlanta, GA
 
 ---
 
