@@ -3,8 +3,6 @@ import ContactForm from "@/components/ContactForm";
 import {
   bookingCta,
   bookingLink,
-  contactEmail,
-  contactEmailHref,
   testimonials,
 } from "@/data/contact";
 
@@ -51,8 +49,13 @@ export default function ContactPage() {
             >
               {bookingCta.shortLabel}
             </a>
-            <a href={contactEmailHref} className="button button-secondary">
-              {contactEmail}
+            <a
+              href="https://www.linkedin.com/in/fuaadabdullah"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button button-secondary"
+            >
+              Connect on LinkedIn
             </a>
           </div>
 
