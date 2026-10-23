@@ -77,5 +77,5 @@ Current E2E scope (MVP):
 
 ## Contact
 
-- Email: fuaadabdullah@gmail.com
+- Professional inquiries: https://heyimfuaad.me/contact
 - LinkedIn: https://www.linkedin.com/in/fuaadabdullah
