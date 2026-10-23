@@ -45,6 +45,17 @@ Source: `deploy/octopus-portfolio-bridge/`. This is a separately deployed instan
 
 No Octopus Git trigger should be enabled **in addition to** the signed webhook bridge, since that can create duplicate releases for the same commit. The bridge poll interval is deliberately 15 minutes to conserve shared Cloudflare KV free-tier read/list budget. Keep `BRANCH_QUEUE_ENABLED` **unset** so the inherited experimental batching logic cannot alter the default workflow.
 
+## Fail-closed manual gate
+
+After the dedicated bridge is deployed, set `PORTFOLIO_CI_STATUS_URL` to its exact HTTPS hostname under `fuaad-portfolio-octopus-verify.<account>.workers.dev`. To gate a merge, run:
+
+```bash
+PORTFOLIO_CI_STATUS_URL=https://fuaad-portfolio-octopus-verify.<account>.workers.dev \
+  node scripts/ci/portfolio_status.mjs <exact-lowercase-40-character-git-sha>
+```
+
+The status check will **fail**, not silently continue, for unknown or expired commit records, 404, pending/error/failed tasks, mismatched hashes, malformed responses, unsafe endpoint URLs and network errors. This supplements, but does not replace, verifying task logs and a GitHub status on the same commit. The helper requires no GitHub or Octopus tokens and must never be pointed at the AyahOS bridge.
+
 ## Acceptance and legacy CI retirement
 
 Do **not** delete or disable `.github/workflows/ci.yml` or `.github/workflows/e2e.yml` before the new Octopus project, environment, dedicated Worker, GitHub webhook, and two real exact-commit tests are verified end-to-end.
