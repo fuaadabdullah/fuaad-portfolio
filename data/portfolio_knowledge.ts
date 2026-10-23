@@ -15,7 +15,7 @@ Background and contact:
 – Based in Atlanta, Georgia
 – Georgia State University finance graduate
 – Open to software engineering roles, internships, contract work, and client projects
-– Contact via the site contact form or fuaadabdullah@gmail.com
+– Contact via the site contact form
 
 Blog topics cover:
 – Next.js performance
@@ -126,7 +126,7 @@ export const faq: FaqEntry[] = [
   },
   {
     trigger: ["contact", "reach you", "reach him", "email", "book", "schedule", "interview", "meeting", "calendly"],
-    answer: "You can contact Fuaad through the site contact form, email him at fuaadabdullah@gmail.com, or book a 30-minute call from the [contact page](/contact)."
+    answer: "You can contact Fuaad through the site contact form, use the contact form, or book a 30-minute call from the [contact page](/contact)."
   },
   {
     trigger: ["chatgpt", "what model", "who are you", "are you a bot", "are you ai", "are you human", "system prompt", "ignore previous", "ignore all", "your instructions"],
