@@ -2,7 +2,7 @@
 
 Finance student and developer building tools I use in my own trading.
 
-[Contact](https://heyimfuaad.me/contact) · [LinkedIn](https://www.linkedin.com/in/fuaadabdullah) · Atlanta, GA
+[Professional email](mailto:ayahos.dev@gmail.com) · [Contact](https://heyimfuaad.me/contact) · [LinkedIn](https://www.linkedin.com/in/fuaadabdullah) · Atlanta, GA
 
 ---
 
