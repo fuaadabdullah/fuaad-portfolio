@@ -51,7 +51,6 @@ export const cvData = {
       "Finance student and developer exploring trading systems, applied decision-making, and production software as a form of real-world problem solving.",
     pdfHref: "/Fuaad_Abdullah_CV.pdf",
     resumeHref: "/resume",
-    emailHref: "mailto:fuaadabdullah@gmail.com",
     linkedInHref: "https://www.linkedin.com/in/fuaadabdullah",
     githubHref: "https://github.com/fuaadabdullah",
   },
