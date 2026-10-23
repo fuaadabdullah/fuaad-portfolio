@@ -162,7 +162,7 @@ export default function ProfilePage() {
         <div className="space-y-2">
           <p className="eyebrow">One point of contact</p>
           <h2 id="next-step-heading" className="text-2xl font-semibold">Have a project, role, or academic opportunity in mind?</h2>
-          <p className="text-[var(--color-muted)]">Use the professional contact page. No personal phone or private inbox is published here.</p>
+          <p className="text-[var(--color-muted)]">Reach me through the contact page or the dedicated AyahOS professional inbox.</p>
         </div>
         <div className="flex shrink-0 flex-wrap gap-3">
           <Link href="/contact" className="button button-primary">Get in touch <ArrowUpRight size={17} aria-hidden="true" /></Link>
