@@ -167,9 +167,9 @@ export default function Navbar() {
               className="brand-mark flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden"
               aria-hidden="true"
             >
-              <span className="block h-full w-full" style={{ backgroundImage: "url(/fa-professional-monogram.jpg)", backgroundPosition: "center", backgroundSize: "220%" }} />
+              <span className="block h-full w-full" style={{ backgroundImage: "url(/fa-orbit-professional.jpg)", backgroundPosition: "center", backgroundSize: "cover" }} />
             </span>
-            Hey I&apos;m Fuaad
+            Fuaad Abdullah
           </Link>
           <div className="hidden items-center gap-8 md:flex">
             {links.map((link) => (
