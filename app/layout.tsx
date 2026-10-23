@@ -14,8 +14,8 @@ const headingFont = Manrope({ subsets: ["latin"], variable: "--font-heading", di
 const bodyFont = Source_Sans_3({ subsets: ["latin"], variable: "--font-body", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Fuaad Abdullah — Software for Markets, Automation & AI",
-  description: "Fintech and AI products built end to end — trading, automation, and AI tools from real market workflows. Recruiter-ready portfolio, resume, and shipped projects.",
+  title: "Fuaad Abdullah — Software Builder & Georgia State Undergraduate",
+  description: "Professional profile for customers, employers, and schools: software projects, client services, résumé, and ongoing undergraduate studies at Georgia State University.",
   metadataBase: new URL(siteUrl),
   openGraph: {
     title: "Fuaad Abdullah — Software for Markets, Automation & AI",

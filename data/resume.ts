@@ -54,7 +54,7 @@ export const resumeData = {
     ] as ResumeSignal[],
     pdfHref: "/Fuaad_Abdullah_Resume.pdf",
     linkedInHref: "https://www.linkedin.com/in/fuaadabdullah",
-    emailHref: "/contact",
+    emailHref: "mailto:ayahos.dev@gmail.com",
   },
   summary: {
     eyebrow: "Summary",
@@ -269,7 +269,7 @@ export const resumeData = {
       "Rare finance-plus-engineering profile: I understand markets and trading workflows, then build the software around them myself.",
       "Strong fit for teams that want an intern or early-career engineer who can ship user-facing product work, APIs, automation, and operational tooling without needing every task over-scoped first.",
     ],
-    emailLabel: "Open contact form",
+    emailLabel: "ayahos.dev@gmail.com",
     emailHref: "/contact",
   },
 };

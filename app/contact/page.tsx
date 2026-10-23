@@ -3,13 +3,15 @@ import ContactForm from "@/components/ContactForm";
 import {
   bookingCta,
   bookingLink,
+  professionalEmail,
+  professionalEmailHref,
   testimonials,
 } from "@/data/contact";
 
 export const metadata: Metadata = {
   title: "Contact - Fuaad Abdullah",
   description:
-    "Get in touch about software engineering roles, internships, or a project.",
+    "Contact Fuaad Abdullah about customer projects, software roles, internships, and academic opportunities.",
   openGraph: {
     title: "Contact - Fuaad Abdullah",
     description:
@@ -33,13 +35,13 @@ export default function ContactPage() {
               Good work starts with a conversation.
             </h1>
             <p className="max-w-2xl text-white/80">
-              Hiring for an engineering role or internship? I?d love to hear
-              about your team. For a project inquiry, tell me what you?re
-              building and where you need a hand.
+              Whether you are a customer, employer, or school, please share
+              the project, role, or academic opportunity you have in mind.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-3">
+            <a href={professionalEmailHref} className="button button-secondary" aria-label="Email AyahOS professional account">{professionalEmail}</a>
             <a
               href={bookingLink}
               target="_blank"
@@ -76,8 +78,7 @@ export default function ContactPage() {
             Get in touch
           </h2>
           <p className="mt-2 text-white/75">
-            Share the role, team, or project you have in mind. I?ll reply with
-            next steps.
+            Share a little context about your inquiry and the best way to reach you.
           </p>
           <div className="mt-6">
             <ContactForm />

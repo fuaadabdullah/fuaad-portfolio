@@ -4,7 +4,7 @@ Curriculum Vitae
 
 Finance student and developer exploring trading systems, applied decision-making, and production software as a form of real-world problem solving.
 
-[Contact](https://heyimfuaad.me/contact) · [heyimfuaad.me](https://heyimfuaad.me) · [LinkedIn](https://www.linkedin.com/in/fuaadabdullah) · [GitHub](https://github.com/fuaadabdullah)
+[Professional email](mailto:ayahos.dev@gmail.com) · [Contact](https://heyimfuaad.me/contact) · [heyimfuaad.me](https://heyimfuaad.me) · [LinkedIn](https://www.linkedin.com/in/fuaadabdullah) · [GitHub](https://github.com/fuaadabdullah)
 
 ---
 

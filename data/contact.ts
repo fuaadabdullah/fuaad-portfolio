@@ -1,3 +1,7 @@
+/** Shared public mailbox for customer, employer, and academic inquiries. */
+export const professionalEmail = "ayahos.dev@gmail.com";
+export const professionalEmailHref = `mailto:${professionalEmail}`;
+
 export const bookingLink = "https://calendly.com/fuaadabdullah/30min";
 
 export const bookingCta = {
