@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "typecheck": "tsgo --noEmit",
     "test": "vitest run",
+    "ci:node-tests": "node --test scripts/ci/portfolio_verify.test.cjs deploy/octopus-portfolio-bridge/test/*.test.js",
     "test:run": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest --coverage",
