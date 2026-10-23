@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Fuaad Abdullah - Finance x Software";
+export const alt = "Fuaad Abdullah - Professional Software Portfolio";
 export const size = {
   width: 1200,
   height: 630,
@@ -64,7 +64,7 @@ export default function Image() {
               width: 12,
               height: 12,
               borderRadius: 999,
-              background: "#ef4444",
+              background: "#c5f58b",
               boxShadow: "0 0 24px rgba(239,68,68,0.6)",
             }}
           />
@@ -81,13 +81,13 @@ export default function Image() {
             gap: 10,
             borderRadius: 999,
             padding: "12px 18px",
-            background: "rgba(239, 68, 68, 0.12)",
-            border: "1px solid rgba(239, 68, 68, 0.34)",
-            color: "#fca5a5",
+            background: "rgba(197, 245, 139, 0.12)",
+            border: "1px solid rgba(197, 245, 139, 0.34)",
+            color: "#c5f58b",
             fontSize: 22,
           }}
         >
-          Finance x Software
+          Software · Data · AI
         </div>
 
         <div
@@ -112,7 +112,7 @@ export default function Image() {
               color: "rgba(255,255,255,0.62)",
             }}
           >
-            Builder • Trader • Finance Major
+            Software Developer • Georgia State Undergraduate
           </div>
 
           <div
@@ -127,7 +127,7 @@ export default function Image() {
             }}
           >
             <span>Fuaad Abdullah</span>
-            <span style={{ color: "#e5e7eb" }}>Disciplined tools for traders and operators.</span>
+            <span style={{ color: "#e5e7eb" }}>Practical software for people and teams.</span>
           </div>
 
           <div
@@ -140,7 +140,7 @@ export default function Image() {
               color: "rgba(255,255,255,0.76)",
             }}
           >
-            Full-stack builds with a finance edge: trading tools, client sites, and numbers-first products that feel sharp, trustworthy, and production-ready.
+            Selected web applications, AI tools, and client projects for customers, employers, and academic contacts.
           </div>
 
           <div

@@ -4,6 +4,7 @@ import { cvData } from "@/data/cv";
 import { nowActivity } from "@/data/now";
 
 export const metadata = {
+  alternates: { canonical: "/cv" },
   title: "CV – Fuaad Abdullah",
   description:
     "Academic CV for Fuaad Abdullah focused on finance, trading systems, applied problem-solving, and production software projects.",
@@ -11,7 +12,7 @@ export const metadata = {
     title: "CV – Fuaad Abdullah",
     description:
       "Academic-facing profile with project reasoning, education context, and a longer-form narrative connecting finance, trading, and building.",
-    images: ["/og-default.png"],
+    images: ["/opengraph-image"],
   },
 };
 

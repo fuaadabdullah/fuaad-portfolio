@@ -10,6 +10,7 @@ import ContactForm from "@/components/ContactForm";
 import { bookingCta, bookingLink, testimonials } from "@/data/contact";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/services" },
   title: "Let's Work - Fuaad Abdullah",
   description:
     "Custom web development for students, creatives, and small teams: UX/UI polish ($450), launch-ready sites ($950), and full-stack MVPs ($2,400+). Clear scope. Clear price. Clear handoff.",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     title: "Let's Work - Fuaad Abdullah",
     description:
       "Custom web development: UX polish, launch-ready sites, and full-stack MVPs. Built with Next.js, deployed properly, handed off clearly.",
-    images: ["/og-default.png"],
+    images: ["/opengraph-image"],
   },
 };
 

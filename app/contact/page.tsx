@@ -9,6 +9,7 @@ import {
 } from "@/data/contact";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact" },
   title: "Contact - Fuaad Abdullah",
   description:
     "Contact Fuaad Abdullah about customer projects, software roles, internships, and academic opportunities.",
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     title: "Contact - Fuaad Abdullah",
     description:
       "Get in touch about software engineering roles, internships, or a project.",
-    images: ["/og-default.png"],
+    images: ["/opengraph-image"],
   },
 };
 

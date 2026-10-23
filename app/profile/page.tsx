@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     "Fuaad Abdullah is a software builder and Georgia State University undergraduate student. Explore his work, client services, résumé, and academic interests.",
   alternates: { canonical: "/profile" },
   openGraph: {
+    url: "/profile",
     title: "Fuaad Abdullah | Professional Profile",
     description:
       "One introduction for customers, employers, and academic contacts, with selected software projects and clear next steps.",
