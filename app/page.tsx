@@ -183,8 +183,8 @@ export default function HomePage() {
             what I build in software — making risk clearer and everyday work
             simpler.
           </p>
-          <Link href="/about" className="text-link mt-5">
-            More about me <ArrowRight size={17} aria-hidden="true" />
+          <Link href="/profile" className="text-link mt-5">
+            Professional profile <ArrowRight size={17} aria-hidden="true" />
           </Link>
         </div>
       </section>
