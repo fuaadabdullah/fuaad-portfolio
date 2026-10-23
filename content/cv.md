@@ -18,7 +18,7 @@ I am especially interested in environments that reward intellectual curiosity pl
 
 ## Education
 
-**Georgia State University** · B.B.A., Finance · 2020 – 2025
+**Georgia State University** · Undergraduate studies (in progress)
 
 Selected coursework: Financial Accounting · Business Technology · Marketing Principles
 
