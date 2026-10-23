@@ -164,10 +164,10 @@ export default function Navbar() {
             aria-label="Fuaad Abdullah - Home"
           >
             <span
-              className="brand-mark flex h-10 w-10 items-center justify-center text-base"
+              className="brand-mark flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden"
               aria-hidden="true"
             >
-              fa.
+              <span className="block h-full w-full" style={{ backgroundImage: "url(/fa-professional-monogram.jpg)", backgroundPosition: "center", backgroundSize: "220%" }} />
             </span>
             Hey I&apos;m Fuaad
           </Link>

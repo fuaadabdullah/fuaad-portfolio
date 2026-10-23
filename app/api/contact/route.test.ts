@@ -205,6 +205,7 @@ describe("Contact API route", () => {
     const response = await GET(request as any);
 
     expect(response.status).toBe(200);
+    expect(response.headers.get("Cache-Control")).toContain("no-store");
     expect(findManyMock).toHaveBeenCalledTimes(1);
     expect(findManyMock.mock.calls[0][0]).toEqual({
       where: { email: "jane@example.com" },

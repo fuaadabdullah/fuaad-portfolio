@@ -3,12 +3,13 @@ import PageHeader from "@/components/PageHeader";
 import { getAllPosts, formatDate, type BlogPostMetadata } from "@/lib/blog";
 
 export const metadata = {
+  alternates: { canonical: "/blog" },
   title: "Blog - Fuaad Abdullah",
   description: "Insights on trading, development, and building useful tools.",
   openGraph: {
     title: "Blog - Fuaad Abdullah",
     description: "Insights on trading, development, and building useful tools.",
-    images: ["/og-default.png"]
+    images: ["/opengraph-image"]
   }
 };
 

@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Fuaad Abdullah - Finance x Software";
+export const alt = "Fuaad Abdullah - Professional Software Portfolio";
 export const size = {
   width: 1200,
   height: 630,
@@ -18,7 +18,7 @@ export default function Image() {
           position: "relative",
           overflow: "hidden",
           background:
-            "radial-gradient(circle at top right, rgba(231, 76, 60, 0.24), transparent 30%), radial-gradient(circle at bottom left, rgba(34, 197, 94, 0.18), transparent 34%), linear-gradient(135deg, #050608 0%, #0d1117 58%, #121922 100%)",
+            "radial-gradient(circle at top right, rgba(197, 245, 139, 0.15), transparent 30%), radial-gradient(circle at bottom left, rgba(34, 197, 94, 0.18), transparent 34%), linear-gradient(135deg, #050608 0%, #0d1117 58%, #121922 100%)",
           color: "white",
           fontFamily:
             'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
@@ -70,7 +70,7 @@ export default function Image() {
             }}
           >
             <span>Fuaad Abdullah</span>
-            <span style={{ color: "#f3f4f6" }}>Finance x software, shipped cleanly.</span>
+            <span style={{ color: "#f3f4f6" }}>Software. Data. AI. Real projects.</span>
           </div>
 
           <div
@@ -83,7 +83,7 @@ export default function Image() {
               color: "rgba(255,255,255,0.76)",
             }}
           >
-            Trader-built tools, portfolio case studies, and client-ready web products with strong UX and clear execution.
+            Explore client projects, technical case studies, and academic interests from a Georgia State undergraduate.
           </div>
 
           <div

@@ -7,6 +7,7 @@ import ProjectResultChips from "@/components/ProjectResultChips";
 import projects from "@/data/projects";
 
 export const metadata = {
+  alternates: { canonical: "/portfolio" },
   title: "Portfolio — Fuaad Abdullah",
   description:
     "Selected engineering work in markets, automation, and AI. Shipped products, source code, and the decisions behind them.",
@@ -14,7 +15,7 @@ export const metadata = {
     title: "Portfolio — Fuaad Abdullah",
     description:
       "Selected projects including GoblinOS Assistant, RIZZK Calculator, and client work.",
-    images: ["/og-default.png"],
+    images: ["/opengraph-image"],
   },
 };
 

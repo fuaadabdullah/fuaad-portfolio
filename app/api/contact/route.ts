@@ -183,7 +183,7 @@ export async function GET(request: NextRequest) {
           email: parsedQuery.email,
         }
       },
-      { status: 200 }
+      { status: 200, headers: { "Cache-Control": "private, no-store" } }
     );
   } catch (error) {
     if (error instanceof z.ZodError) {

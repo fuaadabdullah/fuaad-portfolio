@@ -12,6 +12,7 @@ import Container from "@/components/layout/Container";
 import { nowActivity, type NowActivity } from "@/data/now";
 
 export const metadata = {
+  alternates: { canonical: "/resume" },
   title: "Resume – Fuaad Abdullah",
   description:
     "Recruiter-ready web resume for Fuaad Abdullah, a finance student and full-stack developer building trading, automation, and AI tools.",
@@ -19,7 +20,7 @@ export const metadata = {
     title: "Resume – Fuaad Abdullah",
     description:
       "Finance x dev profile with shipped trading tools, production apps, quantified outcomes, and current availability for fintech SWE roles and internships.",
-    images: ["/og-default.png"],
+    images: ["/opengraph-image"],
   },
 };
 

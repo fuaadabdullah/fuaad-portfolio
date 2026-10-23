@@ -20,6 +20,7 @@ describe("ProfessionalProfile", () => {
     render(<ProfilePage />);
     expect(screen.getByRole("link", { name: /email ayahos professional account/i })).toHaveAttribute("href", "mailto:ayahos.dev@gmail.com");
     expect(screen.getByRole("heading", { level: 1, name: /Fuaad Abdullah/i })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /Professional portrait of Fuaad Abdullah/i })).toHaveAttribute("src", "/fuaad-professional-portrait.jpg");
     expect(screen.getByRole("heading", { name: /For customers/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /For employers/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /For schools/i })).toBeInTheDocument();

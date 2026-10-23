@@ -4,6 +4,7 @@ import PageHeader from "@/components/PageHeader";
 import { aboutPhotos } from "../../data/aboutPhotos";
 
 export const metadata = {
+  alternates: { canonical: "/about" },
   title: "About - Fuaad Abdullah",
   description:
     "Finance student, trader, and builder connecting disciplined decision-making with real-world software systems and problem-solving.",

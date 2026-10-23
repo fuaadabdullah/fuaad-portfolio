@@ -10,6 +10,11 @@ import ProjectPreview from "@/components/ProjectPreview";
 import ProjectCard from "@/components/ProjectCard";
 import HeroSignal from "@/components/HeroSignal";
 
+export const metadata = {
+  alternates: { canonical: "/" },
+  openGraph: { url: "https://heyimfuaad.me/" },
+};
+
 export default function HomePage() {
   const flagship = projects.find(
     (project) => project.slug === "goblin-assistant",
@@ -166,7 +171,7 @@ export default function HomePage() {
         aria-labelledby="about-preview-heading"
       >
         <Image
-          src="/fuaad-headshot.png"
+          src="/fuaad-professional-portrait.jpg"
           alt="Fuaad Abdullah"
           width={480}
           height={480}
