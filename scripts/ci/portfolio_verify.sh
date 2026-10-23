@@ -63,6 +63,7 @@ corepack pnpm install --frozen-lockfile
 
 case "$lane" in
   quality)
+    corepack pnpm run ci:node-tests
     corepack pnpm exec tsc --noEmit
     corepack pnpm lint
     corepack pnpm test
