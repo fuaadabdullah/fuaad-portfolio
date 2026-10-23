@@ -46,7 +46,7 @@ export const resumeData = {
     tagline:
       "Software engineer building trading tools, automation, and AI products I actually use.",
     subline:
-      "B.B.A., Finance at Georgia State University · Full-stack engineer shipping fintech, automation, and AI products end to end.",
+      "Georgia State University student · Full-stack engineer shipping fintech, automation, and AI products end to end.",
     availability: "Open to fintech engineering roles · select contract work",
     signals: [
       { label: "Primary stack", value: "Python · TypeScript · Next.js · FastAPI · PostgreSQL" },
@@ -72,7 +72,7 @@ export const resumeData = {
       {
         eyebrow: "Contact",
         body:
-          "• Open contact form\n• heyimfuaad.me\n• Atlanta, GA",
+          "• Professional inquiries: heyimfuaad.me/contact\n• LinkedIn: linkedin.com/in/fuaadabdullah\n• Atlanta, GA",
       },
       {
         eyebrow: "Recruiter scan",
@@ -85,18 +85,18 @@ export const resumeData = {
     title: "Education",
     details: {
       institution: "Georgia State University",
-      degree: "B.B.A., Finance",
-      years: "2020 – 2025",
+      degree: "Undergraduate studies (in progress)",
+      years: "Currently enrolled",
       coursework: ["Financial Accounting", "Business Technology", "Marketing Principles"],
       notes:
-        "Academic detail is intentionally concise here; the full CV expands the coursework and project framing for graduate-school applications.",
+        "Academic details are intentionally limited to relevant coursework and current enrollment.",
     } as AcademicDetail,
     cards: [
       {
         eyebrow: "University",
-        title: "Georgia State University · B.B.A., Finance",
+        title: "Georgia State University · Undergraduate studies (in progress)",
         body:
-          "2020 – 2025 · Financial Accounting, Business Technology, Marketing Principles",
+          "Currently enrolled · Financial Accounting, Business Technology, Marketing Principles",
       },
       {
         eyebrow: "Relevant focus",
