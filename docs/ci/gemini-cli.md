@@ -29,3 +29,9 @@ bash scripts/ci/octopus_gemini_review.sh
 This requires `node`, `npm`, a valid Gemini API key, and the project/environment variables listed above. The script intentionally fails closed when invoked outside the dedicated project or environment.
 
 **Important:** Gemini CLI reviews do not replace TypeScript, ESLint, Vitest, Playwright or build checks. The separate Octopus project and its credentials must be provisioned before execution. No Gemini invocation or full Octopus run has yet been verified.
+
+## Optional Cline CLI reviewer
+
+`scripts/ci/octopus_cline_review.sh` adds Cline as a second manual, advisory reviewer on the **same dedicated portfolio Octopus worker**, with the project/environment name guards and exact 40-character SHA validation. It expects `REVIEW_DIFF_FILE` to point to a trusted, size-limited diff obtained through a read-only GitHub adapter. Cline runs with `--json --auto-approve false` and is instructed not to use tools or modify code.
+
+Cline must be installed and authenticated with a project-scoped provider credential before execution; no Cline account, API key, or live invocation has been verified. The Octopus project, lifecycle and diff adapter remain prerequisites. Keep Gemini, Cline and deterministic CI results distinct. Cline is optional and must never block or fake the required TypeScript, ESLint, unit, build or Playwright outcomes.
