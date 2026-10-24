@@ -1,0 +1,20 @@
+{
+  // Dedicated to Fuaad portfolio CI. NEVER deploy over the AyahOS bridge.
+  // The placeholders deliberately prohibit an unsafe blind deployment.
+  "name": "fuaad-portfolio-octopus-verify",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-23",
+  "vars": {
+    "GITHUB_REPOSITORY": "fuaadabdullah/fuaad-portfolio",
+    "OCTOPUS_URL": "https://ayahos.octopus.app",
+    "OCTOPUS_SPACE_ID": "Spaces-1",
+    "OCTOPUS_PROJECT": "Fuaad Portfolio CI",
+    "OCTOPUS_ENVIRONMENT": "Portfolio-CI",
+    "STATUS_CONTEXT": "octopus/portfolio-ci"
+  },
+  "kv_namespaces": [
+    {"binding": "TASKS", "id": "REPLACE_WITH_NEW_PORTFOLIO_KV_NAMESPACE_ID"}
+  ],
+  // 96 polling cycles/day instead of 1440; distinct KV from AyahOS.
+  "triggers": { "crons": ["*/15 * * * *"] }
+}

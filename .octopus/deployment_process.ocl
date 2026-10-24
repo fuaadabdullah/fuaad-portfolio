@@ -1,0 +1,37 @@
+step "quality" {
+    name = "Typecheck, lint, unit tests and build"
+    action {
+        action_type = "Octopus.Script"
+        is_required = true
+        properties = {
+            Octopus.Action.GitRepository.Source = "Project"
+            Octopus.Action.Script.ScriptFileName = "scripts/ci/portfolio_verify.sh"
+            Octopus.Action.Script.ScriptParameters = "quality"
+            Octopus.Action.Script.ScriptSource = "GitRepository"
+        }
+        worker_pool = "hosted-ubuntu"
+        container {
+            feed = "docker-hub-public"
+            image = "octopusdeploy/worker-tools:6.6.5-ubuntu.24.04"
+        }
+    }
+}
+
+step "e2e" {
+    name = "Playwright Chromium end-to-end tests"
+    action {
+        action_type = "Octopus.Script"
+        is_required = true
+        properties = {
+            Octopus.Action.GitRepository.Source = "Project"
+            Octopus.Action.Script.ScriptFileName = "scripts/ci/portfolio_verify.sh"
+            Octopus.Action.Script.ScriptParameters = "e2e"
+            Octopus.Action.Script.ScriptSource = "GitRepository"
+        }
+        worker_pool = "hosted-ubuntu"
+        container {
+            feed = "docker-hub-public"
+            image = "octopusdeploy/worker-tools:6.6.5-ubuntu.24.04"
+        }
+    }
+}
