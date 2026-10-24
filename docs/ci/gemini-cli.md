@@ -1,27 +1,31 @@
-# Gemini CLI in GitHub
+# Gemini CLI via Octopus Cloud (not GitHub Actions)
 
-The repository contains a **manual, advisory-only** workflow: `.github/workflows/gemini-review.yml`. It uses Google's official `google-github-actions/run-gemini-cli@v0.1.22` action with read-only GitHub permissions and instructions from `GEMINI.md`. It does not push changes, merge PRs, or run a deployment.
+Gemini review runs only as a **manual, advisory** Octopus script task, separate from the mandatory portfolio quality and Playwright checks. No GitHub Actions workflow is created. This is an integration plan and runner script, not evidence of a successful Octopus execution.
 
-## One-time activation
+## Verified account state
 
-1. Create or reuse a Gemini API key through [Google AI Studio](https://aistudio.google.com/apikey). Never commit it or paste it into chat.
-2. In [this repository's Actions secrets](https://github.com/fuaadabdullah/fuaad-portfolio/settings/secrets/actions), add the repository secret named `GEMINI_API_KEY`.
-3. **Important blocker:** GitHub Actions jobs on this account have recently been rejected *before starting* because of an account-level GitHub billing lock. A new Gemini workflow will face the same runner restriction. Gemini CLI does **not** bypass that restriction. Resolve the GitHub billing lock or run Gemini CLI on an external, authorized worker with its own securely provisioned key.
-4. Once GitHub Actions runner access is restored and this workflow has been merged into `main`, open [Gemini CLI portfolio review](https://github.com/fuaadabdullah/fuaad-portfolio/actions/workflows/gemini-review.yml), select **Run workflow**, enter PR number `27`, and review the output in the workflow's step summary.
-5. Treat the review as advisory. Never replace required Octopus quality/E2E evidence with an AI review.
+- Octopus instance: https://ayahos.octopus.app
+- Space: `Spaces-1`
+- Existing isolated environment: `Portfolio-CI` (`Environments-21`)
+- Dedicated project: **not yet created**
+- Dedicated lifecycle: **not yet saved**. Create `Fuaad Portfolio CI Only` with exactly one phase `Portfolio verification` containing only `Portfolio-CI`. Do not use Default Lifecycle because it includes production.
+- Existing AyahOS and AyahOS HQ Verification projects must not be modified.
 
-## Alternative: external Octopus verification worker
+## Provisioning
 
-The repository's existing `Portfolio-CI` environment is an isolated Octopus destination, not an active worker. If you want Gemini CLI to run there rather than in GitHub Actions, first provision the dedicated `Fuaad Portfolio CI` project and a secret variable restricted to that project's trusted worker execution. Avoid making Gemini credentials available to untrusted PR code. On a trusted, isolated Node.js worker with the appropriate authentication, the supported CLI command is:
+1. Save the dedicated lifecycle, then create a separate project `Fuaad Portfolio CI` assigned to that lifecycle.
+2. Configure its Git source as `fuaadabdullah/fuaad-portfolio` and a trusted reviewed branch, never a fork's arbitrary code. Use Octopus's hosted Ubuntu worker with a Node.js-capable container or install Node.js in a non-root temporary directory.
+3. Create a **sensitive** Octopus project variable `GEMINI_API_KEY`, scoped to this project and `Portfolio-CI` only. Obtain the value from an authorized Google AI Studio account. Never put the key in Git, the command line, a log, a PR comment or a non-sensitive variable.
+4. Create a separate optional script step (not a replacement for the required quality and e2e steps) with script source `scripts/ci/octopus_gemini_review.sh`. Pass the project name and environment name from Octopus's trusted built-in variables, and supply `GEMINI_REVIEW_PROMPT` from a project-scoped variable. Review only the specified PR and commit.
+5. Run a **manual** Octopus deployment to `Portfolio-CI`. Check logs for real Gemini CLI output, correct repository/commit, and zero secrets. Mark Gemini review as advisory; failure must never be reported as quality/E2E success.
+6. Only after a separate real Octopus quality+Playwright run for the exact Git SHA and a verified GitHub status should the old GitHub Actions checks be retired. Do not deploy to Production.
+
+## Worker command
 
 ```bash
-npx --yes @google/gemini-cli --version
+bash scripts/ci/octopus_gemini_review.sh
 ```
 
-This version command requires no model API key and does not prove model inference. An actual review requires a valid authenticated Gemini API connection, appropriate permissions, and a known-good execution log. Do not configure a second Octopus project to share AyahOS's existing bridge, tokens, or environment.
+This requires `node`, `npm`, a valid Gemini API key, and the project/environment variables listed above. The script intentionally fails closed when invoked outside the dedicated project or environment.
 
-## Security boundaries
-
-The workflow uses manual dispatch only, checks out the trusted `main` branch, limits its GitHub token to `contents: read` and `pull-requests: read`, and disallows edits or merges. PR number input is restricted to digits. Local Gemini credentials and temporary GitHub App credential files are ignored in Git.
-
-This setup is **prepared** until the key is configured and a real GitHub Actions runner or isolated external worker completes a Gemini invocation. No successful Gemini review is claimed.
+**Important:** Gemini CLI reviews do not replace TypeScript, ESLint, Vitest, Playwright or build checks. The separate Octopus project and its credentials must be provisioned before execution. No Gemini invocation or full Octopus run has yet been verified.
