@@ -1,0 +1,58 @@
+name: Gemini CLI portfolio review
+
+# Manual-only to avoid running on untrusted pull-request code or duplicating Octopus CI.
+on:
+  workflow_dispatch:
+    inputs:
+      target_pr:
+        description: "Pull request number to review"
+        required: true
+        default: "27"
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: gemini-portfolio-review-${{ github.event.inputs.target_pr }}
+  cancel-in-progress: false
+
+jobs:
+  review:
+    if: github.repository == 'fuaadabdullah/fuaad-portfolio'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout trusted base branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: main
+      - name: Validate PR input
+        env:
+          TARGET_PR: ${{ inputs.target_pr }}
+        run: |
+          set -euo pipefail
+          [[ "$TARGET_PR" =~ ^[1-9][0-9]{0,5}$ ]] || exit 1
+      - name: Gemini CLI review
+        id: gemini
+        uses: google-github-actions/run-gemini-cli@v0.1.22
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          prompt: |
+            Review pull request #${{ inputs.target_pr }} in repository fuaadabdullah/fuaad-portfolio.
+            You are an advisory reviewer, not a deployer. Inspect the Octopus migration
+            plan and identify security gaps, configuration mismatches, test regressions,
+            and potential GitHub Actions billing limitations. Never assert that
+            Octopus jobs or production deployments ran unless there is evidence.
+            Do not modify repository files, commit, merge, post comments, access
+            credentials, change cloud infrastructure, or bypass required checks.
+            Return actionable findings with severity and exact file paths.
+      - name: Review summary
+        if: always()
+        env:
+          GEMINI_SUMMARY: ${{ steps.gemini.outputs.summary }}
+        run: |
+          printf '%s\n' '### Gemini CLI advisory review' >> "$GITHUB_STEP_SUMMARY"
+          printf '%s\n' "$GEMINI_SUMMARY" >> "$GITHUB_STEP_SUMMARY"
