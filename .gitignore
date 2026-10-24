@@ -96,3 +96,7 @@ Volumes/
 *.zip
 /.tmp-cv.rtf
 /.tmp-resume.rtf
+
+# Gemini CLI local credentials and ephemeral configuration
+.gemini/
+gha-creds-*.json
