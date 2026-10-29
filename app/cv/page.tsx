@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CredlyBadge from "@/components/CredlyBadge";
 import Container from "@/components/layout/Container";
 import { cvData } from "@/data/cv";
 import { nowActivity } from "@/data/now";
@@ -305,6 +306,7 @@ export default function CvPage() {
               <li key={certification}>{certification}</li>
             ))}
           </ul>
+          <CredlyBadge />
         </SectionCard>
       </Container>
     </section>

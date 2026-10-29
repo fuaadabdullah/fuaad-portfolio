@@ -27,6 +27,10 @@ vi.mock("@/components/LinkedInBadge", () => ({
   default: () => <div data-testid="linkedin-badge" />,
 }));
 
+vi.mock("@/components/CredlyBadge", () => ({
+  default: () => <div data-testid="credly-badge" />,
+}));
+
 describe("ResumePage", () => {
   it("renders a single h1 with the resume heading id used by aria-labelledby", async () => {
     render(await ResumePage());

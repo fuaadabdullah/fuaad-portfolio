@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CredlyBadge from "@/components/CredlyBadge";
 import LinkedInBadge from "@/components/LinkedInBadge";
 import {
   resumeData,
@@ -463,6 +464,7 @@ function ResumeContact({
 
       <div className="document-row">
         <LinkedInBadge />
+        <CredlyBadge />
       </div>
     </section>
   );

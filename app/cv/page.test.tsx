@@ -21,6 +21,10 @@ vi.mock("next/link", () => ({
   ),
 }));
 
+vi.mock("@/components/CredlyBadge", () => ({
+  default: () => <div data-testid="credly-badge" />,
+}));
+
 describe("CvPage", () => {
   it("renders a single h1 with the candidate name", () => {
     render(<CvPage />);
