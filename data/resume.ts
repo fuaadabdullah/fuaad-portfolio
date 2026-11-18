@@ -176,7 +176,7 @@ export const resumeData = {
           "Built for real-money trading workflows I use myself, which made the UX and risk model grounded in actual trading pressure.",
         ],
         links: {
-          live: "https://rizzk-calculator-demo-eus2-f1.azurewebsites.net",
+
           source: "https://github.com/fuaadabdullah/rr-calculator",
         },
       },

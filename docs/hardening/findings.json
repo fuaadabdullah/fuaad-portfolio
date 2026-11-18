@@ -73,7 +73,7 @@
       "module": "M2",
       "priority": "P1",
       "title": "Repair RIZZK live demo",
-      "status": "open",
+      "status": "implemented-unverified",
       "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
     },
     {
@@ -193,7 +193,7 @@
       "module": "M4",
       "priority": "P2",
       "title": "Controlled half-open circuit probe",
-      "status": "open",
+      "status": "implemented-unverified",
       "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
     },
     {
@@ -265,7 +265,7 @@
       "module": "M2",
       "priority": "P2",
       "title": "Correct mock API documentation",
-      "status": "open",
+      "status": "implemented-unverified",
       "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
     },
     {

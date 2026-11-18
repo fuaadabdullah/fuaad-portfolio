@@ -63,7 +63,7 @@ Current E2E scope (MVP):
 - `/` home
 - `/portfolio` project index
 - `/resume` resume page
-- `/api/mock-ai` public portfolio assistant
+- `/api/chat` public portfolio assistant; `/api/mock-ai` is for development/testing only (404 in production)
 - `/api/ai` authenticated provider-backed assistant/admin endpoint
 - `/api/contact` contact endpoint
 

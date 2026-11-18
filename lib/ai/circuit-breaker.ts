@@ -54,12 +54,19 @@ export function canExecute(provider: string): boolean {
     case 'OPEN':
       if (now >= breaker.nextAttemptTime) {
         breaker.state = 'HALF_OPEN';
+          // Time-bound recovery probe lease, to prevent concurrent overload.
+          breaker.nextAttemptTime = now + CIRCUIT_BREAKER_CONFIG.recoveryTimeout;
         console.log(`🔄 Circuit breaker for ${provider} entering HALF_OPEN state`);
         return true;
       }
       return false;
     case 'HALF_OPEN':
-      return true;
+      // Abandoned probes must not block recovery forever.
+      if (now >= breaker.nextAttemptTime) {
+        breaker.nextAttemptTime = now + CIRCUIT_BREAKER_CONFIG.recoveryTimeout;
+        return true;
+      }
+      return false;
     default:
       return false;
   }
@@ -68,6 +75,7 @@ export function canExecute(provider: string): boolean {
 export function recordSuccess(provider: string): void {
   const breaker = circuitBreakers[provider];
   breaker.failures = 0;
+  breaker.nextAttemptTime = 0;
   breaker.state = 'CLOSED';
   console.log(`✅ Circuit breaker for ${provider} reset to CLOSED state`);
 }

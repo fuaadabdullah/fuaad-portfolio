@@ -292,7 +292,7 @@ The interface pairs chat with system status panels so you can see provider healt
 The tool removes the manual calculation step from pre-trade sizing decisions. It features an intuitive interface with interactive charts powered by Plotly, making complex risk/reward scenarios easy to visualize and understand.`,
     tech: ["Python", "Streamlit", "Plotly", "Docker", "Azure"],
     links: {
-      live: "https://rizzk-calculator-demo-eus2-f1.azurewebsites.net",
+
       source: "https://github.com/fuaadabdullah/rr-calculator",
     },
     results: [
