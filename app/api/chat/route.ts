@@ -5,6 +5,7 @@ import { getClientIP } from '@/lib/ai/ip-detection';
 import { abstainReply, getCuratedReply } from '@/lib/ai/knowledge';
 import { checkRateLimit } from '@/lib/ai/rate-limit';
 import { MAX_REPLY_CHARS, streamTinyLlama } from '@/lib/ai/tinyllama';
+import { readLimitedText } from '@/lib/security/request-body';
 
 // Public portfolio chat. Contract: anything it says about Fuaad comes from site data.
 // Documented topics get curated answers; the server-configured Ollama model handles
@@ -93,10 +94,9 @@ export async function POST(request: NextRequest) {
     return jsonError(rateLimit.error ?? 'Rate limit exceeded. Please try again later.', 429, { 'Retry-After': '60' });
   }
 
-  const rawBody = await request.text();
-  if (rawBody.length > MAX_BODY_CHARS) {
-    return jsonError('Request too large', 413);
-  }
+  const limited = await readLimitedText(request, MAX_BODY_CHARS);
+  if (!limited.ok) return jsonError(limited.error, limited.status);
+  const rawBody = limited.text;
 
   let body: unknown;
   try {
