@@ -65,8 +65,9 @@
       "module": "M1",
       "priority": "P1",
       "title": "Replace stale portfolio links",
-      "status": "implemented-unverified",
-      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29",
+      "note": "Public HTML/data links were changed; checked-in resume/CV PDFs require regeneration and verification before closure."
     },
     {
       "id": "AUDIT-09",

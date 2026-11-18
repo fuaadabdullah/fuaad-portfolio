@@ -17,7 +17,19 @@ for (const [route, contentType] of checks) {
     const receivedType = response.headers.get("content-type") ?? "";
     if (!response.ok || (contentType && !receivedType.includes(contentType))) {
       failures.push(`${route}: HTTP ${response.status}; content-type ${receivedType}`);
-    } else console.log(`OK ${response.status} ${route}`);
+    } else {
+      // Check the actual published SEO document, not just its HTTP status.
+      if (route === "/robots.txt" || route === "/sitemap.xml") {
+        const published = await response.text();
+        if (!published.includes("https://fuaadabdullah.vercel.app/")) {
+          failures.push(`${route}: expected canonical URL missing`);
+        }
+        if (published.includes("heyimfuaad" + ".me")) {
+          failures.push(`${route}: expired hostname still published`);
+        }
+      }
+      console.log(`OK ${response.status} ${route}`);
+    }
   } catch (error) { failures.push(`${route}: ${String(error)}`); }
 }
 if (failures.length) {

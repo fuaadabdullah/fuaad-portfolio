@@ -55,3 +55,7 @@ Shared throttling must be atomic and independently verified on the chosen store;
 Capture the current Vercel deployment ID, the exact main commit, migration version, and a safe copy of non-secret configuration before promotion. UI-only failures can roll back to the verified deployment. Schema/data changes require compatible forward migrations, tested backups and explicit authorization; a frontend redeploy cannot restore data.
 
 For each finding track: source evidence, regression test, CI URL, preview E2E, deployed SHA, result, and risk acceptance or blocker.
+
+## Pending PDF asset migration
+
+The canonical domain has been updated in source content, but checked-in `public/Fuaad_Abdullah_Resume.pdf` and `public/Fuaad_Abdullah_CV.pdf` have not been regenerated. Audit finding AUDIT-08 remains open until both PDFs have been rebuilt from approved current content and verified without obsolete URLs or unsupported claims. Do not automate production PDF rewriting from unverified content.

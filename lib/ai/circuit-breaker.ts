@@ -54,8 +54,8 @@ export function canExecute(provider: string): boolean {
     case 'OPEN':
       if (now >= breaker.nextAttemptTime) {
         breaker.state = 'HALF_OPEN';
-          // Time-bound recovery probe lease, to prevent concurrent overload.
-          breaker.nextAttemptTime = now + CIRCUIT_BREAKER_CONFIG.recoveryTimeout;
+        // Time-bound recovery probe lease, to prevent concurrent overload.
+        breaker.nextAttemptTime = now + CIRCUIT_BREAKER_CONFIG.recoveryTimeout;
         console.log(`🔄 Circuit breaker for ${provider} entering HALF_OPEN state`);
         return true;
       }
