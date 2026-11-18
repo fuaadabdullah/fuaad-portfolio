@@ -8,8 +8,9 @@ import ScrollReveals from "@/components/ScrollReveals";
 import LazyChatBox from "@/components/chat/LazyChatBox";
 import JsonLd from '@/components/JsonLd';
 import { personJsonLd } from '@/lib/seo';
+import { SITE_ORIGIN } from '@/lib/site-config';
 
-const siteUrl = "https://heyimfuaad.me";
+const siteUrl = SITE_ORIGIN;
 const siteTitle = "Fuaad Abdullah | Software Developer & Georgia State Undergraduate";
 const siteDescription = "Software projects, AI tools, client services, and current undergraduate studies. Explore the professional portfolio of Fuaad Abdullah.";
 const headingFont = Manrope({ subsets: ["latin"], variable: "--font-heading", display: "swap" });

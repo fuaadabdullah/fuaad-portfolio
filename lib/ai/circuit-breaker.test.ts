@@ -40,6 +40,18 @@ describe("circuit breaker", () => {
     expect(canExecute("ollama")).toBe(false);
   });
 
+  it("allows only one half-open recovery probe until completion or lease timeout", async () => {
+    const { canExecute, recordFailure, recordSuccess } = await loadBreaker();
+    for (let i = 0; i < 3; i++) recordFailure("ollama");
+    vi.advanceTimersByTime(60_000);
+    expect(canExecute("ollama")).toBe(true);
+    expect(canExecute("ollama")).toBe(false);
+    vi.advanceTimersByTime(60_000);
+    expect(canExecute("ollama")).toBe(true);
+    recordSuccess("ollama");
+    expect(canExecute("ollama")).toBe(true);
+  });
+
   it("closes again after a successful half-open trial", async () => {
     const { canExecute, recordFailure, recordSuccess } = await loadBreaker();
 

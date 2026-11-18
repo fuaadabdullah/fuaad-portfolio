@@ -4,6 +4,7 @@ import { ContactFormSchema, sanitizeText } from '@/lib/validation';
 import { isRequestAuthorized } from '@/lib/auth';
 import { unauthorizedAdminResponse } from '@/lib/admin-response';
 import { z } from 'zod';
+import { readLimitedText } from '@/lib/security/request-body';
 
 // Rate limiting state (in-memory fallback when Vercel KV is unavailable)
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
@@ -69,10 +70,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Parse JSON body; malformed JSON is a client error, not a server failure
+    // Read with an actual byte ceiling, including when Content-Length is absent or false.
+    const limited = await readLimitedText(request, 24 * 1024);
+    if (!limited.ok) {
+      return NextResponse.json({ error: limited.error }, { status: limited.status });
+    }
     let body: unknown;
     try {
-      body = await request.json();
+      body = JSON.parse(limited.text);
     } catch {
       return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
     }

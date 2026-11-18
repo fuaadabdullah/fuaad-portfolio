@@ -12,7 +12,7 @@ import HeroSignal from "@/components/HeroSignal";
 
 export const metadata = {
   alternates: { canonical: "/" },
-  openGraph: { url: "https://heyimfuaad.me/" },
+  openGraph: { url: "https://fuaadabdullah.vercel.app/" },
 };
 
 export default function HomePage() {

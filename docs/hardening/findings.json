@@ -1,0 +1,289 @@
+{
+  "version": 1,
+  "baselineCommit": "3d2c0c753e215300670e24c9199c9bb7cbc9c29c",
+  "canonicalOrigin": "https://fuaadabdullah.vercel.app",
+  "trackingIssue": 29,
+  "findings": [
+    {
+      "id": "AUDIT-01",
+      "module": "M0",
+      "priority": "P0",
+      "title": "Diagnose failed CI/E2E jobs",
+      "status": "blocked",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-02",
+      "module": "M0",
+      "priority": "P1",
+      "title": "Protect main with required checks",
+      "status": "blocked",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-03",
+      "module": "M0",
+      "priority": "P1",
+      "title": "Align frozen installs and Node versions",
+      "status": "implemented-unverified",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-04",
+      "module": "M1",
+      "priority": "P1",
+      "title": "Canonical layout metadata",
+      "status": "implemented-unverified",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-05",
+      "module": "M1",
+      "priority": "P1",
+      "title": "Robots sitemap URL",
+      "status": "implemented-unverified",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-06",
+      "module": "M1",
+      "priority": "P1",
+      "title": "Sitemap origin source",
+      "status": "implemented-unverified",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-07",
+      "module": "M1",
+      "priority": "P1",
+      "title": "Remove obsolete redirect",
+      "status": "implemented-unverified",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-08",
+      "module": "M1",
+      "priority": "P1",
+      "title": "Replace stale portfolio links",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29",
+      "note": "Public HTML/data links were changed; checked-in resume/CV PDFs require regeneration and verification before closure."
+    },
+    {
+      "id": "AUDIT-09",
+      "module": "M2",
+      "priority": "P1",
+      "title": "Repair RIZZK live demo",
+      "status": "implemented-unverified",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-10",
+      "module": "M3",
+      "priority": "P1",
+      "title": "Shared contact rate limits",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-11",
+      "module": "M3",
+      "priority": "P1",
+      "title": "Trusted client IP identity",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-12",
+      "module": "M3",
+      "priority": "P1",
+      "title": "Bound rate-limit state",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-13",
+      "module": "M3",
+      "priority": "P1",
+      "title": "Bound contact payload size",
+      "status": "implemented-unverified",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-14",
+      "module": "M1",
+      "priority": "P1",
+      "title": "Update grounded assistant URL",
+      "status": "implemented-unverified",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-15",
+      "module": "M1",
+      "priority": "P1",
+      "title": "Update OG and Twitter art",
+      "status": "implemented-unverified",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-16",
+      "module": "M3",
+      "priority": "P2",
+      "title": "Add server-verified anti-spam",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-17",
+      "module": "M3",
+      "priority": "P2",
+      "title": "Separate invalid-request throttling",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-18",
+      "module": "M4",
+      "priority": "P2",
+      "title": "Bound chat request payload bytes",
+      "status": "implemented-unverified",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-19",
+      "module": "M4",
+      "priority": "P2",
+      "title": "Shared AI admission control",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-20",
+      "module": "M4",
+      "priority": "P2",
+      "title": "Constrain Origin checks to browser defense",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-21",
+      "module": "M6",
+      "priority": "P2",
+      "title": "Readiness health checks",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-22",
+      "module": "M4",
+      "priority": "P2",
+      "title": "Shared-cache and Redis resilience",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-23",
+      "module": "M4",
+      "priority": "P2",
+      "title": "Durable stale revalidation",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-24",
+      "module": "M4",
+      "priority": "P2",
+      "title": "Controlled half-open circuit probe",
+      "status": "implemented-unverified",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-25",
+      "module": "M5",
+      "priority": "P2",
+      "title": "Validate uploaded file contents",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-26",
+      "module": "M5",
+      "priority": "P2",
+      "title": "Secure or remove upload component",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-27",
+      "module": "M3",
+      "priority": "P2",
+      "title": "Real database contact integration tests",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-28",
+      "module": "M0",
+      "priority": "P1",
+      "title": "Reliable production E2E evidence",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-29",
+      "module": "M7",
+      "priority": "P2",
+      "title": "Compatible strict CSP",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-30",
+      "module": "M7",
+      "priority": "P2",
+      "title": "Optimize large image assets",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-31",
+      "module": "M1",
+      "priority": "P2",
+      "title": "Update stale domain documentation/scripts",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-32",
+      "module": "M1",
+      "priority": "P2",
+      "title": "Retire old DNS/AI runbooks",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-33",
+      "module": "M2",
+      "priority": "P2",
+      "title": "Correct mock API documentation",
+      "status": "implemented-unverified",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-34",
+      "module": "M7",
+      "priority": "P2",
+      "title": "Consolidate Storybook examples",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    },
+    {
+      "id": "AUDIT-35",
+      "module": "M2",
+      "priority": "P2",
+      "title": "Verify resume and metrics claims",
+      "status": "open",
+      "issue": "https://github.com/fuaadabdullah/fuaad-portfolio/issues/29"
+    }
+  ]
+}

@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://heyimfuaad.me/sitemap.xml
+Sitemap: https://fuaadabdullah.vercel.app/sitemap.xml

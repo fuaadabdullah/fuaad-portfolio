@@ -3,12 +3,13 @@
 import type { MetadataRoute } from "next";
 import { getAllSlugs } from "@/lib/blog";
 import projects from "@/data/projects";
+import { SITE_ORIGIN } from "@/lib/site-config";
 
 export const dynamic = "force-static";
 export const revalidate = 3600; // Revalidate every hour
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://heyimfuaad.me";
+  const base = SITE_ORIGIN;
   const defaultBlogSlugs = [
     "goblinos-assistant-release",
     "portfolio-v1-release",

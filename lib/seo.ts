@@ -1,12 +1,14 @@
+import { SITE_ORIGIN } from "@/lib/site-config";
+
 export const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Fuaad Abdullah",
-  "url": "https://heyimfuaad.me/profile",
-  "@id": "https://heyimfuaad.me/profile#person",
-  "mainEntityOfPage": "https://heyimfuaad.me/profile",
+  "url": `${SITE_ORIGIN}/profile`,
+  "@id": `${SITE_ORIGIN}/profile#person`,
+  "mainEntityOfPage": `${SITE_ORIGIN}/profile`,
   "email": "mailto:ayahos.dev@gmail.com",
-  "image": "https://heyimfuaad.me/fuaad-professional-portrait.jpg",
+  "image": `${SITE_ORIGIN}/fuaad-professional-portrait.jpg`,
   "description": "Atlanta-area software developer and current undergraduate student at Georgia State University.",
   "knowsAbout": ["software engineering", "web development", "AI tools", "data analysis", "financial software"],
   "jobTitle": "Software Developer",

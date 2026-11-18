@@ -68,7 +68,7 @@ export default function Image() {
               boxShadow: "0 0 24px rgba(239,68,68,0.6)",
             }}
           />
-          heyimfuaad.me
+          fuaadabdullah.vercel.app
         </div>
 
         <div
