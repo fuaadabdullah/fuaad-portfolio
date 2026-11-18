@@ -22,7 +22,8 @@
     "test:contact": "node test-contact-security.js",
     "verify:canonical": "node scripts/verify-canonical-host.mjs",
     "smoke:production": "node scripts/smoke-production.mjs",
-    "verify:release": "pnpm lint && pnpm typecheck && pnpm test && pnpm verify:canonical && pnpm build"
+    "verify:release": "pnpm lint && pnpm typecheck && pnpm test && pnpm verify:canonical && pnpm build",
+    "hardening:status": "node scripts/hardening-status.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
