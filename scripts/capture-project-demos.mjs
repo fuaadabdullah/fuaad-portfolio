@@ -17,7 +17,7 @@ const captureTargets = [
   },
   {
     slug: "personal-portfolio-site",
-    url: "https://heyimfuaad.me",
+    url: "https://fuaadabdullah.vercel.app",
   },
   {
     slug: "elbey-projects",

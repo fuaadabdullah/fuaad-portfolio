@@ -72,7 +72,7 @@ export const resumeData = {
       {
         eyebrow: "Contact",
         body:
-          "• Professional inquiries: heyimfuaad.me/contact\n• LinkedIn: linkedin.com/in/fuaadabdullah\n• Atlanta, GA",
+          "• Professional inquiries: fuaadabdullah.vercel.app/contact\n• LinkedIn: linkedin.com/in/fuaadabdullah\n• Atlanta, GA",
       },
       {
         eyebrow: "Recruiter scan",
@@ -210,7 +210,7 @@ export const resumeData = {
           "Built a portfolio that performs like a product, not a static brochure, with strong search and resume delivery baked in.",
         ],
         links: {
-          live: "https://heyimfuaad.me",
+          live: "https://fuaadabdullah.vercel.app",
           source: "https://github.com/fuaadabdullah/fuaad-portfolio",
         },
       },

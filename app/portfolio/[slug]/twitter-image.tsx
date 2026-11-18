@@ -57,7 +57,7 @@ export default async function Image({ params }: Props) {
 
           <div tw="flex items-center gap-2.5 text-[22px] text-white/55 font-medium">
             <span>🌐</span>
-            heyimfuaad.me
+            fuaadabdullah.vercel.app
           </div>
         </div>
       </div>

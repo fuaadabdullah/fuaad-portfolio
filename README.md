@@ -77,5 +77,5 @@ Current E2E scope (MVP):
 
 ## Contact
 
-- Professional inquiries: https://heyimfuaad.me/contact
+- Professional inquiries: https://fuaadabdullah.vercel.app/contact
 - LinkedIn: https://www.linkedin.com/in/fuaadabdullah

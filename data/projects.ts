@@ -706,7 +706,7 @@ The platform combines VIN and OBD-code intake, retrieval context, and LLM-suppor
 Designed with a mobile-first approach; latest public Lighthouse mobile audit (Aug 2026) scored performance 89/100 and SEO/best-practices 100/100 — dated audit artifacts are published alongside the project results. Deployed on Vercel with automatic CI/CD integration for seamless updates.`,
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "MDX", "Vercel"],
     links: {
-      live: "https://heyimfuaad.me",
+      live: "https://fuaadabdullah.vercel.app",
       source: "https://github.com/fuaadabdullah/fuaad-portfolio",
     },
     results: [
