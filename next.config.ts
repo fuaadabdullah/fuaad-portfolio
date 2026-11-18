@@ -15,17 +15,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "plus.unsplash.com" },
     ],
   },
-  // Serve one canonical host: www.heyimfuaad.me permanently redirects to the apex domain
-  async redirects() {
-    return [
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.heyimfuaad.me" }],
-        destination: "https://heyimfuaad.me/:path*",
-        permanent: true,
-      },
-    ];
-  },
+  // Canonical URL is defined in lib/site-config.ts; no expired-host redirects.
   // CSP headers for LinkedIn badge integration
   async headers() {
     return [

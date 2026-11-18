@@ -177,7 +177,7 @@ describe("POST /api/chat", () => {
     for (const content of ["Where is it deployed?", "Where is RIZZK hosted?"]) {
       const response = await post(makeRequest({ messages: [{ role: "user", content }] }));
       expect(response.headers.get("X-Chat-Source")).toBe("curated");
-      expect(await response.text()).toContain("live at heyimfuaad.me on Vercel");
+      expect(await response.text()).toContain("live at fuaadabdullah.vercel.app on Vercel");
     }
 
     expect(fetchMock).not.toHaveBeenCalled();

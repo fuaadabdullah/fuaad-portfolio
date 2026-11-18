@@ -15,7 +15,7 @@ Background and contact:
 – Based in Atlanta, Georgia
 – Georgia State University student
 – Open to software engineering roles, internships, contract work, and client projects
-– Professional mailbox: ayahos.dev@gmail.com; contact form: https://heyimfuaad.me/contact
+– Professional mailbox: ayahos.dev@gmail.com; contact form: https://fuaadabdullah.vercel.app/contact
 
 Blog topics cover:
 – Next.js performance
@@ -106,7 +106,7 @@ export const faq: FaqEntry[] = [
   {
     // TinyLlama invented "the site is not yet deployed" for these, so they get reviewed facts
     trigger: ["deploy", "hosted", "hosting", "where is it live", "cloud"],
-    answer: "This portfolio is live at heyimfuaad.me on Vercel. GoblinOS Assistant pairs a Vercel-hosted Next.js UI with a Dockerized FastAPI backend, RIZZK Calculator and ShopMindAI run on Azure App Service, GradeM8 runs on Hugging Face Spaces, and Elbey Projects is deployed on Vercel. Live links for each are on the [projects page](/portfolio)."
+    answer: "This portfolio is live at fuaadabdullah.vercel.app on Vercel. GoblinOS Assistant pairs a Vercel-hosted Next.js UI with a Dockerized FastAPI backend, RIZZK Calculator and ShopMindAI run on Azure App Service, GradeM8 runs on Hugging Face Spaces, and Elbey Projects is deployed on Vercel. Live links for each are on the [projects page](/portfolio)."
   },
   {
     trigger: ["tech stack", "built with", "tech", "programming language", "code in"],
